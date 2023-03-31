@@ -1,0 +1,4 @@
+GET http://localhost:8081/authority/v1.0/test
+Accept: application/json
+
+###
