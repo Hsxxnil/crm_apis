@@ -1,13 +1,13 @@
 package permission
 
 import (
-	"app.inherited.caelus/internal/presenter/permission"
+	present "app.eirc/internal/presenter/permission"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
-	control := permission.Init(db)
+	control := present.Init(db)
 	authority := router.Group("authority")
 	v10 := authority.Group("v1.0")
 	{

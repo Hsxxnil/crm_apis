@@ -45,8 +45,8 @@ func name() {
 }
 
 type a struct {
-	ID   string  `json:"ID,omitempty"`
-	Name *string `json:"name,omitempty"`
+	ID   string  `json:"ID"`
+	Name *string `json:"name"`
 }
 
 func NewLogger(mode string) *zap.Logger {

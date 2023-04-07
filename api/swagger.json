@@ -20,5 +20,775 @@
     },
     "host": "api.testing.whisky.inherited.app",
     "basePath": "/",
-    "paths": {}
+    "paths": {
+        "/authority/v1.0/customer": {
+            "get": {
+                "description": "取得全部客戶",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customer"
+                ],
+                "summary": "取得全部客戶",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/customers.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "新增客戶",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customer"
+                ],
+                "summary": "新增客戶",
+                "parameters": [
+                    {
+                        "description": "新增客戶",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/customers.Create"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/authority/v1.0/customer/{cID}": {
+            "get": {
+                "description": "取得單一客戶",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customer"
+                ],
+                "summary": "取得單一客戶",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "客戶ID",
+                        "name": "cID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/customers.Single"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除單一客戶",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customer"
+                ],
+                "summary": "刪除單一客戶",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "客戶ID",
+                        "name": "cID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "更新單一客戶",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customer"
+                ],
+                "summary": "更新單一客戶",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "客戶ID",
+                        "name": "cID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新客戶",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/customers.Update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "code.ErrorMessage": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "回傳代碼",
+                    "type": "integer"
+                },
+                "detailed": {
+                    "description": "詳細錯誤內容"
+                },
+                "message": {
+                    "description": "錯誤回傳訊息",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "description": "錯誤時間",
+                    "type": "string",
+                    "example": "2021-07-29T07:23:47Z"
+                }
+            }
+        },
+        "code.SuccessfulMessage": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "description": "正確回傳內容"
+                },
+                "code": {
+                    "description": "回傳代碼",
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "description": "錯誤時間",
+                    "type": "string",
+                    "example": "2021-07-29T07:23:47Z"
+                }
+            }
+        },
+        "customers.Create": {
+            "type": "object",
+            "required": [
+                "address",
+                "created_by",
+                "eng_name",
+                "fax",
+                "liaison",
+                "liaison_phone",
+                "mail",
+                "map",
+                "name",
+                "remark",
+                "short_name",
+                "tax_id_number",
+                "tel",
+                "zip_code"
+            ],
+            "properties": {
+                "address": {
+                    "description": "地址",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "eng_name": {
+                    "description": "英文名稱",
+                    "type": "string"
+                },
+                "fax": {
+                    "description": "傳真",
+                    "type": "string"
+                },
+                "liaison": {
+                    "description": "聯絡人",
+                    "type": "string"
+                },
+                "liaison_phone": {
+                    "description": "聯絡人手機號碼",
+                    "type": "string"
+                },
+                "mail": {
+                    "description": "電子郵件",
+                    "type": "string"
+                },
+                "map": {
+                    "description": "地圖",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "中文名稱",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "備註",
+                    "type": "string"
+                },
+                "short_name": {
+                    "description": "簡稱",
+                    "type": "string"
+                },
+                "tax_id_number": {
+                    "description": "統編",
+                    "type": "string"
+                },
+                "tel": {
+                    "description": "電話",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "郵遞區號",
+                    "type": "string"
+                }
+            }
+        },
+        "customers.List": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "customers": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "address": {
+                                "description": "地址",
+                                "type": "string"
+                            },
+                            "c_id": {
+                                "description": "客戶編號",
+                                "type": "string"
+                            },
+                            "createdAt": {
+                                "description": "創建時間",
+                                "type": "string"
+                            },
+                            "created_by": {
+                                "description": "創建者",
+                                "type": "string"
+                            },
+                            "deletedAt": {
+                                "description": "刪除時間",
+                                "type": "string"
+                            },
+                            "eng_name": {
+                                "description": "英文名稱",
+                                "type": "string"
+                            },
+                            "fax": {
+                                "description": "傳真",
+                                "type": "string"
+                            },
+                            "liaison": {
+                                "description": "聯絡人",
+                                "type": "string"
+                            },
+                            "liaison_phone": {
+                                "description": "聯絡人手機號碼",
+                                "type": "string"
+                            },
+                            "mail": {
+                                "description": "電子郵件",
+                                "type": "string"
+                            },
+                            "map": {
+                                "description": "地圖",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "中文名稱",
+                                "type": "string"
+                            },
+                            "remark": {
+                                "description": "備註",
+                                "type": "string"
+                            },
+                            "short_name": {
+                                "description": "簡稱",
+                                "type": "string"
+                            },
+                            "tax_id_number": {
+                                "description": "統編",
+                                "type": "string"
+                            },
+                            "tel": {
+                                "description": "電話",
+                                "type": "string"
+                            },
+                            "updatedAt": {
+                                "description": "更新時間",
+                                "type": "string"
+                            },
+                            "zip_code": {
+                                "description": "郵遞區號",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "pages": {
+                    "description": "總頁數",
+                    "type": "integer"
+                },
+                "total": {
+                    "description": "總筆數",
+                    "type": "integer"
+                }
+            }
+        },
+        "customers.Single": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "地址",
+                    "type": "string"
+                },
+                "c_id": {
+                    "description": "客戶編號",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "eng_name": {
+                    "description": "英文名稱",
+                    "type": "string"
+                },
+                "fax": {
+                    "description": "傳真",
+                    "type": "string"
+                },
+                "liaison": {
+                    "description": "聯絡人",
+                    "type": "string"
+                },
+                "liaison_phone": {
+                    "description": "聯絡人手機號碼",
+                    "type": "string"
+                },
+                "mail": {
+                    "description": "電子郵件",
+                    "type": "string"
+                },
+                "map": {
+                    "description": "地圖",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "中文名稱",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "備註",
+                    "type": "string"
+                },
+                "short_name": {
+                    "description": "簡稱",
+                    "type": "string"
+                },
+                "tax_id_number": {
+                    "description": "統編",
+                    "type": "string"
+                },
+                "tel": {
+                    "description": "電話",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "郵遞區號",
+                    "type": "string"
+                }
+            }
+        },
+        "customers.Update": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "地址",
+                    "type": "string"
+                },
+                "eng_name": {
+                    "description": "英文名稱",
+                    "type": "string"
+                },
+                "fax": {
+                    "description": "傳真",
+                    "type": "string"
+                },
+                "liaison": {
+                    "description": "聯絡人",
+                    "type": "string"
+                },
+                "liaison_phone": {
+                    "description": "聯絡人手機號碼",
+                    "type": "string"
+                },
+                "mail": {
+                    "description": "電子郵件",
+                    "type": "string"
+                },
+                "map": {
+                    "description": "地圖",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "中文名稱",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "備註",
+                    "type": "string"
+                },
+                "short_name": {
+                    "description": "簡稱",
+                    "type": "string"
+                },
+                "tax_id_number": {
+                    "description": "統編",
+                    "type": "string"
+                },
+                "tel": {
+                    "description": "電話",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "郵遞區號",
+                    "type": "string"
+                }
+            }
+        }
+    }
 }

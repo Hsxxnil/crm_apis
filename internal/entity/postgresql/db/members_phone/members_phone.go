@@ -1,7 +1,7 @@
 package members_phone
 
 import (
-	"app.inherited.caelus/internal/interactor/models/special"
+	"app.eirc/internal/interactor/models/special"
 )
 
 // Table struct is members_phone database table struct

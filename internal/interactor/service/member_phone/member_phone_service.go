@@ -1,14 +1,15 @@
 package member_phone
 
 import (
-	db "app.inherited.caelus/internal/entity/postgresql/db/members_phone"
-	store "app.inherited.caelus/internal/entity/postgresql/member_phone"
 	"encoding/json"
 
-	model "app.inherited.caelus/internal/interactor/models/members_phone"
-	"app.inherited.caelus/internal/interactor/pkg/util"
-	"app.inherited.caelus/internal/interactor/pkg/util/log"
-	"app.inherited.caelus/internal/interactor/pkg/util/uuid"
+	db "app.eirc/internal/entity/postgresql/db/members_phone"
+	store "app.eirc/internal/entity/postgresql/member_phone"
+
+	model "app.eirc/internal/interactor/models/members_phone"
+	"app.eirc/internal/interactor/pkg/util"
+	"app.eirc/internal/interactor/pkg/util/log"
+	"app.eirc/internal/interactor/pkg/util/uuid"
 	"gorm.io/gorm"
 )
 

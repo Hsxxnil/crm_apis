@@ -2,12 +2,12 @@ create table access_logs
 (
     id         uuid      default uuid_generate_v4() not null
         primary key,
-    ip_address text      default ''::text           not null,
+    ip_address text      default ''::text not null,
     member_id  uuid                                 not null,
-    method     text      default ''::text           not null,
-    api        text      default ''::text           not null,
-    msg        text      default ''::text           not null,
-    status     text      default ''::text           not null,
+    method     text      default ''::text not null,
+    api        text      default ''::text not null,
+    msg        text      default ''::text not null,
+    status     text      default ''::text not null,
     created_at timestamp default now()              not null,
     updated_at timestamp default now()              not null,
     deleted_at timestamp

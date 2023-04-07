@@ -2,9 +2,9 @@ create table members_phone
 (
     id           uuid      default uuid_generate_v4() not null
         primary key,
-    phone_code   text      default ''::text           not null,
-    phone_number text      default ''::text           not null,
-    passwd       text      default ''::text           not null,
+    phone_code   text      default ''::text not null,
+    phone_number text      default ''::text not null,
+    passwd       text      default ''::text not null,
     is_enable    bool      default true               not null,
     created_at   timestamp default now()              not null,
     updated_at   timestamp default now()              not null,

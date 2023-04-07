@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"app.inherited.caelus/config"
-	"app.inherited.caelus/internal/interactor/pkg/tunnel"
+	"app.eirc/config"
+	"app.eirc/internal/interactor/pkg/tunnel"
 )
 
 func main() {

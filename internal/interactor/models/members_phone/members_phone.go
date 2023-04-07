@@ -1,8 +1,8 @@
 package members_phone
 
 import (
-	"app.inherited.caelus/internal/interactor/models/page"
-	"app.inherited.caelus/internal/interactor/models/section"
+	"app.eirc/internal/interactor/models/page"
+	"app.eirc/internal/interactor/models/section"
 )
 
 // Create struct is used to create access_log
@@ -16,7 +16,7 @@ type Create struct {
 // Field is structure file for search
 type Field struct {
 	//編號
-	ID *string `json:"ID,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
+	ID string `json:"ID,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	//會員手機國碼
 	PhoneCode *string `json:"phoneCode,omitempty" form:"phoneCode"`
 	//會員手機號碼
@@ -63,7 +63,7 @@ type Single struct {
 // Update struct is used to update achieves
 type Update struct {
 	//編號
-	ID *string `json:"ID,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
+	ID string `json:"ID,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	//會員手機國碼
 	PhoneCode *string `json:"phoneCode,omitempty"`
 	//會員手機號碼

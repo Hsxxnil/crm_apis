@@ -4,13 +4,16 @@ import (
 	"fmt"
 	"net/http"
 
-	_ "app.inherited.caelus/api"
-	"app.inherited.caelus/internal/interactor/pkg/util/log"
-	"app.inherited.caelus/internal/router"
-	"app.inherited.caelus/internal/router/permission"
+	"app.eirc/internal/interactor/pkg/connect"
+
+	"app.eirc/internal/router/customer"
+
+	_ "app.eirc/api"
+	"app.eirc/internal/interactor/pkg/util/log"
+	"app.eirc/internal/router"
+	"app.eirc/internal/router/permission"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"gorm.io/gorm"
 )
 
 // main is run all api form localhost port 8080
@@ -31,11 +34,17 @@ import (
 // @BasePath	/
 // @schemes	https
 func main() {
-	db := &gorm.DB{}
+	db, err := connect.PostgresSQL()
+	if err != nil {
+		log.Error(err)
+		return
+	}
+
 	engine := router.Default()
 	permission.GetRouter(engine, db)
+	customer.GetRouter(engine, db)
 
-	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8081/swagger/doc.json"))
+	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-	log.Fatal(http.ListenAndServe(":8081", engine))
+	log.Fatal(http.ListenAndServe(":8080", engine))
 }

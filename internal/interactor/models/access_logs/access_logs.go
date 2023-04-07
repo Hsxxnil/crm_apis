@@ -1,8 +1,8 @@
 package access_logs
 
 import (
-	"app.inherited.caelus/internal/interactor/models/page"
-	"app.inherited.caelus/internal/interactor/models/section"
+	"app.eirc/internal/interactor/models/page"
+	"app.eirc/internal/interactor/models/section"
 )
 
 // Create struct is used to create access_log

@@ -1,7 +1,7 @@
 package access_logs
 
 import (
-	"app.inherited.caelus/internal/interactor/models/special"
+	"app.eirc/internal/interactor/models/special"
 )
 
 // Table struct is access_logs database table struct
