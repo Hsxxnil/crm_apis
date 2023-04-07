@@ -1,12 +1,12 @@
-package access_log
+package customer
 
 import (
 	"encoding/json"
 
-	store "app.eirc/internal/entity/postgresql/access_log"
-	db "app.eirc/internal/entity/postgresql/db/access_logs"
+	store "app.eirc/internal/entity/postgresql/customer"
+	db "app.eirc/internal/entity/postgresql/db/customers"
 
-	model "app.eirc/internal/interactor/models/access_logs"
+	model "app.eirc/internal/interactor/models/customers"
 	"app.eirc/internal/interactor/pkg/util"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/interactor/pkg/util/uuid"
@@ -15,11 +15,11 @@ import (
 
 type Service interface {
 	WithTrx(tx *gorm.DB) Service
-	Create(input *model.Create) (err error)
+	Create(input *model.Create) (output *db.Base, err error)
 	GetByList(input *model.Fields) (quantity int64, output []*db.Base, err error)
 	GetBySingle(input *model.Field) (output *db.Base, err error)
 	GetByQuantity(input *model.Field) (quantity int64, err error)
-	Update(input *model.Update) (output *db.Base, err error)
+	Update(input *model.Update) (err error)
 	Delete(input *model.Field) (err error)
 }
 
@@ -39,28 +39,41 @@ func (s *service) WithTrx(tx *gorm.DB) Service {
 	}
 }
 
-func (s *service) Create(input *model.Create) (err error) {
-	base := &db.Base{}
+func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 	marshal, err := json.Marshal(input)
 	if err != nil {
 		log.Error(err)
-		return err
+		return nil, err
 	}
 
+	err = json.Unmarshal(marshal, &output)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	output.CID = util.PointerString(uuid.CreatedUUIDString())
+	marshal, err = json.Marshal(output)
+	if err != nil {
+		log.Error(err)
+
+		return nil, err
+	}
+
+	base := &db.Base{}
 	err = json.Unmarshal(marshal, &base)
 	if err != nil {
 		log.Error(err)
-		return err
-	}
 
-	base.ID = util.PointerString(uuid.CreatedUUIDString())
+		return nil, err
+	}
 	err = s.Repository.Create(base)
 	if err != nil {
 		log.Error(err)
-		return err
+		return nil, err
 	}
 
-	return nil
+	return output, nil
 }
 
 func (s *service) GetByList(input *model.Fields) (quantity int64, output []*db.Base, err error) {
@@ -156,27 +169,27 @@ func (s *service) Delete(input *model.Field) (err error) {
 	return nil
 }
 
-func (s *service) Update(input *model.Update) (output *db.Base, err error) {
+func (s *service) Update(input *model.Update) (err error) {
 	field := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
 		log.Error(err)
-		return nil, err
+		return err
 	}
 
 	err = json.Unmarshal(marshal, &field)
 	if err != nil {
 		log.Error(err)
-		return nil, err
+		return err
 	}
 
 	err = s.Repository.Update(field)
 	if err != nil {
 		log.Error(err)
-		return nil, err
+		return err
 	}
 
-	return output, nil
+	return nil
 }
 
 func (s *service) GetByQuantity(input *model.Field) (quantity int64, err error) {

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	"app.inherited.caelus/internal/interactor/pkg/util/log"
+	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

@@ -1,10 +1,11 @@
 package special
 
 import (
-	"app.inherited.caelus/internal/interactor/models/page"
-	"app.inherited.caelus/internal/interactor/models/section"
-	"gorm.io/gorm"
 	"time"
+
+	"app.eirc/internal/interactor/models/page"
+	"app.eirc/internal/interactor/models/section"
+	"gorm.io/gorm"
 )
 
 // Table is the common file of the backend table structure.
@@ -14,9 +15,19 @@ type Table struct {
 	//創建時間
 	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;not null;" json:"createdAt"`
 	//更新時間
-	UpdatedAt time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updatedAt"`
+	UpdatedAt *time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updatedAt"`
 	//刪除時間
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:TIMESTAMP;" json:"deletedAt,omitempty"`
+}
+
+// UseTable is the common file of the backend table structure.
+type UseTable struct {
+	//創建時間
+	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;not null;" json:"createdAt"`
+	//創建者
+	CreatedBy string `gorm:"column:created_by;type:uuid;not null;" json:"created_by"`
+	//更新時間
+	UpdatedAt *time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updatedAt"`
 }
 
 // Base is the common file of the backend base structure.
@@ -33,4 +44,20 @@ type Base struct {
 	section.ManagementExclusive
 	//SQL OrderBy 區段
 	OrderBy *string
+}
+
+// UseBase is the common file of the backend base structure.
+type UseBase struct {
+	//基本時間
+	section.TimeAt
+	//引入page
+	page.Pagination
+	//開始結束時間
+	section.StartEnd
+	//開始結束時間
+	section.ManagementExclusive
+	//SQL OrderBy 區段
+	OrderBy *string
+	//創建者
+	CreatedBy *string `json:"created_by"`
 }

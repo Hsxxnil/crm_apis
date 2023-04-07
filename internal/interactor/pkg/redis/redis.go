@@ -3,8 +3,9 @@ package redis
 import (
 	"context"
 	"errors"
-	"github.com/go-redis/redis/v9"
 	"time"
+
+	"github.com/go-redis/redis/v9"
 )
 
 const (

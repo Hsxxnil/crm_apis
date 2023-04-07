@@ -1,11 +1,12 @@
 package main
 
 import (
-	accessLogDB "app.inherited.caelus/internal/entity/postgresql/db/access_logs"
-	membersPhoneDB "app.inherited.caelus/internal/entity/postgresql/db/members_phone"
 	"fmt"
 	"time"
 
+	accessLogDB "app.eirc/internal/entity/postgresql/db/access_logs"
+	customersDB "app.eirc/internal/entity/postgresql/db/customers"
+	membersPhoneDB "app.eirc/internal/entity/postgresql/db/members_phone"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -20,7 +21,11 @@ func main() {
 		panic(err)
 	}
 
-	db.AutoMigrate(&membersPhoneDB.Table{}, &accessLogDB.Table{})
+	db.Debug().AutoMigrate(
+		&membersPhoneDB.Table{},
+		&accessLogDB.Table{},
+		&customersDB.Table{},
+	)
 }
 
 func New() (*gorm.DB, error) {

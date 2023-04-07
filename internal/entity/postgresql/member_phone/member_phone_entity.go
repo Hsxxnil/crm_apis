@@ -1,10 +1,11 @@
 package member_phone
 
 import (
-	model "app.inherited.caelus/internal/entity/postgresql/db/members_phone"
 	"encoding/json"
 
-	"app.inherited.caelus/internal/interactor/pkg/util/log"
+	model "app.eirc/internal/entity/postgresql/db/members_phone"
+
+	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

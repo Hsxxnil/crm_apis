@@ -1,15 +1,16 @@
 package member_phone_test
 
 import (
-	model "app.inherited.caelus/internal/entity/postgresql/db/members_phone"
-	"app.inherited.caelus/internal/entity/postgresql/member_phone"
 	"database/sql"
 	"errors"
 	"regexp"
 	"time"
 
-	dbConfig "app.inherited.caelus/internal/interactor/pkg/connect/postgres"
-	"app.inherited.caelus/internal/interactor/pkg/util"
+	model "app.eirc/internal/entity/postgresql/db/members_phone"
+	"app.eirc/internal/entity/postgresql/member_phone"
+
+	dbConfig "app.eirc/internal/interactor/pkg/connect/postgres"
+	"app.eirc/internal/interactor/pkg/util"
 	"github.com/DATA-DOG/go-sqlmock"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

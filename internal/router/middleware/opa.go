@@ -1,12 +1,13 @@
 package middleware
 
 import (
-	"app.inherited.caelus/internal/interactor/pkg/util/log"
 	"context"
 	"fmt"
+	"net/http"
+
+	"app.eirc/internal/interactor/pkg/util/log"
 	"github.com/gin-gonic/gin"
 	"github.com/open-policy-agent/opa/rego"
-	"net/http"
 )
 
 func WithOPA(opa *rego.PreparedEvalQuery) gin.HandlerFunc {

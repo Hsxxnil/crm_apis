@@ -1,10 +1,11 @@
 package access_log
 
 import (
-	model "app.inherited.caelus/internal/entity/postgresql/db/access_logs"
 	"encoding/json"
 
-	"app.inherited.caelus/internal/interactor/pkg/util/log"
+	model "app.eirc/internal/entity/postgresql/db/access_logs"
+
+	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
