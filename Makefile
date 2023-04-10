@@ -21,29 +21,11 @@ air:
 migration:
 	go run -tags $(TAG) $(PROJECT)\tools\migration\migration.go
 
-## by Fleet
-format:
-	goimports -w $(PROJECT)
-
 ## 以下由CI/CD人員維護!!!
-authority:
-	set GOOS=linux&& set GOARCH=amd64&& $(GO) build -tags $(TAG) -o $(OUTPUTS)/authority cmd/lambda/authority.go
-	zip -D -j -r $(OUTPUTS)/authority.zip $(OUTPUTS)/authority
-
-clean:
-	del /f /q $(OUTPUTS)
-
-task:
-	make clean
-	make authority
-
-changeLog:
-	git-chglog > $(PROJECT)\changeLog.md
-
 update_lib:
 	rem brew install golang-migrate
 	rem brew install golangci-lint
-	rem go install github.com/swaggo/swag/cmd/swag@latest
-	rem go install github.com/cosmtrek/air@latest
+	go install github.com/swaggo/swag/cmd/swag@latest
+	go install github.com/cosmtrek/air@latest
 	go get -u
-	go get -u ...
+	rem go get -u ...

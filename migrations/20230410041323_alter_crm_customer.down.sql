@@ -15,4 +15,5 @@ drop index idx_crm_customers_remark;
 drop index idx_crm_customers_created_at;
 drop index idx_crm_customers_created_by;
 drop index idx_crm_customers_updated_at;
+drop index idx_crm_customers_updated_by;
 drop table crm_customers;
