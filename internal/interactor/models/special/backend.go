@@ -11,29 +11,31 @@ import (
 // Table is the common file of the backend table structure.
 type Table struct {
 	//編號
-	ID string `gorm:"column:id;type:uuid;not null;primaryKey;" json:"ID"`
+	ID string `gorm:"column:id;type:uuid;not null;primaryKey;" json:"id"`
 	//創建時間
-	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;not null;" json:"createdAt"`
+	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;not null;" json:"created_at"`
 	//更新時間
-	UpdatedAt *time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updatedAt"`
+	UpdatedAt *time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updated_at"`
 	//刪除時間
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:TIMESTAMP;" json:"deletedAt,omitempty"`
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:TIMESTAMP;" json:"deleted_at,omitempty"`
 }
 
 // UseTable is the common file of the backend table structure.
 type UseTable struct {
 	//創建時間
-	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;not null;" json:"createdAt"`
+	CreatedAt time.Time `gorm:"<-:create;column:created_at;type:TIMESTAMP;not null;" json:"created_at"`
 	//創建者
-	CreatedBy string `gorm:"column:created_by;type:uuid;not null;" json:"created_by"`
+	CreatedBy string `gorm:"<-:create;column:created_by;type:uuid;not null;" json:"created_by"`
 	//更新時間
-	UpdatedAt *time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updatedAt"`
+	UpdatedAt *time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updated_at"`
+	//更新者
+	UpdatedBy *string `gorm:"column:updated_by;type:uuid;ot null;" json:"updated_by"`
 }
 
 // Base is the common file of the backend base structure.
 type Base struct {
 	//編號
-	ID *string `json:"ID,omitempty"`
+	ID *string `json:"id,omitempty"`
 	//基本時間
 	section.TimeAt
 	//引入page
@@ -43,7 +45,7 @@ type Base struct {
 	//開始結束時間
 	section.ManagementExclusive
 	//SQL OrderBy 區段
-	OrderBy *string
+	OrderBy *string `json:"order_by,omitempty"`
 }
 
 // UseBase is the common file of the backend base structure.
@@ -57,7 +59,9 @@ type UseBase struct {
 	//開始結束時間
 	section.ManagementExclusive
 	//SQL OrderBy 區段
-	OrderBy *string
+	OrderBy *string `json:"order_by,omitempty"`
 	//創建者
 	CreatedBy *string `json:"created_by"`
+	//更新者
+	UpdatedBy *string `json:"updated_by,omitempty"`
 }

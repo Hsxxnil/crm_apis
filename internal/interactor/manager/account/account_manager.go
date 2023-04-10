@@ -1,4 +1,4 @@
-package customer
+package account
 
 import (
 	"encoding/json"
@@ -6,8 +6,8 @@ import (
 
 	"app.eirc/internal/interactor/pkg/util"
 
-	customerModel "app.eirc/internal/interactor/models/customers"
-	"app.eirc/internal/interactor/service/customer"
+	accountModel "app.eirc/internal/interactor/models/accounts"
+	"app.eirc/internal/interactor/service/account"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -15,53 +15,58 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *customerModel.Create) interface{}
-	GetByList(input *customerModel.Fields) interface{}
-	GetBySingle(input *customerModel.Field) interface{}
-	Delete(input *customerModel.Field) interface{}
-	Update(input *customerModel.Update) interface{}
+	Create(trx *gorm.DB, input *accountModel.Create) interface{}
+	GetByList(input *accountModel.Fields) interface{}
+	GetBySingle(input *accountModel.Field) interface{}
+	Delete(input *accountModel.Update) interface{}
+	Update(input *accountModel.Update) interface{}
 }
 
 type manager struct {
-	CustomerService customer.Service
+	AccountService account.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		CustomerService: customer.Init(db),
+		AccountService: account.Init(db),
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *customerModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) interface{} {
 	defer trx.Rollback()
 
-	customerBase, err := m.CustomerService.WithTrx(trx).Create(input)
+	accountBase, err := m.AccountService.WithTrx(trx).Create(input)
 	if err != nil {
+		if err.Error() == "account already exists" {
+			return code.GetCodeMessage(code.BadRequest, err.Error())
+		}
+
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, customerBase.CustomerID)
+	return code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }
 
-func (m *manager) GetByList(input *customerModel.Fields) interface{} {
-	output := &customerModel.List{}
+func (m *manager) GetByList(input *accountModel.Fields) interface{} {
+	input.IsDeleted = util.PointerBool(false)
+	output := &accountModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
-	quantity, customerBase, err := m.CustomerService.GetByList(input)
+	quantity, accountBase, err := m.AccountService.GetByList(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
-	customerByte, err := json.Marshal(customerBase)
+	accountByte, err := json.Marshal(accountBase)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(customerByte, &output.Customers)
+	err = json.Unmarshal(accountByte, &output.Accounts)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -70,8 +75,9 @@ func (m *manager) GetByList(input *customerModel.Fields) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *customerModel.Field) interface{} {
-	customerBase, err := m.CustomerService.GetBySingle(input)
+func (m *manager) GetBySingle(input *accountModel.Field) interface{} {
+	input.IsDeleted = util.PointerBool(false)
+	accountBase, err := m.AccountService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -81,9 +87,9 @@ func (m *manager) GetBySingle(input *customerModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	output := &customerModel.Single{}
-	customerByte, _ := json.Marshal(customerBase)
-	err = json.Unmarshal(customerByte, &output)
+	output := &accountModel.Single{}
+	accountByte, _ := json.Marshal(accountBase)
+	err = json.Unmarshal(accountByte, &output)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
@@ -92,8 +98,8 @@ func (m *manager) GetBySingle(input *customerModel.Field) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *customerModel.Field) interface{} {
-	_, err := m.CustomerService.GetBySingle(&customerModel.Field{CustomerID: input.CustomerID})
+func (m *manager) Delete(input *accountModel.Update) interface{} {
+	_, err := m.AccountService.GetBySingle(&accountModel.Field{AccountID: input.AccountID, IsDeleted: util.PointerBool(false)})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -103,7 +109,7 @@ func (m *manager) Delete(input *customerModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	err = m.CustomerService.Delete(input)
+	err = m.AccountService.Delete(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
@@ -112,8 +118,8 @@ func (m *manager) Delete(input *customerModel.Field) interface{} {
 	return code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *customerModel.Update) interface{} {
-	customerBase, err := m.CustomerService.GetBySingle(&customerModel.Field{CustomerID: input.CustomerID})
+func (m *manager) Update(input *accountModel.Update) interface{} {
+	accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{AccountID: input.AccountID, IsDeleted: util.PointerBool(false)})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -123,11 +129,11 @@ func (m *manager) Update(input *customerModel.Update) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	err = m.CustomerService.Update(input)
+	err = m.AccountService.Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	return code.GetCodeMessage(code.Successful, customerBase.CustomerID)
+	return code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }

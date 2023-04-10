@@ -1,5 +1,163 @@
 basePath: /
 definitions:
+  accounts.Create:
+    properties:
+      account:
+        description: 帳號
+        type: string
+      company_id:
+        description: 公司ID
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      email:
+        description: 電子郵件
+        type: string
+      name:
+        description: 中文名稱
+        type: string
+      password:
+        description: 密碼
+        type: string
+      phone_number:
+        description: 電話
+        type: string
+    required:
+    - account
+    - company_id
+    - created_by
+    - name
+    - password
+    type: object
+  accounts.List:
+    properties:
+      accounts:
+        description: 多筆
+        items:
+          properties:
+            account:
+              description: 帳號
+              type: string
+            account_id:
+              description: 帳號ID
+              type: string
+            company_id:
+              description: 公司ID
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            email:
+              description: 電子郵件
+              type: string
+            is_deleted:
+              description: 是否刪除
+              type: boolean
+            name:
+              description: 中文名稱
+              type: string
+            password:
+              description: 密碼
+              type: string
+            phone_number:
+              description: 電話
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  accounts.Single:
+    properties:
+      account:
+        description: 帳號
+        type: string
+      account_id:
+        description: 帳號ID
+        type: string
+      company_id:
+        description: 公司ID
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      email:
+        description: 電子郵件
+        type: string
+      is_deleted:
+        description: 是否刪除
+        type: boolean
+      name:
+        description: 中文名稱
+        type: string
+      password:
+        description: 密碼
+        type: string
+      phone_number:
+        description: 電話
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  accounts.Update:
+    properties:
+      company_id:
+        description: 公司ID
+        type: string
+      email:
+        description: 電子郵件
+        type: string
+      name:
+        description: 中文名稱
+        type: string
+      password:
+        description: 密碼
+        type: string
+      phone_number:
+        description: 電話
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    required:
+    - updated_by
+    type: object
   code.ErrorMessage:
     properties:
       code:
@@ -35,6 +193,9 @@ definitions:
       created_by:
         description: 創建者
         type: string
+      email:
+        description: 電子郵件
+        type: string
       eng_name:
         description: 英文名稱
         type: string
@@ -46,9 +207,6 @@ definitions:
         type: string
       liaison_phone:
         description: 聯絡人手機號碼
-        type: string
-      mail:
-        description: 電子郵件
         type: string
       map:
         description: 地圖
@@ -74,14 +232,7 @@ definitions:
     required:
     - address
     - created_by
-    - eng_name
-    - fax
-    - liaison
-    - liaison_phone
-    - mail
-    - map
     - name
-    - remark
     - short_name
     - tax_id_number
     - tel
@@ -96,17 +247,20 @@ definitions:
             address:
               description: 地址
               type: string
-            c_id:
-              description: 客戶編號
+            created_at:
+              description: 創建時間
               type: string
             created_by:
               description: 創建者
               type: string
-            createdAt:
-              description: 創建時間
+            customer_id:
+              description: 客戶ID
               type: string
-            deletedAt:
+            deleted_at:
               description: 刪除時間
+              type: string
+            email:
+              description: 電子郵件
               type: string
             eng_name:
               description: 英文名稱
@@ -119,9 +273,6 @@ definitions:
               type: string
             liaison_phone:
               description: 聯絡人手機號碼
-              type: string
-            mail:
-              description: 電子郵件
               type: string
             map:
               description: 地圖
@@ -141,8 +292,11 @@ definitions:
             tel:
               description: 電話
               type: string
-            updatedAt:
+            updated_at:
               description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
               type: string
             zip_code:
               description: 郵遞區號
@@ -170,17 +324,20 @@ definitions:
       address:
         description: 地址
         type: string
-      c_id:
-        description: 客戶編號
+      created_at:
+        description: 創建時間
         type: string
       created_by:
         description: 創建者
         type: string
-      createdAt:
-        description: 創建時間
+      customer_id:
+        description: 客戶ID
         type: string
-      deletedAt:
+      deleted_at:
         description: 刪除時間
+        type: string
+      email:
+        description: 電子郵件
         type: string
       eng_name:
         description: 英文名稱
@@ -193,9 +350,6 @@ definitions:
         type: string
       liaison_phone:
         description: 聯絡人手機號碼
-        type: string
-      mail:
-        description: 電子郵件
         type: string
       map:
         description: 地圖
@@ -215,8 +369,11 @@ definitions:
       tel:
         description: 電話
         type: string
-      updatedAt:
+      updated_at:
         description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
         type: string
       zip_code:
         description: 郵遞區號
@@ -227,6 +384,9 @@ definitions:
       address:
         description: 地址
         type: string
+      email:
+        description: 電子郵件
+        type: string
       eng_name:
         description: 英文名稱
         type: string
@@ -238,9 +398,6 @@ definitions:
         type: string
       liaison_phone:
         description: 聯絡人手機號碼
-        type: string
-      mail:
-        description: 電子郵件
         type: string
       map:
         description: 地圖
@@ -260,30 +417,300 @@ definitions:
       tel:
         description: 電話
         type: string
+      updated_by:
+        description: 更新者
+        type: string
       zip_code:
         description: 郵遞區號
         type: string
+    required:
+    - updated_by
     type: object
 host: api.testing.whisky.inherited.app
 info:
   contact:
-    email: mingzong.lyu@gmail.com
+    email: eirc8888@gmail.com
     name: API System Support
     url: https://inherited.app/
-  description: JG Server API
+  description: CRM API
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
   termsOfService: https://inherited.app/
-  title: Whisky SYSTEM API
+  title: CRM API
   version: "0.1"
 paths:
+  /authority/v1.0/account:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部帳號
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/accounts.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部帳號
+      tags:
+      - account
+    post:
+      consumes:
+      - application/json
+      description: 新增帳號
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增帳號
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增帳號
+      tags:
+      - account
+  /authority/v1.0/account/{accountID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一帳號
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳號ID
+        in: path
+        name: accountID
+        required: true
+        type: string
+      - description: 更新帳號
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一帳號
+      tags:
+      - account
+    get:
+      consumes:
+      - application/json
+      description: 取得單一帳號
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳號ID
+        in: path
+        name: accountID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/accounts.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一帳號
+      tags:
+      - account
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一帳號
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳號ID
+        in: path
+        name: accountID
+        required: true
+        type: string
+      - description: 更新帳號
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一帳號
+      tags:
+      - account
   /authority/v1.0/customer:
     get:
       consumes:
       - application/json
       description: 取得全部客戶
       parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: 目前頁數,請從1開始帶入
         in: query
         name: page
@@ -332,6 +759,11 @@ paths:
       - application/json
       description: 新增客戶
       parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: 新增客戶
         in: body
         name: '*'
@@ -371,15 +803,20 @@ paths:
       summary: 新增客戶
       tags:
       - customer
-  /authority/v1.0/customer/{cID}:
+  /authority/v1.0/customer/{customerID}:
     delete:
       consumes:
       - application/json
       description: 刪除單一客戶
       parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: 客戶ID
         in: path
-        name: cID
+        name: customerID
         required: true
         type: string
       produces:
@@ -420,9 +857,14 @@ paths:
       - application/json
       description: 取得單一客戶
       parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: 客戶ID
         in: path
-        name: cID
+        name: customerID
         required: true
         type: string
       produces:
@@ -463,9 +905,14 @@ paths:
       - application/json
       description: 更新單一客戶
       parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: 客戶ID
         in: path
-        name: cID
+        name: customerID
         required: true
         type: string
       - description: 更新客戶

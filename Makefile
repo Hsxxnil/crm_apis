@@ -4,31 +4,28 @@ GO = go
 OUTPUTS = $(shell cd /d %cd% && echo %cd%\deploy)
 TAG ?= debug
 
-
+## 首次使用專案模版時, 必要執行一次
 setup:
 	copy $(PROJECT)\config\config.go.example $(PROJECT)\config\debug_config.go
 	rem copy $(PROJECT)\config\config.go.example $(PROJECT)\config\production_config.go
 	copy $(PROJECT)\air.example.windows $(PROJECT).air.toml
 
+## 映射遠端Ports至本地端Ports
+ssh:
+	go run -tags $(TAG) $(PROJECT)\tools\ssh\ssh.go
+
+## 開發中
 air:
 	air
 
 migration:
 	go run -tags $(TAG) $(PROJECT)\tools\migration\migration.go
 
-ssh:
-	go run -tags $(TAG) $(PROJECT)\tools\ssh\ssh.go
-
+## 以下由CI/CD人員維護!!!
 update_lib:
 	rem brew install golang-migrate
 	rem brew install golangci-lint
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install github.com/cosmtrek/air@latest
-	rem go install golang.org/x/tools/cmd/goimports@latest
 	go get -u
 	rem go get -u ...
-	go get -u all
-
-autoMigrate:
-	set CGO_ENABLED=1
-	go run -tags $(TAG) $(PROJECT)\tools\autoMigrate\main.go

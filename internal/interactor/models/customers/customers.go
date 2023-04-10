@@ -10,7 +10,7 @@ type Create struct {
 	//簡稱
 	ShortName string `json:"short_name,omitempty" binding:"required" validate:"required"`
 	//英文名稱
-	EngName string `json:"eng_name,omitempty" validate:"required"`
+	EngName string `json:"eng_name,omitempty"`
 	//中文名稱
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
 	//郵遞區號
@@ -20,27 +20,27 @@ type Create struct {
 	//電話
 	Tel string `json:"tel,omitempty" binding:"required" validate:"required"`
 	//傳真
-	Fax string `json:"fax,omitempty" validate:"required"`
+	Fax string `json:"fax,omitempty"`
 	//地圖
-	Map string `json:"map,omitempty" validate:"required"`
+	Map string `json:"map,omitempty"`
 	//聯絡人
-	Liaison string `json:"liaison,omitempty" validate:"required"`
+	Liaison string `json:"liaison,omitempty"`
 	//電子郵件
-	Mail string `json:"mail,omitempty" validate:"required"`
+	Email string `json:"email,omitempty"`
 	//聯絡人手機號碼
-	LiaisonPhone string `json:"liaison_phone,omitempty" validate:"required"`
+	LiaisonPhone string `json:"liaison_phone,omitempty"`
 	//統編
 	TaxIdNumber string `json:"tax_id_number,omitempty" binding:"required" validate:"required"`
 	//備註
-	Remark string `json:"remark,omitempty" validate:"required"`
+	Remark string `json:"remark,omitempty"`
 	//創建者
-	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required"`
+	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
 
 // Field is structure file for search
 type Field struct {
-	//客戶編號
-	CID string `json:"c_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
+	//客戶ID
+	CustomerID string `json:"customer_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	//簡稱
 	ShortName *string `json:"short_name,omitempty" from:"short_name"`
 	//英文名稱
@@ -60,7 +60,7 @@ type Field struct {
 	//聯絡人
 	Liaison *string `json:"liaison,omitempty" from:"liaison"`
 	//電子郵件
-	Mail *string `json:"mail,omitempty" from:"mail"`
+	Email *string `json:"email,omitempty" from:"email"`
 	//聯絡人手機號碼
 	LiaisonPhone *string `json:"liaison_phone,omitempty" from:"liaison_phone"`
 	//統編
@@ -81,8 +81,8 @@ type Fields struct {
 type List struct {
 	//多筆
 	Customers []*struct {
-		//客戶編號
-		CID string `json:"c_id,omitempty"`
+		//客戶ID
+		CustomerID string `json:"customer_id,omitempty"`
 		//簡稱
 		ShortName string `json:"short_name,omitempty"`
 		//英文名稱
@@ -102,7 +102,7 @@ type List struct {
 		//聯絡人
 		Liaison string `json:"liaison,omitempty"`
 		//電子郵件
-		Mail string `json:"mail,omitempty"`
+		Email string `json:"email,omitempty"`
 		//聯絡人手機號碼
 		LiaisonPhone string `json:"liaison_phone,omitempty"`
 		//統編
@@ -111,6 +111,8 @@ type List struct {
 		Remark string `json:"remark,omitempty"`
 		//創建者
 		CreatedBy string `json:"created_by"`
+		//更新者
+		UpdatedBy string `json:"updated_by,omitempty"`
 		//時間戳記
 		section.TimeAt
 	} `json:"customers"`
@@ -120,8 +122,8 @@ type List struct {
 
 // Single return structure file
 type Single struct {
-	//客戶編號
-	CID string `json:"c_id,omitempty"`
+	//客戶ID
+	CustomerID string `json:"customer_id,omitempty"`
 	//簡稱
 	ShortName string `json:"short_name,omitempty"`
 	//英文名稱
@@ -141,7 +143,7 @@ type Single struct {
 	//聯絡人
 	Liaison string `json:"liaison,omitempty"`
 	//電子郵件
-	Mail string `json:"mail,omitempty"`
+	Email string `json:"email,omitempty"`
 	//聯絡人手機號碼
 	LiaisonPhone string `json:"liaison_phone,omitempty"`
 	//統編
@@ -150,38 +152,42 @@ type Single struct {
 	Remark string `json:"remark,omitempty"`
 	//創建者
 	CreatedBy string `json:"created_by"`
+	//更新者
+	UpdatedBy string `json:"updated_by,omitempty"`
 	//時間戳記
 	section.TimeAt
 }
 
 // Update struct is used to update achieves
 type Update struct {
-	//客戶編號
-	CID string `json:"c_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
+	//客戶ID
+	CustomerID string `json:"customer_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	//簡稱
-	ShortName string `json:"short_name,omitempty"`
+	ShortName *string `json:"short_name,omitempty"`
 	//英文名稱
-	EngName string `json:"eng_name,omitempty"`
+	EngName *string `json:"eng_name,omitempty"`
 	//中文名稱
-	Name string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
 	//郵遞區號
-	ZipCode string `json:"zip_code,omitempty"`
+	ZipCode *string `json:"zip_code,omitempty"`
 	//地址
-	Address string `json:"address,omitempty"`
+	Address *string `json:"address,omitempty"`
 	//電話
-	Tel string `json:"tel,omitempty"`
+	Tel *string `json:"tel,omitempty"`
 	//傳真
-	Fax string `json:"fax,omitempty"`
+	Fax *string `json:"fax,omitempty"`
 	//地圖
-	Map string `json:"map,omitempty"`
+	Map *string `json:"map,omitempty"`
 	//聯絡人
-	Liaison string `json:"liaison,omitempty"`
+	Liaison *string `json:"liaison,omitempty"`
 	//電子郵件
-	Mail string `json:"mail,omitempty"`
+	Email *string `json:"email,omitempty"`
 	//聯絡人手機號碼
-	LiaisonPhone string `json:"liaison_phone,omitempty"`
+	LiaisonPhone *string `json:"liaison_phone,omitempty"`
 	//統編
-	TaxIdNumber string `json:"tax_id_number,omitempty"`
+	TaxIdNumber *string `json:"tax_id_number,omitempty"`
 	//備註
-	Remark string `json:"remark,omitempty"`
+	Remark *string `json:"remark,omitempty"`
+	//更新者
+	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" `
 }

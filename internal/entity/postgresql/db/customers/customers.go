@@ -6,8 +6,8 @@ import (
 
 // Table struct is customers database table struct
 type Table struct {
-	//客戶編號
-	CID string `gorm:"column:c_id;type:uuid;not null;primaryKey;" json:"c_id"`
+	//客戶ID
+	CustomerID string `gorm:"<-:create;column:customer_id;type:uuid;not null;primaryKey;" json:"customer_id"`
 	//簡稱
 	ShortName string `gorm:"column:short_name;type:text;not null;" json:"short_name"`
 	//英文名稱
@@ -27,7 +27,7 @@ type Table struct {
 	//聯絡人
 	Liaison string `gorm:"column:liaison;type:text;" json:"liaison,omitempty"`
 	//電子郵件
-	Mail string `gorm:"column:mail;type:text;" json:"mail,omitempty"`
+	Email string `gorm:"column:email;type:text;" json:"email,omitempty"`
 	//聯絡人手機號碼90
 	LiaisonPhone string `gorm:"column:liaison_phone;type:text;" json:"liaison_phone,omitempty"`
 	//統編
@@ -39,8 +39,8 @@ type Table struct {
 
 // Base struct is corresponding to customers table structure file
 type Base struct {
-	//客戶編號
-	CID *string `json:"c_id,omitempty"`
+	//客戶ID
+	CustomerID *string `json:"customer_id,omitempty"`
 	//簡稱
 	ShortName *string `json:"short_name,omitempty"`
 	//英文名稱
@@ -60,7 +60,7 @@ type Base struct {
 	//聯絡人
 	Liaison *string `json:"liaison,omitempty"`
 	//電子郵件
-	Mail *string `json:"mail,omitempty"`
+	Email *string `json:"email,omitempty"`
 	//聯絡人手機號碼
 	LiaisonPhone *string `json:"liaison_phone,omitempty"`
 	//統編
