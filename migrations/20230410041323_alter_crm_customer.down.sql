@@ -1,4 +1,4 @@
-drop index idx_crm_customers_c_id;
+drop index idx_crm_customers_customer_id;
 drop index idx_crm_customers_short_name;
 drop index idx_crm_customers_eng_name;
 drop index idx_crm_customers_name;
@@ -8,7 +8,7 @@ drop index idx_crm_customers_tel;
 drop index idx_crm_customers_fax;
 drop index idx_crm_customers_map;
 drop index idx_crm_customers_liaison;
-drop index idx_crm_customers_mail;
+drop index idx_crm_customers_email;
 drop index idx_crm_customers_liaison_phone;
 drop index idx_crm_customers_tax_id_number;
 drop index idx_crm_customers_remark;
