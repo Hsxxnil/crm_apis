@@ -1,0 +1,10 @@
+drop index idx_crm_accounts_account_id;
+drop index idx_crm_accounts_account;
+drop index idx_crm_accounts_name;
+drop index idx_crm_accounts_phone_number;
+drop index idx_crm_accounts_email;
+drop index idx_crm_accounts_created_at;
+drop index idx_crm_accounts_created_by;
+drop index idx_crm_accounts_updated_at;
+drop index idx_crm_accounts_updated_by;
+drop table crm_accounts;

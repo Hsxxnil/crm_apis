@@ -5,7 +5,6 @@ import (
 	"time"
 
 	accessLogDB "app.eirc/internal/entity/postgresql/db/access_logs"
-	customersDB "app.eirc/internal/entity/postgresql/db/customers"
 	membersPhoneDB "app.eirc/internal/entity/postgresql/db/members_phone"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
@@ -21,11 +20,7 @@ func main() {
 		panic(err)
 	}
 
-	db.Debug().AutoMigrate(
-		&membersPhoneDB.Table{},
-		&accessLogDB.Table{},
-		&customersDB.Table{},
-	)
+	db.AutoMigrate(&membersPhoneDB.Table{}, &accessLogDB.Table{})
 }
 
 func New() (*gorm.DB, error) {

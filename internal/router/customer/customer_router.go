@@ -13,9 +13,9 @@ func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 	{
 		v10.POST("", middleware.Transaction(db), control.Create)
 		v10.GET("", control.GetByList)
-		v10.GET(":cID", control.GetBySingle)
-		v10.DELETE(":cID", control.Delete)
-		v10.PATCH(":cID", control.Update)
+		v10.GET(":customerID", control.GetBySingle)
+		v10.DELETE(":customerID", control.Delete)
+		v10.PATCH(":customerID", control.Update)
 	}
 
 	return router

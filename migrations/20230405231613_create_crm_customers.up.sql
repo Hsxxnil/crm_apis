@@ -1,6 +1,6 @@
 create table crm_customers
 (
-    c_id          uuid      default uuid_generate_v4() not null
+    customer_id   uuid      default uuid_generate_v4() not null
         primary key,
     short_name    text      default ''::text not null,
     eng_name      text,
@@ -11,17 +11,18 @@ create table crm_customers
     fax           text,
     map           text,
     liaison       text,
-    mail          text,
+    email         text,
     liaison_phone text,
     tax_id_number text      default ''::text not null,
     remark        text,
     created_at    timestamp default now()              not null,
-    created_by    uuid,
-    updated_at    timestamp default now()              not null
+    created_by    uuid                                 not null,
+    updated_at    timestamp default now()              not null,
+    updated_by    uuid                                 not null
 );
 
-create index idx_crm_customers_c_id
-    on crm_customers using hash (c_id);
+create index idx_crm_customers_customer_id
+    on crm_customers using hash (customer_id);
 
 create index idx_crm_customers_short_name
     on crm_customers using gin (short_name gin_trgm_ops);
@@ -50,8 +51,8 @@ create index idx_crm_customers_map
 create index idx_crm_customers_liaison
     on crm_customers using gin (liaison gin_trgm_ops);
 
-create index idx_crm_customers_mail
-    on crm_customers using gin (mail gin_trgm_ops);
+create index idx_crm_customers_email
+    on crm_customers using gin (email gin_trgm_ops);
 
 create index idx_crm_customers_liaison_phone
     on crm_customers using gin (liaison_phone gin_trgm_ops);
@@ -70,3 +71,6 @@ create index idx_crm_customers_created_by
 
 create index idx_crm_customers_updated_at
     on crm_customers (updated_at desc);
+
+create index idx_crm_customers_updated_by
+    on crm_customers using hash (updated_by);

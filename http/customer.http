@@ -1,4 +1,41 @@
+### GetByList
 GET http://localhost:8080/authority/v1.0/customer?page=1&limit=20
 Accept: application/json
 
-###
+### GetBySingle
+GET http://localhost:8080/authority/v1.0/customer/768062f0-de1b-4f67-a761-13b645c5ead1
+Accept: application/json
+
+### Create
+POST http://localhost:8080/authority/v1.0/customer
+Content-Type: application/json
+
+{
+  "address": "高雄市楠梓加工區經三路26號",
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "email": "abc123@gmail.com",
+  "eng_name": "ADVANCED SEMICONDUCTOR ENGINEERING, INC.",
+  "fax": "(07)361-3094",
+  "liaison": "林小姐",
+  "liaison_phone": "0900000000",
+  "map": "https://goo.gl/maps/NBwDrjPpinA9C4wE6",
+  "name": "日月光半導體製造股份有限公司",
+  "remark": "no",
+  "short_name": "日月光",
+  "tax_id_number": "12345678",
+  "tel": "(07)361-7131",
+  "zip_code": "81120"
+}
+
+### Update
+PATCH http://localhost:8080/authority/v1.0/customer/768062f0-de1b-4f67-a761-13b645c5ead1
+Content-Type: application/json
+
+{
+  "liaison": "陳小姐",
+  "updated_by" : "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/authority/v1.0/customer/3704a1db-0f0f-4d5e-acf3-dd1635f7b83b
+Accept: application/json

@@ -41,9 +41,9 @@ func main() {
 		},
 		Local:            local,
 		Remote:           remote,
-		Timeout:          5 * time.Second,
-		Debug:            false,
-		IsLongConnection: true,
+		Timeout:          config.SSHTimeOutSecond * time.Second,
+		Debug:            config.SSHDebug,
+		IsLongConnection: config.SSHIsLongConnection,
 	}
 
 	ssh.Run()

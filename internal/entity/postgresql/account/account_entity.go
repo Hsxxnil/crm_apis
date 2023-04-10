@@ -1,9 +1,9 @@
-package customer
+package account
 
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/customers"
+	model "app.eirc/internal/entity/postgresql/db/accounts"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -60,8 +60,24 @@ func (s *storage) Create(input *model.Base) (err error) {
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
-	if input.CustomerID != nil {
-		query.Where("customer_id = ?", input.CustomerID)
+	if input.AccountID != nil {
+		query.Where("account_id = ?", input.AccountID)
+	}
+
+	if input.Account != nil {
+		query.Where("account = ?", input.Account)
+	}
+
+	if input.CompanyID != nil {
+		query.Where("company_id = ?", input.CompanyID)
+	}
+
+	if input.Name != nil {
+		query.Where("name like %?%", *input.Name)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
@@ -76,8 +92,12 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
-	if input.CustomerID != nil {
-		query.Where("customer_id = ?", input.CustomerID)
+	if input.AccountID != nil {
+		query.Where("account_id = ?", input.AccountID)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.First(&output).Error
@@ -91,8 +111,12 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 
 func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
-	if input.CustomerID != nil {
-		query.Where("customer_id = ?", input.CustomerID)
+	if input.AccountID != nil {
+		query.Where("account_id = ?", input.AccountID)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -108,64 +132,36 @@ func (s *storage) Update(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
 	data := map[string]any{}
 
-	if input.ShortName != nil {
-		data["short_name"] = input.ShortName
-	}
-
-	if input.EngName != nil {
-		data["eng_name"] = input.EngName
+	if input.CompanyID != nil {
+		data["company_id"] = input.CompanyID
 	}
 
 	if input.Name != nil {
 		data["name"] = input.Name
 	}
 
-	if input.ZipCode != nil {
-		data["zip_code"] = input.ZipCode
+	if input.Password != nil {
+		data["password"] = input.Password
 	}
 
-	if input.Address != nil {
-		data["address"] = input.Address
+	if input.IsDeleted != nil {
+		data["is_deleted"] = input.IsDeleted
 	}
 
-	if input.Tel != nil {
-		data["tel"] = input.Tel
-	}
-
-	if input.Fax != nil {
-		data["fax"] = input.Fax
-	}
-
-	if input.Map != nil {
-		data["map"] = input.Map
-	}
-
-	if input.Liaison != nil {
-		data["liaison"] = input.Liaison
+	if input.PhoneNumber != nil {
+		data["phone_number"] = input.PhoneNumber
 	}
 
 	if input.Email != nil {
 		data["email"] = input.Email
 	}
 
-	if input.LiaisonPhone != nil {
-		data["liaison_phone"] = input.LiaisonPhone
-	}
-
-	if input.TaxIdNumber != nil {
-		data["tax_id_number"] = input.TaxIdNumber
-	}
-
-	if input.Remark != nil {
-		data["remark"] = input.Remark
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
 
-	if input.CustomerID != nil {
-		query.Where("customer_id = ?", input.CustomerID)
+	if input.AccountID != nil {
+		query.Where("account_id = ?", input.AccountID)
 	}
 
 	err = query.Select("*").Updates(data).Error
@@ -179,8 +175,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 func (s *storage) Delete(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
-	if input.CustomerID != nil {
-		query.Where("customer_id = ?", input.CustomerID)
+	if input.AccountID != nil {
+		query.Where("account_id = ?", input.AccountID)
 	}
 
 	err = query.Delete(&model.Table{}).Error

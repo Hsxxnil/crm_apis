@@ -1,12 +1,16 @@
-package customer
+package account
 
 import (
 	"encoding/json"
+	"errors"
 
-	store "app.eirc/internal/entity/postgresql/customer"
-	db "app.eirc/internal/entity/postgresql/db/customers"
+	"app.eirc/internal/interactor/pkg/util/encryption"
+	"app.eirc/internal/interactor/pkg/util/hash"
 
-	model "app.eirc/internal/interactor/models/customers"
+	store "app.eirc/internal/entity/postgresql/account"
+	db "app.eirc/internal/entity/postgresql/db/accounts"
+
+	model "app.eirc/internal/interactor/models/accounts"
 	"app.eirc/internal/interactor/pkg/util"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/interactor/pkg/util/uuid"
@@ -20,7 +24,7 @@ type Service interface {
 	GetBySingle(input *model.Field) (output *db.Base, err error)
 	GetByQuantity(input *model.Field) (quantity int64, err error)
 	Update(input *model.Update) (err error)
-	Delete(input *model.Field) (err error)
+	Delete(input *model.Update) (err error)
 }
 
 type service struct {
@@ -40,6 +44,21 @@ func (s *service) WithTrx(tx *gorm.DB) Service {
 }
 
 func (s *service) Create(input *model.Create) (output *db.Base, err error) {
+	field := &db.Base{}
+	field.Account = util.PointerString(input.Account)
+	field.CompanyID = util.PointerString(input.CompanyID)
+	field.IsDeleted = util.PointerBool(false)
+	quantity, _, err := s.Repository.GetByList(field)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	if quantity > 0 {
+		log.Info("Account already exists. Account: ", input.Account, ",CompanyID:", input.CompanyID)
+		return nil, errors.New("account already exists")
+	}
+
 	base := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
@@ -53,10 +72,20 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 		return nil, err
 	}
 
-	base.CustomerID = util.PointerString(uuid.CreatedUUIDString())
+	key := "423CD5C09F7DD58950F1E494099EB075"
+	input.Password = hash.HmacSha512(input.Password, key)
+	log.Debug(input.Password)
+	password, err := encryption.AesEncryptOFB([]byte(input.Password), []byte(key))
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+	base.Password = util.PointerString(hash.Base64BydEncode(password))
+	base.AccountID = util.PointerString(uuid.CreatedUUIDString())
 	base.CreatedAt = util.PointerTime(util.NowToUTC())
 	base.UpdatedAt = util.PointerTime(util.NowToUTC())
 	base.UpdatedBy = util.PointerString(input.CreatedBy)
+	base.IsDeleted = util.PointerBool(false)
 	err = s.Repository.Create(base)
 	if err != nil {
 		log.Error(err)
@@ -150,7 +179,7 @@ func (s *service) GetBySingle(input *model.Field) (output *db.Base, err error) {
 	return output, nil
 }
 
-func (s *service) Delete(input *model.Field) (err error) {
+func (s *service) Delete(input *model.Update) (err error) {
 	field := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
@@ -164,7 +193,9 @@ func (s *service) Delete(input *model.Field) (err error) {
 		return err
 	}
 
-	err = s.Repository.Delete(field)
+	field.UpdatedAt = util.PointerTime(util.NowToUTC())
+	field.IsDeleted = util.PointerBool(true)
+	err = s.Repository.Update(field)
 	if err != nil {
 		log.Error(err)
 		return err
@@ -186,7 +217,17 @@ func (s *service) Update(input *model.Update) (err error) {
 		log.Error(err)
 		return err
 	}
-
+	key := "423CD5C09F7DD58950F1E494099EB075"
+	if input.Password != "" {
+		input.Password = hash.HmacSha512(input.Password, key)
+		log.Debug(input.Password)
+		password, err := encryption.AesEncryptOFB([]byte(input.Password), []byte(key))
+		if err != nil {
+			log.Error(err)
+			return err
+		}
+		field.Password = util.PointerString(hash.Base64BydEncode(password))
+	}
 	field.UpdatedAt = util.PointerTime(util.NowToUTC())
 	err = s.Repository.Update(field)
 	if err != nil {

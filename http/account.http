@@ -1,0 +1,38 @@
+### GetByList
+GET http://localhost:8080/authority/v1.0/account?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET http://localhost:8080/authority/v1.0/account/5ba128f3-f90a-4c88-a3f2-47a9d0b88b4e
+Accept: application/json
+
+### Create
+POST http://localhost:8080/authority/v1.0/account
+Content-Type: application/json
+
+{
+  "account": "test1",
+  "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "email": "test1@test.com",
+  "name": "test1",
+  "password": "12345",
+  "phone_number": "0911111111"
+}
+
+### Update
+PATCH http://localhost:8080/authority/v1.0/account/5ba128f3-f90a-4c88-a3f2-47a9d0b88b4e
+Content-Type: application/json
+
+{
+  "password": "56789",
+  "updated_by" : "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/authority/v1.0/account/5ba128f3-f90a-4c88-a3f2-47a9d0b88b4e
+Content-Type: application/json
+
+{
+  "updated_by" : "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
