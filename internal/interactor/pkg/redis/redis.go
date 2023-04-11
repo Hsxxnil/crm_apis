@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 	"time"
-
-	"github.com/redis/go-redis/v9"
 )
 
 const (
@@ -17,29 +15,29 @@ const (
 )
 
 type Config struct {
-	//redis address
+	// redis address
 	Address *string
-	//redis port
+	// redis port
 	Port *string
-	//redis user
+	// redis user
 	Username *string
-	//redis password
+	// redis password
 	Password *string
-	//redis use default DB
+	// redis use default DB
 	DB *int64
 }
 
 type DB interface {
-	//Create data to redis
+	// Create data to redis
 	Create(choose, key string, input []byte, ttl time.Duration) (err error)
-	//First is get data to redis
+	// First is get data to redis
 	First(choose, key string) (output []byte, err error)
 }
 
 type db struct {
-	//Context
+	// Context
 	ctx context.Context
-	//redis database
+	// redis database
 	redisClient *redis.Client
 }
 

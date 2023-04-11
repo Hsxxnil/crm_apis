@@ -29,7 +29,7 @@ func NewAmazonStorage(bucket string) AmazonStorageInterface {
 func (storage *amazonStorage) Upload(input *s3.PutObjectInput) (outPut *manager.UploadOutput, err error) {
 	if len(storage.buckets) == 0 {
 
-		//log.Error("S3 Bucket Name Can Not Be Empty")
+		// log.Error("S3 Bucket Name Can Not Be Empty")
 		return nil, errors.New("S3 Bucket Name Can Not Be Empty")
 	}
 
@@ -37,7 +37,7 @@ func (storage *amazonStorage) Upload(input *s3.PutObjectInput) (outPut *manager.
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 
-		//log.Error(err)
+		// log.Error(err)
 		return nil, err
 	}
 	client := s3.NewFromConfig(cfg)
@@ -54,7 +54,7 @@ func (storage *amazonStorage) Delete(input *s3.DeleteObjectInput) (outPut *s3.De
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 
-		//log.Error(err)
+		// log.Error(err)
 		return nil, err
 	}
 	client := s3.NewFromConfig(cfg)

@@ -55,8 +55,8 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	//input.CompanyID = ctx.MustGet("company_id").(string)
-	//input.CreatedBy = ctx.MustGet("account_id").(string) //從Token去得到AccountId
+	// input.CompanyID = ctx.MustGet("company_id").(string)
+	// input.CreatedBy = ctx.MustGet("account_id").(string) //從Token去得到AccountId
 
 	codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(http.StatusOK, codeMessage)
@@ -108,7 +108,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/account/{accountID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
-	accountID := ctx.Param("accountID") //跟router對應
+	accountID := ctx.Param("accountID") // 跟router對應
 	input := &accounts.Field{}
 	input.AccountID = accountID
 	if err := ctx.ShouldBindQuery(input); err != nil {

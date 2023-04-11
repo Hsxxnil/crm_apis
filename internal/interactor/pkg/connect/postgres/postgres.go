@@ -12,21 +12,21 @@ import (
 )
 
 type Config struct {
-	//Customize Driver
+	// Customize Driver
 	DriverName *string
-	//Data Source Name
+	// Data Source Name
 	DSN *string
-	//DB connect pool interface
+	// DB connect pool interface
 	Conn *sql.DB
-	//Disables implicit prepared statement usage
+	// Disables implicit prepared statement usage
 	PreferSimpleProtocol *bool
-	//Creates a prepared statement when executing any SQL and caches them to speed up future calls
+	// Creates a prepared statement when executing any SQL and caches them to speed up future calls
 	PrepareStmt *bool
-	//Allow to change GORM’s default logger by overriding this option
+	// Allow to change GORM’s default logger by overriding this option
 	Logger logger.Interface
-	//Change the function to be used when creating a new timestamp
+	// Change the function to be used when creating a new timestamp
 	NowFunc func() time.Time
-	//DBResolver adds multiple databases support
+	// DBResolver adds multiple databases support
 	Replicas []*string
 }
 

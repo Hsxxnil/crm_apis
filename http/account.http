@@ -26,7 +26,7 @@ Content-Type: application/json
 
 {
   "password": "56789",
-  "updated_by" : "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
@@ -34,5 +34,5 @@ DELETE http://localhost:8080/authority/v1.0/account/5782a4aa-f7a7-4a55-9aa5-94be
 Content-Type: application/json
 
 {
-  "updated_by" : "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }

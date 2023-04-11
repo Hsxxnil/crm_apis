@@ -29,23 +29,23 @@ var (
 )
 
 type codeTime struct {
-	//回傳代碼
+	// 回傳代碼
 	Code int `json:"code"`
-	//錯誤時間
+	// 錯誤時間
 	Timestamp string `json:"timestamp" example:"2021-07-29T07:23:47Z"`
 }
 
 type SuccessfulMessage struct {
 	codeTime
-	//正確回傳內容
+	// 正確回傳內容
 	Body any `json:"body"`
 }
 
 type ErrorMessage struct {
 	codeTime
-	//錯誤回傳訊息
+	// 錯誤回傳訊息
 	Message string `json:"message"`
-	//詳細錯誤內容
+	// 詳細錯誤內容
 	Detailed any `json:"detailed"`
 }
 

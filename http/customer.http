@@ -33,7 +33,7 @@ Content-Type: application/json
 
 {
   "liaison": "陳小姐",
-  "updated_by" : "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete

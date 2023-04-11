@@ -14,27 +14,27 @@ import (
 )
 
 type JWE struct {
-	//iss  【issuer】發布者的url地址
+	// iss  【issuer】發布者的url地址
 	IssuerKey any
-	//sub 【subject】該JWT所面向的用戶，用於處理特定應用，不是常用的字段
+	// sub 【subject】該JWT所面向的用戶，用於處理特定應用，不是常用的字段
 	SubjectKey any
-	//aud 【audience】接受者的url地址
+	// aud 【audience】接受者的url地址
 	AudienceKey any
-	//exp 【expiration】 該jwt銷毀的時間；unix時間戳
+	// exp 【expiration】 該jwt銷毀的時間；unix時間戳
 	ExpirationKey any
-	//nbf  【not before】 該jwt的使用時間不能早於該時間；unix時間戳
+	// nbf  【not before】 該jwt的使用時間不能早於該時間；unix時間戳
 	NotBeforeKey any
-	//iat   【issued at】 該jwt的發佈時間；unix 時間戳
+	// iat   【issued at】 該jwt的發佈時間；unix 時間戳
 	IssuedAtKey any
-	//jti    【JWT ID】 該jwt的唯一ID編號
+	// jti    【JWT ID】 該jwt的唯一ID編號
 	JwtIDKey any
-	//其他設定
+	// 其他設定
 	Other map[string]any
-	//令牌
+	// 令牌
 	Token string
-	//公開金鑰RSA_256
+	// 公開金鑰RSA_256
 	PublicKey string
-	//私人鑰匙RSA_256
+	// 私人鑰匙RSA_256
 	PrivateKey string
 }
 
