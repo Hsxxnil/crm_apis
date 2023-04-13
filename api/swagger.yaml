@@ -24,11 +24,11 @@ definitions:
         description: 電話
         type: string
     required:
-      - account
-      - company_id
-      - created_by
-      - name
-      - password
+    - account
+    - company_id
+    - created_by
+    - name
+    - password
     type: object
   accounts.List:
     properties:
@@ -90,8 +90,8 @@ definitions:
         description: 總筆數
         type: integer
     required:
-      - limit
-      - page
+    - limit
+    - page
     type: object
   accounts.Single:
     properties:
@@ -156,7 +156,7 @@ definitions:
         description: 更新者
         type: string
     required:
-      - updated_by
+    - updated_by
     type: object
   code.ErrorMessage:
     properties:
@@ -230,13 +230,13 @@ definitions:
         description: 郵遞區號
         type: string
     required:
-      - address
-      - created_by
-      - name
-      - short_name
-      - tax_id_number
-      - tel
-      - zip_code
+    - address
+    - created_by
+    - name
+    - short_name
+    - tax_id_number
+    - tel
+    - zip_code
     type: object
   customers.List:
     properties:
@@ -316,8 +316,8 @@ definitions:
         description: 總筆數
         type: integer
     required:
-      - limit
-      - page
+    - limit
+    - page
     type: object
   customers.Single:
     properties:
@@ -424,7 +424,168 @@ definitions:
         description: 郵遞區號
         type: string
     required:
-      - updated_by
+    - updated_by
+    type: object
+  users.Create:
+    properties:
+      company_id:
+        description: 公司ID
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      email:
+        description: 電子郵件
+        type: string
+      name:
+        description: 中文名稱
+        type: string
+      password:
+        description: 密碼
+        type: string
+      phone_number:
+        description: 電話
+        type: string
+      user_name:
+        description: 使用者名稱
+        type: string
+    required:
+    - company_id
+    - created_by
+    - name
+    - password
+    - user_name
+    type: object
+  users.List:
+    properties:
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+      users:
+        description: 多筆
+        items:
+          properties:
+            company_id:
+              description: 公司ID
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            email:
+              description: 電子郵件
+              type: string
+            is_deleted:
+              description: 是否刪除
+              type: boolean
+            name:
+              description: 中文名稱
+              type: string
+            password:
+              description: 密碼
+              type: string
+            phone_number:
+              description: 電話
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+            user_id:
+              description: 使用者ID
+              type: string
+            user_name:
+              description: 使用者名稱
+              type: string
+          type: object
+        type: array
+    required:
+    - limit
+    - page
+    type: object
+  users.Single:
+    properties:
+      company_id:
+        description: 公司ID
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      email:
+        description: 電子郵件
+        type: string
+      is_deleted:
+        description: 是否刪除
+        type: boolean
+      name:
+        description: 中文名稱
+        type: string
+      password:
+        description: 密碼
+        type: string
+      phone_number:
+        description: 電話
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+      user_id:
+        description: 使用者ID
+        type: string
+      user_name:
+        description: 使用者名稱
+        type: string
+    type: object
+  users.Update:
+    properties:
+      company_id:
+        description: 公司ID
+        type: string
+      email:
+        description: 電子郵件
+        type: string
+      name:
+        description: 中文名稱
+        type: string
+      password:
+        description: 密碼
+        type: string
+      phone_number:
+        description: 電話
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+      user_name:
+        description: 使用者名稱
+        type: string
+    required:
+    - updated_by
     type: object
 host: api.testing.whisky.inherited.app
 info:
@@ -443,517 +604,777 @@ paths:
   /authority/v1.0/account:
     get:
       consumes:
-        - application/json
+      - application/json
       description: 取得全部帳號
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 目前頁數,請從1開始帶入
-          in: query
-          name: page
-          required: true
-          type: integer
-        - description: 一次回傳比數,請從1開始帶入,最高上限20
-          in: query
-          name: limit
-          required: true
-          type: integer
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    $ref: '#/definitions/accounts.List'
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/accounts.List'
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 取得全部帳號
       tags:
-        - account
+      - account
     post:
       consumes:
-        - application/json
+      - application/json
       description: 新增帳號
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 新增帳號
-          in: body
-          name: '*'
-          required: true
-          schema:
-            $ref: '#/definitions/accounts.Create'
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增帳號
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.Create'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 新增帳號
       tags:
-        - account
+      - account
   /authority/v1.0/account/{accountID}:
     delete:
       consumes:
-        - application/json
+      - application/json
       description: 刪除單一帳號
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 帳號ID
-          in: path
-          name: accountID
-          required: true
-          type: string
-        - description: 更新帳號
-          in: body
-          name: '*'
-          required: true
-          schema:
-            $ref: '#/definitions/accounts.Update'
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳號ID
+        in: path
+        name: accountID
+        required: true
+        type: string
+      - description: 更新帳號
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.Update'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 刪除單一帳號
       tags:
-        - account
+      - account
     get:
       consumes:
-        - application/json
+      - application/json
       description: 取得單一帳號
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 帳號ID
-          in: path
-          name: accountID
-          required: true
-          type: string
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳號ID
+        in: path
+        name: accountID
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    $ref: '#/definitions/accounts.Single'
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/accounts.Single'
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 取得單一帳號
       tags:
-        - account
+      - account
     patch:
       consumes:
-        - application/json
+      - application/json
       description: 更新單一帳號
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 帳號ID
-          in: path
-          name: accountID
-          required: true
-          type: string
-        - description: 更新帳號
-          in: body
-          name: '*'
-          required: true
-          schema:
-            $ref: '#/definitions/accounts.Update'
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳號ID
+        in: path
+        name: accountID
+        required: true
+        type: string
+      - description: 更新帳號
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.Update'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 更新單一帳號
       tags:
-        - account
+      - account
   /authority/v1.0/customer:
     get:
       consumes:
-        - application/json
+      - application/json
       description: 取得全部客戶
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 目前頁數,請從1開始帶入
-          in: query
-          name: page
-          required: true
-          type: integer
-        - description: 一次回傳比數,請從1開始帶入,最高上限20
-          in: query
-          name: limit
-          required: true
-          type: integer
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    $ref: '#/definitions/customers.List'
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/customers.List'
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 取得全部客戶
       tags:
-        - customer
+      - customer
     post:
       consumes:
-        - application/json
+      - application/json
       description: 新增客戶
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 新增客戶
-          in: body
-          name: '*'
-          required: true
-          schema:
-            $ref: '#/definitions/customers.Create'
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增客戶
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/customers.Create'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 新增客戶
       tags:
-        - customer
+      - customer
   /authority/v1.0/customer/{customerID}:
     delete:
       consumes:
-        - application/json
+      - application/json
       description: 刪除單一客戶
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 客戶ID
-          in: path
-          name: customerID
-          required: true
-          type: string
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 客戶ID
+        in: path
+        name: customerID
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 刪除單一客戶
       tags:
-        - customer
+      - customer
     get:
       consumes:
-        - application/json
+      - application/json
       description: 取得單一客戶
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 客戶ID
-          in: path
-          name: customerID
-          required: true
-          type: string
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 客戶ID
+        in: path
+        name: customerID
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    $ref: '#/definitions/customers.Single'
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/customers.Single'
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 取得單一客戶
       tags:
-        - customer
+      - customer
     patch:
       consumes:
-        - application/json
+      - application/json
       description: 更新單一客戶
       parameters:
-        - description: JWE Token
-          in: header
-          name: Authorization
-          required: true
-          type: string
-        - description: 客戶ID
-          in: path
-          name: customerID
-          required: true
-          type: string
-        - description: 更新客戶
-          in: body
-          name: '*'
-          required: true
-          schema:
-            $ref: '#/definitions/customers.Update'
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 客戶ID
+        in: path
+        name: customerID
+        required: true
+        type: string
+      - description: 更新客戶
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/customers.Update'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: 成功後返回的值
           schema:
             allOf:
-              - $ref: '#/definitions/code.SuccessfulMessage'
-              - properties:
-                  body:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
         "415":
           description: 必要欄位帶入錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
         "500":
           description: 伺服器非預期錯誤
           schema:
             allOf:
-              - $ref: '#/definitions/code.ErrorMessage'
-              - properties:
-                  detailed:
-                    type: string
-                type: object
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
       summary: 更新單一客戶
       tags:
-        - customer
+      - customer
+  /authority/v1.0/user:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部使用者
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/users.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部使用者
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      description: 新增使用者
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增使用者
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/users.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增使用者
+      tags:
+      - user
+  /authority/v1.0/user/{userID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一使用者
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 使用者ID
+        in: path
+        name: userID
+        required: true
+        type: string
+      - description: 更新使用者
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/users.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一使用者
+      tags:
+      - user
+    get:
+      consumes:
+      - application/json
+      description: 取得單一使用者
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 使用者ID
+        in: path
+        name: userID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/users.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一使用者
+      tags:
+      - user
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一使用者
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 使用者ID
+        in: path
+        name: userID
+        required: true
+        type: string
+      - description: 更新使用者
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/users.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一使用者
+      tags:
+      - user
 schemes:
-  - https
+- https
 swagger: "2.0"
