@@ -1,14 +1,12 @@
 package user
 
 import (
-	"encoding/json"
-	"errors"
-
-	"app.eirc/internal/interactor/pkg/util/encryption"
-	"app.eirc/internal/interactor/pkg/util/hash"
-
 	db "app.eirc/internal/entity/postgresql/db/users"
 	store "app.eirc/internal/entity/postgresql/user"
+	"app.eirc/internal/interactor/pkg/util/encryption"
+	"app.eirc/internal/interactor/pkg/util/hash"
+	"encoding/json"
+	"errors"
 
 	model "app.eirc/internal/interactor/models/users"
 	"app.eirc/internal/interactor/pkg/util"
