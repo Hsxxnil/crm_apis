@@ -3,7 +3,7 @@ GET http://localhost:8080/authority/v1.0/user?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/user/06a4c768-4533-4147-abdb-90fea344d335
+GET http://localhost:8080/authority/v1.0/user/461adaaf-1e55-4313-a7e3-d4450d7214fb
 Accept: application/json
 
 ### Create
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/user/06a4c768-4533-4147-abdb-90fea344d335
+PATCH http://localhost:8080/authority/v1.0/user/461adaaf-1e55-4313-a7e3-d4450d7214fb
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/user/06a4c768-4533-4147-abdb-90fea344d335
+DELETE http://localhost:8080/authority/v1.0/user/461adaaf-1e55-4313-a7e3-d4450d7214fb
 Content-Type: application/json
 
 {
