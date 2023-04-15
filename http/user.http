@@ -11,11 +11,11 @@ POST http://localhost:8080/authority/v1.0/user
 Content-Type: application/json
 
 {
-  "user_name": "test",
+  "user_name": "test1",
   "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "email": "test@test.com",
-  "name": "test",
+  "email": "test1@test.com",
+  "name": "test1",
   "password": "12345",
   "phone_number": "123"
 }
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/user/461adaaf-1e55-4313-a7e3-d4450d7214fb
+DELETE http://localhost:8080/authority/v1.0/user/cdb41da6-56ea-4674-abfc-36ee6472760b
 Content-Type: application/json
 
 {

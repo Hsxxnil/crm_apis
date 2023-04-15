@@ -44,7 +44,11 @@ func (j *JWE) Create() (*JWE, error) {
 	}
 
 	key, _ := pem.Decode([]byte(j.PublicKey))
-	public, _ := x509.ParsePKIXPublicKey(key.Bytes)
+	public, err := x509.ParsePKIXPublicKey(key.Bytes)
+	if err != nil {
+		return nil, err
+	}
+
 	publicKey := public.(*rsa.PublicKey)
 	token := jwt.New()
 	_ = token.Set(jwt.IssuerKey, j.IssuerKey)

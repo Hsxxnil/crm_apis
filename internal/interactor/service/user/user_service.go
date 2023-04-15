@@ -1,12 +1,13 @@
 package user
 
 import (
+	"encoding/json"
+	"errors"
+
 	db "app.eirc/internal/entity/postgresql/db/users"
 	store "app.eirc/internal/entity/postgresql/user"
 	"app.eirc/internal/interactor/pkg/util/encryption"
 	"app.eirc/internal/interactor/pkg/util/hash"
-	"encoding/json"
-	"errors"
 
 	model "app.eirc/internal/interactor/models/users"
 	"app.eirc/internal/interactor/pkg/util"
@@ -23,6 +24,7 @@ type Service interface {
 	GetByQuantity(input *model.Field) (quantity int64, err error)
 	Update(input *model.Update) (err error)
 	Delete(input *model.Update) (err error)
+	AcknowledgeUser(input *model.Field) (acknowledge bool, output []*db.Base, err error)
 }
 
 type service struct {
@@ -257,4 +259,57 @@ func (s *service) GetByQuantity(input *model.Field) (quantity int64, err error) 
 	}
 
 	return quantity, nil
+}
+
+func (s *service) AcknowledgeUser(input *model.Field) (acknowledge bool, output []*db.Base, err error) {
+	field := &db.Base{}
+	marshal, err := json.Marshal(input)
+	if err != nil {
+		log.Error(err)
+		return false, nil, err
+	}
+
+	err = json.Unmarshal(marshal, &field)
+	if err != nil {
+		log.Error(err)
+		return false, nil, err
+	}
+
+	field.IsDeleted = util.PointerBool(false)
+	field.Limit = 20
+	quantity, fields, err := s.Repository.GetByList(field)
+	if err != nil {
+		log.Error(err)
+		return false, output, err
+	}
+
+	if quantity == 0 {
+		return false, nil, errors.New("account error")
+	}
+
+	key := "423CD5C09F7DD58950F1E494099EB075"
+	input.Password = util.PointerString(hash.HmacSha512(*input.Password, key))
+	password, err := encryption.AesDecryptOFB(hash.Base64StdDecode(fields[0].Password), []byte(key))
+	if err != nil {
+		log.Error(err)
+		return false, nil, err
+	}
+
+	if string(password) != *input.Password {
+		return false, nil, errors.New("incorrect password")
+	}
+
+	marshal, err = json.Marshal(fields)
+	if err != nil {
+		log.Error(err)
+		return false, nil, err
+	}
+
+	err = json.Unmarshal(marshal, &output)
+	if err != nil {
+		log.Error(err)
+		return false, nil, err
+	}
+
+	return true, output, nil
 }

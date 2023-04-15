@@ -27,6 +27,39 @@ definitions:
         example: "2021-07-29T07:23:47Z"
         type: string
     type: object
+  jwx.Refresh:
+    properties:
+      refresh_token:
+        description: 刷新令牌
+        type: string
+    required:
+    - refresh_token
+    type: object
+  jwx.Token:
+    properties:
+      access_token:
+        description: 授權令牌
+        type: string
+      refresh_token:
+        description: 刷新令牌
+        type: string
+    type: object
+  logins.Login:
+    properties:
+      company_id:
+        description: 公司ID
+        type: string
+      password:
+        description: 密碼
+        type: string
+      user_name:
+        description: 使用者名稱
+        type: string
+    required:
+    - company_id
+    - password
+    - user_name
+    type: object
   users.Create:
     properties:
       company_id:
@@ -202,6 +235,96 @@ info:
   title: CRM API
   version: "0.1"
 paths:
+  /authority/v1.0/logins/refresh:
+    post:
+      consumes:
+      - application/json
+      description: 換新的令牌
+      parameters:
+      - description: 登入帶入
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/jwx.Refresh'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/jwx.Token'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: Login.1 換新的令牌
+      tags:
+      - Login
+  /authority/v1.0/logins/web:
+    post:
+      consumes:
+      - application/json
+      description: 使用者登入
+      parameters:
+      - description: 登入帶入
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/logins.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/jwx.Token'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: Login.2 使用者登入
+      tags:
+      - Login
   /authority/v1.0/user:
     get:
       consumes:

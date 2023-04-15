@@ -7,7 +7,7 @@ import (
 	"app.eirc/internal/interactor/pkg/util"
 
 	userModel "app.eirc/internal/interactor/models/users"
-	"app.eirc/internal/interactor/service/user"
+	userService "app.eirc/internal/interactor/service/user"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -23,12 +23,12 @@ type Manager interface {
 }
 
 type manager struct {
-	UserService user.Service
+	UserService userService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		UserService: user.Init(db),
+		UserService: userService.Init(db),
 	}
 }
 
@@ -99,7 +99,10 @@ func (m *manager) GetBySingle(input *userModel.Field) interface{} {
 }
 
 func (m *manager) Delete(input *userModel.Update) interface{} {
-	_, err := m.UserService.GetBySingle(&userModel.Field{UserID: input.UserID, IsDeleted: util.PointerBool(false)})
+	_, err := m.UserService.GetBySingle(&userModel.Field{
+		UserID:    input.UserID,
+		IsDeleted: util.PointerBool(false),
+	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -119,7 +122,10 @@ func (m *manager) Delete(input *userModel.Update) interface{} {
 }
 
 func (m *manager) Update(input *userModel.Update) interface{} {
-	userBase, err := m.UserService.GetBySingle(&userModel.Field{UserID: input.UserID, IsDeleted: util.PointerBool(false)})
+	userBase, err := m.UserService.GetBySingle(&userModel.Field{
+		UserID:    input.UserID,
+		IsDeleted: util.PointerBool(false),
+	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)

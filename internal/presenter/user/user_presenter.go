@@ -6,7 +6,7 @@ import (
 	constant "app.eirc/internal/interactor/constants"
 
 	"app.eirc/internal/interactor/manager/user"
-	"app.eirc/internal/interactor/models/users"
+	userModel "app.eirc/internal/interactor/models/users"
 	"app.eirc/internal/interactor/pkg/util/code"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"github.com/gin-gonic/gin"
@@ -47,7 +47,7 @@ func Init(db *gorm.DB) Control {
 func (c *control) Create(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
-	input := &users.Create{}
+	input := &userModel.Create{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -77,7 +77,7 @@ func (c *control) Create(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/user [get]
 func (c *control) GetByList(ctx *gin.Context) {
-	input := &users.Fields{}
+	input := &userModel.Fields{}
 
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
@@ -109,7 +109,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @Router /authority/v1.0/user/{userID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
 	userID := ctx.Param("userID") // 跟router對應
-	input := &users.Field{}
+	input := &userModel.Field{}
 	input.UserID = userID
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
@@ -139,7 +139,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 func (c *control) Delete(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	userID := ctx.Param("userID")
-	input := &users.Update{}
+	input := &userModel.Update{}
 	input.UserID = userID
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
@@ -169,7 +169,7 @@ func (c *control) Delete(ctx *gin.Context) {
 func (c *control) Update(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	userID := ctx.Param("userID")
-	input := &users.Update{}
+	input := &userModel.Update{}
 	input.UserID = userID
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
