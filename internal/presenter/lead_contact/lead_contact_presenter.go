@@ -1,12 +1,12 @@
-package user
+package lead_contact
 
 import (
 	"net/http"
 
 	constant "app.eirc/internal/interactor/constants"
 
-	"app.eirc/internal/interactor/manager/user"
-	userModel "app.eirc/internal/interactor/models/users"
+	"app.eirc/internal/interactor/manager/lead_contact"
+	leadContactModel "app.eirc/internal/interactor/models/lead_contacts"
 	"app.eirc/internal/interactor/pkg/util/code"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"github.com/gin-gonic/gin"
@@ -22,32 +22,32 @@ type Control interface {
 }
 
 type control struct {
-	Manager user.Manager
+	Manager lead_contact.Manager
 }
 
 func Init(db *gorm.DB) Control {
 	return &control{
-		Manager: user.Init(db),
+		Manager: lead_contact.Init(db),
 	}
 }
 
 // Create
-// @Summary 新增使用者
-// @description 新增使用者
-// @Tags user
+// @Summary 新增線索聯絡人
+// @description 新增線索聯絡人
+// @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param * body users.Create true "新增使用者"
+// @param * body lead_contacts.Create true "新增線索聯絡人"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /authority/v1.0/users [post]
+// @Router /authority/v1.0/leads/contacts [post]
 func (c *control) Create(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
-	input := &userModel.Create{}
+	input := &leadContactModel.Create{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -55,29 +55,26 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	// input.CompanyID = ctx.MustGet("company_id").(string)
-	// input.CreatedBy = ctx.MustGet("user_id").(string) //從Token去得到UserId
-
 	codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 
 // GetByList
-// @Summary 取得全部使用者
-// @description 取得全部使用者
-// @Tags user
+// @Summary 取得全部線索聯絡人
+// @description 取得全部線索聯絡人
+// @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
 // @param page query int true "目前頁數,請從1開始帶入"
 // @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
-// @success 200 object code.SuccessfulMessage{body=users.List} "成功後返回的值"
+// @success 200 object code.SuccessfulMessage{body=lead_contacts.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /authority/v1.0/users [get]
+// @Router /authority/v1.0/leads/contacts [get]
 func (c *control) GetByList(ctx *gin.Context) {
-	input := &userModel.Fields{}
+	input := &leadContactModel.Fields{}
 
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
@@ -95,22 +92,22 @@ func (c *control) GetByList(ctx *gin.Context) {
 }
 
 // GetBySingle
-// @Summary 取得單一使用者
-// @description 取得單一使用者
-// @Tags user
+// @Summary 取得單一線索聯絡人
+// @description 取得單一線索聯絡人
+// @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param userID path string true "使用者ID"
-// @success 200 object code.SuccessfulMessage{body=users.Single} "成功後返回的值"
+// @param leadContactID path string true "線索聯絡人ID"
+// @success 200 object code.SuccessfulMessage{body=lead_contacts.Single} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /authority/v1.0/users/{userID} [get]
+// @Router /authority/v1.0/leads/contacts/{leadContactID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
-	userID := ctx.Param("userID") // 跟router對應
-	input := &userModel.Field{}
-	input.UserID = userID
+	leadContactID := ctx.Param("leadContactID") // 跟router對應
+	input := &leadContactModel.Field{}
+	input.LeadContactID = leadContactID
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -123,25 +120,24 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 }
 
 // Delete
-// @Summary 刪除單一使用者
-// @description 刪除單一使用者
-// @Tags user
+// @Summary 刪除單一線索聯絡人
+// @description 刪除單一線索聯絡人
+// @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param userID path string true "使用者ID"
-// @param * body users.Update true "更新使用者"
+// @param leadContactID path string true "線索聯絡人ID"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /authority/v1.0/users/{userID} [delete]
+// @Router /authority/v1.0/leads/contacts/{leadContactID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
-	userID := ctx.Param("userID")
-	input := &userModel.Update{}
-	input.UserID = userID
-	if err := ctx.ShouldBindJSON(input); err != nil {
+	leadContactID := ctx.Param("leadContactID")
+	input := &leadContactModel.Field{}
+	input.LeadContactID = leadContactID
+	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
 
@@ -153,24 +149,24 @@ func (c *control) Delete(ctx *gin.Context) {
 }
 
 // Update
-// @Summary 更新單一使用者
-// @description 更新單一使用者
-// @Tags user
+// @Summary 更新單一線索聯絡人
+// @description 更新單一線索聯絡人
+// @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param userID path string true "使用者ID"
-// @param * body users.Update true "更新使用者"
+// @param leadContactID path string true "線索聯絡人ID"
+// @param * body lead_contacts.Update true "更新線索聯絡人"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /authority/v1.0/users/{userID} [patch]
+// @Router /authority/v1.0/leads/contacts/{leadContactID} [patch]
 func (c *control) Update(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
-	userID := ctx.Param("userID")
-	input := &userModel.Update{}
-	input.UserID = userID
+	leadContactID := ctx.Param("leadContactID")
+	input := &leadContactModel.Update{}
+	input.LeadContactID = leadContactID
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))

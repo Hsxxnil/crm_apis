@@ -1,0 +1,33 @@
+### GetByList
+GET http://localhost:8080/authority/v1.0/accounts?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET http://localhost:8080/authority/v1.0/accounts/dced0fc9-3907-45cf-b740-884550e5a793
+Accept: application/json
+
+### Create
+POST http://localhost:8080/authority/v1.0/accounts
+Content-Type: application/json
+
+{
+  "name": "test",
+  "phone_number": "0800000000",
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "account_type_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a"
+}
+
+### Update
+PATCH http://localhost:8080/authority/v1.0/accounts/dced0fc9-3907-45cf-b740-884550e5a793
+Content-Type: application/json
+
+{
+  "phone_number": "0800111111",
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/authority/v1.0/accounts/dced0fc9-3907-45cf-b740-884550e5a793
+Accept: application/json

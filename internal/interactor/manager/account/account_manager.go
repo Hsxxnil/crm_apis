@@ -1,4 +1,4 @@
-package user
+package account
 
 import (
 	"encoding/json"
@@ -6,8 +6,8 @@ import (
 
 	"app.eirc/internal/interactor/pkg/util"
 
-	userModel "app.eirc/internal/interactor/models/users"
-	userService "app.eirc/internal/interactor/service/user"
+	accountModel "app.eirc/internal/interactor/models/accounts"
+	accountService "app.eirc/internal/interactor/service/account"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -15,58 +15,53 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *userModel.Create) interface{}
-	GetByList(input *userModel.Fields) interface{}
-	GetBySingle(input *userModel.Field) interface{}
-	Delete(input *userModel.Update) interface{}
-	Update(input *userModel.Update) interface{}
+	Create(trx *gorm.DB, input *accountModel.Create) interface{}
+	GetByList(input *accountModel.Fields) interface{}
+	GetBySingle(input *accountModel.Field) interface{}
+	Delete(input *accountModel.Field) interface{}
+	Update(input *accountModel.Update) interface{}
 }
 
 type manager struct {
-	UserService userService.Service
+	AccountService accountService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		UserService: userService.Init(db),
+		AccountService: accountService.Init(db),
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *userModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) interface{} {
 	defer trx.Rollback()
 
-	userBase, err := m.UserService.WithTrx(trx).Create(input)
+	accountBase, err := m.AccountService.WithTrx(trx).Create(input)
 	if err != nil {
-		if err.Error() == "user already exists" {
-			return code.GetCodeMessage(code.BadRequest, err.Error())
-		}
-
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, userBase.UserID)
+	return code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }
 
-func (m *manager) GetByList(input *userModel.Fields) interface{} {
-	input.IsDeleted = util.PointerBool(false)
-	output := &userModel.List{}
+func (m *manager) GetByList(input *accountModel.Fields) interface{} {
+	output := &accountModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
-	quantity, userBase, err := m.UserService.GetByList(input)
+	quantity, accountBase, err := m.AccountService.GetByList(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
-	userByte, err := json.Marshal(userBase)
+	accountByte, err := json.Marshal(accountBase)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(userByte, &output.Users)
+	err = json.Unmarshal(accountByte, &output.Accounts)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -75,9 +70,8 @@ func (m *manager) GetByList(input *userModel.Fields) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *userModel.Field) interface{} {
-	input.IsDeleted = util.PointerBool(false)
-	userBase, err := m.UserService.GetBySingle(input)
+func (m *manager) GetBySingle(input *accountModel.Field) interface{} {
+	accountBase, err := m.AccountService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -87,9 +81,9 @@ func (m *manager) GetBySingle(input *userModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	output := &userModel.Single{}
-	userByte, _ := json.Marshal(userBase)
-	err = json.Unmarshal(userByte, &output)
+	output := &accountModel.Single{}
+	accountByte, _ := json.Marshal(accountBase)
+	err = json.Unmarshal(accountByte, &output)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
@@ -98,10 +92,9 @@ func (m *manager) GetBySingle(input *userModel.Field) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *userModel.Update) interface{} {
-	_, err := m.UserService.GetBySingle(&userModel.Field{
-		UserID:    input.UserID,
-		IsDeleted: util.PointerBool(false),
+func (m *manager) Delete(input *accountModel.Field) interface{} {
+	_, err := m.AccountService.GetBySingle(&accountModel.Field{
+		AccountID: input.AccountID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -112,7 +105,7 @@ func (m *manager) Delete(input *userModel.Update) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	err = m.UserService.Delete(input)
+	err = m.AccountService.Delete(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
@@ -121,10 +114,9 @@ func (m *manager) Delete(input *userModel.Update) interface{} {
 	return code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *userModel.Update) interface{} {
-	userBase, err := m.UserService.GetBySingle(&userModel.Field{
-		UserID:    input.UserID,
-		IsDeleted: util.PointerBool(false),
+func (m *manager) Update(input *accountModel.Update) interface{} {
+	accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+		AccountID: input.AccountID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -135,11 +127,11 @@ func (m *manager) Update(input *userModel.Update) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	err = m.UserService.Update(input)
+	err = m.AccountService.Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	return code.GetCodeMessage(code.Successful, userBase.UserID)
+	return code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }
