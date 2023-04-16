@@ -88,11 +88,8 @@ func (r *manager) Login(input *loginsModel.Login) interface{} {
 }
 
 func (r *manager) Refresh(input *jwxModel.Refresh) interface{} {
-
-	publicKey := config.RefreshPublicKey
-
 	j := &jwx.JWT{
-		PublicKey: publicKey,
+		PublicKey: config.RefreshPublicKey,
 		Token:     input.RefreshToken,
 	}
 

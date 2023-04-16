@@ -30,11 +30,9 @@ func (s service) CreateAccessToken(input *model.JWT) (output *model.Token, err e
 		"name":       input.Name,
 	}
 
-	publicKey := config.AccessPublicKey
-
 	accessExpiration := util.NowToUTC().Add(time.Minute * 5).Unix()
 	j := &jwx.JWE{
-		PublicKey:     publicKey,
+		PublicKey:     config.AccessPublicKey,
 		Other:         other,
 		ExpirationKey: accessExpiration,
 	}
@@ -58,11 +56,10 @@ func (s service) CreateRefreshToken(input *model.JWT) (output *model.Token, err 
 	other := map[string]interface{}{
 		"user_id": input.UserID,
 	}
-	privateKey := config.RefreshPrivateKey
 
 	refreshExpiration := util.NowToUTC().Add(time.Hour * 8).Unix()
 	j := &jwx.JWT{
-		PrivateKey:    privateKey,
+		PrivateKey:    config.RefreshPrivateKey,
 		Other:         other,
 		ExpirationKey: refreshExpiration,
 	}
