@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
   "user_name": "test",
-  "password": "12345"
+  "password": "54321"
 }
 
 ### refresh

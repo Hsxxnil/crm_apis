@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
+PATCH http://localhost:8080/authority/v1.0/users/7b4d0504-b632-459b-bd86-761685157ac9
 Content-Type: application/json
 
 {
