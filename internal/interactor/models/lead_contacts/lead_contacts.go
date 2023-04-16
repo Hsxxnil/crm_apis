@@ -7,17 +7,17 @@ import (
 
 // Create struct is used to create achieves
 type Create struct {
-	// 商機線索聯絡人名稱
+	// 線索聯絡人名稱
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
-	// 商機線索聯絡人職稱
+	// 線索聯絡人職稱
 	Title string `json:"title,omitempty"`
-	// 商機線索聯絡人電話
+	// 線索聯絡人電話
 	PhoneNumber string `json:"phone_number,omitempty" binding:"required" validate:"required"`
-	// 商機線索聯絡人行動電話
+	// 線索聯絡人行動電話
 	CellPhone string `json:"cell_phone,omitempty"`
-	// 商機線索聯絡人電子郵件
+	// 線索聯絡人電子郵件
 	Email string `json:"email,omitempty"`
-	// 商機線索聯絡人LINE
+	// 線索聯絡人LINE
 	Line string `json:"line,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
@@ -25,15 +25,15 @@ type Create struct {
 
 // Field is structure file for search
 type Field struct {
-	// 商機線索聯絡人ID
+	// 線索聯絡人ID
 	LeadContactID string `json:"lead_contact_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
-	// 商機線索聯絡人名稱
+	// 線索聯絡人名稱
 	Name *string `json:"name,omitempty" from:"name"`
-	// 商機線索聯絡人職稱
+	// 線索聯絡人職稱
 	Title *string `json:"title,omitempty" from:"title"`
-	// 商機線索聯絡人電話
+	// 線索聯絡人電話
 	PhoneNumber *string `json:"phone_number,omitempty" from:"phone_number"`
-	// 商機線索聯絡人行動電話
+	// 線索聯絡人行動電話
 	CellPhone *string `json:"cell_phone,omitempty" from:"cell_phone"`
 	// 商機線索聯絡人電子郵件
 	Email *string `json:"email,omitempty" from:"email"`

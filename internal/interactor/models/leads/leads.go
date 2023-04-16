@@ -7,9 +7,9 @@ import (
 
 // Create struct is used to create achieves
 type Create struct {
-	// 商機線索狀態
+	// 線索狀態
 	Status string `json:"status,omitempty" binding:"required" validate:"required"`
-	// 商機線索客戶名稱
+	// 線索客戶名稱
 	CompanyName string `json:"company_name,omitempty" binding:"required" validate:"required"`
 	// 商機線索來源ID
 	SourceID string `json:"source_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`

@@ -47,25 +47,25 @@ definitions:
   lead_contacts.Create:
     properties:
       cell_phone:
-        description: 商機線索聯絡人行動電話
+        description: 線索聯絡人行動電話
         type: string
       created_by:
         description: 創建者
         type: string
       email:
-        description: 商機線索聯絡人電子郵件
+        description: 線索聯絡人電子郵件
         type: string
       line:
-        description: 商機線索聯絡人LINE
+        description: 線索聯絡人LINE
         type: string
       name:
-        description: 商機線索聯絡人名稱
+        description: 線索聯絡人名稱
         type: string
       phone_number:
-        description: 商機線索聯絡人電話
+        description: 線索聯絡人電話
         type: string
       title:
-        description: 商機線索聯絡人職稱
+        description: 線索聯絡人職稱
         type: string
     required:
     - created_by
@@ -200,7 +200,7 @@ definitions:
   leads.Create:
     properties:
       company_name:
-        description: 商機線索客戶名稱
+        description: 線索客戶名稱
         type: string
       created_by:
         description: 創建者
@@ -215,7 +215,7 @@ definitions:
         description: 商機線索來源ID
         type: string
       status:
-        description: 商機線索狀態
+        description: 線索狀態
         type: string
     required:
     - company_name
@@ -533,7 +533,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得全部商機線索
+      description: 取得全部線索
       parameters:
       - description: JWE Token
         in: header
@@ -580,20 +580,20 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部商機線索
+      summary: 取得全部線索
       tags:
       - lead
     post:
       consumes:
       - application/json
-      description: 新增商機線索
+      description: 新增線索
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 新增商機線索
+      - description: 新增線索
         in: body
         name: '*'
         required: true
@@ -629,21 +629,21 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 新增商機線索
+      summary: 新增線索
       tags:
       - lead
   /authority/v1.0/leads/{leadID}:
     delete:
       consumes:
       - application/json
-      description: 刪除單一商機線索
+      description: 刪除單一線索
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 商機線索ID
+      - description: 線索ID
         in: path
         name: leadID
         required: true
@@ -678,20 +678,20 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 刪除單一商機線索
+      summary: 刪除單一線索
       tags:
       - lead
     get:
       consumes:
       - application/json
-      description: 取得單一商機線索
+      description: 取得單一線索
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 商機線索ID
+      - description: 線索ID
         in: path
         name: leadID
         required: true
@@ -726,25 +726,25 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得單一商機線索
+      summary: 取得單一線索
       tags:
       - lead
     patch:
       consumes:
       - application/json
-      description: 更新單一商機線索
+      description: 更新單一線索
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 商機線索ID
+      - description: 線索ID
         in: path
         name: leadID
         required: true
         type: string
-      - description: 更新商機線索
+      - description: 更新線索
         in: body
         name: '*'
         required: true
@@ -780,14 +780,14 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 更新單一商機線索
+      summary: 更新單一線索
       tags:
       - lead
   /authority/v1.0/leads/contacts:
     get:
       consumes:
       - application/json
-      description: 取得全部商機線索聯絡人
+      description: 取得全部線索聯絡人
       parameters:
       - description: JWE Token
         in: header
@@ -834,20 +834,20 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部商機線索聯絡人
+      summary: 取得全部線索聯絡人
       tags:
       - lead-contact
     post:
       consumes:
       - application/json
-      description: 新增商機線索聯絡人
+      description: 新增線索聯絡人
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 新增商機線索聯絡人
+      - description: 新增線索聯絡人
         in: body
         name: '*'
         required: true
@@ -883,21 +883,21 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 新增商機線索聯絡人
+      summary: 新增線索聯絡人
       tags:
       - lead-contact
   /authority/v1.0/leads/contacts/{leadContactID}:
     delete:
       consumes:
       - application/json
-      description: 刪除單一商機線索聯絡人
+      description: 刪除單一線索聯絡人
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 商機線索聯絡人ID
+      - description: 線索聯絡人ID
         in: path
         name: leadContactID
         required: true
@@ -932,20 +932,20 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 刪除單一商機線索聯絡人
+      summary: 刪除單一線索聯絡人
       tags:
       - lead-contact
     get:
       consumes:
       - application/json
-      description: 取得單一商機線索聯絡人
+      description: 取得單一線索聯絡人
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 商機線索聯絡人ID
+      - description: 線索聯絡人ID
         in: path
         name: leadContactID
         required: true
@@ -980,13 +980,13 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得單一商機線索聯絡人
+      summary: 取得單一線索聯絡人
       tags:
       - lead-contact
     patch:
       consumes:
       - application/json
-      description: 更新單一商機線索聯絡人
+      description: 更新單一線索聯絡人
       parameters:
       - description: JWE Token
         in: header
@@ -1034,7 +1034,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 更新單一商機線索聯絡人
+      summary: 更新單一線索聯絡人
       tags:
       - lead-contact
   /authority/v1.0/login:

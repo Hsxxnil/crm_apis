@@ -27,7 +27,7 @@ const docTemplate = `{
     "paths": {
         "/authority/v1.0/leads": {
             "get": {
-                "description": "取得全部商機線索",
+                "description": "取得全部線索",
                 "consumes": [
                     "application/json"
                 ],
@@ -37,7 +37,7 @@ const docTemplate = `{
                 "tags": [
                     "lead"
                 ],
-                "summary": "取得全部商機線索",
+                "summary": "取得全部線索",
                 "parameters": [
                     {
                         "type": "string",
@@ -119,7 +119,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "新增商機線索",
+                "description": "新增線索",
                 "consumes": [
                     "application/json"
                 ],
@@ -129,7 +129,7 @@ const docTemplate = `{
                 "tags": [
                     "lead"
                 ],
-                "summary": "新增商機線索",
+                "summary": "新增線索",
                 "parameters": [
                     {
                         "type": "string",
@@ -139,7 +139,7 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "新增商機線索",
+                        "description": "新增線索",
                         "name": "*",
                         "in": "body",
                         "required": true,
@@ -208,7 +208,7 @@ const docTemplate = `{
         },
         "/authority/v1.0/leads/contacts": {
             "get": {
-                "description": "取得全部商機線索聯絡人",
+                "description": "取得全部線索聯絡人",
                 "consumes": [
                     "application/json"
                 ],
@@ -218,7 +218,7 @@ const docTemplate = `{
                 "tags": [
                     "lead-contact"
                 ],
-                "summary": "取得全部商機線索聯絡人",
+                "summary": "取得全部線索聯絡人",
                 "parameters": [
                     {
                         "type": "string",
@@ -300,7 +300,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "新增商機線索聯絡人",
+                "description": "新增線索聯絡人",
                 "consumes": [
                     "application/json"
                 ],
@@ -310,7 +310,7 @@ const docTemplate = `{
                 "tags": [
                     "lead-contact"
                 ],
-                "summary": "新增商機線索聯絡人",
+                "summary": "新增線索聯絡人",
                 "parameters": [
                     {
                         "type": "string",
@@ -320,7 +320,7 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "新增商機線索聯絡人",
+                        "description": "新增線索聯絡人",
                         "name": "*",
                         "in": "body",
                         "required": true,
@@ -389,7 +389,7 @@ const docTemplate = `{
         },
         "/authority/v1.0/leads/contacts/{leadContactID}": {
             "get": {
-                "description": "取得單一商機線索聯絡人",
+                "description": "取得單一線索聯絡人",
                 "consumes": [
                     "application/json"
                 ],
@@ -399,7 +399,7 @@ const docTemplate = `{
                 "tags": [
                     "lead-contact"
                 ],
-                "summary": "取得單一商機線索聯絡人",
+                "summary": "取得單一線索聯絡人",
                 "parameters": [
                     {
                         "type": "string",
@@ -410,7 +410,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "商機線索聯絡人ID",
+                        "description": "線索聯絡人ID",
                         "name": "leadContactID",
                         "in": "path",
                         "required": true
@@ -474,7 +474,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "刪除單一商機線索聯絡人",
+                "description": "刪除單一線索聯絡人",
                 "consumes": [
                     "application/json"
                 ],
@@ -484,7 +484,7 @@ const docTemplate = `{
                 "tags": [
                     "lead-contact"
                 ],
-                "summary": "刪除單一商機線索聯絡人",
+                "summary": "刪除單一線索聯絡人",
                 "parameters": [
                     {
                         "type": "string",
@@ -495,7 +495,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "商機線索聯絡人ID",
+                        "description": "線索聯絡人ID",
                         "name": "leadContactID",
                         "in": "path",
                         "required": true
@@ -559,7 +559,7 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "description": "更新單一商機線索聯絡人",
+                "description": "更新單一線索聯絡人",
                 "consumes": [
                     "application/json"
                 ],
@@ -569,7 +569,7 @@ const docTemplate = `{
                 "tags": [
                     "lead-contact"
                 ],
-                "summary": "更新單一商機線索聯絡人",
+                "summary": "更新單一線索聯絡人",
                 "parameters": [
                     {
                         "type": "string",
@@ -655,7 +655,7 @@ const docTemplate = `{
         },
         "/authority/v1.0/leads/{leadID}": {
             "get": {
-                "description": "取得單一商機線索",
+                "description": "取得單一線索",
                 "consumes": [
                     "application/json"
                 ],
@@ -665,7 +665,7 @@ const docTemplate = `{
                 "tags": [
                     "lead"
                 ],
-                "summary": "取得單一商機線索",
+                "summary": "取得單一線索",
                 "parameters": [
                     {
                         "type": "string",
@@ -676,7 +676,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "商機線索ID",
+                        "description": "線索ID",
                         "name": "leadID",
                         "in": "path",
                         "required": true
@@ -740,7 +740,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "刪除單一商機線索",
+                "description": "刪除單一線索",
                 "consumes": [
                     "application/json"
                 ],
@@ -750,7 +750,7 @@ const docTemplate = `{
                 "tags": [
                     "lead"
                 ],
-                "summary": "刪除單一商機線索",
+                "summary": "刪除單一線索",
                 "parameters": [
                     {
                         "type": "string",
@@ -761,7 +761,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "商機線索ID",
+                        "description": "線索ID",
                         "name": "leadID",
                         "in": "path",
                         "required": true
@@ -825,7 +825,7 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "description": "更新單一商機線索",
+                "description": "更新單一線索",
                 "consumes": [
                     "application/json"
                 ],
@@ -835,7 +835,7 @@ const docTemplate = `{
                 "tags": [
                     "lead"
                 ],
-                "summary": "更新單一商機線索",
+                "summary": "更新單一線索",
                 "parameters": [
                     {
                         "type": "string",
@@ -846,13 +846,13 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "商機線索ID",
+                        "description": "線索ID",
                         "name": "leadID",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "更新商機線索",
+                        "description": "更新線索",
                         "name": "*",
                         "in": "body",
                         "required": true,
@@ -1613,7 +1613,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "cell_phone": {
-                    "description": "商機線索聯絡人行動電話",
+                    "description": "線索聯絡人行動電話",
                     "type": "string"
                 },
                 "created_by": {
@@ -1621,23 +1621,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "email": {
-                    "description": "商機線索聯絡人電子郵件",
+                    "description": "線索聯絡人電子郵件",
                     "type": "string"
                 },
                 "line": {
-                    "description": "商機線索聯絡人LINE",
+                    "description": "線索聯絡人LINE",
                     "type": "string"
                 },
                 "name": {
-                    "description": "商機線索聯絡人名稱",
+                    "description": "線索聯絡人名稱",
                     "type": "string"
                 },
                 "phone_number": {
-                    "description": "商機線索聯絡人電話",
+                    "description": "線索聯絡人電話",
                     "type": "string"
                 },
                 "title": {
-                    "description": "商機線索聯絡人職稱",
+                    "description": "線索聯絡人職稱",
                     "type": "string"
                 }
             }
@@ -1822,7 +1822,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "company_name": {
-                    "description": "商機線索客戶名稱",
+                    "description": "線索客戶名稱",
                     "type": "string"
                 },
                 "created_by": {
@@ -1842,7 +1842,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "status": {
-                    "description": "商機線索狀態",
+                    "description": "線索狀態",
                     "type": "string"
                 }
             }

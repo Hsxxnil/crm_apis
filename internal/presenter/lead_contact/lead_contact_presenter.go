@@ -32,20 +32,20 @@ func Init(db *gorm.DB) Control {
 }
 
 // Create
-// @Summary 新增商機線索聯絡人
-// @description 新增商機線索聯絡人
+// @Summary 新增線索聯絡人
+// @description 新增線索聯絡人
 // @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param * body lead_contacts.Create true "新增商機線索聯絡人"
+// @param * body lead_contacts.Create true "新增線索聯絡人"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/leads/contacts [post]
 func (c *control) Create(ctx *gin.Context) {
-	// Todo 將UUID改成登入的商機線索聯絡人
+	// Todo 將UUID改成登入的線索聯絡人
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	input := &leadContactModel.Create{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
@@ -60,8 +60,8 @@ func (c *control) Create(ctx *gin.Context) {
 }
 
 // GetByList
-// @Summary 取得全部商機線索聯絡人
-// @description 取得全部商機線索聯絡人
+// @Summary 取得全部線索聯絡人
+// @description 取得全部線索聯絡人
 // @Tags lead-contact
 // @version 1.0
 // @Accept json
@@ -92,14 +92,14 @@ func (c *control) GetByList(ctx *gin.Context) {
 }
 
 // GetBySingle
-// @Summary 取得單一商機線索聯絡人
-// @description 取得單一商機線索聯絡人
+// @Summary 取得單一線索聯絡人
+// @description 取得單一線索聯絡人
 // @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param leadContactID path string true "商機線索聯絡人ID"
+// @param leadContactID path string true "線索聯絡人ID"
 // @success 200 object code.SuccessfulMessage{body=lead_contacts.Single} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
@@ -120,20 +120,20 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 }
 
 // Delete
-// @Summary 刪除單一商機線索聯絡人
-// @description 刪除單一商機線索聯絡人
+// @Summary 刪除單一線索聯絡人
+// @description 刪除單一線索聯絡人
 // @Tags lead-contact
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param leadContactID path string true "商機線索聯絡人ID"
+// @param leadContactID path string true "線索聯絡人ID"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/leads/contacts/{leadContactID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
-	// Todo 將UUID改成登入的商機線索聯絡人
+	// Todo 將UUID改成登入的線索聯絡人
 	leadContactID := ctx.Param("leadContactID")
 	input := &leadContactModel.Field{}
 	input.LeadContactID = leadContactID
@@ -149,8 +149,8 @@ func (c *control) Delete(ctx *gin.Context) {
 }
 
 // Update
-// @Summary 更新單一商機線索聯絡人
-// @description 更新單一商機線索聯絡人
+// @Summary 更新單一線索聯絡人
+// @description 更新單一線索聯絡人
 // @Tags lead-contact
 // @version 1.0
 // @Accept json
