@@ -10,10 +10,10 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "https://inherited.app/",
+        "termsOfService": "https://eirc.app/",
         "contact": {
             "name": "API System Support",
-            "url": "https://inherited.app/",
+            "url": "https://eirc.app/",
             "email": "eirc8888@gmail.com"
         },
         "license": {
@@ -2909,7 +2909,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.1",
-	Host:             "api.testing.whisky.inherited.app",
+	Host:             "api.testing.eirc",
 	BasePath:         "/",
 	Schemes:          []string{"https"},
 	Title:            "CRM API",

@@ -6,10 +6,10 @@
     "info": {
         "description": "CRM API",
         "title": "CRM API",
-        "termsOfService": "https://inherited.app/",
+        "termsOfService": "https://eirc.app/",
         "contact": {
             "name": "API System Support",
-            "url": "https://inherited.app/",
+            "url": "https://eirc.app/",
             "email": "eirc8888@gmail.com"
         },
         "license": {
@@ -18,7 +18,7 @@
         },
         "version": "0.1"
     },
-    "host": "api.testing.whisky.inherited.app",
+    "host": "api.testing.eirc",
     "basePath": "/",
     "paths": {
         "/authority/v1.0/accounts": {
