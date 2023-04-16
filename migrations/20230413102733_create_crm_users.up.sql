@@ -2,7 +2,7 @@ create table crm_users
 (
     user_id      uuid      default uuid_generate_v4() not null
         primary key,
-    company_id   uuid      default '00000000-0000-0000-0000-000000000000'::uuid,
+    company_id   uuid                                 not null,
     user_name    varchar   default '':: varchar not null,
     name         varchar   default '':: varchar not null,
     password     varchar   default '':: varchar not null,
