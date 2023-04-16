@@ -1,0 +1,44 @@
+create table crm_accounts
+(
+    account_id        uuid      default uuid_generate_v4() not null
+        primary key,
+    name              text      default '':: text not null,
+    phone_number      text,
+    account_type_id   uuid                                 not null,
+    industry_id       uuid                                 not null,
+    parent_account_id uuid                                 not null,
+    created_at        timestamp default now()              not null,
+    created_by        uuid                                 not null,
+    updated_at        timestamp default now()              not null,
+    updated_by        uuid                                 not null
+);
+
+create index idx_crm_accounts_account_id
+    on crm_accounts using hash (account_id);
+
+create index idx_crm_accounts_name
+    on crm_accounts using gin (name gin_trgm_ops);
+
+create index idx_crm_accounts_phone_number
+    on crm_accounts using gin (phone_number gin_trgm_ops);
+
+create index idx_crm_accounts_account_type_id
+    on crm_accounts using hash (account_type_id);
+
+create index idx_crm_accounts_industry_id
+    on crm_accounts using hash (industry_id);
+
+create index idx_crm_accounts_parent_account_id
+    on crm_accounts using hash (parent_account_id);
+
+create index idx_crm_accounts_created_at
+    on crm_accounts (created_at desc);
+
+create index idx_crm_accounts_created_by
+    on crm_accounts using hash (created_by);
+
+create index idx_crm_accounts_updated_at
+    on crm_accounts (updated_at desc);
+
+create index idx_crm_accounts_updated_by
+    on crm_accounts using hash (updated_by);

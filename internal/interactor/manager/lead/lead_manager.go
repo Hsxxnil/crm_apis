@@ -37,10 +37,6 @@ func (m *manager) Create(trx *gorm.DB, input *leadModel.Create) interface{} {
 
 	leadBase, err := m.LeadService.WithTrx(trx).Create(input)
 	if err != nil {
-		if err.Error() == "lead already exists" {
-			return code.GetCodeMessage(code.BadRequest, err.Error())
-		}
-
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}

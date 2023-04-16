@@ -45,7 +45,7 @@ func Init(db *gorm.DB) Control {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/leads [post]
 func (c *control) Create(ctx *gin.Context) {
-	// Todo 將UUID改成登入的線索
+	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	input := &leadModel.Create{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
@@ -133,7 +133,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/leads/{leadID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
-	// Todo 將UUID改成登入的線索
+	// Todo 將UUID改成登入的使用者
 	leadID := ctx.Param("leadID")
 	input := &leadModel.Field{}
 	input.LeadID = leadID
@@ -163,7 +163,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/leads/{leadID} [patch]
 func (c *control) Update(ctx *gin.Context) {
-	// Todo 將UUID改成登入的線索
+	// Todo 將UUID改成登入的使用者
 	leadID := ctx.Param("leadID")
 	input := &leadModel.Update{}
 	input.LeadID = leadID

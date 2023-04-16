@@ -1,4 +1,4 @@
-package lead_contact
+package account
 
 import (
 	"encoding/json"
@@ -6,8 +6,8 @@ import (
 
 	"app.eirc/internal/interactor/pkg/util"
 
-	leadContactModel "app.eirc/internal/interactor/models/lead_contacts"
-	leadContactService "app.eirc/internal/interactor/service/lead_contact"
+	accountModel "app.eirc/internal/interactor/models/accounts"
+	accountService "app.eirc/internal/interactor/service/account"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -15,53 +15,53 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *leadContactModel.Create) interface{}
-	GetByList(input *leadContactModel.Fields) interface{}
-	GetBySingle(input *leadContactModel.Field) interface{}
-	Delete(input *leadContactModel.Field) interface{}
-	Update(input *leadContactModel.Update) interface{}
+	Create(trx *gorm.DB, input *accountModel.Create) interface{}
+	GetByList(input *accountModel.Fields) interface{}
+	GetBySingle(input *accountModel.Field) interface{}
+	Delete(input *accountModel.Field) interface{}
+	Update(input *accountModel.Update) interface{}
 }
 
 type manager struct {
-	LeadContactService leadContactService.Service
+	AccountService accountService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		LeadContactService: leadContactService.Init(db),
+		AccountService: accountService.Init(db),
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *leadContactModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) interface{} {
 	defer trx.Rollback()
 
-	leadBase, err := m.LeadContactService.WithTrx(trx).Create(input)
+	accountBase, err := m.AccountService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, leadBase.LeadContactID)
+	return code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }
 
-func (m *manager) GetByList(input *leadContactModel.Fields) interface{} {
-	output := &leadContactModel.List{}
+func (m *manager) GetByList(input *accountModel.Fields) interface{} {
+	output := &accountModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
-	quantity, leadBase, err := m.LeadContactService.GetByList(input)
+	quantity, accountBase, err := m.AccountService.GetByList(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
-	leadByte, err := json.Marshal(leadBase)
+	accountByte, err := json.Marshal(accountBase)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(leadByte, &output.LeadContacts)
+	err = json.Unmarshal(accountByte, &output.Accounts)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -70,8 +70,8 @@ func (m *manager) GetByList(input *leadContactModel.Fields) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *leadContactModel.Field) interface{} {
-	leadBase, err := m.LeadContactService.GetBySingle(input)
+func (m *manager) GetBySingle(input *accountModel.Field) interface{} {
+	accountBase, err := m.AccountService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -81,9 +81,9 @@ func (m *manager) GetBySingle(input *leadContactModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	output := &leadContactModel.Single{}
-	leadByte, _ := json.Marshal(leadBase)
-	err = json.Unmarshal(leadByte, &output)
+	output := &accountModel.Single{}
+	accountByte, _ := json.Marshal(accountBase)
+	err = json.Unmarshal(accountByte, &output)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
@@ -92,9 +92,9 @@ func (m *manager) GetBySingle(input *leadContactModel.Field) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *leadContactModel.Field) interface{} {
-	_, err := m.LeadContactService.GetBySingle(&leadContactModel.Field{
-		LeadContactID: input.LeadContactID,
+func (m *manager) Delete(input *accountModel.Field) interface{} {
+	_, err := m.AccountService.GetBySingle(&accountModel.Field{
+		AccountID: input.AccountID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -105,7 +105,7 @@ func (m *manager) Delete(input *leadContactModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	err = m.LeadContactService.Delete(input)
+	err = m.AccountService.Delete(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
@@ -114,9 +114,9 @@ func (m *manager) Delete(input *leadContactModel.Field) interface{} {
 	return code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *leadContactModel.Update) interface{} {
-	leadBase, err := m.LeadContactService.GetBySingle(&leadContactModel.Field{
-		LeadContactID: input.LeadContactID,
+func (m *manager) Update(input *accountModel.Update) interface{} {
+	accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+		AccountID: input.AccountID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -127,11 +127,11 @@ func (m *manager) Update(input *leadContactModel.Update) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	err = m.LeadContactService.Update(input)
+	err = m.AccountService.Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	return code.GetCodeMessage(code.Successful, leadBase.LeadContactID)
+	return code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }
