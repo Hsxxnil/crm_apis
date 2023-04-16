@@ -3,9 +3,9 @@ create table crm_users
     user_id      uuid      default uuid_generate_v4() not null
         primary key,
     company_id   uuid                                 not null,
-    user_name    varchar   default '':: varchar not null,
-    name         varchar   default '':: varchar not null,
-    password     varchar   default '':: varchar not null,
+    user_name    text      default '':: text not null,
+    name         text      default '':: text not null,
+    password     text      default '':: text not null,
     is_deleted   bool      default false              not null,
     phone_number text,
     email        text,
@@ -19,13 +19,13 @@ create index idx_crm_users_user_id
     on crm_users using hash (user_id);
 
 create index idx_crm_users_user_name
-    on crm_users (user_name);
+    on crm_users using gin (user_name gin_trgm_ops);
 
 create unique index uidx_crm_users_user_name
     on crm_users (user_name);
 
 create index idx_crm_users_name
-    on crm_users (name);
+    on crm_users using gin (name gin_trgm_ops);
 
 create index idx_crm_users_phone_number
     on crm_users using gin (phone_number gin_trgm_ops);

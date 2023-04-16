@@ -11,11 +11,11 @@ type Table struct {
 	// 公司ID
 	CompanyID string `gorm:"column:company_id;type:uuid;not null;" json:"company_id"`
 	// 使用者名稱
-	UserName string `gorm:"column:user_name;type:varchar;not null;" json:"user_name"`
+	UserName string `gorm:"column:user_name;type:text;not null;" json:"user_name"`
 	// 中文名稱
-	Name string `gorm:"column:name;type:varchar;not null;" json:"name"`
+	Name string `gorm:"column:name;type:text;not null;" json:"name"`
 	// 密碼
-	Password string `gorm:"column:password;type:varchar;not null;" json:"password"`
+	Password string `gorm:"column:password;type:text;not null;" json:"password"`
 	// 是否刪除
 	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;default:false" json:"is_deleted"`
 	// 電話
