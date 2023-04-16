@@ -29,17 +29,17 @@ type Table struct {
 type Base struct {
 	// 線索聯絡人ID
 	LeadContactID *string `json:"lead_contact_id,omitempty"`
-	// 商機線索聯絡人名稱
+	// 線索聯絡人名稱
 	Name *string `json:"name,omitempty"`
-	// 商機線索聯絡人職稱
+	// 線索聯絡人職稱
 	Title *string `json:"title,omitempty"`
-	// 商機線索聯絡人電話
+	// 線索聯絡人電話
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// 商機線索聯絡人行動電話
+	// 線索聯絡人行動電話
 	CellPhone *string `json:"cell_phone,omitempty"`
-	// 商機線索聯絡人電子郵件
+	// 線索聯絡人電子郵件
 	Email *string `json:"email,omitempty"`
-	// 商機線索聯絡人LINE
+	// 線索聯絡人LINE
 	Line *string `json:"line,omitempty"`
 	// 線索ID
 	LeadID *string `json:"lead_id,omitempty"`

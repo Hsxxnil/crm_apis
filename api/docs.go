@@ -580,13 +580,13 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "商機線索聯絡人ID",
+                        "description": "線索聯絡人ID",
                         "name": "leadContactID",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "更新商機線索聯絡人",
+                        "description": "更新線索聯絡人",
                         "name": "*",
                         "in": "body",
                         "required": true,
@@ -1661,7 +1661,7 @@ const docTemplate = `{
                         "type": "object",
                         "properties": {
                             "cell_phone": {
-                                "description": "商機線索聯絡人行動電話",
+                                "description": "線索聯絡人行動電話",
                                 "type": "string"
                             },
                             "created_at": {
@@ -1677,11 +1677,11 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "email": {
-                                "description": "商機線索聯絡人電子郵件",
+                                "description": "線索聯絡人電子郵件",
                                 "type": "string"
                             },
                             "lead_contact_id": {
-                                "description": "商機線索聯絡人ID",
+                                "description": "線索聯絡人ID",
                                 "type": "string"
                             },
                             "lead_id": {
@@ -1689,19 +1689,19 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "line": {
-                                "description": "商機線索聯絡人LINE",
+                                "description": "線索聯絡人LINE",
                                 "type": "string"
                             },
                             "name": {
-                                "description": "商機線索聯絡人名稱",
+                                "description": "線索聯絡人名稱",
                                 "type": "string"
                             },
                             "phone_number": {
-                                "description": "商機線索聯絡人電話",
+                                "description": "線索聯絡人電話",
                                 "type": "string"
                             },
                             "title": {
-                                "description": "商機線索聯絡人職稱",
+                                "description": "線索聯絡人職稱",
                                 "type": "string"
                             },
                             "updated_at": {
@@ -1737,7 +1737,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "cell_phone": {
-                    "description": "商機線索聯絡人行動電話",
+                    "description": "線索聯絡人行動電話",
                     "type": "string"
                 },
                 "created_at": {
@@ -1753,11 +1753,11 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "email": {
-                    "description": "商機線索聯絡人電子郵件",
+                    "description": "線索聯絡人電子郵件",
                     "type": "string"
                 },
                 "lead_contact_id": {
-                    "description": "商機線索聯絡人ID",
+                    "description": "線索聯絡人ID",
                     "type": "string"
                 },
                 "lead_id": {
@@ -1765,19 +1765,19 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "line": {
-                    "description": "商機線索聯絡人LINE",
+                    "description": "線索聯絡人LINE",
                     "type": "string"
                 },
                 "name": {
-                    "description": "商機線索聯絡人名稱",
+                    "description": "線索聯絡人名稱",
                     "type": "string"
                 },
                 "phone_number": {
-                    "description": "商機線索聯絡人電話",
+                    "description": "線索聯絡人電話",
                     "type": "string"
                 },
                 "title": {
-                    "description": "商機線索聯絡人職稱",
+                    "description": "線索聯絡人職稱",
                     "type": "string"
                 },
                 "updated_at": {
@@ -1797,11 +1797,11 @@ const docTemplate = `{
             ],
             "properties": {
                 "cell_phone": {
-                    "description": "商機線索聯絡人行動電話",
+                    "description": "線索聯絡人行動電話",
                     "type": "string"
                 },
                 "email": {
-                    "description": "商機線索聯絡人電子郵件",
+                    "description": "線索聯絡人電子郵件",
                     "type": "string"
                 },
                 "lead_id": {
@@ -1809,19 +1809,19 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "line": {
-                    "description": "商機線索聯絡人LINE",
+                    "description": "線索聯絡人LINE",
                     "type": "string"
                 },
                 "name": {
-                    "description": "商機線索聯絡人名稱",
+                    "description": "線索聯絡人名稱",
                     "type": "string"
                 },
                 "phone_number": {
-                    "description": "商機線索聯絡人電話",
+                    "description": "線索聯絡人電話",
                     "type": "string"
                 },
                 "title": {
-                    "description": "商機線索聯絡人職稱",
+                    "description": "線索聯絡人職稱",
                     "type": "string"
                 },
                 "updated_by": {
@@ -1847,15 +1847,15 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "industry_id": {
-                    "description": "商機線索客戶行業ID",
+                    "description": "線索客戶行業ID",
                     "type": "string"
                 },
                 "rating": {
-                    "description": "商機線索分級",
+                    "description": "線索分級",
                     "type": "string"
                 },
                 "source_id": {
-                    "description": "商機線索來源ID",
+                    "description": "線索來源ID",
                     "type": "string"
                 },
                 "status": {
@@ -1878,7 +1878,7 @@ const docTemplate = `{
                         "type": "object",
                         "properties": {
                             "company_name": {
-                                "description": "商機線索客戶名稱",
+                                "description": "線索客戶名稱",
                                 "type": "string"
                             },
                             "created_at": {
@@ -1894,23 +1894,23 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "industry_id": {
-                                "description": "商機線索客戶行業ID",
+                                "description": "線索客戶行業ID",
                                 "type": "string"
                             },
                             "lead_id": {
-                                "description": "商機線索ID",
+                                "description": "線索ID",
                                 "type": "string"
                             },
                             "rating": {
-                                "description": "商機線索分級",
+                                "description": "線索分級",
                                 "type": "string"
                             },
                             "source_id": {
-                                "description": "商機線索來源ID",
+                                "description": "線索來源ID",
                                 "type": "string"
                             },
                             "status": {
-                                "description": "商機線索狀態",
+                                "description": "線索狀態",
                                 "type": "string"
                             },
                             "updated_at": {
@@ -1946,7 +1946,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "company_name": {
-                    "description": "商機線索客戶名稱",
+                    "description": "線索客戶名稱",
                     "type": "string"
                 },
                 "created_at": {
@@ -1962,23 +1962,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "industry_id": {
-                    "description": "商機線索客戶行業ID",
+                    "description": "線索客戶行業ID",
                     "type": "string"
                 },
                 "lead_id": {
-                    "description": "商機線索ID",
+                    "description": "線索ID",
                     "type": "string"
                 },
                 "rating": {
-                    "description": "商機線索分級",
+                    "description": "線索分級",
                     "type": "string"
                 },
                 "source_id": {
-                    "description": "商機線索來源ID",
+                    "description": "線索來源ID",
                     "type": "string"
                 },
                 "status": {
-                    "description": "商機線索狀態",
+                    "description": "線索狀態",
                     "type": "string"
                 },
                 "updated_at": {
@@ -1998,23 +1998,23 @@ const docTemplate = `{
             ],
             "properties": {
                 "company_name": {
-                    "description": "商機線索客戶名稱",
+                    "description": "線索客戶名稱",
                     "type": "string"
                 },
                 "industry_id": {
-                    "description": "商機線索客戶行業ID",
+                    "description": "線索客戶行業ID",
                     "type": "string"
                 },
                 "rating": {
-                    "description": "商機線索分級",
+                    "description": "線索分級",
                     "type": "string"
                 },
                 "source_id": {
-                    "description": "商機線索來源ID",
+                    "description": "線索來源ID",
                     "type": "string"
                 },
                 "status": {
-                    "description": "商機線索狀態",
+                    "description": "線索狀態",
                     "type": "string"
                 },
                 "updated_by": {

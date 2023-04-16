@@ -37,9 +37,9 @@ type Field struct {
 	PhoneNumber *string `json:"phone_number,omitempty" from:"phone_number"`
 	// 線索聯絡人行動電話
 	CellPhone *string `json:"cell_phone,omitempty" from:"cell_phone"`
-	// 商機線索聯絡人電子郵件
+	// 線索聯絡人電子郵件
 	Email *string `json:"email,omitempty" from:"email"`
-	// 商機線索聯絡人LINE
+	// 線索聯絡人LINE
 	Line *string `json:"line,omitempty" from:"line"`
 	// 線索ID
 	LeadID *string `json:"lead_id,omitempty" from:"lead_id"`
@@ -57,19 +57,19 @@ type Fields struct {
 type List struct {
 	// 多筆
 	LeadContacts []*struct {
-		// 商機線索聯絡人ID
+		// 線索聯絡人ID
 		LeadContactID string `json:"lead_contact_id,omitempty"`
-		// 商機線索聯絡人名稱
+		// 線索聯絡人名稱
 		Name string `json:"name,omitempty"`
-		// 商機線索聯絡人職稱
+		// 線索聯絡人職稱
 		Title string `json:"title,omitempty"`
-		// 商機線索聯絡人電話
+		// 線索聯絡人電話
 		PhoneNumber string `json:"phone_number,omitempty"`
-		// 商機線索聯絡人行動電話
+		// 線索聯絡人行動電話
 		CellPhone string `json:"cell_phone,omitempty"`
-		// 商機線索聯絡人電子郵件
+		// 線索聯絡人電子郵件
 		Email string `json:"email,omitempty"`
-		// 商機線索聯絡人LINE
+		// 線索聯絡人LINE
 		Line string `json:"line,omitempty"`
 		// 線索ID
 		LeadID string `json:"lead_id,omitempty"`
@@ -86,19 +86,19 @@ type List struct {
 
 // Single return structure file
 type Single struct {
-	// 商機線索聯絡人ID
+	// 線索聯絡人ID
 	LeadContactID string `json:"lead_contact_id,omitempty"`
-	// 商機線索聯絡人名稱
+	// 線索聯絡人名稱
 	Name string `json:"name,omitempty"`
-	// 商機線索聯絡人職稱
+	// 線索聯絡人職稱
 	Title string `json:"title,omitempty"`
-	// 商機線索聯絡人電話
+	// 線索聯絡人電話
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// 商機線索聯絡人行動電話
+	// 線索聯絡人行動電話
 	CellPhone string `json:"cell_phone,omitempty"`
-	// 商機線索聯絡人電子郵件
+	// 線索聯絡人電子郵件
 	Email string `json:"email,omitempty"`
-	// 商機線索聯絡人LINE
+	// 線索聯絡人LINE
 	Line string `json:"line,omitempty"`
 	// 線索ID
 	LeadID string `json:"lead_id,omitempty"`
@@ -112,19 +112,19 @@ type Single struct {
 
 // Update struct is used to update achieves
 type Update struct {
-	// 商機線索聯絡人ID
+	// 線索聯絡人ID
 	LeadContactID string `json:"lead_contact_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
-	// 商機線索聯絡人名稱
+	// 線索聯絡人名稱
 	Name *string `json:"name,omitempty"`
-	// 商機線索聯絡人職稱
+	// 線索聯絡人職稱
 	Title *string `json:"title,omitempty"`
-	// 商機線索聯絡人電話
+	// 線索聯絡人電話
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// 商機線索聯絡人行動電話
+	// 線索聯絡人行動電話
 	CellPhone *string `json:"cell_phone,omitempty"`
-	// 商機線索聯絡人電子郵件
+	// 線索聯絡人電子郵件
 	Email *string `json:"email,omitempty"`
-	// 商機線索聯絡人LINE
+	// 線索聯絡人LINE
 	Line *string `json:"line,omitempty"`
 	// 線索ID
 	LeadID *string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`

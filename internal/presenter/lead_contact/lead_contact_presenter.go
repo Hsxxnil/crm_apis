@@ -156,14 +156,14 @@ func (c *control) Delete(ctx *gin.Context) {
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param leadContactID path string true "商機線索聯絡人ID"
-// @param * body lead_contacts.Update true "更新商機線索聯絡人"
+// @param leadContactID path string true "線索聯絡人ID"
+// @param * body lead_contacts.Update true "更新線索聯絡人"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /authority/v1.0/leads/contacts/{leadContactID} [patch]
 func (c *control) Update(ctx *gin.Context) {
-	// Todo 將UUID改成登入的商機線索聯絡人
+	// Todo 將UUID改成登入的線索聯絡人
 	leadContactID := ctx.Param("leadContactID")
 	input := &leadContactModel.Update{}
 	input.LeadContactID = leadContactID

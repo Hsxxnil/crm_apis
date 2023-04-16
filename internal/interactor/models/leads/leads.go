@@ -11,11 +11,11 @@ type Create struct {
 	Status string `json:"status,omitempty" binding:"required" validate:"required"`
 	// 線索客戶名稱
 	CompanyName string `json:"company_name,omitempty" binding:"required" validate:"required"`
-	// 商機線索來源ID
+	// 線索來源ID
 	SourceID string `json:"source_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 商機線索客戶行業ID
+	// 線索客戶行業ID
 	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 商機線索分級
+	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
@@ -23,17 +23,17 @@ type Create struct {
 
 // Field is structure file for search
 type Field struct {
-	// 商機線索ID
+	// 線索ID
 	LeadID string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
-	// 商機線索狀態
+	// 線索狀態
 	Status *string `json:"status,omitempty" from:"status"`
-	// 商機線索客戶名稱
+	// 線索客戶名稱
 	CompanyName *string `json:"company_name,omitempty" from:"company_name"`
-	// 商機線索來源ID
+	// 線索來源ID
 	SourceID *string `json:"source_id,omitempty" from:"source_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 商機線索客戶行業ID
+	// 線索客戶行業ID
 	IndustryID *string `json:"industry_id,omitempty" from:"industry_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 商機線索分級
+	// 線索分級
 	Rating *string `json:"rating,omitempty" from:"rating"`
 }
 
@@ -49,17 +49,17 @@ type Fields struct {
 type List struct {
 	// 多筆
 	Leads []*struct {
-		// 商機線索ID
+		// 線索ID
 		LeadID string `json:"lead_id,omitempty"`
-		// 商機線索狀態
+		// 線索狀態
 		Status string `json:"status,omitempty"`
-		// 商機線索客戶名稱
+		// 線索客戶名稱
 		CompanyName string `json:"company_name,omitempty"`
-		// 商機線索來源ID
+		// 線索來源ID
 		SourceID string `json:"source_id,omitempty"`
-		// 商機線索客戶行業ID
+		// 線索客戶行業ID
 		IndustryID string `json:"industry_id,omitempty"`
-		// 商機線索分級
+		// 線索分級
 		Rating string `json:"rating,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by"`
@@ -74,17 +74,17 @@ type List struct {
 
 // Single return structure file
 type Single struct {
-	// 商機線索ID
+	// 線索ID
 	LeadID string `json:"lead_id,omitempty"`
-	// 商機線索狀態
+	// 線索狀態
 	Status string `json:"status,omitempty"`
-	// 商機線索客戶名稱
+	// 線索客戶名稱
 	CompanyName string `json:"company_name,omitempty"`
-	// 商機線索來源ID
+	// 線索來源ID
 	SourceID string `json:"source_id,omitempty"`
-	// 商機線索客戶行業ID
+	// 線索客戶行業ID
 	IndustryID string `json:"industry_id,omitempty"`
-	// 商機線索分級
+	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by"`
@@ -96,17 +96,17 @@ type Single struct {
 
 // Update struct is used to update achieves
 type Update struct {
-	// 商機線索ID
+	// 線索ID
 	LeadID string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
-	// 商機線索狀態
+	// 線索狀態
 	Status *string `json:"status,omitempty"`
-	// 商機線索客戶名稱
+	// 線索客戶名稱
 	CompanyName *string `json:"company_name,omitempty"`
-	// 商機線索來源ID
+	// 線索來源ID
 	SourceID *string `json:"source_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 商機線索客戶行業ID
+	// 線索客戶行業ID
 	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 商機線索分級
+	// 線索分級
 	Rating *string `json:"rating,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`

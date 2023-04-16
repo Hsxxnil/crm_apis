@@ -25,15 +25,15 @@ type Table struct {
 type Base struct {
 	// 線索ID
 	LeadID *string `json:"lead_id,omitempty"`
-	// 商機線索狀態
+	// 線索狀態
 	Status *string `json:"status,omitempty"`
-	// 商機線索客戶名稱
+	// 線索客戶名稱
 	CompanyName *string `json:"company_name,omitempty"`
-	// 商機線索來源ID
+	// 線索來源ID
 	SourceID *string `json:"source_id,omitempty"`
-	// 商機線索客戶行業ID
+	// 線索客戶行業ID
 	IndustryID *string `json:"industry_id,omitempty"`
-	// 商機線索分級
+	// 線索分級
 	Rating *string `json:"rating,omitempty"`
 	special.UseBase
 }

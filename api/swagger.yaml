@@ -83,7 +83,7 @@ definitions:
         items:
           properties:
             cell_phone:
-              description: 商機線索聯絡人行動電話
+              description: 線索聯絡人行動電話
               type: string
             created_at:
               description: 創建時間
@@ -95,25 +95,25 @@ definitions:
               description: 刪除時間
               type: string
             email:
-              description: 商機線索聯絡人電子郵件
+              description: 線索聯絡人電子郵件
               type: string
             lead_contact_id:
-              description: 商機線索聯絡人ID
+              description: 線索聯絡人ID
               type: string
             lead_id:
               description: 線索ID
               type: string
             line:
-              description: 商機線索聯絡人LINE
+              description: 線索聯絡人LINE
               type: string
             name:
-              description: 商機線索聯絡人名稱
+              description: 線索聯絡人名稱
               type: string
             phone_number:
-              description: 商機線索聯絡人電話
+              description: 線索聯絡人電話
               type: string
             title:
-              description: 商機線索聯絡人職稱
+              description: 線索聯絡人職稱
               type: string
             updated_at:
               description: 更新時間
@@ -142,7 +142,7 @@ definitions:
   lead_contacts.Single:
     properties:
       cell_phone:
-        description: 商機線索聯絡人行動電話
+        description: 線索聯絡人行動電話
         type: string
       created_at:
         description: 創建時間
@@ -154,25 +154,25 @@ definitions:
         description: 刪除時間
         type: string
       email:
-        description: 商機線索聯絡人電子郵件
+        description: 線索聯絡人電子郵件
         type: string
       lead_contact_id:
-        description: 商機線索聯絡人ID
+        description: 線索聯絡人ID
         type: string
       lead_id:
         description: 線索ID
         type: string
       line:
-        description: 商機線索聯絡人LINE
+        description: 線索聯絡人LINE
         type: string
       name:
-        description: 商機線索聯絡人名稱
+        description: 線索聯絡人名稱
         type: string
       phone_number:
-        description: 商機線索聯絡人電話
+        description: 線索聯絡人電話
         type: string
       title:
-        description: 商機線索聯絡人職稱
+        description: 線索聯絡人職稱
         type: string
       updated_at:
         description: 更新時間
@@ -184,25 +184,25 @@ definitions:
   lead_contacts.Update:
     properties:
       cell_phone:
-        description: 商機線索聯絡人行動電話
+        description: 線索聯絡人行動電話
         type: string
       email:
-        description: 商機線索聯絡人電子郵件
+        description: 線索聯絡人電子郵件
         type: string
       lead_id:
         description: 線索ID
         type: string
       line:
-        description: 商機線索聯絡人LINE
+        description: 線索聯絡人LINE
         type: string
       name:
-        description: 商機線索聯絡人名稱
+        description: 線索聯絡人名稱
         type: string
       phone_number:
-        description: 商機線索聯絡人電話
+        description: 線索聯絡人電話
         type: string
       title:
-        description: 商機線索聯絡人職稱
+        description: 線索聯絡人職稱
         type: string
       updated_by:
         description: 更新者
@@ -219,13 +219,13 @@ definitions:
         description: 創建者
         type: string
       industry_id:
-        description: 商機線索客戶行業ID
+        description: 線索客戶行業ID
         type: string
       rating:
-        description: 商機線索分級
+        description: 線索分級
         type: string
       source_id:
-        description: 商機線索來源ID
+        description: 線索來源ID
         type: string
       status:
         description: 線索狀態
@@ -242,7 +242,7 @@ definitions:
         items:
           properties:
             company_name:
-              description: 商機線索客戶名稱
+              description: 線索客戶名稱
               type: string
             created_at:
               description: 創建時間
@@ -254,19 +254,19 @@ definitions:
               description: 刪除時間
               type: string
             industry_id:
-              description: 商機線索客戶行業ID
+              description: 線索客戶行業ID
               type: string
             lead_id:
-              description: 商機線索ID
+              description: 線索ID
               type: string
             rating:
-              description: 商機線索分級
+              description: 線索分級
               type: string
             source_id:
-              description: 商機線索來源ID
+              description: 線索來源ID
               type: string
             status:
-              description: 商機線索狀態
+              description: 線索狀態
               type: string
             updated_at:
               description: 更新時間
@@ -295,7 +295,7 @@ definitions:
   leads.Single:
     properties:
       company_name:
-        description: 商機線索客戶名稱
+        description: 線索客戶名稱
         type: string
       created_at:
         description: 創建時間
@@ -307,19 +307,19 @@ definitions:
         description: 刪除時間
         type: string
       industry_id:
-        description: 商機線索客戶行業ID
+        description: 線索客戶行業ID
         type: string
       lead_id:
-        description: 商機線索ID
+        description: 線索ID
         type: string
       rating:
-        description: 商機線索分級
+        description: 線索分級
         type: string
       source_id:
-        description: 商機線索來源ID
+        description: 線索來源ID
         type: string
       status:
-        description: 商機線索狀態
+        description: 線索狀態
         type: string
       updated_at:
         description: 更新時間
@@ -331,19 +331,19 @@ definitions:
   leads.Update:
     properties:
       company_name:
-        description: 商機線索客戶名稱
+        description: 線索客戶名稱
         type: string
       industry_id:
-        description: 商機線索客戶行業ID
+        description: 線索客戶行業ID
         type: string
       rating:
-        description: 商機線索分級
+        description: 線索分級
         type: string
       source_id:
-        description: 商機線索來源ID
+        description: 線索來源ID
         type: string
       status:
-        description: 商機線索狀態
+        description: 線索狀態
         type: string
       updated_by:
         description: 更新者
@@ -1006,12 +1006,12 @@ paths:
         name: Authorization
         required: true
         type: string
-      - description: 商機線索聯絡人ID
+      - description: 線索聯絡人ID
         in: path
         name: leadContactID
         required: true
         type: string
-      - description: 更新商機線索聯絡人
+      - description: 更新線索聯絡人
         in: body
         name: '*'
         required: true
