@@ -86,8 +86,6 @@ type Single struct {
 	IndustryID string `json:"industry_id,omitempty"`
 	// 商機線索分級
 	Rating string `json:"rating,omitempty"`
-	// 電子郵件
-	Email string `json:"email,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by"`
 	// 更新者

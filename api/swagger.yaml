@@ -44,6 +44,159 @@ definitions:
         description: 刷新令牌
         type: string
     type: object
+  lead_contacts.Create:
+    properties:
+      cell_phone:
+        description: 商機線索聯絡人行動電話
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      email:
+        description: 商機線索聯絡人電子郵件
+        type: string
+      line:
+        description: 商機線索聯絡人LINE
+        type: string
+      name:
+        description: 商機線索聯絡人名稱
+        type: string
+      phone_number:
+        description: 商機線索聯絡人電話
+        type: string
+      title:
+        description: 商機線索聯絡人職稱
+        type: string
+    required:
+    - created_by
+    - name
+    - phone_number
+    type: object
+  lead_contacts.List:
+    properties:
+      lead_contacts:
+        description: 多筆
+        items:
+          properties:
+            cell_phone:
+              description: 商機線索聯絡人行動電話
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            email:
+              description: 商機線索聯絡人電子郵件
+              type: string
+            lead_contact_id:
+              description: 商機線索聯絡人ID
+              type: string
+            line:
+              description: 商機線索聯絡人LINE
+              type: string
+            name:
+              description: 商機線索聯絡人名稱
+              type: string
+            phone_number:
+              description: 商機線索聯絡人電話
+              type: string
+            title:
+              description: 商機線索聯絡人職稱
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  lead_contacts.Single:
+    properties:
+      cell_phone:
+        description: 商機線索聯絡人行動電話
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      email:
+        description: 商機線索聯絡人電子郵件
+        type: string
+      lead_contact_id:
+        description: 商機線索聯絡人ID
+        type: string
+      line:
+        description: 商機線索聯絡人LINE
+        type: string
+      name:
+        description: 商機線索聯絡人名稱
+        type: string
+      phone_number:
+        description: 商機線索聯絡人電話
+        type: string
+      title:
+        description: 商機線索聯絡人職稱
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  lead_contacts.Update:
+    properties:
+      cell_phone:
+        description: 商機線索聯絡人行動電話
+        type: string
+      email:
+        description: 商機線索聯絡人電子郵件
+        type: string
+      line:
+        description: 商機線索聯絡人LINE
+        type: string
+      name:
+        description: 商機線索聯絡人名稱
+        type: string
+      phone_number:
+        description: 商機線索聯絡人電話
+        type: string
+      title:
+        description: 商機線索聯絡人職稱
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    required:
+    - updated_by
+    type: object
   leads.Create:
     properties:
       company_name:
@@ -139,9 +292,6 @@ definitions:
         type: string
       deleted_at:
         description: 刪除時間
-        type: string
-      email:
-        description: 電子郵件
         type: string
       industry_id:
         description: 商機線索客戶行業ID
@@ -379,7 +529,7 @@ info:
   title: CRM API
   version: "0.1"
 paths:
-  /authority/v1.0/lead:
+  /authority/v1.0/leads:
     get:
       consumes:
       - application/json
@@ -482,7 +632,7 @@ paths:
       summary: 新增商機線索
       tags:
       - lead
-  /authority/v1.0/lead/{leadID}:
+  /authority/v1.0/leads/{leadID}:
     delete:
       consumes:
       - application/json
@@ -633,18 +783,27 @@ paths:
       summary: 更新單一商機線索
       tags:
       - lead
-  /authority/v1.0/logins/refresh:
-    post:
+  /authority/v1.0/leads/contacts:
+    get:
       consumes:
       - application/json
-      description: 換新的令牌
+      description: 取得全部商機線索聯絡人
       parameters:
-      - description: 登入帶入
-        in: body
-        name: '*'
+      - description: JWE Token
+        in: header
+        name: Authorization
         required: true
-        schema:
-          $ref: '#/definitions/jwx.Refresh'
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
       produces:
       - application/json
       responses:
@@ -655,7 +814,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/jwx.Token'
+                  $ref: '#/definitions/lead_contacts.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -675,10 +834,210 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: Login.1 換新的令牌
+      summary: 取得全部商機線索聯絡人
       tags:
-      - Login
-  /authority/v1.0/logins/web:
+      - lead-contact
+    post:
+      consumes:
+      - application/json
+      description: 新增商機線索聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增商機線索聯絡人
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/lead_contacts.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增商機線索聯絡人
+      tags:
+      - lead-contact
+  /authority/v1.0/leads/contacts/{leadContactID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一商機線索聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商機線索聯絡人ID
+        in: path
+        name: leadContactID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一商機線索聯絡人
+      tags:
+      - lead-contact
+    get:
+      consumes:
+      - application/json
+      description: 取得單一商機線索聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商機線索聯絡人ID
+        in: path
+        name: leadContactID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/lead_contacts.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一商機線索聯絡人
+      tags:
+      - lead-contact
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一商機線索聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商機線索聯絡人ID
+        in: path
+        name: leadContactID
+        required: true
+        type: string
+      - description: 更新商機線索聯絡人
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/lead_contacts.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一商機線索聯絡人
+      tags:
+      - lead-contact
+  /authority/v1.0/login:
     post:
       consumes:
       - application/json
@@ -720,10 +1079,55 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: Login.2 使用者登入
+      summary: 使用者登入
       tags:
-      - Login
-  /authority/v1.0/user:
+      - login
+  /authority/v1.0/refresh:
+    post:
+      consumes:
+      - application/json
+      description: 換新的令牌
+      parameters:
+      - description: 登入帶入
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/jwx.Refresh'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/jwx.Token'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 換新的令牌
+      tags:
+      - login
+  /authority/v1.0/users:
     get:
       consumes:
       - application/json
@@ -826,7 +1230,7 @@ paths:
       summary: 新增使用者
       tags:
       - user
-  /authority/v1.0/user/{userID}:
+  /authority/v1.0/users/{userID}:
     delete:
       consumes:
       - application/json

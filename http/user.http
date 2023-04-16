@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/authority/v1.0/user?page=1&limit=20
+GET http://localhost:8080/authority/v1.0/users?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/user/32e67871-4b96-47f1-8c2f-918a5b71848e
+GET http://localhost:8080/authority/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/authority/v1.0/user
+POST http://localhost:8080/authority/v1.0/users
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/user/32e67871-4b96-47f1-8c2f-918a5b71848e
+PATCH http://localhost:8080/authority/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/user/32e67871-4b96-47f1-8c2f-918a5b71848e
+DELETE http://localhost:8080/authority/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Content-Type: application/json
 
 {
