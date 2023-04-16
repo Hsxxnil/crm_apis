@@ -3,7 +3,7 @@ GET http://localhost:8080/authority/v1.0/user?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/user/461adaaf-1e55-4313-a7e3-d4450d7214fb
+GET http://localhost:8080/authority/v1.0/user/32e67871-4b96-47f1-8c2f-918a5b71848e
 Accept: application/json
 
 ### Create
@@ -11,26 +11,26 @@ POST http://localhost:8080/authority/v1.0/user
 Content-Type: application/json
 
 {
-  "user_name": "test1",
+  "user_name": "test",
   "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "email": "test1@test.com",
-  "name": "test1",
+  "email": "test@test.com",
+  "name": "test",
   "password": "12345",
   "phone_number": "123"
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/user/461adaaf-1e55-4313-a7e3-d4450d7214fb
+PATCH http://localhost:8080/authority/v1.0/user/32e67871-4b96-47f1-8c2f-918a5b71848e
 Content-Type: application/json
 
 {
-  "password": "56789",
+  "password": "54321",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/user/cdb41da6-56ea-4674-abfc-36ee6472760b
+DELETE http://localhost:8080/authority/v1.0/user/32e67871-4b96-47f1-8c2f-918a5b71848e
 Content-Type: application/json
 
 {

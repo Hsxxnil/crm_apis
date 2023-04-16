@@ -1,0 +1,11 @@
+drop index idx_crm_leads_lead_id;
+drop index idx_crm_leads_status;
+drop index idx_crm_leads_company_name;
+drop index idx_crm_leads_source_id;
+drop index idx_crm_leads_industry_id;
+drop index idx_crm_leads_rating;
+drop index idx_crm_leads_created_at;
+drop index idx_crm_leads_created_by;
+drop index idx_crm_leads_updated_at;
+drop index idx_crm_leads_updated_by;
+drop table crm_leads;

@@ -1,0 +1,33 @@
+### GetByList
+GET http://localhost:8080/authority/v1.0/lead?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET http://localhost:8080/authority/v1.0/lead/d3aa2f5d-c2be-4332-a26c-19816c49af9d
+Accept: application/json
+
+### Create
+POST http://localhost:8080/authority/v1.0/lead
+Content-Type: application/json
+
+{
+  "status": "New",
+  "company_name": "Test",
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "source_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "rating": "Hot"
+}
+
+### Update
+PATCH http://localhost:8080/authority/v1.0/lead/d3aa2f5d-c2be-4332-a26c-19816c49af9d
+Content-Type: application/json
+
+{
+  "status": "Working",
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/authority/v1.0/lead/d3aa2f5d-c2be-4332-a26c-19816c49af9d
+Accept: application/json

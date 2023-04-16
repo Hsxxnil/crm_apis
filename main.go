@@ -9,6 +9,7 @@ import (
 	_ "app.eirc/api"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
+	"app.eirc/internal/router/lead"
 	"app.eirc/internal/router/login"
 	"app.eirc/internal/router/user"
 	swaggerFiles "github.com/swaggo/files"
@@ -42,6 +43,7 @@ func main() {
 	engine := router.Default()
 	user.GetRouter(engine, db)
 	login.GetRouter(engine, db)
+	lead.GetRouter(engine, db)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
