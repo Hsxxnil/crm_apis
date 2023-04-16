@@ -17,7 +17,8 @@ Content-Type: application/json
   "phone_number": "0800000000",
   "cell_phone": "0900000000",
   "email": "test@test.com",
-  "line": "test"
+  "line": "test",
+  "lead_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a"
 }
 
 ### Update
@@ -30,5 +31,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/leads/contacts/70bb6a5f-6693-414b-b244-82a6311cfa55
+DELETE http://localhost:8080/authority/v1.0/leads/contacts/df0c553d-87bd-41d0-870c-e4d099bca110
 Accept: application/json

@@ -19,6 +19,8 @@ type Create struct {
 	Email string `json:"email,omitempty"`
 	// 線索聯絡人LINE
 	Line string `json:"line,omitempty"`
+	// 線索ID
+	LeadID string `json:"lead_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -39,6 +41,8 @@ type Field struct {
 	Email *string `json:"email,omitempty" from:"email"`
 	// 商機線索聯絡人LINE
 	Line *string `json:"line,omitempty" from:"line"`
+	// 線索ID
+	LeadID *string `json:"lead_id,omitempty" from:"lead_id"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -67,6 +71,8 @@ type List struct {
 		Email string `json:"email,omitempty"`
 		// 商機線索聯絡人LINE
 		Line string `json:"line,omitempty"`
+		// 線索ID
+		LeadID string `json:"lead_id,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by"`
 		// 更新者
@@ -94,6 +100,8 @@ type Single struct {
 	Email string `json:"email,omitempty"`
 	// 商機線索聯絡人LINE
 	Line string `json:"line,omitempty"`
+	// 線索ID
+	LeadID string `json:"lead_id,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by"`
 	// 更新者
@@ -118,6 +126,8 @@ type Update struct {
 	Email *string `json:"email,omitempty"`
 	// 商機線索聯絡人LINE
 	Line *string `json:"line,omitempty"`
+	// 線索ID
+	LeadID *string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

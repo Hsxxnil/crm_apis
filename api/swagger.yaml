@@ -55,6 +55,9 @@ definitions:
       email:
         description: 線索聯絡人電子郵件
         type: string
+      lead_id:
+        description: 線索ID
+        type: string
       line:
         description: 線索聯絡人LINE
         type: string
@@ -69,6 +72,7 @@ definitions:
         type: string
     required:
     - created_by
+    - lead_id
     - name
     - phone_number
     type: object
@@ -95,6 +99,9 @@ definitions:
               type: string
             lead_contact_id:
               description: 商機線索聯絡人ID
+              type: string
+            lead_id:
+              description: 線索ID
               type: string
             line:
               description: 商機線索聯絡人LINE
@@ -152,6 +159,9 @@ definitions:
       lead_contact_id:
         description: 商機線索聯絡人ID
         type: string
+      lead_id:
+        description: 線索ID
+        type: string
       line:
         description: 商機線索聯絡人LINE
         type: string
@@ -178,6 +188,9 @@ definitions:
         type: string
       email:
         description: 商機線索聯絡人電子郵件
+        type: string
+      lead_id:
+        description: 線索ID
         type: string
       line:
         description: 商機線索聯絡人LINE

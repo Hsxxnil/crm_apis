@@ -1608,6 +1608,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "created_by",
+                "lead_id",
                 "name",
                 "phone_number"
             ],
@@ -1622,6 +1623,10 @@ const docTemplate = `{
                 },
                 "email": {
                     "description": "線索聯絡人電子郵件",
+                    "type": "string"
+                },
+                "lead_id": {
+                    "description": "線索ID",
                     "type": "string"
                 },
                 "line": {
@@ -1677,6 +1682,10 @@ const docTemplate = `{
                             },
                             "lead_contact_id": {
                                 "description": "商機線索聯絡人ID",
+                                "type": "string"
+                            },
+                            "lead_id": {
+                                "description": "線索ID",
                                 "type": "string"
                             },
                             "line": {
@@ -1751,6 +1760,10 @@ const docTemplate = `{
                     "description": "商機線索聯絡人ID",
                     "type": "string"
                 },
+                "lead_id": {
+                    "description": "線索ID",
+                    "type": "string"
+                },
                 "line": {
                     "description": "商機線索聯絡人LINE",
                     "type": "string"
@@ -1789,6 +1802,10 @@ const docTemplate = `{
                 },
                 "email": {
                     "description": "商機線索聯絡人電子郵件",
+                    "type": "string"
+                },
+                "lead_id": {
+                    "description": "線索ID",
                     "type": "string"
                 },
                 "line": {

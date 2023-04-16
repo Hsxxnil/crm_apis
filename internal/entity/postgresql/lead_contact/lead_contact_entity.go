@@ -132,6 +132,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["line"] = input.Line
 	}
 
+	if input.LeadID != nil {
+		data["lead_id"] = input.LeadID
+	}
+
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}

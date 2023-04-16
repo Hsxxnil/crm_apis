@@ -1604,6 +1604,7 @@
             "type": "object",
             "required": [
                 "created_by",
+                "lead_id",
                 "name",
                 "phone_number"
             ],
@@ -1618,6 +1619,10 @@
                 },
                 "email": {
                     "description": "線索聯絡人電子郵件",
+                    "type": "string"
+                },
+                "lead_id": {
+                    "description": "線索ID",
                     "type": "string"
                 },
                 "line": {
@@ -1673,6 +1678,10 @@
                             },
                             "lead_contact_id": {
                                 "description": "商機線索聯絡人ID",
+                                "type": "string"
+                            },
+                            "lead_id": {
+                                "description": "線索ID",
                                 "type": "string"
                             },
                             "line": {
@@ -1747,6 +1756,10 @@
                     "description": "商機線索聯絡人ID",
                     "type": "string"
                 },
+                "lead_id": {
+                    "description": "線索ID",
+                    "type": "string"
+                },
                 "line": {
                     "description": "商機線索聯絡人LINE",
                     "type": "string"
@@ -1785,6 +1798,10 @@
                 },
                 "email": {
                     "description": "商機線索聯絡人電子郵件",
+                    "type": "string"
+                },
+                "lead_id": {
+                    "description": "線索ID",
                     "type": "string"
                 },
                 "line": {

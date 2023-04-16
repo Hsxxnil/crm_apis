@@ -20,6 +20,8 @@ type Table struct {
 	Email string `gorm:"column:email;type:text;" json:"email"`
 	// 線索聯絡人LINE
 	Line string `gorm:"column:line;type:text;" json:"line"`
+	// 線索ID
+	LeadID string `gorm:"column:lead_id;type:uuid;not null;" json:"lead_id"`
 	special.UseTable
 }
 
@@ -39,6 +41,8 @@ type Base struct {
 	Email *string `json:"email,omitempty"`
 	// 商機線索聯絡人LINE
 	Line *string `json:"line,omitempty"`
+	// 線索ID
+	LeadID *string `json:"lead_id,omitempty"`
 	special.UseBase
 }
 
