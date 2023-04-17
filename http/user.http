@@ -18,7 +18,7 @@ Authorization: Bearer REMOVED
   "email": "test@test.com",
   "name": "test",
   "password": "12345",
-  "phone_number": "123"
+  "phone_number": "123",
 }
 
 ### Update

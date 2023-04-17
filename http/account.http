@@ -3,7 +3,7 @@ GET http://localhost:8080/authority/v1.0/accounts?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/accounts/dced0fc9-3907-45cf-b740-884550e5a793
+GET http://localhost:8080/authority/v1.0/accounts/710eea4c-352a-494f-8d5b-165a09725d16
 Accept: application/json
 
 ### Create

@@ -1,6 +1,7 @@
 package accounts
 
 import (
+	"app.eirc/internal/entity/postgresql/db/contacts"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -19,6 +20,8 @@ type Table struct {
 	// 帳戶父系帳戶ID
 	ParentAccountID string `gorm:"column:parent_account_id;type:uuid;not null;" json:"parent_account_id"`
 	special.UseTable
+	// contacts data
+	Contacts []contacts.Table `gorm:"foreignKey:account_id;" json:"contacts"`
 }
 
 // Base struct is corresponding to accounts table structure file
@@ -36,6 +39,8 @@ type Base struct {
 	// 帳戶父系帳戶ID
 	ParentAccountID *string `json:"parent_account_id,omitempty"`
 	special.UseBase
+	// contacts data
+	Contacts []contacts.Base `json:"contacts,omitempty"`
 }
 
 // TableName sets the insert table name for this struct type
