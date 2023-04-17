@@ -1,0 +1,12 @@
+drop index idx_lead_contacts_lead_contact_id;
+drop index idx_lead_contacts_name;
+drop index idx_lead_contacts_title;
+drop index idx_lead_contacts_phone_number;
+drop index idx_lead_contacts_cell_phone;
+drop index idx_lead_email;
+drop index idx_lead_line;
+drop index idx_lead_contacts_created_at;
+drop index idx_lead_contacts_created_by;
+drop index idx_lead_contacts_updated_at;
+drop index idx_lead_contacts_updated_by;
+drop table lead_contacts;
