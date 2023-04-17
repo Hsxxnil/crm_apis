@@ -8,7 +8,7 @@ pipelines:
               name: EIRC-Testing-CRM
               script:
                 - apt-get update && apt-get install -y zip
-                - mkdir deploy
+#                - mkdir deploy
                 - GOOS=linux GOARCH=amd64 go build -o deploy/crm cmd/crm/crm.go
                 - zip -D -j -r deploy/crm.zip deploy/crm
                 - rm -rf  /opt/atlassian/pipelines/agent/build/.bitbucket/pipelines/generated/pipeline/pipes
