@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"app.eirc/config"
+
 	jwxModel "app.eirc/internal/interactor/models/jwx"
 	loginsModel "app.eirc/internal/interactor/models/logins"
 	usersModel "app.eirc/internal/interactor/models/users"
@@ -50,9 +51,9 @@ func (r *manager) Login(input *loginsModel.Login) interface{} {
 	}
 
 	output := &jwxModel.Token{}
-	accessToken, err := r.JwxService.CreateAccessToken(&jwxModel.JWT{
+	accessToken, err := r.JwxService.CreateAccessToken(&jwxModel.JWX{
 		UserID:    fields[0].UserID,
-		CompanyID: fields[0].CompanyID,
+		CompanyID: util.PointerString(input.CompanyID),
 		Name:      fields[0].Name,
 	})
 
@@ -68,7 +69,7 @@ func (r *manager) Login(input *loginsModel.Login) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	refreshToken, err := r.JwxService.CreateRefreshToken(&jwxModel.JWT{
+	refreshToken, err := r.JwxService.CreateRefreshToken(&jwxModel.JWX{
 		UserID: fields[0].UserID,
 	})
 
@@ -94,7 +95,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) interface{} {
 	}
 
 	if len(input.RefreshToken) == 0 {
-		return code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
+		return code.GetCodeMessage(code.JWTRejected, "RefreshToken is null")
 	}
 
 	j, err := j.Verify()
@@ -116,7 +117,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	token, err := r.JwxService.CreateAccessToken(&jwxModel.JWT{
+	token, err := r.JwxService.CreateAccessToken(&jwxModel.JWX{
 		UserID:    field.UserID,
 		CompanyID: field.CompanyID,
 		Name:      field.Name,

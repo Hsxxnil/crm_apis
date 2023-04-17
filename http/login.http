@@ -16,3 +16,4 @@ Content-Type: application/json
   "refresh_token": "REMOVED"
 }
 
+> {% client.global.set("auth_token", response.body.json.token); %}

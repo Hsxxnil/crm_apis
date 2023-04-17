@@ -9,6 +9,7 @@ Accept: application/json
 ### Create
 POST http://localhost:8080/authority/v1.0/users
 Content-Type: application/json
+Authorization: Bearer REMOVED
 
 {
   "user_name": "test",

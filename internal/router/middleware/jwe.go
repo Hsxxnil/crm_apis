@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"app.eirc/config"
 	"app.eirc/internal/interactor/pkg/jwx"
 	"app.eirc/internal/interactor/pkg/util/code"
 	"app.eirc/internal/interactor/pkg/util/log"
@@ -12,14 +13,13 @@ import (
 
 func Verify() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		privateKey := ""
 		j := &jwx.JWE{
-			PrivateKey: privateKey,
+			PrivateKey: config.AccessPrivateKey,
 			Token:      ctx.GetHeader("Authorization"),
 		}
 
 		if len(j.Token) == 0 {
-			ctx.AbortWithStatusJSON(http.StatusOK, code.GetCodeMessage(code.JWTRejected, "jwe is null"))
+			ctx.AbortWithStatusJSON(http.StatusOK, code.GetCodeMessage(code.JWTRejected, "AccessToken is null"))
 			return
 		}
 
@@ -30,7 +30,7 @@ func Verify() gin.HandlerFunc {
 			return
 		}
 
-		ctx.Set("account_id", j.Other["account_id"])
+		ctx.Set("user_id", j.Other["user_id"])
 		ctx.Set("company_id", j.Other["company_id"])
 		ctx.Next()
 	}
