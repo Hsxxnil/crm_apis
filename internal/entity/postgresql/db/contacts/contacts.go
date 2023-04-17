@@ -56,5 +56,5 @@ type Base struct {
 
 // TableName sets the insert table name for this struct type
 func (t *Table) TableName() string {
-	return "crm_contacts"
+	return "contacts"
 }

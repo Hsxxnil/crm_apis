@@ -1,0 +1,11 @@
+drop index idx_users_user_id;
+drop index idx_users_user_name;
+drop index uidx_users_user_name;
+drop index idx_users_name;
+drop index idx_users_phone_number;
+drop index idx_users_email;
+drop index idx_users_created_at;
+drop index idx_users_created_by;
+drop index idx_users_updated_at;
+drop index idx_users_updated_by;
+drop table users;
