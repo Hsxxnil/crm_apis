@@ -2489,6 +2489,13 @@ const docTemplate = `{
                                 "description": "帳戶類型ID",
                                 "type": "string"
                             },
+                            "contacts": {
+                                "description": "contacts data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/contacts.Single"
+                                }
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -2556,6 +2563,13 @@ const docTemplate = `{
                 "account_type_id": {
                     "description": "帳戶類型ID",
                     "type": "string"
+                },
+                "contacts": {
+                    "description": "contacts data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/contacts.Single"
+                    }
                 },
                 "created_at": {
                     "description": "創建時間",
@@ -3241,6 +3255,13 @@ const docTemplate = `{
                                 "description": "線索客戶行業ID",
                                 "type": "string"
                             },
+                            "lead_contacts": {
+                                "description": "lead_contacts data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/lead_contacts.Single"
+                                }
+                            },
                             "lead_id": {
                                 "description": "線索ID",
                                 "type": "string"
@@ -3308,6 +3329,13 @@ const docTemplate = `{
                 "industry_id": {
                     "description": "線索客戶行業ID",
                     "type": "string"
+                },
+                "lead_contacts": {
+                    "description": "lead_contacts data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/lead_contacts.Single"
+                    }
                 },
                 "lead_id": {
                     "description": "線索ID",

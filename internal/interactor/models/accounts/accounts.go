@@ -1,6 +1,7 @@
 package accounts
 
 import (
+	"app.eirc/internal/interactor/models/contacts"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 )
@@ -67,6 +68,8 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
+		// contacts data
+		Contacts []contacts.Single `json:"contacts,omitempty"`
 	} `json:"accounts"`
 	// 分頁返回結構檔
 	page.Total
@@ -92,6 +95,8 @@ type Single struct {
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
 	section.TimeAt
+	// contacts data
+	Contacts []contacts.Single `json:"contacts,omitempty"`
 }
 
 // Update struct is used to update achieves

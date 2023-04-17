@@ -20,7 +20,7 @@ Content-Type: application/json
   "salutation": "小姐",
   "department": "業務",
   "manager_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a"
+  "account_id": "710eea4c-352a-494f-8d5b-165a09725d16"
 }
 
 ### Update

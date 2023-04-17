@@ -36,6 +36,11 @@ definitions:
             account_type_id:
               description: 帳戶類型ID
               type: string
+            contacts:
+              description: contacts data
+              items:
+                $ref: '#/definitions/contacts.Single'
+              type: array
             created_at:
               description: 創建時間
               type: string
@@ -89,6 +94,11 @@ definitions:
       account_type_id:
         description: 帳戶類型ID
         type: string
+      contacts:
+        description: contacts data
+        items:
+          $ref: '#/definitions/contacts.Single'
+        type: array
       created_at:
         description: 創建時間
         type: string
@@ -586,6 +596,11 @@ definitions:
             industry_id:
               description: 線索客戶行業ID
               type: string
+            lead_contacts:
+              description: lead_contacts data
+              items:
+                $ref: '#/definitions/lead_contacts.Single'
+              type: array
             lead_id:
               description: 線索ID
               type: string
@@ -639,6 +654,11 @@ definitions:
       industry_id:
         description: 線索客戶行業ID
         type: string
+      lead_contacts:
+        description: lead_contacts data
+        items:
+          $ref: '#/definitions/lead_contacts.Single'
+        type: array
       lead_id:
         description: 線索ID
         type: string

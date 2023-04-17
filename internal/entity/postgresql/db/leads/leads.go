@@ -1,6 +1,7 @@
 package leads
 
 import (
+	"app.eirc/internal/entity/postgresql/db/lead_contacts"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -19,6 +20,8 @@ type Table struct {
 	// 線索分級
 	Rating string `gorm:"column:rating;type:text;not null;" json:"rating"`
 	special.UseTable
+	// lead_contacts data
+	LeadContacts []lead_contacts.Table `gorm:"foreignKey:lead_id;" json:"lead_contacts"`
 }
 
 // Base struct is corresponding to leads table structure file
@@ -36,6 +39,8 @@ type Base struct {
 	// 線索分級
 	Rating *string `json:"rating,omitempty"`
 	special.UseBase
+	// lead_contacts data
+	LeadContacts []lead_contacts.Base `json:"lead_contacts,omitempty"`
 }
 
 // TableName sets the insert table name for this struct type
