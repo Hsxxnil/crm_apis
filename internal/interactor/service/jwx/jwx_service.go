@@ -11,8 +11,8 @@ import (
 )
 
 type Service interface {
-	CreateAccessToken(input *model.JWT) (output *model.Token, err error)
-	CreateRefreshToken(input *model.JWT) (output *model.Token, err error)
+	CreateAccessToken(input *model.JWX) (output *model.Token, err error)
+	CreateRefreshToken(input *model.JWX) (output *model.Token, err error)
 }
 
 type service struct {
@@ -22,7 +22,7 @@ func Init() Service {
 	return &service{}
 }
 
-func (s service) CreateAccessToken(input *model.JWT) (output *model.Token, err error) {
+func (s service) CreateAccessToken(input *model.JWX) (output *model.Token, err error) {
 
 	other := map[string]interface{}{
 		"company_id": input.CompanyID,
@@ -51,7 +51,7 @@ func (s service) CreateAccessToken(input *model.JWT) (output *model.Token, err e
 	return output, nil
 }
 
-func (s service) CreateRefreshToken(input *model.JWT) (output *model.Token, err error) {
+func (s service) CreateRefreshToken(input *model.JWX) (output *model.Token, err error) {
 	// TODO implement me
 	other := map[string]interface{}{
 		"user_id": input.UserID,

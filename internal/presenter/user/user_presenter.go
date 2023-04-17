@@ -55,9 +55,8 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	// input.CompanyID = ctx.MustGet("company_id").(string)
-	// input.CreatedBy = ctx.MustGet("user_id").(string) //從Token去得到UserId
-
+	//input.CompanyID = ctx.MustGet("company_id").(string)
+	//input.CreatedBy = ctx.MustGet("user_id").(string)
 	codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
@@ -148,6 +147,7 @@ func (c *control) Delete(ctx *gin.Context) {
 		return
 	}
 
+	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	codeMessage := c.Manager.Delete(input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
@@ -178,6 +178,7 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
+	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	codeMessage := c.Manager.Update(input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }

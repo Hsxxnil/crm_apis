@@ -42,7 +42,7 @@ type Field struct {
 	// 線索聯絡人LINE
 	Line *string `json:"line,omitempty" from:"line"`
 	// 線索ID
-	LeadID *string `json:"lead_id,omitempty" from:"lead_id"`
+	LeadID *string `json:"lead_id,omitempty" from:"lead_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
 // Fields is the searched structure file (including pagination)

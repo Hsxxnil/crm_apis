@@ -468,6 +468,453 @@
                 }
             }
         },
+        "/authority/v1.0/contacts": {
+            "get": {
+                "description": "取得全部聯絡人",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contact"
+                ],
+                "summary": "取得全部聯絡人",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/contacts.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "新增聯絡人",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contact"
+                ],
+                "summary": "新增聯絡人",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "新增聯絡人",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/contacts.Create"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/authority/v1.0/contacts/{contactID}": {
+            "get": {
+                "description": "取得單一聯絡人",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contact"
+                ],
+                "summary": "取得單一聯絡人",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "聯絡人ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/contacts.Single"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除單一聯絡人",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contact"
+                ],
+                "summary": "刪除單一聯絡人",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "聯絡人ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "更新單一聯絡人",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contact"
+                ],
+                "summary": "更新單一聯絡人",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "聯絡人ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新聯絡人",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/contacts.Update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/authority/v1.0/leads": {
             "get": {
                 "description": "取得全部線索",
@@ -2211,6 +2658,264 @@
                     "description": "錯誤時間",
                     "type": "string",
                     "example": "2021-07-29T07:23:47Z"
+                }
+            }
+        },
+        "contacts.Create": {
+            "type": "object",
+            "required": [
+                "account_id",
+                "created_by",
+                "name",
+                "phone_number"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "cell_phone": {
+                    "description": "聯絡人行動電話",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "department": {
+                    "description": "聯絡人部門",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "manager_id": {
+                    "description": "直屬上司ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "聯絡人職稱",
+                    "type": "string"
+                }
+            }
+        },
+        "contacts.List": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "contacts": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "account_id": {
+                                "description": "帳戶ID",
+                                "type": "string"
+                            },
+                            "cell_phone": {
+                                "description": "聯絡人行動電話",
+                                "type": "string"
+                            },
+                            "contact_id": {
+                                "description": "聯絡人ID",
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "description": "創建時間",
+                                "type": "string"
+                            },
+                            "created_by": {
+                                "description": "創建者",
+                                "type": "string"
+                            },
+                            "deleted_at": {
+                                "description": "刪除時間",
+                                "type": "string"
+                            },
+                            "department": {
+                                "description": "聯絡人部門",
+                                "type": "string"
+                            },
+                            "email": {
+                                "description": "聯絡人電子郵件",
+                                "type": "string"
+                            },
+                            "manager_id": {
+                                "description": "直屬上司ID",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "聯絡人名稱",
+                                "type": "string"
+                            },
+                            "phone_number": {
+                                "description": "聯絡人電話",
+                                "type": "string"
+                            },
+                            "salutation": {
+                                "description": "聯絡人稱謂",
+                                "type": "string"
+                            },
+                            "title": {
+                                "description": "聯絡人職稱",
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "description": "更新時間",
+                                "type": "string"
+                            },
+                            "updated_by": {
+                                "description": "更新者",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "pages": {
+                    "description": "總頁數",
+                    "type": "integer"
+                },
+                "total": {
+                    "description": "總筆數",
+                    "type": "integer"
+                }
+            }
+        },
+        "contacts.Single": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "cell_phone": {
+                    "description": "聯絡人行動電話",
+                    "type": "string"
+                },
+                "contact_id": {
+                    "description": "聯絡人ID",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "department": {
+                    "description": "聯絡人部門",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "manager_id": {
+                    "description": "直屬上司ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "聯絡人職稱",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "contacts.Update": {
+            "type": "object",
+            "required": [
+                "updated_by"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "cell_phone": {
+                    "description": "聯絡人行動電話",
+                    "type": "string"
+                },
+                "department": {
+                    "description": "聯絡人部門",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "manager_id": {
+                    "description": "直屬上司ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "聯絡人職稱",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
                 }
             }
         },

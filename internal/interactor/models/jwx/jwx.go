@@ -1,6 +1,6 @@
 package jwx
 
-type JWT struct {
+type JWX struct {
 	// 公司ID
 	CompanyID *string `json:"company_id,omitempty"`
 	// 中文名稱
