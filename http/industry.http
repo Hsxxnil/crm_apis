@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/authority/v1.0/industries?page=1&limit=20
+GET http://localhost:8080/crm/v1.0/industries?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
+GET http://localhost:8080/crm/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/authority/v1.0/industries
+POST http://localhost:8080/crm/v1.0/industries
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
+PATCH http://localhost:8080/crm/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
 Content-Type: application/json
 
 {
@@ -23,5 +23,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
+DELETE http://localhost:8080/crm/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
 Accept: application/json

@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
+
 	"app.eirc/internal/interactor/pkg/connect"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
@@ -11,10 +14,8 @@ import (
 	"app.eirc/internal/router/lead_contact"
 	"app.eirc/internal/router/login"
 	"app.eirc/internal/router/user"
-	"fmt"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"net/http"
 )
 
 func main() {

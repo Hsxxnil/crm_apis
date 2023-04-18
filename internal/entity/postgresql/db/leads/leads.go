@@ -21,7 +21,7 @@ type Table struct {
 	Rating string `gorm:"column:rating;type:text;not null;" json:"rating"`
 	special.UseTable
 	// lead_contacts data
-	LeadContacts []lead_contacts.Table `gorm:"foreignKey:lead_id;" json:"lead_contacts"`
+	LeadContacts []lead_contacts.Table `gorm:"foreignKey:LeadID;" json:"lead_contacts"`
 }
 
 // Base struct is corresponding to leads table structure file

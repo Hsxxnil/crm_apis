@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/authority/v1.0/leads/contacts?page=1&limit=20
+GET http://localhost:8080/crm/v1.0/leads/contacts?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/leads/contacts/70bb6a5f-6693-414b-b244-82a6311cfa55
+GET http://localhost:8080/crm/v1.0/leads/contacts/70bb6a5f-6693-414b-b244-82a6311cfa55
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/authority/v1.0/leads/contacts
+POST http://localhost:8080/crm/v1.0/leads/contacts
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/leads/contacts/70bb6a5f-6693-414b-b244-82a6311cfa55
+PATCH http://localhost:8080/crm/v1.0/leads/contacts/70bb6a5f-6693-414b-b244-82a6311cfa55
 Content-Type: application/json
 
 {
@@ -31,5 +31,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/leads/contacts/df0c553d-87bd-41d0-870c-e4d099bca110
+DELETE http://localhost:8080/crm/v1.0/leads/contacts/df0c553d-87bd-41d0-870c-e4d099bca110
 Accept: application/json

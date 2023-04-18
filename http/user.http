@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/authority/v1.0/users?page=1&limit=20
+GET http://localhost:8080/crm/v1.0/users?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
+GET http://localhost:8080/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/authority/v1.0/users
+POST http://localhost:8080/crm/v1.0/users
 Content-Type: application/json
 Authorization: Bearer REMOVED
 
@@ -18,11 +18,11 @@ Authorization: Bearer REMOVED
   "email": "test@test.com",
   "name": "test",
   "password": "12345",
-  "phone_number": "123",
+  "phone_number": "123"
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/users/7b4d0504-b632-459b-bd86-761685157ac9
+PATCH http://localhost:8080/crm/v1.0/users/7b4d0504-b632-459b-bd86-761685157ac9
 Content-Type: application/json
 
 {
@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
+DELETE http://localhost:8080/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Content-Type: application/json
 
 {

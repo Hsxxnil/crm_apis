@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/authority/v1.0/contacts?page=1&limit=20
+GET http://localhost:8080/crm/v1.0/contacts?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
+GET http://localhost:8080/crm/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/authority/v1.0/contacts
+POST http://localhost:8080/crm/v1.0/contacts
 Content-Type: application/json
 
 {
@@ -24,14 +24,14 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
+PATCH http://localhost:8080/crm/v1.0/contacts/9a3d3fea-79d8-4760-923d-2618055dc116
 Content-Type: application/json
 
 {
-  "title": "總經理",
+  "account_id": "e0504567-20da-4953-9275-0e1e5fcb7e1b",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
+DELETE http://localhost:8080/crm/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
 Accept: application/json

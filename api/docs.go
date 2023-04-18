@@ -25,7 +25,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/authority/v1.0/accounts": {
+        "/crm/v1.0/accounts": {
             "get": {
                 "description": "取得全部帳戶",
                 "consumes": [
@@ -206,7 +206,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/accounts/{accountID}": {
+        "/crm/v1.0/accounts/{accountID}": {
             "get": {
                 "description": "取得單一帳戶",
                 "consumes": [
@@ -472,7 +472,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/contacts": {
+        "/crm/v1.0/contacts": {
             "get": {
                 "description": "取得全部聯絡人",
                 "consumes": [
@@ -653,7 +653,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/contacts/{contactID}": {
+        "/crm/v1.0/contacts/{contactID}": {
             "get": {
                 "description": "取得單一聯絡人",
                 "consumes": [
@@ -919,7 +919,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/industries": {
+        "/crm/v1.0/industries": {
             "get": {
                 "description": "取得全部行業",
                 "consumes": [
@@ -1100,7 +1100,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/industries/{industryID}": {
+        "/crm/v1.0/industries/{industryID}": {
             "get": {
                 "description": "取得單一行業",
                 "consumes": [
@@ -1366,7 +1366,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/leads": {
+        "/crm/v1.0/leads": {
             "get": {
                 "description": "取得全部線索",
                 "consumes": [
@@ -1547,7 +1547,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/leads/contacts": {
+        "/crm/v1.0/leads/contacts": {
             "get": {
                 "description": "取得全部線索聯絡人",
                 "consumes": [
@@ -1728,7 +1728,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/leads/contacts/{leadContactID}": {
+        "/crm/v1.0/leads/contacts/{leadContactID}": {
             "get": {
                 "description": "取得單一線索聯絡人",
                 "consumes": [
@@ -1994,7 +1994,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/leads/{leadID}": {
+        "/crm/v1.0/leads/{leadID}": {
             "get": {
                 "description": "取得單一線索",
                 "consumes": [
@@ -2260,7 +2260,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/login": {
+        "/crm/v1.0/login": {
             "post": {
                 "description": "使用者登入",
                 "consumes": [
@@ -2342,7 +2342,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/refresh": {
+        "/crm/v1.0/refresh": {
             "post": {
                 "description": "換新的令牌",
                 "consumes": [
@@ -2424,7 +2424,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/users": {
+        "/crm/v1.0/users": {
             "get": {
                 "description": "取得全部使用者",
                 "consumes": [
@@ -2605,7 +2605,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/authority/v1.0/users/{userID}": {
+        "/crm/v1.0/users/{userID}": {
             "get": {
                 "description": "取得單一使用者",
                 "consumes": [

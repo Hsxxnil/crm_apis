@@ -1,4 +1,4 @@
-GET http://localhost:8080/authority/v1.0/test
+GET http://localhost:8080/crm/v1.0/test
 Accept: application/json
 
 ###
