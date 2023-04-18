@@ -1,5 +1,5 @@
 ### login
-POST http://localhost:8080/authority/v1.0/login
+POST http://localhost:8080/crm/v1.0/login
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### refresh
-POST http://localhost:8080/authority/v1.0/refresh
+POST http://localhost:8080/crm/v1.0/refresh
 Content-Type: application/json
 
 {

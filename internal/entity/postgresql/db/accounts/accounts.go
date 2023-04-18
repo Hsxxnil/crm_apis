@@ -2,7 +2,6 @@ package accounts
 
 import (
 	"app.eirc/internal/entity/postgresql/db/contacts"
-	"app.eirc/internal/entity/postgresql/db/industries"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -16,15 +15,13 @@ type Table struct {
 	PhoneNumber string `gorm:"column:phone_number;type:text;" json:"phone_number"`
 	// 帳戶行業ID
 	IndustryID string `gorm:"column:industry_id;type:uuid;not null;" json:"industry_id"`
-	// industries data
-	Industries industries.Table `gorm:"foreignKey:industry_id;references:industry_id" json:"industries"`
 	// 帳戶類型ID
 	AccountTypeID string `gorm:"column:account_type_id;type:uuid;not null;" json:"account_type_id"`
 	// 帳戶父系帳戶ID
 	ParentAccountID string `gorm:"column:parent_account_id;type:uuid;not null;" json:"parent_account_id"`
 	special.UseTable
 	// contacts data
-	Contacts []contacts.Table `gorm:"foreignKey:account_id;" json:"contacts"`
+	Contacts []contacts.Table `gorm:"foreignKey:AccountID;" json:"contacts"`
 }
 
 // Base struct is corresponding to accounts table structure file
@@ -37,8 +34,6 @@ type Base struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	// 帳戶行業ID
 	IndustryID *string `json:"industry_id,omitempty"`
-	// industries data
-	Industries industries.Base `json:"industries,omitempty"`
 	// 帳戶類型ID
 	AccountTypeID *string `json:"account_type_id,omitempty"`
 	// 帳戶父系帳戶ID

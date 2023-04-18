@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/authority/v1.0/accounts?page=1&limit=20
+GET http://localhost:8080/crm/v1.0/accounts?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/authority/v1.0/accounts/710eea4c-352a-494f-8d5b-165a09725d16
+GET http://localhost:8080/crm/v1.0/accounts/710eea4c-352a-494f-8d5b-165a09725d16
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/authority/v1.0/accounts
+POST http://localhost:8080/crm/v1.0/accounts
 Content-Type: application/json
 
 {
@@ -20,14 +20,14 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/authority/v1.0/accounts/dced0fc9-3907-45cf-b740-884550e5a793
+PATCH http://localhost:8080/crm/v1.0/accounts/e0504567-20da-4953-9275-0e1e5fcb7e1b
 Content-Type: application/json
 
 {
-  "phone_number": "0800111111",
+  "industry_id": "820615ea-455f-4de0-bb0e-88a94c374307",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/authority/v1.0/accounts/dced0fc9-3907-45cf-b740-884550e5a793
+DELETE http://localhost:8080/crm/v1.0/accounts/dced0fc9-3907-45cf-b740-884550e5a793
 Accept: application/json

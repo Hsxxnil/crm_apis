@@ -9,7 +9,7 @@ import (
 
 func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 	control := present.Init(db)
-	v10 := router.Group("authority").Group("v1.0").Group("contacts")
+	v10 := router.Group("crm").Group("v1.0").Group("contacts")
 	{
 		v10.POST("", middleware.Transaction(db), control.Create)
 		v10.GET("", control.GetByList)
