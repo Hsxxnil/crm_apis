@@ -1,5 +1,39 @@
 package main
 
-func main() {
+import (
+	"app.eirc/internal/interactor/pkg/connect"
+	"app.eirc/internal/interactor/pkg/util/log"
+	"app.eirc/internal/router"
+	"app.eirc/internal/router/account"
+	"app.eirc/internal/router/contact"
+	"app.eirc/internal/router/industry"
+	"app.eirc/internal/router/lead"
+	"app.eirc/internal/router/lead_contact"
+	"app.eirc/internal/router/login"
+	"app.eirc/internal/router/user"
+	"fmt"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"net/http"
+)
 
+func main() {
+	db, err := connect.PostgresSQL()
+	if err != nil {
+		log.Error(err)
+		return
+	}
+
+	engine := router.Default()
+	user.GetRouter(engine, db)
+	login.GetRouter(engine, db)
+	lead.GetRouter(engine, db)
+	lead_contact.GetRouter(engine, db)
+	account.GetRouter(engine, db)
+	contact.GetRouter(engine, db)
+	industry.GetRouter(engine, db)
+
+	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
+	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
+	log.Fatal(http.ListenAndServe(":8080", engine))
 }
