@@ -90,14 +90,18 @@ func (j *JWE) Verify() (*JWE, error) {
 	key, _ := pem.Decode([]byte(j.PrivateKey))
 	private, _ := x509.ParsePKCS8PrivateKey(key.Bytes)
 	privateKey := private.(*rsa.PrivateKey)
-	token, err := jwt.Parse([]byte(j.Token), jwt.WithValidate(true),
-		jwt.WithKey(jwa.RSA_OAEP_256, privateKey))
+	decrypted, err := jwe.Decrypt([]byte(j.Token), jwe.WithKey(jwa.RSA_OAEP_256, privateKey))
 	if err != nil {
 		return nil, err
 	}
 
-	if token.Expiration().IsZero() {
-		return nil, errors.New("decrypt error")
+	token, err := jwt.Parse(decrypted, jwt.WithVerify(false))
+	if err != nil {
+		if err.Error() == "\"exp\" not satisfied" {
+			return nil, errors.New("decrypt error")
+		}
+
+		return nil, err
 	}
 
 	j.IssuerKey, _ = token.Get(jwt.IssuerKey)

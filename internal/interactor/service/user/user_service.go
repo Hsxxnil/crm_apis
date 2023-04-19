@@ -284,7 +284,7 @@ func (s *service) AcknowledgeUser(input *model.Field) (acknowledge bool, output 
 	}
 
 	if quantity == 0 {
-		return false, nil, errors.New("account error")
+		return false, nil, errors.New("username error")
 	}
 
 	key := "423CD5C09F7DD58950F1E494099EB075"

@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
 	"app.eirc/internal/interactor/pkg/connect"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
@@ -14,8 +11,7 @@ import (
 	"app.eirc/internal/router/lead_contact"
 	"app.eirc/internal/router/login"
 	"app.eirc/internal/router/user"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/apex/gateway"
 )
 
 func main() {
@@ -24,17 +20,13 @@ func main() {
 		log.Error(err)
 		return
 	}
-
 	engine := router.Default()
-	user.GetRouter(engine, db)
-	login.GetRouter(engine, db)
-	lead.GetRouter(engine, db)
-	lead_contact.GetRouter(engine, db)
-	account.GetRouter(engine, db)
-	contact.GetRouter(engine, db)
-	industry.GetRouter(engine, db)
-
-	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
-	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-	log.Fatal(http.ListenAndServe(":8080", engine))
+	engine = user.GetRouter(engine, db)
+	engine = login.GetRouter(engine, db)
+	engine = lead.GetRouter(engine, db)
+	engine = lead_contact.GetRouter(engine, db)
+	engine = account.GetRouter(engine, db)
+	engine = contact.GetRouter(engine, db)
+	engine = industry.GetRouter(engine, db)
+	log.Fatal(gateway.ListenAndServe(":8080", engine))
 }

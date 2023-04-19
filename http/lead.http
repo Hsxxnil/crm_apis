@@ -14,8 +14,8 @@ Content-Type: application/json
   "status": "New",
   "company_name": "Test",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "source_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "source_id": "00000000-0000-0000-0000-000000000000",
+  "industry_id": "00000000-0000-0000-0000-000000000000",
   "rating": "Hot"
 }
 
