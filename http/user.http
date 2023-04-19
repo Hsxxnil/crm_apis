@@ -12,21 +12,21 @@ Content-Type: application/json
 Authorization: Bearer REMOVED
 
 {
-  "user_name": "test",
+  "user_name": "admin",
   "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "email": "test@test.com",
-  "name": "test",
+  "email": "admin@test.com",
+  "name": "admin",
   "password": "12345",
-  "phone_number": "123"
+  "phone_number": "admin"
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/users/7b4d0504-b632-459b-bd86-761685157ac9
+PATCH http://localhost:8080/crm/v1.0/users/4bef5610-4596-4d65-bf53-d804a73b6887
 Content-Type: application/json
 
 {
-  "password": "54321",
+  "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
