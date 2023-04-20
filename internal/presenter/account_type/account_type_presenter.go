@@ -34,7 +34,7 @@ func Init(db *gorm.DB) Control {
 // Create
 // @Summary 新增帳戶類型
 // @description 新增帳戶類型
-// @Tags account_type
+// @Tags account-type
 // @version 1.0
 // @Accept json
 // @produce json
@@ -43,7 +43,7 @@ func Init(db *gorm.DB) Control {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/account_types [post]
+// @Router /crm/v1.0/accounts/types [post]
 func (c *control) Create(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
@@ -63,7 +63,7 @@ func (c *control) Create(ctx *gin.Context) {
 // GetByList
 // @Summary 取得全部帳戶類型
 // @description 取得全部帳戶類型
-// @Tags account_type
+// @Tags account-type
 // @version 1.0
 // @Accept json
 // @produce json
@@ -73,7 +73,7 @@ func (c *control) Create(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=account_types.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/account_types [get]
+// @Router /crm/v1.0/accounts/types [get]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &accountTypesModel.Fields{}
 
@@ -95,7 +95,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // GetBySingle
 // @Summary 取得單一帳戶類型
 // @description 取得單一帳戶類型
-// @Tags account_type
+// @Tags account-type
 // @version 1.0
 // @Accept json
 // @produce json
@@ -104,7 +104,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=account_types.Single} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/account_types/{accountTypeID} [get]
+// @Router /crm/v1.0/accounts/types/{accountTypeID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
 	accountTypeID := ctx.Param("accountTypeID")
 	input := &accountTypesModel.Field{}
@@ -123,7 +123,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // Delete
 // @Summary 刪除單一帳戶類型
 // @description 刪除單一帳戶類型
-// @Tags account_type
+// @Tags account-type
 // @version 1.0
 // @Accept json
 // @produce json
@@ -132,7 +132,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/account_types/{accountTypeID} [delete]
+// @Router /crm/v1.0/accounts/types/{accountTypeID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	accountTypeID := ctx.Param("accountTypeID")
@@ -152,7 +152,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // Update
 // @Summary 更新單一帳戶類型
 // @description 更新單一帳戶類型
-// @Tags account_type
+// @Tags account-type
 // @version 1.0
 // @Accept json
 // @produce json
@@ -162,7 +162,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/account_types/{accountTypeID} [patch]
+// @Router /crm/v1.0/accounts/types/{accountTypeID} [patch]
 func (c *control) Update(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	accountTypeID := ctx.Param("accountTypeID")
