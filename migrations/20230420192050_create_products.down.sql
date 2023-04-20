@@ -1,0 +1,9 @@
+drop index idx_products_product_id;
+drop index idx_products_name;
+drop index idx_products_code;
+drop index idx_products_description;
+drop index idx_products_created_at;
+drop index idx_products_created_by;
+drop index idx_products_updated_at;
+drop index idx_products_updated_by;
+drop table products;

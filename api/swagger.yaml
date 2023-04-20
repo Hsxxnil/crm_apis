@@ -770,6 +770,134 @@ definitions:
     - password
     - user_name
     type: object
+  products.Create:
+    properties:
+      code:
+        description: 產品編號
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      description:
+        description: 產品描述
+        type: string
+      is_enable:
+        description: 是否啟用
+        type: boolean
+      name:
+        description: 產品名稱
+        type: string
+    required:
+    - created_by
+    - name
+    type: object
+  products.List:
+    properties:
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      products:
+        description: 多筆
+        items:
+          properties:
+            code:
+              description: 產品編號
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            description:
+              description: 產品描述
+              type: string
+            is_enable:
+              description: 是否啟用
+              type: boolean
+            name:
+              description: 產品名稱
+              type: string
+            product_id:
+              description: 產品ID
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  products.Single:
+    properties:
+      code:
+        description: 產品編號
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      description:
+        description: 產品描述
+        type: string
+      is_enable:
+        description: 是否啟用
+        type: boolean
+      name:
+        description: 產品名稱
+        type: string
+      product_id:
+        description: 產品ID
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  products.Update:
+    properties:
+      code:
+        description: 產品編號
+        type: string
+      description:
+        description: 產品描述
+        type: string
+      is_enable:
+        description: 是否啟用
+        type: boolean
+      name:
+        description: 產品名稱
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    required:
+    - updated_by
+    type: object
   users.Create:
     properties:
       company_id:
@@ -2260,6 +2388,260 @@ paths:
       summary: 使用者登入
       tags:
       - login
+  /crm/v1.0/products:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/products.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部產品
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      description: 新增產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/products.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增產品
+      tags:
+      - product
+  /crm/v1.0/products/{productID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 產品ID
+        in: path
+        name: productID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一產品
+      tags:
+      - product
+    get:
+      consumes:
+      - application/json
+      description: 取得單一產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 產品ID
+        in: path
+        name: productID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/products.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一產品
+      tags:
+      - product
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 產品ID
+        in: path
+        name: productID
+        required: true
+        type: string
+      - description: 更新產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/products.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一產品
+      tags:
+      - product
   /crm/v1.0/refresh:
     post:
       consumes:
