@@ -17,7 +17,7 @@ type Table struct {
 	// 密碼
 	Password string `gorm:"column:password;type:text;not null;" json:"password"`
 	// 是否刪除
-	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;default:false" json:"is_deleted"`
+	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// 電話
 	PhoneNumber string `gorm:"column:phone_number;type:text;" json:"phone_number"`
 	// 電子郵件
