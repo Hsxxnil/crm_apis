@@ -106,7 +106,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /crm/v1.0/accounts/{accountID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
-	accountID := ctx.Param("accountID") // 跟router對應
+	accountID := ctx.Param("accountID")
 	input := &accountModel.Field{}
 	input.AccountID = accountID
 	if err := ctx.ShouldBindQuery(input); err != nil {
