@@ -3,9 +3,9 @@ POST http://localhost:8080/crm/v1.0/login
 Content-Type: application/json
 
 {
-  "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
-  "user_name": "test",
-  "password": "54321"
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
 }
 
 ### refresh
@@ -14,4 +14,6 @@ Content-Type: application/json
 
 {
   "refresh_token": "REMOVED"
+
 }
+
