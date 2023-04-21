@@ -26,7 +26,7 @@ func Verify() gin.HandlerFunc {
 		j, err := j.Verify()
 		if err != nil {
 			log.Error(err)
-			ctx.AbortWithStatusJSON(http.StatusOK, code.GetCodeMessage(code.JWTRejected, err.Error()))
+			ctx.AbortWithStatusJSON(http.StatusOK, code.GetCodeMessage(code.JWTRejected, "AccessToken is error"))
 			return
 		}
 

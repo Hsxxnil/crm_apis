@@ -10,11 +10,14 @@ import (
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
 	"app.eirc/internal/router/account"
+	"app.eirc/internal/router/account_type"
 	"app.eirc/internal/router/contact"
 	"app.eirc/internal/router/industry"
 	"app.eirc/internal/router/lead"
 	"app.eirc/internal/router/lead_contact"
 	"app.eirc/internal/router/login"
+	"app.eirc/internal/router/order"
+	"app.eirc/internal/router/product"
 	"app.eirc/internal/router/user"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -52,6 +55,9 @@ func main() {
 	account.GetRouter(engine, db)
 	contact.GetRouter(engine, db)
 	industry.GetRouter(engine, db)
+	product.GetRouter(engine, db)
+	order.GetRouter(engine, db)
+	account_type.GetRouter(engine, db)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

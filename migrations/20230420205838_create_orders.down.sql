@@ -1,0 +1,11 @@
+drop index idx_orders_order_id;
+drop index idx_orders_status;
+drop index idx_orders_start_date;
+drop index idx_orders_account_id;
+drop index idx_orders_contract_id;
+drop index idx_orders_description;
+drop index idx_orders_created_at;
+drop index idx_orders_created_by;
+drop index idx_orders_updated_at;
+drop index idx_orders_updated_by;
+drop table orders;

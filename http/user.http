@@ -13,20 +13,18 @@ Authorization: Bearer REMOVED
 
 {
   "user_name": "admin",
-  "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
-  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "email": "admin@test.com",
+  "email": "admin@admin.com",
   "name": "admin",
   "password": "12345",
   "phone_number": "admin"
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/users/4bef5610-4596-4d65-bf53-d804a73b6887
+PATCH http://localhost:8080/crm/v1.0/users/0c1668c9-ecd7-442c-ab94-ecefa377eec9
 Content-Type: application/json
 
 {
-  "company_id": "1a8e81ed-8ec7-4cba-831a-77ea4079b3fd",
+  "company_id": "00000000-0000-4000-a000-000000000000",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
@@ -35,6 +33,5 @@ DELETE http://localhost:8080/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Content-Type: application/json
 
 {
-  "user_name": "deleted_test",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }

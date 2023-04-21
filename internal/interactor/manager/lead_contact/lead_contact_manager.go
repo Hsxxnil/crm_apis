@@ -35,33 +35,33 @@ func Init(db *gorm.DB) Manager {
 func (m *manager) Create(trx *gorm.DB, input *leadContactModel.Create) interface{} {
 	defer trx.Rollback()
 
-	leadBase, err := m.LeadContactService.WithTrx(trx).Create(input)
+	leadContactBase, err := m.LeadContactService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, leadBase.LeadContactID)
+	return code.GetCodeMessage(code.Successful, leadContactBase.LeadContactID)
 }
 
 func (m *manager) GetByList(input *leadContactModel.Fields) interface{} {
 	output := &leadContactModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
-	quantity, leadBase, err := m.LeadContactService.GetByList(input)
+	quantity, leadContactBase, err := m.LeadContactService.GetByList(input)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
-	leadByte, err := json.Marshal(leadBase)
+	leadContactByte, err := json.Marshal(leadContactBase)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(leadByte, &output.LeadContacts)
+	err = json.Unmarshal(leadContactByte, &output.LeadContacts)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -71,7 +71,7 @@ func (m *manager) GetByList(input *leadContactModel.Fields) interface{} {
 }
 
 func (m *manager) GetBySingle(input *leadContactModel.Field) interface{} {
-	leadBase, err := m.LeadContactService.GetBySingle(input)
+	leadContactBase, err := m.LeadContactService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -82,8 +82,8 @@ func (m *manager) GetBySingle(input *leadContactModel.Field) interface{} {
 	}
 
 	output := &leadContactModel.Single{}
-	leadByte, _ := json.Marshal(leadBase)
-	err = json.Unmarshal(leadByte, &output)
+	leadContactByte, _ := json.Marshal(leadContactBase)
+	err = json.Unmarshal(leadContactByte, &output)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
@@ -115,7 +115,7 @@ func (m *manager) Delete(input *leadContactModel.Field) interface{} {
 }
 
 func (m *manager) Update(input *leadContactModel.Update) interface{} {
-	leadBase, err := m.LeadContactService.GetBySingle(&leadContactModel.Field{
+	leadContactBase, err := m.LeadContactService.GetBySingle(&leadContactModel.Field{
 		LeadContactID: input.LeadContactID,
 	})
 	if err != nil {
@@ -133,5 +133,5 @@ func (m *manager) Update(input *leadContactModel.Update) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	return code.GetCodeMessage(code.Successful, leadBase.LeadContactID)
+	return code.GetCodeMessage(code.Successful, leadContactBase.LeadContactID)
 }

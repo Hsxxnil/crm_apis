@@ -45,9 +45,10 @@ func Init(db *gorm.DB) Control {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /crm/v1.0/users [post]
 func (c *control) Create(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	input := &userModel.Create{}
+	input.CompanyID = ctx.MustGet("company_id").(string)
+	input.CreatedBy = ctx.MustGet("user_id").(string)
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -55,8 +56,6 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	//input.CompanyID = ctx.MustGet("company_id").(string)
-	//input.CreatedBy = ctx.MustGet("user_id").(string)
 	codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
@@ -107,7 +106,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /crm/v1.0/users/{userID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
-	userID := ctx.Param("userID") // 跟router對應
+	userID := ctx.Param("userID")
 	input := &userModel.Field{}
 	input.UserID = userID
 	if err := ctx.ShouldBindQuery(input); err != nil {

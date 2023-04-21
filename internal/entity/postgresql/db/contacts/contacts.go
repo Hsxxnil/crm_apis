@@ -23,7 +23,7 @@ type Table struct {
 	// 聯絡人部門
 	Department string `gorm:"column:department;type:text;" json:"department"`
 	// 直屬上司ID
-	ManagerID string `gorm:"column:manager_id;type:uuid;not null;" json:"manager_id"`
+	SupervisorID string `gorm:"column:supervisor_id;type:uuid;not null;" json:"supervisor_id"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	special.UseTable
@@ -48,7 +48,7 @@ type Base struct {
 	// 聯絡人部門
 	Department *string `json:"department,omitempty"`
 	// 直屬上司ID
-	ManagerID *string `json:"manager_id,omitempty"`
+	SupervisorID *string `json:"supervisor_id,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
 	special.UseBase
