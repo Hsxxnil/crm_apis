@@ -3,7 +3,7 @@ drop index idx_contacts_name;
 drop index idx_contacts_phone_number;
 drop index idx_contacts_cell_phone;
 drop index idx_contacts_email;
-drop index idx_contacts_manager_id;
+drop index idx_contacts_supervisor_id;
 drop index idx_contacts_account_id;
 drop index idx_contacts_created_at;
 drop index idx_contacts_created_by;

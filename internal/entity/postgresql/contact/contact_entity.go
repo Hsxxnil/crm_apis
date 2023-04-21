@@ -136,8 +136,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["department"] = input.Department
 	}
 
-	if input.ManagerID != nil {
-		data["manager_id"] = input.ManagerID
+	if input.SupervisorID != nil {
+		data["supervisor_id"] = input.SupervisorID
 	}
 
 	if input.AccountID != nil {

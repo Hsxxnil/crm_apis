@@ -9,7 +9,7 @@ create table contacts
     email        text,
     salutation   text,
     department   text,
-    manager_id   uuid                                 not null,
+    supervisor_id   uuid                                 not null,
     account_id   uuid                                 not null,
     created_at   timestamp default now()              not null,
     created_by   uuid                                 not null,
@@ -32,8 +32,8 @@ create index idx_contacts_cell_phone
 create index idx_contacts_email
     on contacts using gin (email gin_trgm_ops);
 
-create index idx_contacts_manager_id
-    on contacts using hash (manager_id);
+create index idx_contacts_supervisor_id
+    on contacts using hash (supervisor_id);
 
 create index idx_contacts_account_id
     on contacts using hash (account_id);

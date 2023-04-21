@@ -22,7 +22,7 @@ type Create struct {
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
 	// 直屬上司ID
-	ManagerID string `json:"manager_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	SupervisorID string `json:"supervisor_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 創建者
@@ -48,7 +48,7 @@ type Field struct {
 	// 聯絡人部門
 	Department *string `json:"department,omitempty" from:"department"`
 	// 直屬上司ID
-	ManagerID *string `json:"manager_id,omitempty" from:"manager_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
+	SupervisorID *string `json:"supervisor_id,omitempty" from:"supervisor_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" from:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
 }
@@ -82,7 +82,7 @@ type List struct {
 		// 聯絡人部門
 		Department string `json:"department,omitempty"`
 		// 直屬上司ID
-		ManagerID string `json:"manager_id,omitempty"`
+		SupervisorID string `json:"supervisor_id,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 創建者
@@ -115,7 +115,7 @@ type Single struct {
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
 	// 直屬上司ID
-	ManagerID string `json:"manager_id,omitempty"`
+	SupervisorID string `json:"supervisor_id,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 創建者
@@ -145,7 +145,7 @@ type Update struct {
 	// 聯絡人部門
 	Department *string `json:"department,omitempty"`
 	// 直屬上司ID
-	ManagerID *string `json:"manager_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	SupervisorID *string `json:"supervisor_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
