@@ -30,5 +30,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/contracts/cb6da4e5-e2da-49ab-923f-7a9442ec9633
+DELETE http://localhost:8080/crm/v1.0/contracts/0e87df55-49c9-4598-ab9a-15ee264acda1
 Accept: application/json
