@@ -20,6 +20,8 @@ type Table struct {
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// 契約描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
+	// 契約號碼
+	Code uint `gorm:"->;column:code;type:serial;auto_increment" json:"code"`
 	special.UseTable
 }
 
@@ -37,6 +39,8 @@ type Base struct {
 	AccountID *string `json:"account_id,omitempty"`
 	// 契約描述
 	Description *string `json:"description,omitempty"`
+	// 契約號碼
+	Code *int `json:"code,omitempty"`
 	special.UseBase
 }
 

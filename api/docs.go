@@ -5301,6 +5301,10 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "code": {
+                                "description": "契約號碼",
+                                "type": "integer"
+                            },
                             "contract_id": {
                                 "description": "契約ID",
                                 "type": "string"
@@ -5368,6 +5372,10 @@ const docTemplate = `{
                 "account_id": {
                     "description": "帳戶ID",
                     "type": "string"
+                },
+                "code": {
+                    "description": "契約號碼",
+                    "type": "integer"
                 },
                 "contract_id": {
                     "description": "契約ID",
