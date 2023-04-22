@@ -1126,9 +1126,13 @@ definitions:
       name:
         description: 產品名稱
         type: string
+      price:
+        description: 產品價格
+        type: number
     required:
     - created_by
     - name
+    - price
     type: object
   products.List:
     properties:
@@ -1166,6 +1170,9 @@ definitions:
             name:
               description: 產品名稱
               type: string
+            price:
+              description: 產品價格
+              type: number
             product_id:
               description: 產品ID
               type: string
@@ -1207,6 +1214,9 @@ definitions:
       name:
         description: 產品名稱
         type: string
+      price:
+        description: 產品價格
+        type: number
       product_id:
         description: 產品ID
         type: string
@@ -1231,6 +1241,9 @@ definitions:
       name:
         description: 產品名稱
         type: string
+      price:
+        description: 產品價格
+        type: number
       updated_by:
         description: 更新者
         type: string

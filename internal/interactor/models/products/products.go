@@ -3,6 +3,7 @@ package products
 import (
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
+	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -15,6 +16,8 @@ type Create struct {
 	IsEnable bool `json:"is_enable,omitempty"`
 	// 產品描述
 	Description string `json:"description,omitempty"`
+	// 產品價格
+	Price decimal.Decimal `json:"price,omitempty" binding:"required" validate:"required"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -31,6 +34,8 @@ type Field struct {
 	IsEnable *bool `json:"is_enable,omitempty" from:"is_enable"`
 	// 產品描述
 	Description *string `json:"description,omitempty" from:"description"`
+	// 產品價格
+	Price *decimal.Decimal `json:"price,omitempty" from:"price"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -55,6 +60,8 @@ type List struct {
 		IsEnable bool `json:"is_enable"`
 		// 產品描述
 		Description string `json:"description,omitempty"`
+		// 產品價格
+		Price decimal.Decimal `json:"price,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by"`
 		// 更新者
@@ -78,6 +85,8 @@ type Single struct {
 	IsEnable bool `json:"is_enable"`
 	// 產品描述
 	Description string `json:"description,omitempty"`
+	// 產品價格
+	Price decimal.Decimal `json:"price,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by"`
 	// 更新者
@@ -97,7 +106,9 @@ type Update struct {
 	// 是否啟用
 	IsEnable *bool `json:"is_enable,omitempty"`
 	// 產品描述
-	Description string `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
+	// 產品價格
+	Price *decimal.Decimal `json:"price,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
