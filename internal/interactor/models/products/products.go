@@ -9,7 +9,7 @@ import (
 type Create struct {
 	// 產品名稱
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
-	// 產品編號
+	// 產品識別碼
 	Code string `json:"code,omitempty"`
 	// 是否啟用
 	IsEnable bool `json:"is_enable,omitempty"`
@@ -25,7 +25,7 @@ type Field struct {
 	ProductID string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 產品名稱
 	Name *string `json:"name,omitempty" from:"name"`
-	// 產品編號
+	// 產品識別碼
 	Code *string `json:"code,omitempty" from:"code"`
 	// 是否啟用
 	IsEnable *bool `json:"is_enable,omitempty" from:"is_enable"`
@@ -49,7 +49,7 @@ type List struct {
 		ProductID string `json:"product_id,omitempty"`
 		// 產品名稱
 		Name string `json:"name,omitempty"`
-		// 產品編號
+		// 產品識別碼
 		Code string `json:"code,omitempty"`
 		// 是否啟用
 		IsEnable bool `json:"is_enable"`
@@ -72,7 +72,7 @@ type Single struct {
 	ProductID string `json:"product_id,omitempty"`
 	// 產品名稱
 	Name string `json:"name,omitempty"`
-	// 產品編號
+	// 產品識別碼
 	Code string `json:"code,omitempty"`
 	// 是否啟用
 	IsEnable bool `json:"is_enable"`
@@ -92,7 +92,7 @@ type Update struct {
 	ProductID string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 產品名稱
 	Name *string `json:"name,omitempty"`
-	// 產品編號
+	// 產品識別碼
 	Code *string `json:"code,omitempty"`
 	// 是否啟用
 	IsEnable *bool `json:"is_enable,omitempty"`

@@ -5560,7 +5560,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "code": {
-                    "description": "產品編號",
+                    "description": "產品識別碼",
                     "type": "string"
                 },
                 "created_by": {
@@ -5607,7 +5607,7 @@ const docTemplate = `{
                         "type": "object",
                         "properties": {
                             "code": {
-                                "description": "產品編號",
+                                "description": "產品識別碼",
                                 "type": "string"
                             },
                             "created_at": {
@@ -5659,7 +5659,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "code": {
-                    "description": "產品編號",
+                    "description": "產品識別碼",
                     "type": "string"
                 },
                 "created_at": {
@@ -5707,7 +5707,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "code": {
-                    "description": "產品編號",
+                    "description": "產品識別碼",
                     "type": "string"
                 },
                 "description": {

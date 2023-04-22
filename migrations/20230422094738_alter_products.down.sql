@@ -1,0 +1,1 @@
+drop index uidx_products_code;
