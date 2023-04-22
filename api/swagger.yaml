@@ -420,6 +420,149 @@ definitions:
     required:
     - updated_by
     type: object
+  contracts.Create:
+    properties:
+      account_id:
+        description: 帳戶ID
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      description:
+        description: 契約描述
+        type: string
+      start_date:
+        description: 契約開始日期
+        type: string
+      status:
+        description: 契約狀態
+        type: string
+      term:
+        description: 契約有效期限(月)
+        type: integer
+    required:
+    - account_id
+    - created_by
+    - start_date
+    - status
+    - term
+    type: object
+  contracts.List:
+    properties:
+      contracts:
+        description: 多筆
+        items:
+          properties:
+            account_id:
+              description: 帳戶ID
+              type: string
+            contract_id:
+              description: 契約ID
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            description:
+              description: 契約描述
+              type: string
+            start_date:
+              description: 契約開始日期
+              type: string
+            status:
+              description: 契約狀態
+              type: string
+            term:
+              description: 契約有效期限(月)
+              type: integer
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  contracts.Single:
+    properties:
+      account_id:
+        description: 帳戶ID
+        type: string
+      contract_id:
+        description: 契約ID
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      description:
+        description: 契約描述
+        type: string
+      start_date:
+        description: 契約開始日期
+        type: string
+      status:
+        description: 契約狀態
+        type: string
+      term:
+        description: 契約有效期限(月)
+        type: integer
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  contracts.Update:
+    properties:
+      account_id:
+        description: 帳戶ID
+        type: string
+      description:
+        description: 契約描述
+        type: string
+      start_date:
+        description: 契約開始日期
+        type: string
+      status:
+        description: 契約狀態
+        type: string
+      term:
+        description: 契約有效期限(月)
+        type: integer
+      updated_by:
+        description: 更新者
+        type: string
+    required:
+    - updated_by
+    type: object
   industries.Create:
     properties:
       name:
@@ -2031,6 +2174,260 @@ paths:
       summary: 更新單一聯絡人
       tags:
       - contact
+  /crm/v1.0/contracts:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部契約
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/contracts.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部契約
+      tags:
+      - contract
+    post:
+      consumes:
+      - application/json
+      description: 新增契約
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增契約
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/contracts.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增契約
+      tags:
+      - contract
+  /crm/v1.0/contracts/{contractID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一契約
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 契約ID
+        in: path
+        name: contractID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一契約
+      tags:
+      - contract
+    get:
+      consumes:
+      - application/json
+      description: 取得單一契約
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 契約ID
+        in: path
+        name: contractID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/contracts.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一契約
+      tags:
+      - contract
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一契約
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 契約ID
+        in: path
+        name: contractID
+        required: true
+        type: string
+      - description: 更新契約
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/contracts.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一契約
+      tags:
+      - contract
   /crm/v1.0/industries:
     get:
       consumes:
