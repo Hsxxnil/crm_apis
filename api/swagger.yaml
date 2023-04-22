@@ -247,9 +247,6 @@ definitions:
       email:
         description: 聯絡人電子郵件
         type: string
-      manager_id:
-        description: 直屬上司ID
-        type: string
       name:
         description: 聯絡人名稱
         type: string
@@ -258,6 +255,9 @@ definitions:
         type: string
       salutation:
         description: 聯絡人稱謂
+        type: string
+      supervisor_id:
+        description: 直屬上司ID
         type: string
       title:
         description: 聯絡人職稱
@@ -298,9 +298,6 @@ definitions:
             email:
               description: 聯絡人電子郵件
               type: string
-            manager_id:
-              description: 直屬上司ID
-              type: string
             name:
               description: 聯絡人名稱
               type: string
@@ -309,6 +306,9 @@ definitions:
               type: string
             salutation:
               description: 聯絡人稱謂
+              type: string
+            supervisor_id:
+              description: 直屬上司ID
               type: string
             title:
               description: 聯絡人職稱
@@ -363,9 +363,6 @@ definitions:
       email:
         description: 聯絡人電子郵件
         type: string
-      manager_id:
-        description: 直屬上司ID
-        type: string
       name:
         description: 聯絡人名稱
         type: string
@@ -374,6 +371,9 @@ definitions:
         type: string
       salutation:
         description: 聯絡人稱謂
+        type: string
+      supervisor_id:
+        description: 直屬上司ID
         type: string
       title:
         description: 聯絡人職稱
@@ -399,9 +399,6 @@ definitions:
       email:
         description: 聯絡人電子郵件
         type: string
-      manager_id:
-        description: 直屬上司ID
-        type: string
       name:
         description: 聯絡人名稱
         type: string
@@ -410,6 +407,9 @@ definitions:
         type: string
       salutation:
         description: 聯絡人稱謂
+        type: string
+      supervisor_id:
+        description: 直屬上司ID
         type: string
       title:
         description: 聯絡人職稱
@@ -829,7 +829,7 @@ definitions:
         description: 帳戶ID
         type: string
       contract_id:
-        description: 產品ID
+        description: 契約ID
         type: string
       created_by:
         description: 創建者
@@ -863,7 +863,7 @@ definitions:
               description: 帳戶ID
               type: string
             contract_id:
-              description: 產品ID
+              description: 契約ID
               type: string
             created_at:
               description: 創建時間
@@ -913,7 +913,7 @@ definitions:
         description: 帳戶ID
         type: string
       contract_id:
-        description: 產品ID
+        description: 契約ID
         type: string
       created_at:
         description: 創建時間
@@ -949,7 +949,7 @@ definitions:
         description: 帳戶ID
         type: string
       contract_id:
-        description: 產品ID
+        description: 契約ID
         type: string
       description:
         description: 訂單描述

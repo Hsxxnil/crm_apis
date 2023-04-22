@@ -1,3 +1,15 @@
+### login
+POST http://localhost:8080/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
 ### GetByList
 GET http://localhost:8080/crm/v1.0/users?page=1&limit=20
 Accept: application/json
@@ -9,14 +21,14 @@ Accept: application/json
 ### Create
 POST http://localhost:8080/crm/v1.0/users
 Content-Type: application/json
-Authorization: Bearer REMOVED
+Authorization: Bearer {{accessToken}}
 
 {
-  "user_name": "admin",
-  "email": "admin@admin.com",
-  "name": "admin",
+  "user_name": "test1",
+  "email": "test1@test1.com",
+  "name": "test1",
   "password": "12345",
-  "phone_number": "admin"
+  "phone_number": "test1"
 }
 
 ### Update

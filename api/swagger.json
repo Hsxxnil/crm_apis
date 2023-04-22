@@ -4568,10 +4568,6 @@
                     "description": "聯絡人電子郵件",
                     "type": "string"
                 },
-                "manager_id": {
-                    "description": "直屬上司ID",
-                    "type": "string"
-                },
                 "name": {
                     "description": "聯絡人名稱",
                     "type": "string"
@@ -4582,6 +4578,10 @@
                 },
                 "salutation": {
                     "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "直屬上司ID",
                     "type": "string"
                 },
                 "title": {
@@ -4635,10 +4635,6 @@
                                 "description": "聯絡人電子郵件",
                                 "type": "string"
                             },
-                            "manager_id": {
-                                "description": "直屬上司ID",
-                                "type": "string"
-                            },
                             "name": {
                                 "description": "聯絡人名稱",
                                 "type": "string"
@@ -4649,6 +4645,10 @@
                             },
                             "salutation": {
                                 "description": "聯絡人稱謂",
+                                "type": "string"
+                            },
+                            "supervisor_id": {
+                                "description": "直屬上司ID",
                                 "type": "string"
                             },
                             "title": {
@@ -4719,10 +4719,6 @@
                     "description": "聯絡人電子郵件",
                     "type": "string"
                 },
-                "manager_id": {
-                    "description": "直屬上司ID",
-                    "type": "string"
-                },
                 "name": {
                     "description": "聯絡人名稱",
                     "type": "string"
@@ -4733,6 +4729,10 @@
                 },
                 "salutation": {
                     "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "直屬上司ID",
                     "type": "string"
                 },
                 "title": {
@@ -4771,10 +4771,6 @@
                     "description": "聯絡人電子郵件",
                     "type": "string"
                 },
-                "manager_id": {
-                    "description": "直屬上司ID",
-                    "type": "string"
-                },
                 "name": {
                     "description": "聯絡人名稱",
                     "type": "string"
@@ -4785,6 +4781,10 @@
                 },
                 "salutation": {
                     "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "直屬上司ID",
                     "type": "string"
                 },
                 "title": {
@@ -5368,7 +5368,7 @@
                     "type": "string"
                 },
                 "contract_id": {
-                    "description": "產品ID",
+                    "description": "契約ID",
                     "type": "string"
                 },
                 "created_by": {
@@ -5411,7 +5411,7 @@
                                 "type": "string"
                             },
                             "contract_id": {
-                                "description": "產品ID",
+                                "description": "契約ID",
                                 "type": "string"
                             },
                             "created_at": {
@@ -5475,7 +5475,7 @@
                     "type": "string"
                 },
                 "contract_id": {
-                    "description": "產品ID",
+                    "description": "契約ID",
                     "type": "string"
                 },
                 "created_at": {
@@ -5527,7 +5527,7 @@
                     "type": "string"
                 },
                 "contract_id": {
-                    "description": "產品ID",
+                    "description": "契約ID",
                     "type": "string"
                 },
                 "description": {
