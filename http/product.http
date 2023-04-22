@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
   "name": "test",
-  "code": "test123",
+  "code": "test",
   "is_enable": true,
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "description": "test",
@@ -20,11 +20,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/products/67506062-59ea-449f-afba-f85ae2cbfaa5
+PATCH http://localhost:8080/crm/v1.0/products/27770a77-f16b-49f5-bcc8-1c9f33b0eede
 Content-Type: application/json
 
 {
-  "price": 50,
+  "code": "test3",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
