@@ -2,6 +2,7 @@ package products
 
 import (
 	"app.eirc/internal/interactor/models/special"
+	"github.com/shopspring/decimal"
 )
 
 // Table struct is products database table struct
@@ -16,6 +17,8 @@ type Table struct {
 	IsEnable bool `gorm:"column:is_enable;type:bool;not null;" json:"is_enable"`
 	// 產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
+	// 產品價格
+	Price decimal.Decimal `gorm:"column:price;type:decimal;" json:"price"`
 	special.UseTable
 }
 
@@ -31,6 +34,8 @@ type Base struct {
 	IsEnable *bool `json:"is_enable,omitempty"`
 	// 產品描述
 	Description *string `json:"description,omitempty"`
+	// 產品價格
+	Price *decimal.Decimal `json:"price,omitempty"`
 	special.UseBase
 }
 

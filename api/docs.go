@@ -6198,7 +6198,8 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "created_by",
-                "name"
+                "name",
+                "price"
             ],
             "properties": {
                 "code": {
@@ -6220,6 +6221,10 @@ const docTemplate = `{
                 "name": {
                     "description": "產品名稱",
                     "type": "string"
+                },
+                "price": {
+                    "description": "產品價格",
+                    "type": "number"
                 }
             }
         },
@@ -6276,6 +6281,10 @@ const docTemplate = `{
                                 "description": "產品名稱",
                                 "type": "string"
                             },
+                            "price": {
+                                "description": "產品價格",
+                                "type": "number"
+                            },
                             "product_id": {
                                 "description": "產品ID",
                                 "type": "string"
@@ -6328,6 +6337,10 @@ const docTemplate = `{
                     "description": "產品名稱",
                     "type": "string"
                 },
+                "price": {
+                    "description": "產品價格",
+                    "type": "number"
+                },
                 "product_id": {
                     "description": "產品ID",
                     "type": "string"
@@ -6363,6 +6376,10 @@ const docTemplate = `{
                 "name": {
                     "description": "產品名稱",
                     "type": "string"
+                },
+                "price": {
+                    "description": "產品價格",
+                    "type": "number"
                 },
                 "updated_by": {
                     "description": "更新者",
