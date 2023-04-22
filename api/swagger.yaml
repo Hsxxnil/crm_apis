@@ -969,7 +969,7 @@ definitions:
   products.Create:
     properties:
       code:
-        description: 產品編號
+        description: 產品識別碼
         type: string
       created_by:
         description: 創建者
@@ -1003,7 +1003,7 @@ definitions:
         items:
           properties:
             code:
-              description: 產品編號
+              description: 產品識別碼
               type: string
             created_at:
               description: 創建時間
@@ -1044,7 +1044,7 @@ definitions:
   products.Single:
     properties:
       code:
-        description: 產品編號
+        description: 產品識別碼
         type: string
       created_at:
         description: 創建時間
@@ -1077,7 +1077,7 @@ definitions:
   products.Update:
     properties:
       code:
-        description: 產品編號
+        description: 產品識別碼
         type: string
       description:
         description: 產品描述
