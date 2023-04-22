@@ -48,7 +48,7 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 	field.UserName = util.PointerString(input.UserName)
 	field.CompanyID = util.PointerString(input.CompanyID)
 	field.IsDeleted = util.PointerBool(false)
-	quantity, _, err := s.Repository.GetByList(field)
+	quantity, err := s.Repository.GetByQuantity(field)
 	if err != nil {
 		log.Error(err)
 		return nil, err
