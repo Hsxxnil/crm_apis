@@ -4572,10 +4572,6 @@ const docTemplate = `{
                     "description": "聯絡人電子郵件",
                     "type": "string"
                 },
-                "manager_id": {
-                    "description": "直屬上司ID",
-                    "type": "string"
-                },
                 "name": {
                     "description": "聯絡人名稱",
                     "type": "string"
@@ -4586,6 +4582,10 @@ const docTemplate = `{
                 },
                 "salutation": {
                     "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "直屬上司ID",
                     "type": "string"
                 },
                 "title": {
@@ -4639,10 +4639,6 @@ const docTemplate = `{
                                 "description": "聯絡人電子郵件",
                                 "type": "string"
                             },
-                            "manager_id": {
-                                "description": "直屬上司ID",
-                                "type": "string"
-                            },
                             "name": {
                                 "description": "聯絡人名稱",
                                 "type": "string"
@@ -4653,6 +4649,10 @@ const docTemplate = `{
                             },
                             "salutation": {
                                 "description": "聯絡人稱謂",
+                                "type": "string"
+                            },
+                            "supervisor_id": {
+                                "description": "直屬上司ID",
                                 "type": "string"
                             },
                             "title": {
@@ -4723,10 +4723,6 @@ const docTemplate = `{
                     "description": "聯絡人電子郵件",
                     "type": "string"
                 },
-                "manager_id": {
-                    "description": "直屬上司ID",
-                    "type": "string"
-                },
                 "name": {
                     "description": "聯絡人名稱",
                     "type": "string"
@@ -4737,6 +4733,10 @@ const docTemplate = `{
                 },
                 "salutation": {
                     "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "直屬上司ID",
                     "type": "string"
                 },
                 "title": {
@@ -4775,10 +4775,6 @@ const docTemplate = `{
                     "description": "聯絡人電子郵件",
                     "type": "string"
                 },
-                "manager_id": {
-                    "description": "直屬上司ID",
-                    "type": "string"
-                },
                 "name": {
                     "description": "聯絡人名稱",
                     "type": "string"
@@ -4789,6 +4785,10 @@ const docTemplate = `{
                 },
                 "salutation": {
                     "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "直屬上司ID",
                     "type": "string"
                 },
                 "title": {
@@ -5372,7 +5372,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "contract_id": {
-                    "description": "產品ID",
+                    "description": "契約ID",
                     "type": "string"
                 },
                 "created_by": {
@@ -5415,7 +5415,7 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "contract_id": {
-                                "description": "產品ID",
+                                "description": "契約ID",
                                 "type": "string"
                             },
                             "created_at": {
@@ -5479,7 +5479,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "contract_id": {
-                    "description": "產品ID",
+                    "description": "契約ID",
                     "type": "string"
                 },
                 "created_at": {
@@ -5531,7 +5531,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "contract_id": {
-                    "description": "產品ID",
+                    "description": "契約ID",
                     "type": "string"
                 },
                 "description": {

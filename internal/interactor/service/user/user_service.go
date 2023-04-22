@@ -284,7 +284,8 @@ func (s *service) AcknowledgeUser(input *model.Field) (acknowledge bool, output 
 	}
 
 	if quantity == 0 {
-		return false, nil, errors.New("username error")
+		//return false, nil, errors.New("Incorrect username or campanyID")
+		return false, nil, nil
 	}
 
 	key := "423CD5C09F7DD58950F1E494099EB075"
@@ -296,7 +297,8 @@ func (s *service) AcknowledgeUser(input *model.Field) (acknowledge bool, output 
 	}
 
 	if string(password) != *input.Password {
-		return false, nil, errors.New("incorrect password")
+		//return false, nil, errors.New("Incorrect password")
+		return false, nil, nil
 	}
 
 	marshal, err = json.Marshal(fields)

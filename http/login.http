@@ -8,12 +8,13 @@ Content-Type: application/json
   "password": "12345"
 }
 
+> {% client.global.set("refreshToken", response.body.body.refresh_token); %}
+
 ### refresh
 POST http://localhost:8080/crm/v1.0/refresh
 Content-Type: application/json
 
 {
-  "refresh_token": "REMOVED"
-
+  "refresh_token": "{{refreshToken}}"
 }
 
