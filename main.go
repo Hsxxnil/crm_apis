@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"app.eirc/internal/router/order_product"
+
 	"app.eirc/internal/interactor/pkg/connect"
 
 	_ "app.eirc/api"
@@ -58,6 +60,7 @@ func main() {
 	order.GetRouter(engine, db)
 	account_type.GetRouter(engine, db)
 	contract.GetRouter(engine, db)
+	order_product.GetRouter(engine, db)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

@@ -12,6 +12,7 @@ import (
 	"app.eirc/internal/router/lead"
 	"app.eirc/internal/router/login"
 	"app.eirc/internal/router/order"
+	"app.eirc/internal/router/order_product"
 	"app.eirc/internal/router/product"
 	"app.eirc/internal/router/user"
 	"github.com/apex/gateway"
@@ -34,5 +35,6 @@ func main() {
 	engine = order.GetRouter(engine, db)
 	engine = account_type.GetRouter(engine, db)
 	engine = contract.GetRouter(engine, db)
+	engine = order_product.GetRouter(engine, db)
 	log.Fatal(gateway.ListenAndServe(":8080", engine))
 }
