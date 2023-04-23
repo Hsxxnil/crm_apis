@@ -18,7 +18,7 @@ type Table struct {
 	// 產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 產品價格
-	Price decimal.Decimal `gorm:"column:price;type:decimal;" json:"price"`
+	Price decimal.Decimal `gorm:"column:price;type:decimal;not null;" json:"price"`
 	special.UseTable
 }
 
