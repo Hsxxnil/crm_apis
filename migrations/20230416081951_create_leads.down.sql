@@ -1,8 +1,8 @@
 drop index idx_leads_lead_id;
 drop index idx_leads_status;
-drop index idx_leads_company_name;
-drop index idx_leads_source_id;
-drop index idx_leads_industry_id;
+drop index idx_leads_description;
+drop index idx_leads_source;
+drop index idx_leads_account_id;
 drop index idx_leads_rating;
 drop index idx_leads_created_at;
 drop index idx_leads_created_by;
