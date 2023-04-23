@@ -12,10 +12,10 @@ Content-Type: application/json
 
 {
   "status": "New",
-  "company_name": "Test",
+  "description": "Test",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "source_id": "00000000-0000-0000-0000-000000000000",
-  "industry_id": "00000000-0000-0000-0000-000000000000",
+  "source": "展演",
+  "account_id": "00000000-0000-4000-a000-000000000000",
   "rating": "Hot"
 }
 
