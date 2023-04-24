@@ -2,7 +2,7 @@ image: golang:1.20
 
 pipelines:
   branches:
-    feat/1_CICD_Config:
+    main:
       - parallel:
           - step:
               name: crm testing deploy
