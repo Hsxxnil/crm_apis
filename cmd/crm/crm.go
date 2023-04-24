@@ -5,7 +5,6 @@ import (
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
 	"app.eirc/internal/router/account"
-	"app.eirc/internal/router/account_type"
 	"app.eirc/internal/router/contact"
 	"app.eirc/internal/router/contract"
 	"app.eirc/internal/router/industry"
@@ -33,7 +32,6 @@ func main() {
 	engine = industry.GetRouter(engine, db)
 	engine = product.GetRouter(engine, db)
 	engine = order.GetRouter(engine, db)
-	engine = account_type.GetRouter(engine, db)
 	engine = contract.GetRouter(engine, db)
 	engine = order_product.GetRouter(engine, db)
 	log.Fatal(gateway.ListenAndServe(":8080", engine))
