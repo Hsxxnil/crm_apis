@@ -104,8 +104,6 @@ type Update struct {
 	Description *string `json:"description,omitempty"`
 	// 線索來源
 	Source *string `json:"source,omitempty"`
-	// 帳戶ID
-	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 線索分級
 	Rating *string `json:"rating,omitempty"`
 	// 更新者

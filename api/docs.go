@@ -5197,10 +5197,6 @@ const docTemplate = `{
                 "updated_by"
             ],
             "properties": {
-                "account_id": {
-                    "description": "帳戶ID",
-                    "type": "string"
-                },
                 "description": {
                     "description": "線索描述",
                     "type": "string"
