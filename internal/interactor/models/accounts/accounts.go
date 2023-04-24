@@ -12,8 +12,8 @@ type Create struct {
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
 	// 帳戶電話
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// 帳戶類型ID
-	AccountTypeID string `json:"account_type_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 帳戶類型
+	Type string `json:"type,omitempty" binding:"required" validate:"required"`
 	// 帳戶行業ID
 	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶父系帳戶ID
@@ -30,8 +30,8 @@ type Field struct {
 	Name *string `json:"name,omitempty" from:"name"`
 	// 帳戶電話
 	PhoneNumber *string `json:"phone_number,omitempty" from:"phone_number"`
-	// 帳戶類型ID
-	AccountTypeID *string `json:"account_type_id,omitempty" from:"account_type_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 帳戶類型
+	Type *string `json:"type,omitempty" from:"type"`
 	// 帳戶行業ID
 	IndustryID *string `json:"industry_id,omitempty" from:"industry_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶父系帳戶ID
@@ -56,8 +56,8 @@ type List struct {
 		Name string `json:"name,omitempty"`
 		// 帳戶電話
 		PhoneNumber string `json:"phone_number,omitempty"`
-		// 帳戶類型ID
-		AccountTypeID string `json:"account_type_id,omitempty"`
+		// 帳戶類型
+		Type string `json:"type,omitempty"`
 		// 帳戶行業ID
 		IndustryID string `json:"industry_id,omitempty"`
 		// 帳戶父系帳戶ID
@@ -83,8 +83,8 @@ type Single struct {
 	Name string `json:"name,omitempty"`
 	// 帳戶電話
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// 帳戶類型ID
-	AccountTypeID string `json:"account_type_id,omitempty"`
+	// 帳戶類型
+	Type string `json:"type,omitempty"`
 	// 帳戶行業ID
 	IndustryID string `json:"industry_id,omitempty"`
 	// 帳戶父系帳戶ID
@@ -107,8 +107,8 @@ type Update struct {
 	Name *string `json:"name,omitempty"`
 	// 帳戶電話
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// 帳戶類型ID
-	AccountTypeID *string `json:"account_type_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 帳戶類型
+	Type *string `json:"type,omitempty"`
 	// 帳戶行業ID
 	IndustryID *string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶父系帳戶ID

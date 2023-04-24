@@ -4,7 +4,7 @@ create table accounts
         primary key,
     name              text      default '':: text not null,
     phone_number      text,
-    account_type_id   uuid                                 not null,
+    type              text      default '':: text not null,
     industry_id       uuid                                 not null,
     parent_account_id uuid                                 not null,
     created_at        timestamp default now()              not null,
@@ -22,8 +22,8 @@ create index idx_accounts_name
 create index idx_accounts_phone_number
     on accounts using gin (phone_number gin_trgm_ops);
 
-create index idx_accounts_account_type_id
-    on accounts using hash (account_type_id);
+create index idx_accounts_type
+    on accounts using gin (type gin_trgm_ops);
 
 create index idx_accounts_industry_id
     on accounts using hash (industry_id);

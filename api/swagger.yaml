@@ -1,63 +1,7 @@
 basePath: /
 definitions:
-  account_types.Create:
-    properties:
-      name:
-        description: 帳戶類型名稱
-        type: string
-    required:
-    - name
-    type: object
-  account_types.List:
-    properties:
-      account_types:
-        description: 多筆
-        items:
-          properties:
-            account_type_id:
-              description: 帳戶類型ID
-              type: string
-            name:
-              description: 帳戶類型名稱
-              type: string
-          type: object
-        type: array
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
-    type: object
-  account_types.Single:
-    properties:
-      account_type_id:
-        description: 帳戶類型ID
-        type: string
-      name:
-        description: 帳戶類型名稱
-        type: string
-    type: object
-  account_types.Update:
-    properties:
-      name:
-        description: 帳戶類型名稱
-        type: string
-    type: object
   accounts.Create:
     properties:
-      account_type_id:
-        description: 帳戶類型ID
-        type: string
       created_by:
         description: 創建者
         type: string
@@ -73,9 +17,13 @@ definitions:
       phone_number:
         description: 帳戶電話
         type: string
+      type:
+        description: 帳戶類型
+        type: string
     required:
     - created_by
     - name
+    - type
     type: object
   accounts.List:
     properties:
@@ -85,9 +33,6 @@ definitions:
           properties:
             account_id:
               description: 帳戶ID
-              type: string
-            account_type_id:
-              description: 帳戶類型ID
               type: string
             contacts:
               description: contacts data
@@ -114,6 +59,9 @@ definitions:
               type: string
             phone_number:
               description: 帳戶電話
+              type: string
+            type:
+              description: 帳戶類型
               type: string
             updated_at:
               description: 更新時間
@@ -144,9 +92,6 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      account_type_id:
-        description: 帳戶類型ID
-        type: string
       contacts:
         description: contacts data
         items:
@@ -173,6 +118,9 @@ definitions:
       phone_number:
         description: 帳戶電話
         type: string
+      type:
+        description: 帳戶類型
+        type: string
       updated_at:
         description: 更新時間
         type: string
@@ -182,9 +130,6 @@ definitions:
     type: object
   accounts.Update:
     properties:
-      account_type_id:
-        description: 帳戶類型ID
-        type: string
       industry_id:
         description: 帳戶行業ID
         type: string
@@ -196,6 +141,9 @@ definitions:
         type: string
       phone_number:
         description: 帳戶電話
+        type: string
+      type:
+        description: 帳戶類型
         type: string
       updated_by:
         description: 更新者
@@ -1662,260 +1610,6 @@ paths:
       summary: 更新單一帳戶
       tags:
       - account
-  /crm/v1.0/accounts/types:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部帳戶類型
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/account_types.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部帳戶類型
-      tags:
-      - account-type
-    post:
-      consumes:
-      - application/json
-      description: 新增帳戶類型
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 新增帳戶類型
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/account_types.Create'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 新增帳戶類型
-      tags:
-      - account-type
-  /crm/v1.0/accounts/types/{accountTypeID}:
-    delete:
-      consumes:
-      - application/json
-      description: 刪除單一帳戶類型
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 帳戶類型ID
-        in: path
-        name: accountTypeID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 刪除單一帳戶類型
-      tags:
-      - account-type
-    get:
-      consumes:
-      - application/json
-      description: 取得單一帳戶類型
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 帳戶類型ID
-        in: path
-        name: accountTypeID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/account_types.Single'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得單一帳戶類型
-      tags:
-      - account-type
-    patch:
-      consumes:
-      - application/json
-      description: 更新單一帳戶類型
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 帳戶類型ID
-        in: path
-        name: accountTypeID
-        required: true
-        type: string
-      - description: 更新帳戶類型
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/account_types.Update'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 更新單一帳戶類型
-      tags:
-      - account-type
   /crm/v1.0/contacts:
     get:
       consumes:

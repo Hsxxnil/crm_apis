@@ -12,7 +12,6 @@ import (
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
 	"app.eirc/internal/router/account"
-	"app.eirc/internal/router/account_type"
 	"app.eirc/internal/router/contact"
 	"app.eirc/internal/router/contract"
 	"app.eirc/internal/router/industry"
@@ -58,7 +57,6 @@ func main() {
 	industry.GetRouter(engine, db)
 	product.GetRouter(engine, db)
 	order.GetRouter(engine, db)
-	account_type.GetRouter(engine, db)
 	contract.GetRouter(engine, db)
 	order_product.GetRouter(engine, db)
 
