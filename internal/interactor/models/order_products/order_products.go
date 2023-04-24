@@ -114,7 +114,7 @@ type Update struct {
 	// 單價
 	UnitPrice *decimal.Decimal `json:"unit_price,omitempty"`
 	// 小計
-	SubTotal *decimal.Decimal `json:"sub_total,omitempty"`
+	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
 	// 描述
 	Description *string `json:"description,omitempty"`
 	// 更新者

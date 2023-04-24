@@ -3,8 +3,6 @@ package order_product
 import (
 	"net/http"
 
-	"github.com/shopspring/decimal"
-
 	constant "app.eirc/internal/interactor/constants"
 
 	"app.eirc/internal/interactor/manager/order_product"
@@ -57,7 +55,6 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	input.SubTotal = input.UnitPrice.Mul(decimal.NewFromInt(int64(input.Quantity)))
 	//input.CreatedBy = ctx.MustGet("user_id").(string)
 	codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(http.StatusOK, codeMessage)

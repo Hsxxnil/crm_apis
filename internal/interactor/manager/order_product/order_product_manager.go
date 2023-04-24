@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/shopspring/decimal"
+
 	"app.eirc/internal/interactor/pkg/util"
 
 	orderProductModel "app.eirc/internal/interactor/models/order_products"
@@ -35,6 +37,7 @@ func Init(db *gorm.DB) Manager {
 func (m *manager) Create(trx *gorm.DB, input *orderProductModel.Create) interface{} {
 	defer trx.Rollback()
 
+	input.SubTotal = input.UnitPrice.Mul(decimal.NewFromInt(int64(input.Quantity)))
 	orderProductBase, err := m.OrderProductService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
@@ -125,6 +128,12 @@ func (m *manager) Update(input *orderProductModel.Update) interface{} {
 
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+	if input.UnitPrice != nil {
+		input.SubTotal = input.UnitPrice.Mul(decimal.NewFromInt(int64(*orderProductBase.Quantity)))
+	}
+	if input.Quantity != nil {
+		input.SubTotal = orderProductBase.UnitPrice.Mul(decimal.NewFromInt(int64(*input.Quantity)))
 	}
 
 	err = m.OrderProductService.Update(input)
