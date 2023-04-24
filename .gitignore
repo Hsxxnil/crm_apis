@@ -56,3 +56,4 @@ config/*.go
 build/*.*
 tmp/*.*
 *.zip
+Makefile
