@@ -55,9 +55,6 @@ definitions:
     type: object
   accounts.Create:
     properties:
-      account_type_id:
-        description: 帳戶類型ID
-        type: string
       created_by:
         description: 創建者
         type: string
@@ -73,9 +70,13 @@ definitions:
       phone_number:
         description: 帳戶電話
         type: string
+      type:
+        description: 帳戶類型
+        type: string
     required:
     - created_by
     - name
+    - type
     type: object
   accounts.List:
     properties:
@@ -85,9 +86,6 @@ definitions:
           properties:
             account_id:
               description: 帳戶ID
-              type: string
-            account_type_id:
-              description: 帳戶類型ID
               type: string
             contacts:
               description: contacts data
@@ -114,6 +112,9 @@ definitions:
               type: string
             phone_number:
               description: 帳戶電話
+              type: string
+            type:
+              description: 帳戶類型
               type: string
             updated_at:
               description: 更新時間
@@ -144,9 +145,6 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      account_type_id:
-        description: 帳戶類型ID
-        type: string
       contacts:
         description: contacts data
         items:
@@ -173,6 +171,9 @@ definitions:
       phone_number:
         description: 帳戶電話
         type: string
+      type:
+        description: 帳戶類型
+        type: string
       updated_at:
         description: 更新時間
         type: string
@@ -182,9 +183,6 @@ definitions:
     type: object
   accounts.Update:
     properties:
-      account_type_id:
-        description: 帳戶類型ID
-        type: string
       industry_id:
         description: 帳戶行業ID
         type: string
@@ -196,6 +194,9 @@ definitions:
         type: string
       phone_number:
         description: 帳戶電話
+        type: string
+      type:
+        description: 帳戶類型
         type: string
       updated_by:
         description: 更新者

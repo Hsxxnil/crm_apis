@@ -1,7 +1,7 @@
 drop index idx_accounts_account_id;
 drop index idx_accounts_name;
 drop index idx_accounts_phone_number;
-drop index idx_accounts_account_type_id;
+drop index idx_accounts_type;
 drop index idx_accounts_industry_id;
 drop index idx_accounts_parent_account_id;
 drop index idx_accounts_created_at;

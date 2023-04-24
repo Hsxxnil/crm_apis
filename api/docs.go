@@ -4750,13 +4750,10 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "created_by",
-                "name"
+                "name",
+                "type"
             ],
             "properties": {
-                "account_type_id": {
-                    "description": "帳戶類型ID",
-                    "type": "string"
-                },
                 "created_by": {
                     "description": "創建者",
                     "type": "string"
@@ -4776,6 +4773,10 @@ const docTemplate = `{
                 "phone_number": {
                     "description": "帳戶電話",
                     "type": "string"
+                },
+                "type": {
+                    "description": "帳戶類型",
+                    "type": "string"
                 }
             }
         },
@@ -4794,10 +4795,6 @@ const docTemplate = `{
                         "properties": {
                             "account_id": {
                                 "description": "帳戶ID",
-                                "type": "string"
-                            },
-                            "account_type_id": {
-                                "description": "帳戶類型ID",
                                 "type": "string"
                             },
                             "contacts": {
@@ -4833,6 +4830,10 @@ const docTemplate = `{
                             },
                             "phone_number": {
                                 "description": "帳戶電話",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "帳戶類型",
                                 "type": "string"
                             },
                             "updated_at": {
@@ -4871,10 +4872,6 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "account_type_id": {
-                    "description": "帳戶類型ID",
-                    "type": "string"
-                },
                 "contacts": {
                     "description": "contacts data",
                     "type": "array",
@@ -4910,6 +4907,10 @@ const docTemplate = `{
                     "description": "帳戶電話",
                     "type": "string"
                 },
+                "type": {
+                    "description": "帳戶類型",
+                    "type": "string"
+                },
                 "updated_at": {
                     "description": "更新時間",
                     "type": "string"
@@ -4926,10 +4927,6 @@ const docTemplate = `{
                 "updated_by"
             ],
             "properties": {
-                "account_type_id": {
-                    "description": "帳戶類型ID",
-                    "type": "string"
-                },
                 "industry_id": {
                     "description": "帳戶行業ID",
                     "type": "string"
@@ -4944,6 +4941,10 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "description": "帳戶電話",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "帳戶類型",
                     "type": "string"
                 },
                 "updated_by": {

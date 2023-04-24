@@ -116,8 +116,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["phone_number"] = input.PhoneNumber
 	}
 
-	if input.AccountTypeID != nil {
-		data["account_type_id"] = input.AccountTypeID
+	if input.Type != nil {
+		data["type"] = input.Type
 	}
 
 	if input.IndustryID != nil {
