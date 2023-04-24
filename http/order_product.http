@@ -20,14 +20,14 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/orders/products/f31e414a-1315-418a-bc70-45660ba212f9
+PATCH http://localhost:8080/crm/v1.0/orders/products/55485bf5-3d6e-4661-9e38-0d8e7086b0c6
 Content-Type: application/json
 
 {
-  "quantity": 2,
+  "unit_price": 10,
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/orders/products/7b0d71d4-8c3a-4be5-b5cb-402cd14a9f13
+DELETE http://localhost:8080/crm/v1.0/orders/products/4f9d5825-7c92-484f-9eda-61f446424424
 Accept: application/json

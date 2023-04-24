@@ -16,9 +16,9 @@ type Table struct {
 	// 數量
 	Quantity int `gorm:"column:quantity;type:int;not null;" json:"quantity"`
 	// 單價
-	UnitPrice decimal.Decimal `gorm:"column:unit_price;type:decimal;not null;" json:"unit_price"`
+	UnitPrice decimal.Decimal `gorm:"column:unit_price;type:numeric;not null;" json:"unit_price"`
 	// 小計
-	SubTotal decimal.Decimal `gorm:"column:sub_total;type:decimal;not null;" json:"sub_total"`
+	SubTotal decimal.Decimal `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
 	// 描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	special.UseTable
