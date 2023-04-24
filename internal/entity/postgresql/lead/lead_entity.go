@@ -120,10 +120,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["source"] = input.Source
 	}
 
-	if input.AccountID != nil {
-		data["account_id"] = input.AccountID
-	}
-
 	if input.Rating != nil {
 		data["rating"] = input.Rating
 	}
