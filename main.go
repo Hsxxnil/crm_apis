@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"app.eirc/internal/router/order_product"
-
 	"app.eirc/internal/interactor/pkg/connect"
 
 	_ "app.eirc/api"
@@ -18,6 +16,7 @@ import (
 	"app.eirc/internal/router/lead"
 	"app.eirc/internal/router/login"
 	"app.eirc/internal/router/order"
+	"app.eirc/internal/router/order_product"
 	"app.eirc/internal/router/product"
 	"app.eirc/internal/router/user"
 	swaggerFiles "github.com/swaggo/files"
@@ -26,20 +25,20 @@ import (
 
 // main is run all api form localhost port 8080
 
-//	@title			CRM API
+//	@title			CRM APIs
 //	@version		0.1
-//	@description	CRM API
-//	@termsOfService	https://eirc.app/
+//	@description	CRM APIs
+//	@termsOfService
 
-//	@contact.name	API System Support
-//	@contact.url	https://eirc.app/
-//	@contact.email	eirc8888@gmail.com
+//	@contact.name
+//	@contact.url
+//	@contact.email
 
 //	@license.name	AGPL 3.0
 //	@license.url	https://www.gnu.org/licenses/agpl-3.0.en.html
 
-// @host		api.testing.eirc
-// @BasePath	/
+// @host		api.t.d2din.com
+// @BasePath	/crm/v1.0
 // @schemes	https
 func main() {
 	db, err := connect.PostgresSQL()

@@ -1,4 +1,4 @@
-basePath: /
+basePath: /crm/v1.0
 definitions:
   accounts.Create:
     properties:
@@ -1339,21 +1339,17 @@ definitions:
     required:
     - updated_by
     type: object
-host: api.testing.eirc
+host: api.t.d2din.com
 info:
-  contact:
-    email: eirc8888@gmail.com
-    name: API System Support
-    url: https://eirc.app/
-  description: CRM API
+  contact: {}
+  description: CRM APIs
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  termsOfService: https://eirc.app/
-  title: CRM API
+  title: CRM APIs
   version: "0.1"
 paths:
-  /crm/v1.0/accounts:
+  /accounts:
     get:
       consumes:
       - application/json
@@ -1456,7 +1452,7 @@ paths:
       summary: 新增帳戶
       tags:
       - account
-  /crm/v1.0/accounts/{accountID}:
+  /accounts/{accountID}:
     delete:
       consumes:
       - application/json
@@ -1607,7 +1603,7 @@ paths:
       summary: 更新單一帳戶
       tags:
       - account
-  /crm/v1.0/contacts:
+  /contacts:
     get:
       consumes:
       - application/json
@@ -1710,7 +1706,7 @@ paths:
       summary: 新增聯絡人
       tags:
       - contact
-  /crm/v1.0/contacts/{contactID}:
+  /contacts/{contactID}:
     delete:
       consumes:
       - application/json
@@ -1861,7 +1857,7 @@ paths:
       summary: 更新單一聯絡人
       tags:
       - contact
-  /crm/v1.0/contracts:
+  /contracts:
     get:
       consumes:
       - application/json
@@ -1964,7 +1960,7 @@ paths:
       summary: 新增契約
       tags:
       - contract
-  /crm/v1.0/contracts/{contractID}:
+  /contracts/{contractID}:
     delete:
       consumes:
       - application/json
@@ -2115,7 +2111,7 @@ paths:
       summary: 更新單一契約
       tags:
       - contract
-  /crm/v1.0/industries:
+  /industries:
     get:
       consumes:
       - application/json
@@ -2218,7 +2214,7 @@ paths:
       summary: 新增行業
       tags:
       - industry
-  /crm/v1.0/industries/{industryID}:
+  /industries/{industryID}:
     delete:
       consumes:
       - application/json
@@ -2369,7 +2365,7 @@ paths:
       summary: 更新單一行業
       tags:
       - industry
-  /crm/v1.0/leads:
+  /leads:
     get:
       consumes:
       - application/json
@@ -2472,7 +2468,7 @@ paths:
       summary: 新增線索
       tags:
       - lead
-  /crm/v1.0/leads/{leadID}:
+  /leads/{leadID}:
     delete:
       consumes:
       - application/json
@@ -2623,7 +2619,7 @@ paths:
       summary: 更新單一線索
       tags:
       - lead
-  /crm/v1.0/login:
+  /login:
     post:
       consumes:
       - application/json
@@ -2668,7 +2664,7 @@ paths:
       summary: 使用者登入
       tags:
       - login
-  /crm/v1.0/orders:
+  /orders:
     get:
       consumes:
       - application/json
@@ -2771,7 +2767,7 @@ paths:
       summary: 新增訂單
       tags:
       - order
-  /crm/v1.0/orders/{orderID}:
+  /orders/{orderID}:
     delete:
       consumes:
       - application/json
@@ -2922,7 +2918,7 @@ paths:
       summary: 更新單一訂單
       tags:
       - order
-  /crm/v1.0/orders/products:
+  /orders/products:
     get:
       consumes:
       - application/json
@@ -3025,7 +3021,7 @@ paths:
       summary: 新增訂單產品
       tags:
       - order_product
-  /crm/v1.0/orders/products/{orderProductID}:
+  /orders/products/{orderProductID}:
     delete:
       consumes:
       - application/json
@@ -3176,7 +3172,7 @@ paths:
       summary: 更新單一訂單產品
       tags:
       - order_product
-  /crm/v1.0/products:
+  /products:
     get:
       consumes:
       - application/json
@@ -3279,7 +3275,7 @@ paths:
       summary: 新增產品
       tags:
       - product
-  /crm/v1.0/products/{productID}:
+  /products/{productID}:
     delete:
       consumes:
       - application/json
@@ -3430,7 +3426,7 @@ paths:
       summary: 更新單一產品
       tags:
       - product
-  /crm/v1.0/refresh:
+  /refresh:
     post:
       consumes:
       - application/json
@@ -3475,7 +3471,7 @@ paths:
       summary: 換新的令牌
       tags:
       - login
-  /crm/v1.0/users:
+  /users:
     get:
       consumes:
       - application/json
@@ -3578,7 +3574,7 @@ paths:
       summary: 新增使用者
       tags:
       - user
-  /crm/v1.0/users/{userID}:
+  /users/{userID}:
     delete:
       consumes:
       - application/json
