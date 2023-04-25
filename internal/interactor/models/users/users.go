@@ -28,19 +28,19 @@ type Field struct {
 	// 使用者ID
 	UserID string `json:"user_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 公司ID
-	CompanyID *string `json:"company_id,omitempty" from:"company_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	CompanyID *string `json:"company_id,omitempty" form:"company_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 使用者名稱
-	UserName *string `json:"user_name,omitempty" from:"user_name"`
+	UserName *string `json:"user_name,omitempty" form:"user_name"`
 	// 中文名稱
-	Name *string `json:"name,omitempty" from:"name"`
+	Name *string `json:"name,omitempty" form:"name"`
 	// 密碼
-	Password *string `json:"password,omitempty" from:"password"`
+	Password *string `json:"password,omitempty" form:"password"`
 	// 是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" from:"is_deleted"`
+	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 	// 電話
-	PhoneNumber *string `json:"phone_number,omitempty" from:"phone_number"`
+	PhoneNumber *string `json:"phone_number,omitempty" form:"phone_number"`
 	// 電子郵件
-	Email *string `json:"email,omitempty" from:"email"`
+	Email *string `json:"email,omitempty" form:"email"`
 }
 
 // Fields is the searched structure file (including pagination)

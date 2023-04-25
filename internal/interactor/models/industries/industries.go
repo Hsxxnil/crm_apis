@@ -15,7 +15,7 @@ type Field struct {
 	// 行業ID
 	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 行業名稱
-	Name *string `json:"name,omitempty" from:"name"`
+	Name *string `json:"name,omitempty" form:"name"`
 }
 
 // Fields is the searched structure file (including pagination)
