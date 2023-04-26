@@ -7,7 +7,7 @@ create table quotes
     is_syncing            bool                                 not null,
     opportunity_id        uuid                                 not null,
     account_id            uuid                                 not null,
-    expiration_date       timestamp,
+    expiration_date       date,
     description           text,
     tax                   numeric,
     shipping_and_handling numeric,

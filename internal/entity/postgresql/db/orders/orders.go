@@ -13,7 +13,7 @@ type Table struct {
 	// 訂單狀態
 	Status string `gorm:"column:status;type:text;not null;" json:"status"`
 	// 訂單開始日期
-	StartDate time.Time `gorm:"column:start_date;type:TIMESTAMP;not null;" json:"start_date"`
+	StartDate time.Time `gorm:"column:start_date;type:date;not null;" json:"start_date"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// 契約ID

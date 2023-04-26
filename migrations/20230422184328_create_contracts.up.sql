@@ -3,7 +3,7 @@ create table contracts
     contract_id uuid      default uuid_generate_v4() not null
         primary key,
     status      text      default '':: text not null,
-    start_date  timestamp                            not null,
+    start_date  date                                 not null,
     account_id  uuid                                 not null,
     term        int                                  not null,
     description text,
