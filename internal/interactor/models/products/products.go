@@ -63,7 +63,7 @@ type List struct {
 		// 產品價格
 		Price decimal.Decimal `json:"price,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -88,7 +88,7 @@ type Single struct {
 	// 產品價格
 	Price decimal.Decimal `json:"price,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記

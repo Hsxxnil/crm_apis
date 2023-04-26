@@ -69,7 +69,7 @@ type List struct {
 		// 訂單產品描述
 		Description string `json:"description,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -96,7 +96,7 @@ type Single struct {
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記

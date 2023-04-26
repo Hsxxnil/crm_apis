@@ -86,7 +86,7 @@ type List struct {
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -119,7 +119,7 @@ type Single struct {
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
