@@ -15,9 +15,9 @@ type Create struct {
 	// 帳戶類型
 	Type string `json:"type,omitempty" binding:"required" validate:"required"`
 	// 行業ID
-	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	IndustryID string `json:"industry_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 父系帳戶ID
-	ParentAccountID string `json:"parent_account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	ParentAccountID string `json:"parent_account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

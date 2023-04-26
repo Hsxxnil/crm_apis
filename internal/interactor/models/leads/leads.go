@@ -14,7 +14,7 @@ type Create struct {
 	// 線索來源
 	Source string `json:"source,omitempty"`
 	// 帳戶ID
-	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
