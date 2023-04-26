@@ -29,17 +29,17 @@ type Field struct {
 	// 訂單產品ID
 	OrderProductID string `json:"order_product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 訂單ID
-	OrderID *string `json:"order_id,omitempty" from:"order_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	OrderID *string `json:"order_id,omitempty" form:"order_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 產品ID
-	ProductID *string `json:"product_id,omitempty" from:"product_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	ProductID *string `json:"product_id,omitempty" form:"product_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 數量
-	Quantity *int `json:"quantity,omitempty" from:"quantity"`
+	Quantity *int `json:"quantity,omitempty" form:"quantity"`
 	// 單價
-	UnitPrice *decimal.Decimal `json:"unit_price,omitempty" from:"unit_price"`
+	UnitPrice *decimal.Decimal `json:"unit_price,omitempty" form:"unit_price"`
 	// 小計
-	SubTotal *decimal.Decimal `json:"sub_total,omitempty" from:"sub_total"`
+	SubTotal *decimal.Decimal `json:"sub_total,omitempty" form:"sub_total"`
 	// 描述
-	Description *string `json:"description,omitempty" from:"description"`
+	Description *string `json:"description,omitempty" form:"description"`
 }
 
 // Fields is the searched structure file (including pagination)

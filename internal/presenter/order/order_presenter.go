@@ -43,7 +43,7 @@ func Init(db *gorm.DB) Control {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/orders [post]
+// @Router /orders [post]
 func (c *control) Create(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
@@ -73,7 +73,7 @@ func (c *control) Create(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=orders.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/orders [get]
+// @Router /orders [get]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &orderModel.Fields{}
 
@@ -104,7 +104,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=orders.Single} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/orders/{orderID} [get]
+// @Router /orders/{orderID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
 	orderID := ctx.Param("orderID")
 	input := &orderModel.Field{}
@@ -132,7 +132,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/orders/{orderID} [delete]
+// @Router /orders/{orderID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	orderID := ctx.Param("orderID")
@@ -162,7 +162,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/orders/{orderID} [patch]
+// @Router /orders/{orderID} [patch]
 func (c *control) Update(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	orderID := ctx.Param("orderID")

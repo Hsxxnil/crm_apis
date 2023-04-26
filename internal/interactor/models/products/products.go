@@ -27,15 +27,15 @@ type Field struct {
 	// 產品ID
 	ProductID string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 產品名稱
-	Name *string `json:"name,omitempty" from:"name"`
+	Name *string `json:"name,omitempty" form:"name"`
 	// 產品識別碼
-	Code *string `json:"code,omitempty" from:"code"`
+	Code *string `json:"code,omitempty" form:"code"`
 	// 是否啟用
-	IsEnable *bool `json:"is_enable,omitempty" from:"is_enable"`
+	IsEnable *bool `json:"is_enable,omitempty" form:"is_enable"`
 	// 產品描述
-	Description *string `json:"description,omitempty" from:"description"`
+	Description *string `json:"description,omitempty" form:"description"`
 	// 產品價格
-	Price *decimal.Decimal `json:"price,omitempty" from:"price"`
+	Price *decimal.Decimal `json:"price,omitempty" form:"price"`
 }
 
 // Fields is the searched structure file (including pagination)

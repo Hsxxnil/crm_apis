@@ -20,11 +20,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/products/27770a77-f16b-49f5-bcc8-1c9f33b0eede
+PATCH http://localhost:8080/crm/v1.0/products/80b0036c-29e6-49d5-b8dc-0e99e696bad9
 Content-Type: application/json
 
 {
-  "code": "test3",
+  "is_enable": true,
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 

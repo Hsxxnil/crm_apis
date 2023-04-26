@@ -43,7 +43,7 @@ func Init(db *gorm.DB) Control {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/products [post]
+// @Router /products [post]
 func (c *control) Create(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
@@ -73,7 +73,7 @@ func (c *control) Create(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=products.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/products [get]
+// @Router /products [get]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &productModel.Fields{}
 
@@ -104,7 +104,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=products.Single} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/products/{productID} [get]
+// @Router /products/{productID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
 	productID := ctx.Param("productID")
 	input := &productModel.Field{}
@@ -132,7 +132,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/products/{productID} [delete]
+// @Router /products/{productID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	productID := ctx.Param("productID")
@@ -162,7 +162,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/products/{productID} [patch]
+// @Router /products/{productID} [patch]
 func (c *control) Update(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	productID := ctx.Param("productID")

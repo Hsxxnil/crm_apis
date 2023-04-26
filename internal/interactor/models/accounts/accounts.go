@@ -27,15 +27,15 @@ type Field struct {
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 帳戶名稱
-	Name *string `json:"name,omitempty" from:"name"`
+	Name *string `json:"name,omitempty" form:"name"`
 	// 帳戶電話
-	PhoneNumber *string `json:"phone_number,omitempty" from:"phone_number"`
+	PhoneNumber *string `json:"phone_number,omitempty" form:"phone_number"`
 	// 帳戶類型
-	Type *string `json:"type,omitempty" from:"type"`
+	Type *string `json:"type,omitempty" form:"type"`
 	// 帳戶行業ID
-	IndustryID *string `json:"industry_id,omitempty" from:"industry_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	IndustryID *string `json:"industry_id,omitempty" form:"industry_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶父系帳戶ID
-	ParentAccountID *string `json:"parent_account_id,omitempty" from:"parent_account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	ParentAccountID *string `json:"parent_account_id,omitempty" form:"parent_account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
 // Fields is the searched structure file (including pagination)

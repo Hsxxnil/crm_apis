@@ -10,12 +10,7 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "https://eirc.app/",
-        "contact": {
-            "name": "API System Support",
-            "url": "https://eirc.app/",
-            "email": "eirc8888@gmail.com"
-        },
+        "contact": {},
         "license": {
             "name": "AGPL 3.0",
             "url": "https://www.gnu.org/licenses/agpl-3.0.en.html"
@@ -25,7 +20,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/crm/v1.0/accounts": {
+        "/accounts": {
             "get": {
                 "description": "取得全部帳戶",
                 "consumes": [
@@ -206,7 +201,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/accounts/{accountID}": {
+        "/accounts/{accountID}": {
             "get": {
                 "description": "取得單一帳戶",
                 "consumes": [
@@ -472,7 +467,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/contacts": {
+        "/contacts": {
             "get": {
                 "description": "取得全部聯絡人",
                 "consumes": [
@@ -653,7 +648,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/contacts/{contactID}": {
+        "/contacts/{contactID}": {
             "get": {
                 "description": "取得單一聯絡人",
                 "consumes": [
@@ -919,7 +914,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/contracts": {
+        "/contracts": {
             "get": {
                 "description": "取得全部契約",
                 "consumes": [
@@ -1100,7 +1095,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/contracts/{contractID}": {
+        "/contracts/{contractID}": {
             "get": {
                 "description": "取得單一契約",
                 "consumes": [
@@ -1366,7 +1361,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/industries": {
+        "/industries": {
             "get": {
                 "description": "取得全部行業",
                 "consumes": [
@@ -1547,7 +1542,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/industries/{industryID}": {
+        "/industries/{industryID}": {
             "get": {
                 "description": "取得單一行業",
                 "consumes": [
@@ -1813,7 +1808,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/leads": {
+        "/leads": {
             "get": {
                 "description": "取得全部線索",
                 "consumes": [
@@ -1994,7 +1989,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/leads/{leadID}": {
+        "/leads/{leadID}": {
             "get": {
                 "description": "取得單一線索",
                 "consumes": [
@@ -2260,7 +2255,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/login": {
+        "/login": {
             "post": {
                 "description": "使用者登入",
                 "consumes": [
@@ -2342,7 +2337,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/orders": {
+        "/orders": {
             "get": {
                 "description": "取得全部訂單",
                 "consumes": [
@@ -2523,7 +2518,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/orders/products": {
+        "/orders/products": {
             "get": {
                 "description": "取得全部訂單產品",
                 "consumes": [
@@ -2704,7 +2699,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/orders/products/{orderProductID}": {
+        "/orders/products/{orderProductID}": {
             "get": {
                 "description": "取得單一訂單產品",
                 "consumes": [
@@ -2970,7 +2965,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/orders/{orderID}": {
+        "/orders/{orderID}": {
             "get": {
                 "description": "取得單一訂單",
                 "consumes": [
@@ -3236,7 +3231,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/products": {
+        "/products": {
             "get": {
                 "description": "取得全部產品",
                 "consumes": [
@@ -3417,7 +3412,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/products/{productID}": {
+        "/products/{productID}": {
             "get": {
                 "description": "取得單一產品",
                 "consumes": [
@@ -3683,7 +3678,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/refresh": {
+        "/refresh": {
             "post": {
                 "description": "換新的令牌",
                 "consumes": [
@@ -3765,7 +3760,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/users": {
+        "/users": {
             "get": {
                 "description": "取得全部使用者",
                 "consumes": [
@@ -3946,7 +3941,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/crm/v1.0/users/{userID}": {
+        "/users/{userID}": {
             "get": {
                 "description": "取得單一使用者",
                 "consumes": [
@@ -6062,11 +6057,11 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.1",
-	Host:             "api.testing.eirc",
-	BasePath:         "/",
+	Host:             "api.t.d2din.com",
+	BasePath:         "/crm/v1.0",
 	Schemes:          []string{"https"},
-	Title:            "CRM API",
-	Description:      "CRM API",
+	Title:            "CRM APIs",
+	Description:      "CRM APIs",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

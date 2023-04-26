@@ -28,17 +28,17 @@ type Field struct {
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 契約狀態
-	Status *string `json:"status,omitempty" from:"status"`
+	Status *string `json:"status,omitempty" form:"status"`
 	// 契約開始日期
-	StartDate *time.Time `json:"start_date,omitempty" from:"start_date"`
+	StartDate *time.Time `json:"start_date,omitempty" form:"start_date"`
 	// 契約有效期限(月)
-	Term *int `json:"term,omitempty" from:"term"`
+	Term *int `json:"term,omitempty" form:"term"`
 	// 帳戶ID
-	AccountID *string `json:"account_id,omitempty" from:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 契約描述
-	Description *string `json:"description,omitempty" from:"description"`
+	Description *string `json:"description,omitempty" form:"description"`
 	// 契約號碼
-	Code *int `json:"code,omitempty" from:"code"`
+	Code *int `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)

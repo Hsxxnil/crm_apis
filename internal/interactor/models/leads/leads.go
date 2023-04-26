@@ -26,15 +26,15 @@ type Field struct {
 	// 線索ID
 	LeadID string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 線索狀態
-	Status *string `json:"status,omitempty" from:"status"`
+	Status *string `json:"status,omitempty" form:"status"`
 	// 線索描述
-	Description *string `json:"description,omitempty" from:"description"`
+	Description *string `json:"description,omitempty" form:"description"`
 	// 線索來源
-	Source *string `json:"source,omitempty" from:"source"`
+	Source *string `json:"source,omitempty" form:"source"`
 	// 帳戶ID
-	AccountID *string `json:"account_id,omitempty" from:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 線索分級
-	Rating *string `json:"rating,omitempty" from:"rating"`
+	Rating *string `json:"rating,omitempty" form:"rating"`
 }
 
 // Fields is the searched structure file (including pagination)

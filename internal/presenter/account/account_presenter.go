@@ -43,7 +43,7 @@ func Init(db *gorm.DB) Control {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/accounts [post]
+// @Router /accounts [post]
 func (c *control) Create(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
@@ -73,7 +73,7 @@ func (c *control) Create(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=accounts.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/accounts [get]
+// @Router /accounts [get]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &accountModel.Fields{}
 
@@ -104,7 +104,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=accounts.Single} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/accounts/{accountID} [get]
+// @Router /accounts/{accountID} [get]
 func (c *control) GetBySingle(ctx *gin.Context) {
 	accountID := ctx.Param("accountID")
 	input := &accountModel.Field{}
@@ -132,7 +132,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/accounts/{accountID} [delete]
+// @Router /accounts/{accountID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	accountID := ctx.Param("accountID")
@@ -162,7 +162,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /crm/v1.0/accounts/{accountID} [patch]
+// @Router /accounts/{accountID} [patch]
 func (c *control) Update(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	accountID := ctx.Param("accountID")
