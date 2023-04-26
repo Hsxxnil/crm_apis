@@ -12,7 +12,7 @@ type Create struct {
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
 	// 產品識別碼
 	Code string `json:"code,omitempty"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable bool `json:"is_enable,omitempty"`
 	// 產品描述
 	Description string `json:"description,omitempty"`
@@ -30,7 +30,7 @@ type Field struct {
 	Name *string `json:"name,omitempty" form:"name"`
 	// 產品識別碼
 	Code *string `json:"code,omitempty" form:"code"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable *bool `json:"is_enable,omitempty" form:"is_enable"`
 	// 產品描述
 	Description *string `json:"description,omitempty" form:"description"`
@@ -56,14 +56,14 @@ type List struct {
 		Name string `json:"name,omitempty"`
 		// 產品識別碼
 		Code string `json:"code,omitempty"`
-		// 是否啟用
+		// 產品是否啟用
 		IsEnable bool `json:"is_enable"`
 		// 產品描述
 		Description string `json:"description,omitempty"`
 		// 產品價格
 		Price decimal.Decimal `json:"price,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -81,14 +81,14 @@ type Single struct {
 	Name string `json:"name,omitempty"`
 	// 產品識別碼
 	Code string `json:"code,omitempty"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable bool `json:"is_enable"`
 	// 產品描述
 	Description string `json:"description,omitempty"`
 	// 產品價格
 	Price decimal.Decimal `json:"price,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
@@ -103,7 +103,7 @@ type Update struct {
 	Name *string `json:"name,omitempty"`
 	// 產品識別碼
 	Code *string `json:"code,omitempty"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable *bool `json:"is_enable,omitempty"`
 	// 產品描述
 	Description *string `json:"description,omitempty"`

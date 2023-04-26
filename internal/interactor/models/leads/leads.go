@@ -14,7 +14,7 @@ type Create struct {
 	// 線索來源
 	Source string `json:"source,omitempty"`
 	// 帳戶ID
-	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
@@ -62,7 +62,7 @@ type List struct {
 		// 線索分級
 		Rating string `json:"rating,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -87,7 +87,7 @@ type Single struct {
 	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
