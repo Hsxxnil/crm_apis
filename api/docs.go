@@ -4231,7 +4231,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "industry_id": {
-                    "description": "帳戶行業ID",
+                    "description": "行業ID",
                     "type": "string"
                 },
                 "name": {
@@ -4239,7 +4239,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "parent_account_id": {
-                    "description": "帳戶父系帳戶ID",
+                    "description": "父系帳戶ID",
                     "type": "string"
                 },
                 "phone_number": {
@@ -4289,7 +4289,7 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "industry_id": {
-                                "description": "帳戶行業ID",
+                                "description": "行業ID",
                                 "type": "string"
                             },
                             "name": {
@@ -4297,7 +4297,7 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "parent_account_id": {
-                                "description": "帳戶父系帳戶ID",
+                                "description": "父系帳戶ID",
                                 "type": "string"
                             },
                             "phone_number": {
@@ -4364,7 +4364,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "industry_id": {
-                    "description": "帳戶行業ID",
+                    "description": "行業ID",
                     "type": "string"
                 },
                 "name": {
@@ -4372,7 +4372,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "parent_account_id": {
-                    "description": "帳戶父系帳戶ID",
+                    "description": "父系帳戶ID",
                     "type": "string"
                 },
                 "phone_number": {
@@ -4400,7 +4400,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "industry_id": {
-                    "description": "帳戶行業ID",
+                    "description": "行業ID",
                     "type": "string"
                 },
                 "name": {
@@ -4408,7 +4408,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "parent_account_id": {
-                    "description": "帳戶父系帳戶ID",
+                    "description": "父系帳戶ID",
                     "type": "string"
                 },
                 "phone_number": {
@@ -5252,7 +5252,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "description": {
-                    "description": "描述",
+                    "description": "訂單產品描述",
                     "type": "string"
                 },
                 "order_id": {
@@ -5264,15 +5264,15 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "quantity": {
-                    "description": "數量",
+                    "description": "訂單產品數量",
                     "type": "integer"
                 },
                 "sub_total": {
-                    "description": "小計",
+                    "description": "訂單產品小計",
                     "type": "number"
                 },
                 "unit_price": {
-                    "description": "單價",
+                    "description": "訂單產品單價",
                     "type": "number"
                 }
             }
@@ -5307,7 +5307,7 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "description": {
-                                "description": "描述",
+                                "description": "訂單產品描述",
                                 "type": "string"
                             },
                             "order_id": {
@@ -5323,15 +5323,15 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "quantity": {
-                                "description": "數量",
+                                "description": "訂單產品數量",
                                 "type": "integer"
                             },
                             "sub_total": {
-                                "description": "小計",
+                                "description": "訂單產品小計",
                                 "type": "number"
                             },
                             "unit_price": {
-                                "description": "單價",
+                                "description": "訂單產品單價",
                                 "type": "number"
                             },
                             "updated_at": {
@@ -5375,7 +5375,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "description": {
-                    "description": "描述",
+                    "description": "訂單產品描述",
                     "type": "string"
                 },
                 "order_id": {
@@ -5391,15 +5391,15 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "quantity": {
-                    "description": "數量",
+                    "description": "訂單產品數量",
                     "type": "integer"
                 },
                 "sub_total": {
-                    "description": "小計",
+                    "description": "訂單產品小計",
                     "type": "number"
                 },
                 "unit_price": {
-                    "description": "單價",
+                    "description": "訂單產品單價",
                     "type": "number"
                 },
                 "updated_at": {
@@ -5419,7 +5419,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "description": {
-                    "description": "描述",
+                    "description": "訂單產品描述",
                     "type": "string"
                 },
                 "product_id": {
@@ -5427,15 +5427,15 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "quantity": {
-                    "description": "數量",
+                    "description": "訂單產品數量",
                     "type": "integer"
                 },
                 "sub_total": {
-                    "description": "小計",
+                    "description": "訂單產品小計",
                     "type": "number"
                 },
                 "unit_price": {
-                    "description": "單價",
+                    "description": "訂單產品單價",
                     "type": "number"
                 },
                 "updated_by": {
@@ -5660,7 +5660,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "is_enable": {
-                    "description": "是否啟用",
+                    "description": "產品是否啟用",
                     "type": "boolean"
                 },
                 "name": {
@@ -5719,7 +5719,7 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "is_enable": {
-                                "description": "是否啟用",
+                                "description": "產品是否啟用",
                                 "type": "boolean"
                             },
                             "name": {
@@ -5775,7 +5775,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "is_enable": {
-                    "description": "是否啟用",
+                    "description": "產品是否啟用",
                     "type": "boolean"
                 },
                 "name": {
@@ -5815,7 +5815,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "is_enable": {
-                    "description": "是否啟用",
+                    "description": "產品是否啟用",
                     "type": "boolean"
                 },
                 "name": {
@@ -5851,19 +5851,19 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "email": {
-                    "description": "電子郵件",
+                    "description": "使用者電子郵件",
                     "type": "string"
                 },
                 "name": {
-                    "description": "中文名稱",
+                    "description": "使用者中文名稱",
                     "type": "string"
                 },
                 "password": {
-                    "description": "密碼",
+                    "description": "使用者密碼",
                     "type": "string"
                 },
                 "phone_number": {
-                    "description": "電話",
+                    "description": "使用者電話",
                     "type": "string"
                 },
                 "user_name": {
@@ -5918,23 +5918,23 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "email": {
-                                "description": "電子郵件",
+                                "description": "使用者電子郵件",
                                 "type": "string"
                             },
                             "is_deleted": {
-                                "description": "是否刪除",
+                                "description": "使用者是否刪除",
                                 "type": "boolean"
                             },
                             "name": {
-                                "description": "中文名稱",
+                                "description": "使用者中文名稱",
                                 "type": "string"
                             },
                             "password": {
-                                "description": "密碼",
+                                "description": "使用者密碼",
                                 "type": "string"
                             },
                             "phone_number": {
-                                "description": "電話",
+                                "description": "使用者電話",
                                 "type": "string"
                             },
                             "updated_at": {
@@ -5978,23 +5978,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "email": {
-                    "description": "電子郵件",
+                    "description": "使用者電子郵件",
                     "type": "string"
                 },
                 "is_deleted": {
-                    "description": "是否刪除",
+                    "description": "使用者是否刪除",
                     "type": "boolean"
                 },
                 "name": {
-                    "description": "中文名稱",
+                    "description": "使用者中文名稱",
                     "type": "string"
                 },
                 "password": {
-                    "description": "密碼",
+                    "description": "使用者密碼",
                     "type": "string"
                 },
                 "phone_number": {
-                    "description": "電話",
+                    "description": "使用者電話",
                     "type": "string"
                 },
                 "updated_at": {
@@ -6026,19 +6026,19 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "email": {
-                    "description": "電子郵件",
+                    "description": "使用者電子郵件",
                     "type": "string"
                 },
                 "name": {
-                    "description": "中文名稱",
+                    "description": "使用者中文名稱",
                     "type": "string"
                 },
                 "password": {
-                    "description": "密碼",
+                    "description": "使用者密碼",
                     "type": "string"
                 },
                 "phone_number": {
-                    "description": "電話",
+                    "description": "使用者電話",
                     "type": "string"
                 },
                 "updated_by": {

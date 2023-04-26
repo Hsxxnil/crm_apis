@@ -12,15 +12,15 @@ type Table struct {
 	CompanyID string `gorm:"column:company_id;type:uuid;not null;" json:"company_id"`
 	// 使用者名稱
 	UserName string `gorm:"column:user_name;type:text;not null;" json:"user_name"`
-	// 中文名稱
+	// 使用者中文名稱
 	Name string `gorm:"column:name;type:text;not null;" json:"name"`
-	// 密碼
+	// 使用者密碼
 	Password string `gorm:"column:password;type:text;not null;" json:"password"`
-	// 是否刪除
+	// 使用者是否刪除
 	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
-	// 電話
+	// 使用者電話
 	PhoneNumber string `gorm:"column:phone_number;type:text;" json:"phone_number"`
-	// 電子郵件
+	// 使用者電子郵件
 	Email string `gorm:"column:email;type:text;" json:"email"`
 	special.UseTable
 }
@@ -33,15 +33,15 @@ type Base struct {
 	CompanyID *string `json:"company_id,omitempty"`
 	// 使用者名稱
 	UserName *string `json:"user_name,omitempty"`
-	// 中文名稱
+	// 使用者中文名稱
 	Name *string `json:"name,omitempty"`
-	// 密碼
+	// 使用者密碼
 	Password *string `json:"password,omitempty"`
-	// 是否刪除
+	// 使用者是否刪除
 	IsDeleted *bool `json:"is_deleted,omitempty"`
-	// 電話
+	// 使用者電話
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// 電子郵件
+	// 使用者電子郵件
 	Email *string `json:"email,omitempty"`
 	special.UseBase
 }

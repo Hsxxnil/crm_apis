@@ -13,13 +13,13 @@ type Table struct {
 	OrderID string `gorm:"column:order_id;type:text;not null;" json:"order_id"`
 	// 產品ID
 	ProductID string `gorm:"column:product_id;type:text;not null;" json:"product_id"`
-	// 數量
+	// 訂單產品數量
 	Quantity int `gorm:"column:quantity;type:int;not null;" json:"quantity"`
-	// 單價
+	// 訂單產品單價
 	UnitPrice decimal.Decimal `gorm:"column:unit_price;type:numeric;not null;" json:"unit_price"`
-	// 小計
+	// 訂單產品小計
 	SubTotal decimal.Decimal `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
-	// 描述
+	// 訂單產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	special.UseTable
 }
@@ -32,13 +32,13 @@ type Base struct {
 	OrderID *string `json:"order_id,omitempty"`
 	// 產品ID
 	ProductID *string `json:"product_id,omitempty"`
-	// 數量
+	// 訂單產品數量
 	Quantity *int `json:"quantity,omitempty"`
-	// 單價
+	// 訂單產品單價
 	UnitPrice *decimal.Decimal `json:"unit_price,omitempty"`
-	// 小計
+	// 訂單產品小計
 	SubTotal *decimal.Decimal `json:"sub_total,omitempty"`
-	// 描述
+	// 訂單產品描述
 	Description *string `json:"description,omitempty"`
 	special.UseBase
 }

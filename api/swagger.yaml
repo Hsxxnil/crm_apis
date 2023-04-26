@@ -6,13 +6,13 @@ definitions:
         description: 創建者
         type: string
       industry_id:
-        description: 帳戶行業ID
+        description: 行業ID
         type: string
       name:
         description: 帳戶名稱
         type: string
       parent_account_id:
-        description: 帳戶父系帳戶ID
+        description: 父系帳戶ID
         type: string
       phone_number:
         description: 帳戶電話
@@ -49,13 +49,13 @@ definitions:
               description: 刪除時間
               type: string
             industry_id:
-              description: 帳戶行業ID
+              description: 行業ID
               type: string
             name:
               description: 帳戶名稱
               type: string
             parent_account_id:
-              description: 帳戶父系帳戶ID
+              description: 父系帳戶ID
               type: string
             phone_number:
               description: 帳戶電話
@@ -107,13 +107,13 @@ definitions:
         description: 刪除時間
         type: string
       industry_id:
-        description: 帳戶行業ID
+        description: 行業ID
         type: string
       name:
         description: 帳戶名稱
         type: string
       parent_account_id:
-        description: 帳戶父系帳戶ID
+        description: 父系帳戶ID
         type: string
       phone_number:
         description: 帳戶電話
@@ -131,13 +131,13 @@ definitions:
   accounts.Update:
     properties:
       industry_id:
-        description: 帳戶行業ID
+        description: 行業ID
         type: string
       name:
         description: 帳戶名稱
         type: string
       parent_account_id:
-        description: 帳戶父系帳戶ID
+        description: 父系帳戶ID
         type: string
       phone_number:
         description: 帳戶電話
@@ -747,7 +747,7 @@ definitions:
         description: 創建者
         type: string
       description:
-        description: 描述
+        description: 訂單產品描述
         type: string
       order_id:
         description: 訂單ID
@@ -756,13 +756,13 @@ definitions:
         description: 產品ID
         type: string
       quantity:
-        description: 數量
+        description: 訂單產品數量
         type: integer
       sub_total:
-        description: 小計
+        description: 訂單產品小計
         type: number
       unit_price:
-        description: 單價
+        description: 訂單產品單價
         type: number
     required:
     - created_by
@@ -791,7 +791,7 @@ definitions:
               description: 刪除時間
               type: string
             description:
-              description: 描述
+              description: 訂單產品描述
               type: string
             order_id:
               description: 訂單ID
@@ -803,13 +803,13 @@ definitions:
               description: 產品ID
               type: string
             quantity:
-              description: 數量
+              description: 訂單產品數量
               type: integer
             sub_total:
-              description: 小計
+              description: 訂單產品小計
               type: number
             unit_price:
-              description: 單價
+              description: 訂單產品單價
               type: number
             updated_at:
               description: 更新時間
@@ -844,7 +844,7 @@ definitions:
         description: 刪除時間
         type: string
       description:
-        description: 描述
+        description: 訂單產品描述
         type: string
       order_id:
         description: 訂單ID
@@ -856,13 +856,13 @@ definitions:
         description: 產品ID
         type: string
       quantity:
-        description: 數量
+        description: 訂單產品數量
         type: integer
       sub_total:
-        description: 小計
+        description: 訂單產品小計
         type: number
       unit_price:
-        description: 單價
+        description: 訂單產品單價
         type: number
       updated_at:
         description: 更新時間
@@ -874,19 +874,19 @@ definitions:
   order_products.Update:
     properties:
       description:
-        description: 描述
+        description: 訂單產品描述
         type: string
       product_id:
         description: 產品ID
         type: string
       quantity:
-        description: 數量
+        description: 訂單產品數量
         type: integer
       sub_total:
-        description: 小計
+        description: 訂單產品小計
         type: number
       unit_price:
-        description: 單價
+        description: 訂單產品單價
         type: number
       updated_by:
         description: 更新者
@@ -1049,7 +1049,7 @@ definitions:
         description: 產品描述
         type: string
       is_enable:
-        description: 是否啟用
+        description: 產品是否啟用
         type: boolean
       name:
         description: 產品名稱
@@ -1093,7 +1093,7 @@ definitions:
               description: 產品描述
               type: string
             is_enable:
-              description: 是否啟用
+              description: 產品是否啟用
               type: boolean
             name:
               description: 產品名稱
@@ -1137,7 +1137,7 @@ definitions:
         description: 產品描述
         type: string
       is_enable:
-        description: 是否啟用
+        description: 產品是否啟用
         type: boolean
       name:
         description: 產品名稱
@@ -1164,7 +1164,7 @@ definitions:
         description: 產品描述
         type: string
       is_enable:
-        description: 是否啟用
+        description: 產品是否啟用
         type: boolean
       name:
         description: 產品名稱
@@ -1187,16 +1187,16 @@ definitions:
         description: 創建者
         type: string
       email:
-        description: 電子郵件
+        description: 使用者電子郵件
         type: string
       name:
-        description: 中文名稱
+        description: 使用者中文名稱
         type: string
       password:
-        description: 密碼
+        description: 使用者密碼
         type: string
       phone_number:
-        description: 電話
+        description: 使用者電話
         type: string
       user_name:
         description: 使用者名稱
@@ -1239,19 +1239,19 @@ definitions:
               description: 刪除時間
               type: string
             email:
-              description: 電子郵件
+              description: 使用者電子郵件
               type: string
             is_deleted:
-              description: 是否刪除
+              description: 使用者是否刪除
               type: boolean
             name:
-              description: 中文名稱
+              description: 使用者中文名稱
               type: string
             password:
-              description: 密碼
+              description: 使用者密碼
               type: string
             phone_number:
-              description: 電話
+              description: 使用者電話
               type: string
             updated_at:
               description: 更新時間
@@ -1286,19 +1286,19 @@ definitions:
         description: 刪除時間
         type: string
       email:
-        description: 電子郵件
+        description: 使用者電子郵件
         type: string
       is_deleted:
-        description: 是否刪除
+        description: 使用者是否刪除
         type: boolean
       name:
-        description: 中文名稱
+        description: 使用者中文名稱
         type: string
       password:
-        description: 密碼
+        description: 使用者密碼
         type: string
       phone_number:
-        description: 電話
+        description: 使用者電話
         type: string
       updated_at:
         description: 更新時間
@@ -1319,16 +1319,16 @@ definitions:
         description: 公司ID
         type: string
       email:
-        description: 電子郵件
+        description: 使用者電子郵件
         type: string
       name:
-        description: 中文名稱
+        description: 使用者中文名稱
         type: string
       password:
-        description: 密碼
+        description: 使用者密碼
         type: string
       phone_number:
-        description: 電話
+        description: 使用者電話
         type: string
       updated_by:
         description: 更新者

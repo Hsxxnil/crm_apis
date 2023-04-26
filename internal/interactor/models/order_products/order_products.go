@@ -12,13 +12,13 @@ type Create struct {
 	OrderID string `json:"order_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 產品ID
 	ProductID string `json:"product_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
-	// 數量
+	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty" binding:"required" validate:"required"`
-	// 單價
+	// 訂單產品單價
 	UnitPrice decimal.Decimal `json:"unit_price,omitempty" binding:"required" validate:"required"`
-	// 小計
+	// 訂單產品小計
 	SubTotal decimal.Decimal `json:"sub_total,omitempty" binding:"required" validate:"required"`
-	// 描述
+	// 訂單產品描述
 	Description string `json:"description,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
@@ -32,13 +32,13 @@ type Field struct {
 	OrderID *string `json:"order_id,omitempty" form:"order_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 產品ID
 	ProductID *string `json:"product_id,omitempty" form:"product_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 數量
+	// 訂單產品數量
 	Quantity *int `json:"quantity,omitempty" form:"quantity"`
-	// 單價
+	// 訂單產品單價
 	UnitPrice *decimal.Decimal `json:"unit_price,omitempty" form:"unit_price"`
-	// 小計
+	// 訂單產品小計
 	SubTotal *decimal.Decimal `json:"sub_total,omitempty" form:"sub_total"`
-	// 描述
+	// 訂單產品描述
 	Description *string `json:"description,omitempty" form:"description"`
 }
 
@@ -60,13 +60,13 @@ type List struct {
 		OrderID string `json:"order_id,omitempty"`
 		// 產品ID
 		ProductID string `json:"product_id,omitempty"`
-		// 數量
+		// 訂單產品數量
 		Quantity int `json:"quantity,omitempty"`
-		// 單價
+		// 訂單產品單價
 		UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
-		// 小計
+		// 訂單產品小計
 		SubTotal decimal.Decimal `json:"sub_total,omitempty"`
-		// 描述
+		// 訂單產品描述
 		Description string `json:"description,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by"`
@@ -87,13 +87,13 @@ type Single struct {
 	OrderID string `json:"order_id,omitempty"`
 	// 產品ID
 	ProductID string `json:"product_id,omitempty"`
-	// 數量
+	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty"`
-	// 單價
+	// 訂單產品單價
 	UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
-	// 小計
+	// 訂單產品小計
 	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
-	// 描述
+	// 訂單產品描述
 	Description string `json:"description,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by"`
@@ -109,13 +109,13 @@ type Update struct {
 	OrderProductID string `json:"order_product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 產品ID
 	ProductID *string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 數量
+	// 訂單產品數量
 	Quantity *int `json:"quantity,omitempty"`
-	// 單價
+	// 訂單產品單價
 	UnitPrice *decimal.Decimal `json:"unit_price,omitempty"`
-	// 小計
+	// 訂單產品小計
 	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
-	// 描述
+	// 訂單產品描述
 	Description *string `json:"description,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`

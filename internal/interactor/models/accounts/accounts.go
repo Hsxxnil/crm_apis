@@ -14,9 +14,9 @@ type Create struct {
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// 帳戶類型
 	Type string `json:"type,omitempty" binding:"required" validate:"required"`
-	// 帳戶行業ID
+	// 行業ID
 	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 帳戶父系帳戶ID
+	// 父系帳戶ID
 	ParentAccountID string `json:"parent_account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
@@ -32,9 +32,9 @@ type Field struct {
 	PhoneNumber *string `json:"phone_number,omitempty" form:"phone_number"`
 	// 帳戶類型
 	Type *string `json:"type,omitempty" form:"type"`
-	// 帳戶行業ID
+	// 行業ID
 	IndustryID *string `json:"industry_id,omitempty" form:"industry_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 帳戶父系帳戶ID
+	// 父系帳戶ID
 	ParentAccountID *string `json:"parent_account_id,omitempty" form:"parent_account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
@@ -58,9 +58,9 @@ type List struct {
 		PhoneNumber string `json:"phone_number,omitempty"`
 		// 帳戶類型
 		Type string `json:"type,omitempty"`
-		// 帳戶行業ID
+		// 行業ID
 		IndustryID string `json:"industry_id,omitempty"`
-		// 帳戶父系帳戶ID
+		// 父系帳戶ID
 		ParentAccountID string `json:"parent_account_id,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by"`
@@ -85,9 +85,9 @@ type Single struct {
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// 帳戶類型
 	Type string `json:"type,omitempty"`
-	// 帳戶行業ID
+	// 行業ID
 	IndustryID string `json:"industry_id,omitempty"`
-	// 帳戶父系帳戶ID
+	// 父系帳戶ID
 	ParentAccountID string `json:"parent_account_id,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by"`
@@ -109,9 +109,9 @@ type Update struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	// 帳戶類型
 	Type *string `json:"type,omitempty"`
-	// 帳戶行業ID
+	// 行業ID
 	IndustryID *string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 帳戶父系帳戶ID
+	// 父系帳戶ID
 	ParentAccountID *string `json:"parent_account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`

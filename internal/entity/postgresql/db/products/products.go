@@ -13,7 +13,7 @@ type Table struct {
 	Name string `gorm:"column:name;type:text;not null;" json:"name"`
 	// 產品識別碼
 	Code string `gorm:"column:code;type:text;" json:"code"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable bool `gorm:"column:is_enable;type:bool;not null;" json:"is_enable"`
 	// 產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
@@ -30,7 +30,7 @@ type Base struct {
 	Name *string `json:"name,omitempty"`
 	// 產品識別碼
 	Code *string `json:"code,omitempty"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable *bool `json:"is_enable,omitempty"`
 	// 產品描述
 	Description *string `json:"description,omitempty"`
