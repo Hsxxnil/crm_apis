@@ -53,7 +53,7 @@ type Field struct {
 	// 行銷活動類型
 	Type *string `json:"type,omitempty" form:"type"`
 	// 父系行銷活動ID
-	ParentCampaignID *string `json:"parent_campaign_id,omitempty" form:"parent_campaign_id"`
+	ParentCampaignID *string `json:"parent_campaign_id,omitempty" form:"parent_campaign_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 行銷活動開始日期
 	StartDate *time.Time `json:"start_date,omitempty" form:"start_date"`
 	// 行銷活動結束日期
