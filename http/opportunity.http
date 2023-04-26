@@ -1,0 +1,33 @@
+### GetByList
+GET http://localhost:8080/crm/v1.0/opportunities?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET http://localhost:8080/crm/v1.0/opportunities/f17d8b17-35fa-4262-8495-09e56d512876
+Accept: application/json
+
+### Create
+POST http://localhost:8080/crm/v1.0/opportunities
+Content-Type: application/json
+
+{
+  "stage": "資格評估",
+  "forecast_category": "結案",
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "close_date": "2023-04-27T00:00:00Z",
+  "account_id": "00000000-0000-4000-a000-000000000000",
+  "amount": 500
+}
+
+### Update
+PATCH http://localhost:8080/crm/v1.0/opportunities/f17d8b17-35fa-4262-8495-09e56d512876
+Content-Type: application/json
+
+{
+  "close_date": "2023-04-27T11:00:00Z",
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/crm/v1.0/opportunities/f17d8b17-35fa-4262-8495-09e56d512876
+Accept: application/json

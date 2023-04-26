@@ -11,6 +11,7 @@ import (
 	"app.eirc/internal/router/industry"
 	"app.eirc/internal/router/lead"
 	"app.eirc/internal/router/login"
+	"app.eirc/internal/router/opportunity"
 	"app.eirc/internal/router/order"
 	"app.eirc/internal/router/order_product"
 	"app.eirc/internal/router/product"
@@ -38,5 +39,6 @@ func main() {
 	engine = order_product.GetRouter(engine, db)
 	engine = campaign.GetRouter(engine, db)
 	engine = quote.GetRouter(engine, db)
+	engine = opportunity.GetRouter(engine, db)
 	log.Fatal(gateway.ListenAndServe(":8080", engine))
 }
