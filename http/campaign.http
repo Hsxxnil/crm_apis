@@ -1,0 +1,40 @@
+### GetByList
+GET http://localhost:8080/crm/v1.0/campaigns?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET http://localhost:8080/crm/v1.0/campaigns/dbcb0c9d-f278-40d8-be5a-5884383ff332
+Accept: application/json
+
+### Create
+POST http://localhost:8080/crm/v1.0/campaigns
+Content-Type: application/json
+
+{
+  "name": "test",
+  "status": "草稿",
+  "is_enable": false,
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "parent_campaign_id": "00000000-0000-4000-a000-000000000000",
+  "description": "test",
+  "start_date": "2023-04-26T00:00:00Z",
+  "end_date": "2023-04-30T00:00:00Z",
+  "sent": 50,
+  "budget_cost": 50,
+  "expected_responses": 50,
+  "expected_income": 50,
+  "actual_cost": 50
+}
+
+### Update
+PATCH http://localhost:8080/crm/v1.0/campaigns/dbcb0c9d-f278-40d8-be5a-5884383ff332
+Content-Type: application/json
+
+{
+  "is_enable": true,
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/crm/v1.0/campaigns/dbcb0c9d-f278-40d8-be5a-5884383ff332
+Accept: application/json

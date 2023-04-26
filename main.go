@@ -10,6 +10,7 @@ import (
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
 	"app.eirc/internal/router/account"
+	"app.eirc/internal/router/campaign"
 	"app.eirc/internal/router/contact"
 	"app.eirc/internal/router/contract"
 	"app.eirc/internal/router/industry"
@@ -58,6 +59,7 @@ func main() {
 	order.GetRouter(engine, db)
 	contract.GetRouter(engine, db)
 	order_product.GetRouter(engine, db)
+	campaign.GetRouter(engine, db)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
