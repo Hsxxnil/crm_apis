@@ -43,9 +43,9 @@ type Field struct {
 	// 報價與商機是否同步化
 	IsSyncing *bool `json:"is_syncing,omitempty" form:"is_syncing"`
 	// 商機ID
-	OpportunityID *string `json:"opportunity_id,omitempty" form:"opportunity_id"`
+	OpportunityID *string `json:"opportunity_id,omitempty" form:"opportunity_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
-	AccountID *string `json:"account_id,omitempty" form:"account_id"`
+	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 報價到期日期
 	ExpirationDate *time.Time `json:"expiration_date,omitempty" form:"expiration_date"`
 	// 報價描述
@@ -142,7 +142,7 @@ type Update struct {
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 報價到期日期
 	ExpirationDate *time.Time `json:"expiration_date,omitempty"`
 	// 報價描述

@@ -22,7 +22,7 @@ type Table struct {
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// 報價到期日期
-	ExpirationDate time.Time `gorm:"column:expiration_date;type:TIMESTAMP;" json:"expiration_date"`
+	ExpirationDate time.Time `gorm:"column:expiration_date;type:date;" json:"expiration_date"`
 	// 報價描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 報價稅額

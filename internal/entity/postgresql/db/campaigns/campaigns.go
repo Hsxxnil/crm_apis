@@ -22,9 +22,9 @@ type Table struct {
 	// 父系行銷活動ID
 	ParentCampaignID string `gorm:"column:parent_campaign_id;type:uuid;not null;" json:"parent_campaign_id"`
 	// 行銷活動開始日期
-	StartDate time.Time `gorm:"column:start_date;type:TIMESTAMP;" json:"start_date"`
+	StartDate time.Time `gorm:"column:start_date;type:date;" json:"start_date"`
 	// 行銷活動結束日期
-	EndDate time.Time `gorm:"column:end_date;type:TIMESTAMP;" json:"end_date"`
+	EndDate time.Time `gorm:"column:end_date;type:date;" json:"end_date"`
 	// 行銷活動描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 行銷活動已傳送數量

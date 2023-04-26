@@ -1,0 +1,11 @@
+drop index idx_opportunities_opportunity_id;
+drop index idx_opportunities_stage;
+drop index idx_opportunities_forecast_category;
+drop index idx_opportunities_close_date;
+drop index idx_opportunities_account_id;
+drop index idx_opportunities_amount;
+drop index idx_opportunities_created_at;
+drop index idx_opportunities_created_by;
+drop index idx_opportunities_updated_at;
+drop index idx_opportunities_updated_by;
+drop table opportunities;
