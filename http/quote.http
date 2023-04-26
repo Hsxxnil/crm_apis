@@ -1,0 +1,37 @@
+### GetByList
+GET http://localhost:8080/crm/v1.0/quotes?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET http://localhost:8080/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
+Accept: application/json
+
+### Create
+POST http://localhost:8080/crm/v1.0/quotes
+Content-Type: application/json
+
+{
+  "name": "test",
+  "status": "草稿",
+  "is_syncing": false,
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "opportunity_id": "00000000-0000-4000-a000-000000000000",
+  "account_id": "00000000-0000-4000-a000-000000000000",
+  "description": "test",
+  "expiration_date": "2023-04-26T00:00:00Z",
+  "tax": 50,
+  "shipping_and_handling": 50
+}
+
+### Update
+PATCH http://localhost:8080/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
+Content-Type: application/json
+
+{
+  "is_syncing": true,
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
+Accept: application/json
