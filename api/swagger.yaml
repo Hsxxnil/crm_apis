@@ -877,6 +877,10 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
+            accounts:
+              allOf:
+              - $ref: '#/definitions/accounts.AccountName'
+              description: 帳戶名稱
             created_at:
               description: 創建時間
               type: string
@@ -930,6 +934,10 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
+      accounts:
+        allOf:
+        - $ref: '#/definitions/accounts.AccountName'
+        description: 帳戶名稱
       created_at:
         description: 創建時間
         type: string

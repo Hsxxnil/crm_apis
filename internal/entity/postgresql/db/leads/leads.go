@@ -1,6 +1,7 @@
 package leads
 
 import (
+	"app.eirc/internal/entity/postgresql/db/accounts"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -16,6 +17,8 @@ type Table struct {
 	Source string `gorm:"column:source;type:text;" json:"source"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
+	// accounts data
+	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
 	// 線索分級
 	Rating string `gorm:"column:rating;type:text;not null;" json:"rating"`
 	special.UseTable
@@ -33,6 +36,8 @@ type Base struct {
 	Source *string `json:"source,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
+	// accounts data
+	Accounts accounts.Base `json:"accounts,omitempty"`
 	// 線索分級
 	Rating *string `json:"rating,omitempty"`
 	special.UseBase

@@ -6768,6 +6768,14 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "accounts": {
+                                "description": "帳戶名稱",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/accounts.AccountName"
+                                    }
+                                ]
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -6835,6 +6843,14 @@ const docTemplate = `{
                 "account_id": {
                     "description": "帳戶ID",
                     "type": "string"
+                },
+                "accounts": {
+                    "description": "帳戶名稱",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/accounts.AccountName"
+                        }
+                    ]
                 },
                 "created_at": {
                     "description": "創建時間",
