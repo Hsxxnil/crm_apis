@@ -21,11 +21,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/orders/ef6402e0-56c8-455f-bbe1-89628e173761
+PATCH http://localhost:8080/crm/v1.0/orders/3b481d4c-f746-4fcd-824d-e6141f62e4e8
 Content-Type: application/json
 
 {
-  "status": "Activated",
+  "contract_id": "4ce94280-cad8-40c4-88e0-3ff5d7940db3",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 

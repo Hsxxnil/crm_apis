@@ -6396,6 +6396,15 @@ const docTemplate = `{
                 }
             }
         },
+        "contracts.ContractCode": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "契約號碼",
+                    "type": "integer"
+                }
+            }
+        },
         "contracts.Create": {
             "type": "object",
             "required": [
@@ -7412,6 +7421,14 @@ const docTemplate = `{
                                 "description": "契約ID",
                                 "type": "string"
                             },
+                            "contracts": {
+                                "description": "契約號碼",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/contracts.ContractCode"
+                                    }
+                                ]
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -7472,17 +7489,17 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "accounts": {
-                    "description": "帳戶名稱",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/accounts.AccountName"
-                        }
-                    ]
-                },
                 "contract_id": {
                     "description": "契約ID",
                     "type": "string"
+                },
+                "contracts": {
+                    "description": "契約號碼",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/contracts.ContractCode"
+                        }
+                    ]
                 },
                 "created_at": {
                     "description": "創建時間",

@@ -125,3 +125,8 @@ type Update struct {
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
+
+type ContractCode struct {
+	// 契約號碼
+	Code *int `json:"code,omitempty"`
+}

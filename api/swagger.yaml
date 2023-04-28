@@ -615,6 +615,12 @@ definitions:
     required:
     - updated_by
     type: object
+  contracts.ContractCode:
+    properties:
+      code:
+        description: 契約號碼
+        type: integer
+    type: object
   contracts.Create:
     properties:
       account_id:
@@ -1344,6 +1350,10 @@ definitions:
             contract_id:
               description: 契約ID
               type: string
+            contracts:
+              allOf:
+              - $ref: '#/definitions/contracts.ContractCode'
+              description: 契約號碼
             created_at:
               description: 創建時間
               type: string
@@ -1391,13 +1401,13 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      accounts:
-        allOf:
-        - $ref: '#/definitions/accounts.AccountName'
-        description: 帳戶名稱
       contract_id:
         description: 契約ID
         type: string
+      contracts:
+        allOf:
+        - $ref: '#/definitions/contracts.ContractCode'
+        description: 契約號碼
       created_at:
         description: 創建時間
         type: string
