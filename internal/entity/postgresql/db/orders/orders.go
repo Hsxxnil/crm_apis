@@ -1,9 +1,8 @@
 package orders
 
 import (
-	"time"
-
 	"app.eirc/internal/entity/postgresql/db/contracts"
+	"time"
 
 	"app.eirc/internal/entity/postgresql/db/accounts"
 
