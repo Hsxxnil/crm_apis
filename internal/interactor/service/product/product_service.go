@@ -188,20 +188,20 @@ func (s *service) Delete(input *model.Field) (err error) {
 }
 
 func (s *service) Update(input *model.Update) (err error) {
-	field := &db.Base{}
-	if input.Code != nil {
-		field.Code = input.Code
-		quantity, err := s.Repository.GetByQuantity(field)
-		if err != nil {
-			log.Error(err)
-			return err
-		}
-
-		if quantity > 0 {
-			log.Info("Code already exists. Code: ", input.Code)
-			return errors.New("code already exists")
-		}
-	}
+	//field := &db.Base{}
+	//if input.Code != nil {
+	//	field.Code = input.Code
+	//	quantity, err := s.Repository.GetByQuantity(field)
+	//	if err != nil {
+	//		log.Error(err)
+	//		return err
+	//	}
+	//
+	//	if quantity > 0 {
+	//		log.Info("Code already exists. Code: ", input.Code)
+	//		return errors.New("code already exists")
+	//	}
+	//}
 
 	base := &db.Base{}
 	marshal, err := json.Marshal(input)

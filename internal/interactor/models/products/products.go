@@ -102,7 +102,7 @@ type Update struct {
 	// 產品名稱
 	Name *string `json:"name,omitempty"`
 	// 產品識別碼
-	Code *string `json:"code,omitempty"`
+	Code string `json:"code,omitempty"`
 	// 產品是否啟用
 	IsEnable *bool `json:"is_enable,omitempty"`
 	// 產品描述
