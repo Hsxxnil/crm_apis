@@ -12,22 +12,26 @@ Content-Type: application/json
 
 {
   "name": "test",
-  "code": "test",
+  "code": "test123",
   "is_enable": true,
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "description": "test",
-  "price": 100
+  "price": 50
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/products/80b0036c-29e6-49d5-b8dc-0e99e696bad9
+PATCH http://localhost:8080/crm/v1.0/products/65c782d7-b0e6-49c4-9097-33b4e5356bb6
 Content-Type: application/json
 
 {
-  "is_enable": true,
+  "name": "test",
+  "code": "test",
+  "is_enable": false,
+  "description": "test",
+  "price": 100,
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/products/67506062-59ea-449f-afba-f85ae2cbfaa5
+DELETE http://localhost:8080/crm/v1.0/products/0f929150-e4f2-4e04-b9cc-bd8a6158e284
 Accept: application/json

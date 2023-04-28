@@ -21,7 +21,7 @@ type Create struct {
 	Salutation string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID string `json:"supervisor_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
@@ -47,7 +47,7 @@ type Field struct {
 	Salutation *string `json:"salutation,omitempty" form:"salutation"`
 	// 聯絡人部門
 	Department *string `json:"department,omitempty" form:"department"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID *string `json:"supervisor_id,omitempty" form:"supervisor_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
@@ -81,7 +81,7 @@ type List struct {
 		Salutation string `json:"salutation,omitempty"`
 		// 聯絡人部門
 		Department string `json:"department,omitempty"`
-		// 直屬上司ID
+		// 聯絡人直屬上司ID
 		SupervisorID string `json:"supervisor_id,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
@@ -114,7 +114,7 @@ type Single struct {
 	Salutation string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID string `json:"supervisor_id,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
@@ -144,7 +144,7 @@ type Update struct {
 	Salutation *string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department *string `json:"department,omitempty"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID *string `json:"supervisor_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`

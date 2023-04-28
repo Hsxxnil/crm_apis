@@ -22,7 +22,7 @@ type Table struct {
 	Salutation string `gorm:"column:salutation;type:text;" json:"salutation"`
 	// 聯絡人部門
 	Department string `gorm:"column:department;type:text;" json:"department"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID string `gorm:"column:supervisor_id;type:uuid;not null;" json:"supervisor_id"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
@@ -47,7 +47,7 @@ type Base struct {
 	Salutation *string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department *string `json:"department,omitempty"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID *string `json:"supervisor_id,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
