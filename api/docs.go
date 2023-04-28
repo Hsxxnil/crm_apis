@@ -5559,7 +5559,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "accounts.AccountContract": {
+        "accounts.AccountName": {
             "type": "object",
             "properties": {
                 "name": {
@@ -6453,7 +6453,7 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/accounts.AccountContract"
+                                        "$ref": "#/definitions/accounts.AccountName"
                                     }
                                 ]
                             },
@@ -6533,7 +6533,7 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/accounts.AccountContract"
+                            "$ref": "#/definitions/accounts.AccountName"
                         }
                     ]
                 },

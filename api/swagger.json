@@ -5555,7 +5555,7 @@
         }
     },
     "definitions": {
-        "accounts.AccountContract": {
+        "accounts.AccountName": {
             "type": "object",
             "properties": {
                 "name": {
@@ -6449,7 +6449,7 @@
                                 "description": "帳戶名稱",
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/accounts.AccountContract"
+                                        "$ref": "#/definitions/accounts.AccountName"
                                     }
                                 ]
                             },
@@ -6529,7 +6529,7 @@
                     "description": "帳戶名稱",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/accounts.AccountContract"
+                            "$ref": "#/definitions/accounts.AccountName"
                         }
                     ]
                 },

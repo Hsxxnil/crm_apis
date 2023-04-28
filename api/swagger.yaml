@@ -1,6 +1,6 @@
 basePath: /crm/v1.0
 definitions:
-  accounts.AccountContract:
+  accounts.AccountName:
     properties:
       name:
         description: 帳戶名稱
@@ -653,7 +653,7 @@ definitions:
               type: string
             accounts:
               allOf:
-              - $ref: '#/definitions/accounts.AccountContract'
+              - $ref: '#/definitions/accounts.AccountName'
               description: 帳戶名稱
             code:
               description: 契約號碼
@@ -713,7 +713,7 @@ definitions:
         type: string
       accounts:
         allOf:
-        - $ref: '#/definitions/accounts.AccountContract'
+        - $ref: '#/definitions/accounts.AccountName'
         description: 帳戶名稱
       code:
         description: 契約號碼
