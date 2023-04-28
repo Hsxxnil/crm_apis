@@ -21,14 +21,14 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/contracts/cb6da4e5-e2da-49ab-923f-7a9442ec9633
+PATCH http://localhost:8080/crm/v1.0/contracts/4ce94280-cad8-40c4-88e0-3ff5d7940db3
 Content-Type: application/json
 
 {
-  "status": "Activated",
+  "account_id": "52f18d90-e4c3-43cb-b9d4-f62b409e7392",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/contracts/0e87df55-49c9-4598-ab9a-15ee264acda1
+DELETE http://localhost:8080/crm/v1.0/contracts/9ebd25ba-811e-4527-9786-e94f2b421b44
 Accept: application/json

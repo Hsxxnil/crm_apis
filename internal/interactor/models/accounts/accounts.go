@@ -116,3 +116,8 @@ type Update struct {
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
+
+type AccountName struct {
+	// 帳戶名稱
+	Name *string `json:"name,omitempty"`
+}

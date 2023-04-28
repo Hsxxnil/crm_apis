@@ -3,6 +3,8 @@ package contracts
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/accounts"
+
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 )
@@ -61,6 +63,8 @@ type List struct {
 		StartDate time.Time `json:"start_date,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		Accounts accounts.AccountName `json:"accounts,omitempty"`
 		// 契約有效期限(月)
 		Term int `json:"term,omitempty"`
 		// 契約描述
@@ -90,6 +94,8 @@ type Single struct {
 	Term int `json:"term,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	Accounts accounts.AccountName `json:"accounts,omitempty"`
 	// 契約描述
 	Description string `json:"description,omitempty"`
 	// 契約號碼
@@ -118,4 +124,9 @@ type Update struct {
 	Description *string `json:"description,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+}
+
+type ContractCode struct {
+	// 契約號碼
+	Code *int `json:"code,omitempty"`
 }

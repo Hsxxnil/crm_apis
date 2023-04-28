@@ -3,6 +3,8 @@ package contracts
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/accounts"
+
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -18,6 +20,8 @@ type Table struct {
 	Term int `gorm:"column:term;type:int;not null;" json:"term"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
+	// accounts data
+	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
 	// 契約描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 契約號碼
@@ -37,6 +41,8 @@ type Base struct {
 	Term *int `json:"term,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
+	// accounts data
+	Accounts accounts.Base `json:"accounts,omitempty"`
 	// 契約描述
 	Description *string `json:"description,omitempty"`
 	// 契約號碼
