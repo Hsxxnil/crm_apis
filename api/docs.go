@@ -7400,6 +7400,14 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "accounts": {
+                                "description": "帳戶名稱",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/accounts.AccountName"
+                                    }
+                                ]
+                            },
                             "contract_id": {
                                 "description": "契約ID",
                                 "type": "string"
@@ -7463,6 +7471,14 @@ const docTemplate = `{
                 "account_id": {
                     "description": "帳戶ID",
                     "type": "string"
+                },
+                "accounts": {
+                    "description": "帳戶名稱",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/accounts.AccountName"
+                        }
+                    ]
                 },
                 "contract_id": {
                     "description": "契約ID",

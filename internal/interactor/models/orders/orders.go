@@ -1,6 +1,7 @@
 package orders
 
 import (
+	"app.eirc/internal/interactor/models/accounts"
 	"time"
 
 	"app.eirc/internal/interactor/models/page"
@@ -59,6 +60,8 @@ type List struct {
 		StartDate time.Time `json:"start_date,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		Accounts accounts.AccountName `json:"accounts,omitempty"`
 		// 契約ID
 		ContractID string `json:"contract_id,omitempty"`
 		// 訂單描述
@@ -84,6 +87,8 @@ type Single struct {
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	Accounts accounts.AccountName `json:"accounts,omitempty"`
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述

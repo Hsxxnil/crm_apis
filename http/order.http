@@ -15,7 +15,7 @@ Content-Type: application/json
   "status": "Draft",
   "start_date": "2023-04-21T00:00:00Z",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "account_id": "52f18d90-e4c3-43cb-b9d4-f62b409e7392",
   "contract_id": "00000000-0000-4000-a000-000000000000",
   "description": "test"
 }

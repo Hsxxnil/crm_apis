@@ -1337,6 +1337,10 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
+            accounts:
+              allOf:
+              - $ref: '#/definitions/accounts.AccountName'
+              description: 帳戶名稱
             contract_id:
               description: 契約ID
               type: string
@@ -1387,6 +1391,10 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
+      accounts:
+        allOf:
+        - $ref: '#/definitions/accounts.AccountName'
+        description: 帳戶名稱
       contract_id:
         description: 契約ID
         type: string
