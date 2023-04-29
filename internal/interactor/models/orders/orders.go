@@ -41,6 +41,8 @@ type Field struct {
 	ContractID *string `json:"contract_id,omitempty" form:"contract_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 訂單描述
 	Description *string `json:"description,omitempty" form:"description"`
+	// 訂單號碼
+	Code *int `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -71,6 +73,8 @@ type List struct {
 		Contracts contracts.ContractCode `json:"contracts,omitempty"`
 		// 訂單描述
 		Description string `json:"description,omitempty"`
+		// 訂單號碼
+		Code int `json:"code,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -98,6 +102,8 @@ type Single struct {
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述
 	Description string `json:"description,omitempty"`
+	// 訂單號碼
+	Code int `json:"code,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者

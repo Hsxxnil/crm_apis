@@ -1347,6 +1347,9 @@ definitions:
               allOf:
               - $ref: '#/definitions/accounts.AccountName'
               description: 帳戶名稱
+            code:
+              description: 訂單號碼
+              type: integer
             contract_id:
               description: 契約ID
               type: string
@@ -1401,6 +1404,9 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
+      code:
+        description: 訂單號碼
+        type: integer
       contract_id:
         description: 契約ID
         type: string
