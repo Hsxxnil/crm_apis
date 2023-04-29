@@ -3,6 +3,10 @@ package orders
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/contracts"
+
+	"app.eirc/internal/interactor/models/accounts"
+
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 )
@@ -28,15 +32,15 @@ type Field struct {
 	// 訂單ID
 	OrderID string `json:"order_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 訂單狀態
-	Status *string `json:"status,omitempty" from:"status"`
+	Status *string `json:"status,omitempty" form:"status"`
 	// 訂單開始日期
-	StartDate *time.Time `json:"start_date,omitempty" from:"start_date"`
+	StartDate *time.Time `json:"start_date,omitempty" form:"start_date"`
 	// 帳戶ID
-	AccountID *string `json:"account_id,omitempty" from:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 契約ID
-	ContractID *string `json:"contract_id,omitempty" from:"contract_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	ContractID *string `json:"contract_id,omitempty" form:"contract_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 訂單描述
-	Description *string `json:"description,omitempty" from:"description"`
+	Description *string `json:"description,omitempty" form:"description"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -59,12 +63,16 @@ type List struct {
 		StartDate time.Time `json:"start_date,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		Accounts accounts.AccountName `json:"accounts,omitempty"`
 		// 契約ID
 		ContractID string `json:"contract_id,omitempty"`
+		// 契約號碼
+		Contracts contracts.ContractCode `json:"contracts,omitempty"`
 		// 訂單描述
 		Description string `json:"description,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -84,12 +92,14 @@ type Single struct {
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 契約號碼
+	Contracts contracts.ContractCode `json:"contracts,omitempty"`
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述
 	Description string `json:"description,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記

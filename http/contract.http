@@ -1,0 +1,34 @@
+
+### GetByList
+GET http://localhost:8080/crm/v1.0/contracts?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET http://localhost:8080/crm/v1.0/contracts/cb6da4e5-e2da-49ab-923f-7a9442ec9633
+Accept: application/json
+
+### Create
+POST http://localhost:8080/crm/v1.0/contracts
+Content-Type: application/json
+
+{
+  "status": "Draft",
+  "start_date": "2023-04-21T00:00:00Z",
+  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "term": 6,
+  "description": "test"
+}
+
+### Update
+PATCH http://localhost:8080/crm/v1.0/contracts/4ce94280-cad8-40c4-88e0-3ff5d7940db3
+Content-Type: application/json
+
+{
+  "account_id": "52f18d90-e4c3-43cb-b9d4-f62b409e7392",
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE http://localhost:8080/crm/v1.0/contracts/9ebd25ba-811e-4527-9786-e94f2b421b44
+Accept: application/json

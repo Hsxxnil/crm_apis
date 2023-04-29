@@ -112,16 +112,12 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["status"] = input.Status
 	}
 
-	if input.CompanyName != nil {
-		data["company_name"] = input.CompanyName
+	if input.Description != nil {
+		data["description"] = input.Description
 	}
 
-	if input.SourceID != nil {
-		data["source_id"] = input.SourceID
-	}
-
-	if input.IndustryID != nil {
-		data["industry_id"] = input.IndustryID
+	if input.Source != nil {
+		data["source"] = input.Source
 	}
 
 	if input.Rating != nil {

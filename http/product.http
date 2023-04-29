@@ -3,7 +3,7 @@ GET http://localhost:8080/crm/v1.0/products?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/crm/v1.0/products/bd12125b-6d35-468f-b95f-a184c0ab89d6
+GET http://localhost:8080/crm/v1.0/products/67506062-59ea-449f-afba-f85ae2cbfaa5
 Accept: application/json
 
 ### Create
@@ -15,18 +15,23 @@ Content-Type: application/json
   "code": "test123",
   "is_enable": true,
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "description": "test"
+  "description": "test",
+  "price": 50
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/products/bd12125b-6d35-468f-b95f-a184c0ab89d6
+PATCH http://localhost:8080/crm/v1.0/products/65c782d7-b0e6-49c4-9097-33b4e5356bb6
 Content-Type: application/json
 
 {
-  "code": "test321",
+  "name": "test",
+  "code": "test",
+  "is_enable": false,
+  "description": "test",
+  "price": 100,
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/products/b412839d-4fff-49c0-bdf4-24b75afaf282
+DELETE http://localhost:8080/crm/v1.0/products/0f929150-e4f2-4e04-b9cc-bd8a6158e284
 Accept: application/json

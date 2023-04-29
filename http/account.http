@@ -14,7 +14,7 @@ Content-Type: application/json
   "name": "test",
   "phone_number": "0800000000",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "account_type_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "type": "法人客戶",
   "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a"
 }

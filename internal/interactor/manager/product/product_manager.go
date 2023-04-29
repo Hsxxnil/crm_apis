@@ -37,6 +37,10 @@ func (m *manager) Create(trx *gorm.DB, input *productModel.Create) interface{} {
 
 	productBase, err := m.ProductService.WithTrx(trx).Create(input)
 	if err != nil {
+		if err.Error() == "code already exists" {
+			return code.GetCodeMessage(code.BadRequest, err.Error())
+		}
+
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
@@ -127,8 +131,22 @@ func (m *manager) Update(input *productModel.Update) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
+	if *productBase.Code != input.Code {
+		quantity, _ := m.ProductService.GetByQuantity(&productModel.Field{
+			Code: util.PointerString(input.Code),
+		})
+		if quantity > 0 {
+			log.Info("Code already exists. Code: ", input.Code)
+			return code.GetCodeMessage(code.BadRequest, "code already exists")
+		}
+	}
+
 	err = m.ProductService.Update(input)
 	if err != nil {
+		if err.Error() == "code already exists" {
+			return code.GetCodeMessage(code.BadRequest, err.Error())
+		}
+
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}

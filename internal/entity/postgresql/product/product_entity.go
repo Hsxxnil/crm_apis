@@ -95,6 +95,10 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 		query.Where("product_id = ?", input.ProductID)
 	}
 
+	if input.Code != nil {
+		query.Where("code = ?", input.Code)
+	}
+
 	err = query.Count(&quantity).Select("*").Error
 	if err != nil {
 		log.Error(err)
@@ -122,6 +126,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.Description != nil {
 		data["description"] = input.Description
+	}
+
+	if input.Price != nil {
+		data["price"] = input.Price
 	}
 
 	if input.UpdatedBy != nil {

@@ -1,0 +1,11 @@
+drop index idx_contracts_contract_id;
+drop index idx_contracts_status;
+drop index idx_contracts_start_date;
+drop index idx_contracts_account_id;
+drop index idx_contracts_term;
+drop index idx_contracts_description;
+drop index idx_contracts_created_at;
+drop index idx_contracts_created_by;
+drop index idx_contracts_updated_at;
+drop index idx_contracts_updated_by;
+drop table contracts;

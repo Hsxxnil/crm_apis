@@ -12,22 +12,22 @@ Content-Type: application/json
 
 {
   "status": "New",
-  "company_name": "Test",
+  "description": "Test",
   "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "source_id": "00000000-0000-0000-0000-000000000000",
-  "industry_id": "00000000-0000-0000-0000-000000000000",
+  "source": "展演",
+  "account_id": "52f18d90-e4c3-43cb-b9d4-f62b409e7392",
   "rating": "Hot"
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/leads/0886af92-9bcc-4259-b3f9-bd90e1378cd3
+PATCH http://localhost:8080/crm/v1.0/leads/76a4df30-084d-4007-93eb-1530cd131cca
 Content-Type: application/json
 
 {
-  "status": "Working",
+  "account_id": "52f18d90-e4c3-43cb-b9d4-f62b409e7392",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/leads/0886af92-9bcc-4259-b3f9-bd90e1378cd3
+DELETE http://localhost:8080/crm/v1.0/leads/76a4df30-084d-4007-93eb-1530cd131cca
 Accept: application/json

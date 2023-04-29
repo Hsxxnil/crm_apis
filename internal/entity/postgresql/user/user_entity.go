@@ -115,6 +115,10 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 		query.Where("user_id = ?", input.UserID)
 	}
 
+	if input.UserName != nil {
+		query.Where("user_name = ?", input.UserName)
+	}
+
 	if input.IsDeleted != nil {
 		query.Where("is_deleted = ?", input.IsDeleted)
 	}

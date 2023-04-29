@@ -11,13 +11,13 @@ type Create struct {
 	CompanyID string `json:"company_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 使用者名稱
 	UserName string `json:"user_name,omitempty" binding:"required" validate:"required"`
-	// 中文名稱
+	// 使用者中文名稱
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
-	// 密碼
+	// 使用者密碼
 	Password string `json:"password,omitempty" binding:"required" validate:"required"`
-	// 電話
+	// 使用者電話
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// 電子郵件
+	// 使用者電子郵件
 	Email string `json:"email,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
@@ -28,19 +28,19 @@ type Field struct {
 	// 使用者ID
 	UserID string `json:"user_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 公司ID
-	CompanyID *string `json:"company_id,omitempty" from:"company_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	CompanyID *string `json:"company_id,omitempty" form:"company_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 使用者名稱
-	UserName *string `json:"user_name,omitempty" from:"user_name"`
-	// 中文名稱
-	Name *string `json:"name,omitempty" from:"name"`
-	// 密碼
-	Password *string `json:"password,omitempty" from:"password"`
-	// 是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" from:"is_deleted"`
-	// 電話
-	PhoneNumber *string `json:"phone_number,omitempty" from:"phone_number"`
-	// 電子郵件
-	Email *string `json:"email,omitempty" from:"email"`
+	UserName *string `json:"user_name,omitempty" form:"user_name"`
+	// 使用者中文名稱
+	Name *string `json:"name,omitempty" form:"name"`
+	// 使用者密碼
+	Password *string `json:"password,omitempty" form:"password"`
+	// 使用者是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
+	// 使用者電話
+	PhoneNumber *string `json:"phone_number,omitempty" form:"phone_number"`
+	// 使用者電子郵件
+	Email *string `json:"email,omitempty" form:"email"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -61,18 +61,18 @@ type List struct {
 		CompanyID string `json:"company_id,omitempty"`
 		// 使用者名稱
 		UserName string `json:"user_name,omitempty"`
-		// 中文名稱
+		// 使用者中文名稱
 		Name string `json:"name,omitempty"`
-		// 密碼
+		// 使用者密碼
 		Password string `json:"password,omitempty"`
-		// 是否刪除
+		// 使用者是否刪除
 		IsDeleted bool `json:"is_deleted,omitempty"`
-		// 電話
+		// 使用者電話
 		PhoneNumber string `json:"phone_number,omitempty"`
-		// 電子郵件
+		// 使用者電子郵件
 		Email string `json:"email,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -90,18 +90,18 @@ type Single struct {
 	CompanyID string `json:"company_id,omitempty"`
 	// 使用者名稱
 	UserName string `json:"user_name,omitempty"`
-	// 中文名稱
+	// 使用者中文名稱
 	Name string `json:"name,omitempty"`
-	// 密碼
+	// 使用者密碼
 	Password string `json:"password,omitempty"`
-	// 是否刪除
+	// 使用者是否刪除
 	IsDeleted bool `json:"is_deleted,omitempty"`
-	// 電話
+	// 使用者電話
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// 電子郵件
+	// 使用者電子郵件
 	Email string `json:"email,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
@@ -116,13 +116,13 @@ type Update struct {
 	CompanyID *string `json:"company_id,omitempty"`
 	// 使用者名稱
 	UserName *string `json:"user_name,omitempty"`
-	// 中文名稱
+	// 使用者中文名稱
 	Name *string `json:"name,omitempty"`
-	// 密碼
+	// 使用者密碼
 	Password string `json:"password,omitempty"`
-	// 電話
+	// 使用者電話
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// 電子郵件
+	// 使用者電子郵件
 	Email *string `json:"email,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`

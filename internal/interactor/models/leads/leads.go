@@ -1,7 +1,7 @@
 package leads
 
 import (
-	"app.eirc/internal/interactor/models/lead_contacts"
+	"app.eirc/internal/interactor/models/accounts"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 )
@@ -10,12 +10,12 @@ import (
 type Create struct {
 	// 線索狀態
 	Status string `json:"status,omitempty" binding:"required" validate:"required"`
-	// 線索客戶名稱
-	CompanyName string `json:"company_name,omitempty" binding:"required" validate:"required"`
-	// 線索來源ID
-	SourceID string `json:"source_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 線索客戶行業ID
-	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 線索描述
+	Description string `json:"description,omitempty" binding:"required" validate:"required"`
+	// 線索來源
+	Source string `json:"source,omitempty"`
+	// 帳戶ID
+	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
@@ -27,15 +27,15 @@ type Field struct {
 	// 線索ID
 	LeadID string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 線索狀態
-	Status *string `json:"status,omitempty" from:"status"`
-	// 線索客戶名稱
-	CompanyName *string `json:"company_name,omitempty" from:"company_name"`
-	// 線索來源ID
-	SourceID *string `json:"source_id,omitempty" from:"source_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 線索客戶行業ID
-	IndustryID *string `json:"industry_id,omitempty" from:"industry_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	Status *string `json:"status,omitempty" form:"status"`
+	// 線索描述
+	Description *string `json:"description,omitempty" form:"description"`
+	// 線索來源
+	Source *string `json:"source,omitempty" form:"source"`
+	// 帳戶ID
+	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 線索分級
-	Rating *string `json:"rating,omitempty" from:"rating"`
+	Rating *string `json:"rating,omitempty" form:"rating"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -54,22 +54,22 @@ type List struct {
 		LeadID string `json:"lead_id,omitempty"`
 		// 線索狀態
 		Status string `json:"status,omitempty"`
-		// 線索客戶名稱
-		CompanyName string `json:"company_name,omitempty"`
-		// 線索來源ID
-		SourceID string `json:"source_id,omitempty"`
-		// 線索客戶行業ID
-		IndustryID string `json:"industry_id,omitempty"`
+		// 線索描述
+		Description string `json:"description,omitempty"`
+		// 線索來源
+		Source string `json:"source,omitempty"`
+		// 帳戶ID
+		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		Accounts accounts.AccountName `json:"accounts,omitempty"`
 		// 線索分級
 		Rating string `json:"rating,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
-		// lead_contacts data
-		LeadContacts []lead_contacts.Single `json:"lead_contacts,omitempty"`
 	} `json:"leads"`
 	// 分頁返回結構檔
 	page.Total
@@ -81,22 +81,22 @@ type Single struct {
 	LeadID string `json:"lead_id,omitempty"`
 	// 線索狀態
 	Status string `json:"status,omitempty"`
-	// 線索客戶名稱
-	CompanyName string `json:"company_name,omitempty"`
-	// 線索來源ID
-	SourceID string `json:"source_id,omitempty"`
-	// 線索客戶行業ID
-	IndustryID string `json:"industry_id,omitempty"`
+	// 線索描述
+	Description string `json:"description,omitempty"`
+	// 線索來源
+	Source string `json:"source,omitempty"`
+	// 帳戶ID
+	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	Accounts accounts.AccountName `json:"accounts,omitempty"`
 	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
 	section.TimeAt
-	// lead_contacts data
-	LeadContacts []lead_contacts.Single `json:"lead_contacts,omitempty"`
 }
 
 // Update struct is used to update achieves
@@ -105,12 +105,10 @@ type Update struct {
 	LeadID string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 線索狀態
 	Status *string `json:"status,omitempty"`
-	// 線索客戶名稱
-	CompanyName *string `json:"company_name,omitempty"`
-	// 線索來源ID
-	SourceID *string `json:"source_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 線索客戶行業ID
-	IndustryID string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 線索描述
+	Description *string `json:"description,omitempty"`
+	// 線索來源
+	Source *string `json:"source,omitempty"`
 	// 線索分級
 	Rating *string `json:"rating,omitempty"`
 	// 更新者

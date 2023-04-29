@@ -21,8 +21,8 @@ type Create struct {
 	Salutation string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
-	// 直屬上司ID
-	SupervisorID string `json:"supervisor_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 聯絡人直屬上司ID
+	SupervisorID string `json:"supervisor_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 創建者
@@ -34,23 +34,23 @@ type Field struct {
 	// 聯絡人ID
 	ContactID string `json:"contact_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 聯絡人名稱
-	Name *string `json:"name,omitempty" from:"name"`
+	Name *string `json:"name,omitempty" form:"name"`
 	// 聯絡人職稱
-	Title *string `json:"title,omitempty" from:"title"`
+	Title *string `json:"title,omitempty" form:"title"`
 	// 聯絡人電話
-	PhoneNumber *string `json:"phone_number,omitempty" from:"phone_number"`
+	PhoneNumber *string `json:"phone_number,omitempty" form:"phone_number"`
 	// 聯絡人行動電話
-	CellPhone *string `json:"cell_phone,omitempty" from:"cell_phone"`
+	CellPhone *string `json:"cell_phone,omitempty" form:"cell_phone"`
 	// 聯絡人電子郵件
-	Email *string `json:"email,omitempty" from:"email"`
+	Email *string `json:"email,omitempty" form:"email"`
 	// 聯絡人稱謂
-	Salutation *string `json:"salutation,omitempty" from:"salutation"`
+	Salutation *string `json:"salutation,omitempty" form:"salutation"`
 	// 聯絡人部門
-	Department *string `json:"department,omitempty" from:"department"`
-	// 直屬上司ID
-	SupervisorID *string `json:"supervisor_id,omitempty" from:"supervisor_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
+	Department *string `json:"department,omitempty" form:"department"`
+	// 聯絡人直屬上司ID
+	SupervisorID *string `json:"supervisor_id,omitempty" form:"supervisor_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
 	// 帳戶ID
-	AccountID *string `json:"account_id,omitempty" from:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
+	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
 }
 
 // Fields is the searched structure file (including pagination)
@@ -81,12 +81,12 @@ type List struct {
 		Salutation string `json:"salutation,omitempty"`
 		// 聯絡人部門
 		Department string `json:"department,omitempty"`
-		// 直屬上司ID
+		// 聯絡人直屬上司ID
 		SupervisorID string `json:"supervisor_id,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -114,12 +114,12 @@ type Single struct {
 	Salutation string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID string `json:"supervisor_id,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
@@ -144,7 +144,7 @@ type Update struct {
 	Salutation *string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department *string `json:"department,omitempty"`
-	// 直屬上司ID
+	// 聯絡人直屬上司ID
 	SupervisorID *string `json:"supervisor_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`

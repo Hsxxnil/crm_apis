@@ -2,6 +2,7 @@ package product
 
 import (
 	"encoding/json"
+	"errors"
 
 	db "app.eirc/internal/entity/postgresql/db/products"
 	store "app.eirc/internal/entity/postgresql/product"
@@ -39,6 +40,19 @@ func (s *service) WithTrx(tx *gorm.DB) Service {
 }
 
 func (s *service) Create(input *model.Create) (output *db.Base, err error) {
+	field := &db.Base{}
+	field.Code = util.PointerString(input.Code)
+	quantity, err := s.Repository.GetByQuantity(field)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	if quantity > 0 {
+		log.Info("Code already exists. Code: ", input.Code)
+		return nil, errors.New("code already exists")
+	}
+
 	base := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
@@ -174,21 +188,36 @@ func (s *service) Delete(input *model.Field) (err error) {
 }
 
 func (s *service) Update(input *model.Update) (err error) {
-	field := &db.Base{}
+	//field := &db.Base{}
+	//if input.Code != nil {
+	//	field.Code = input.Code
+	//	quantity, err := s.Repository.GetByQuantity(field)
+	//	if err != nil {
+	//		log.Error(err)
+	//		return err
+	//	}
+	//
+	//	if quantity > 0 {
+	//		log.Info("Code already exists. Code: ", input.Code)
+	//		return errors.New("code already exists")
+	//	}
+	//}
+
+	base := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
 		log.Error(err)
 		return err
 	}
 
-	err = json.Unmarshal(marshal, &field)
+	err = json.Unmarshal(marshal, &base)
 	if err != nil {
 		log.Error(err)
 		return err
 	}
 
-	field.UpdatedAt = util.PointerTime(util.NowToUTC())
-	err = s.Repository.Update(field)
+	base.UpdatedAt = util.PointerTime(util.NowToUTC())
+	err = s.Repository.Update(base)
 	if err != nil {
 		log.Error(err)
 		return err

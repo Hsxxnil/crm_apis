@@ -3,6 +3,7 @@ package products
 import (
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
+	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -11,10 +12,12 @@ type Create struct {
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
 	// 產品識別碼
 	Code string `json:"code,omitempty"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable bool `json:"is_enable,omitempty"`
 	// 產品描述
 	Description string `json:"description,omitempty"`
+	// 產品價格
+	Price decimal.Decimal `json:"price,omitempty" binding:"required" validate:"required"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -24,13 +27,15 @@ type Field struct {
 	// 產品ID
 	ProductID string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 產品名稱
-	Name *string `json:"name,omitempty" from:"name"`
+	Name *string `json:"name,omitempty" form:"name"`
 	// 產品識別碼
-	Code *string `json:"code,omitempty" from:"code"`
-	// 是否啟用
-	IsEnable *bool `json:"is_enable,omitempty" from:"is_enable"`
+	Code *string `json:"code,omitempty" form:"code"`
+	// 產品是否啟用
+	IsEnable *bool `json:"is_enable,omitempty" form:"is_enable"`
 	// 產品描述
-	Description *string `json:"description,omitempty" from:"description"`
+	Description *string `json:"description,omitempty" form:"description"`
+	// 產品價格
+	Price *decimal.Decimal `json:"price,omitempty" form:"price"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -51,12 +56,14 @@ type List struct {
 		Name string `json:"name,omitempty"`
 		// 產品識別碼
 		Code string `json:"code,omitempty"`
-		// 是否啟用
+		// 產品是否啟用
 		IsEnable bool `json:"is_enable"`
 		// 產品描述
 		Description string `json:"description,omitempty"`
+		// 產品價格
+		Price decimal.Decimal `json:"price,omitempty"`
 		// 創建者
-		CreatedBy string `json:"created_by"`
+		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
@@ -74,12 +81,14 @@ type Single struct {
 	Name string `json:"name,omitempty"`
 	// 產品識別碼
 	Code string `json:"code,omitempty"`
-	// 是否啟用
+	// 產品是否啟用
 	IsEnable bool `json:"is_enable"`
 	// 產品描述
 	Description string `json:"description,omitempty"`
+	// 產品價格
+	Price decimal.Decimal `json:"price,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by"`
+	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
@@ -93,11 +102,13 @@ type Update struct {
 	// 產品名稱
 	Name *string `json:"name,omitempty"`
 	// 產品識別碼
-	Code *string `json:"code,omitempty"`
-	// 是否啟用
+	Code string `json:"code,omitempty"`
+	// 產品是否啟用
 	IsEnable *bool `json:"is_enable,omitempty"`
 	// 產品描述
-	Description string `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
+	// 產品價格
+	Price *decimal.Decimal `json:"price,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

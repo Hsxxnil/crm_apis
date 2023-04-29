@@ -1,7 +1,7 @@
 package leads
 
 import (
-	"app.eirc/internal/entity/postgresql/db/lead_contacts"
+	"app.eirc/internal/entity/postgresql/db/accounts"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -11,17 +11,17 @@ type Table struct {
 	LeadID string `gorm:"<-:create;column:lead_id;type:uuid;not null;primaryKey;" json:"lead_id"`
 	// 線索狀態
 	Status string `gorm:"column:status;type:text;not null;" json:"status"`
-	// 線索客戶名稱
-	CompanyName string `gorm:"column:company_name;type:text;not null;" json:"company_name"`
-	// 線索來源ID
-	SourceID string `gorm:"column:source_id;type:uuid;not null;" json:"source_id"`
-	// 線索客戶行業ID
-	IndustryID string `gorm:"column:industry_id;type:uuid;not null;" json:"industry_id"`
+	// 線索描述
+	Description string `gorm:"column:description;type:text;not null;" json:"description"`
+	// 線索來源
+	Source string `gorm:"column:source;type:text;" json:"source"`
+	// 帳戶ID
+	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
+	// accounts data
+	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
 	// 線索分級
 	Rating string `gorm:"column:rating;type:text;not null;" json:"rating"`
 	special.UseTable
-	// lead_contacts data
-	LeadContacts []lead_contacts.Table `gorm:"foreignKey:LeadID;" json:"lead_contacts"`
 }
 
 // Base struct is corresponding to leads table structure file
@@ -30,17 +30,17 @@ type Base struct {
 	LeadID *string `json:"lead_id,omitempty"`
 	// 線索狀態
 	Status *string `json:"status,omitempty"`
-	// 線索客戶名稱
-	CompanyName *string `json:"company_name,omitempty"`
-	// 線索來源ID
-	SourceID *string `json:"source_id,omitempty"`
-	// 線索客戶行業ID
-	IndustryID *string `json:"industry_id,omitempty"`
+	// 線索描述
+	Description *string `json:"description,omitempty"`
+	// 線索來源
+	Source *string `json:"source,omitempty"`
+	// 帳戶ID
+	AccountID *string `json:"account_id,omitempty"`
+	// accounts data
+	Accounts accounts.Base `json:"accounts,omitempty"`
 	// 線索分級
 	Rating *string `json:"rating,omitempty"`
 	special.UseBase
-	// lead_contacts data
-	LeadContacts []lead_contacts.Base `json:"lead_contacts,omitempty"`
 }
 
 // TableName sets the insert table name for this struct type
