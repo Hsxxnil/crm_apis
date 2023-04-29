@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"math"
 	"math/rand"
 	"time"
@@ -19,4 +20,17 @@ func GenerateRangeNum(min, max int) int {
 
 func Round(x float64) int64 {
 	return int64(math.Floor(x + 0.5))
+}
+
+func interfaceArrayToStringArray(arr []interface{}) []string {
+	strArr := make([]string, len(arr))
+	for i, v := range arr {
+		switch s := v.(type) {
+		case string:
+			strArr[i] = s
+		default:
+			strArr[i] = fmt.Sprintf("%v", s)
+		}
+	}
+	return strArr
 }
