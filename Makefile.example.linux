@@ -43,6 +43,9 @@ changeLog:
 update_lib:
 	#brew install golang-migrate
 	#brew install golangci-lint
+	#brew install protobuf
+	go get -u github.com/golang/protobuf/protoc-gen-go
+	# path: /opt/homebrew/bin/golangci-lint
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install github.com/cosmtrek/air@latest
 	go get -u
