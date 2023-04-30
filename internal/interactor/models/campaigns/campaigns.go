@@ -1,8 +1,9 @@
 package campaigns
 
 import (
-	"app.eirc/internal/entity/postgresql/db/users"
 	"time"
+
+	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
