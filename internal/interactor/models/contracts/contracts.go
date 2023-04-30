@@ -3,7 +3,7 @@ package contracts
 import (
 	"time"
 
-	"app.eirc/internal/interactor/models/accounts"
+	"app.eirc/internal/entity/postgresql/db/accounts"
 
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
@@ -64,7 +64,9 @@ type List struct {
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 帳戶名稱
-		Accounts accounts.AccountName `json:"accounts,omitempty"`
+		AccountName string `json:"account_name,omitempty"`
+		// accounts data
+		Accounts *accounts.Base `json:"accounts,omitempty"`
 		// 契約有效期限(月)
 		Term int `json:"term,omitempty"`
 		// 契約描述
@@ -95,7 +97,9 @@ type Single struct {
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 帳戶名稱
-	Accounts accounts.AccountName `json:"accounts,omitempty"`
+	AccountName string `json:"account_name,omitempty"`
+	// accounts data
+	Accounts *accounts.Base `json:"accounts,omitempty"`
 	// 契約描述
 	Description string `json:"description,omitempty"`
 	// 契約號碼

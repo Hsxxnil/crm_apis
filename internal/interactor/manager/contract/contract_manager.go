@@ -55,16 +55,22 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
+	output.Pages = util.Pagination(quantity, output.Limit)
 	contractByte, err := json.Marshal(contractBase)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
-	output.Pages = util.Pagination(quantity, output.Limit)
+
 	err = json.Unmarshal(contractByte, &output.Contracts)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	for _, contract := range output.Contracts {
+		contract.AccountName = *contract.Accounts.Name
+		contract.Accounts = nil
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -88,6 +94,9 @@ func (m *manager) GetBySingle(input *contractModel.Field) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
+	output.AccountName = *output.Accounts.Name
+	output.Accounts = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }
