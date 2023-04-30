@@ -5559,6 +5559,118 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "accounts.Base": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "contacts": {
+                    "description": "contacts data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/contacts.Base"
+                    }
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "created_by_users": {
+                    "description": "create_users data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/users.Base"
+                        }
+                    ]
+                },
+                "del_end_at": {
+                    "description": "刪除的結束時間",
+                    "type": "string"
+                },
+                "del_start_at": {
+                    "description": "刪除的開始時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "end_at": {
+                    "description": "結束時間",
+                    "type": "string"
+                },
+                "industries": {
+                    "description": "industries data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/industries.Base"
+                        }
+                    ]
+                },
+                "industry_id": {
+                    "description": "行業ID",
+                    "type": "string"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "order_by": {
+                    "description": "SQL OrderBy 區段",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "parent_account_id": {
+                    "description": "父系帳戶ID",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "帳戶電話",
+                    "type": "string"
+                },
+                "start_at": {
+                    "description": "開始時間",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "帳戶類型",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                },
+                "updated_by_users": {
+                    "description": "update_users data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/users.Base"
+                        }
+                    ]
+                }
+            }
+        },
         "accounts.Create": {
             "type": "object",
             "required": [
@@ -5635,6 +5747,10 @@ const docTemplate = `{
                                 "description": "行業ID",
                                 "type": "string"
                             },
+                            "industry_name": {
+                                "description": "行業名稱",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "帳戶名稱",
                                 "type": "string"
@@ -5708,6 +5824,10 @@ const docTemplate = `{
                 },
                 "industry_id": {
                     "description": "行業ID",
+                    "type": "string"
+                },
+                "industry_name": {
+                    "description": "行業名稱",
                     "type": "string"
                 },
                 "name": {
@@ -6125,6 +6245,119 @@ const docTemplate = `{
                     "description": "錯誤時間",
                     "type": "string",
                     "example": "2021-07-29T07:23:47Z"
+                }
+            }
+        },
+        "contacts.Base": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "cell_phone": {
+                    "description": "聯絡人行動電話",
+                    "type": "string"
+                },
+                "contact_id": {
+                    "description": "聯絡人ID",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "created_by_users": {
+                    "description": "create_users data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/users.Base"
+                        }
+                    ]
+                },
+                "del_end_at": {
+                    "description": "刪除的結束時間",
+                    "type": "string"
+                },
+                "del_start_at": {
+                    "description": "刪除的開始時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "department": {
+                    "description": "聯絡人部門",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "end_at": {
+                    "description": "結束時間",
+                    "type": "string"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "order_by": {
+                    "description": "SQL OrderBy 區段",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "phone_number": {
+                    "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "start_at": {
+                    "description": "開始時間",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "聯絡人直屬上司ID",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "聯絡人職稱",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                },
+                "updated_by_users": {
+                    "description": "update_users data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/users.Base"
+                        }
+                    ]
                 }
             }
         },
@@ -6598,6 +6831,31 @@ const docTemplate = `{
                 }
             }
         },
+        "industries.Base": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "industry_id": {
+                    "description": "行業ID",
+                    "type": "string"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "行業名稱",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                }
+            }
+        },
         "industries.Create": {
             "type": "object",
             "required": [
@@ -6919,6 +7177,115 @@ const docTemplate = `{
                 }
             }
         },
+        "opportunities.Base": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "accounts": {
+                    "description": "accounts data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/accounts.Base"
+                        }
+                    ]
+                },
+                "amount": {
+                    "description": "預期收入金額",
+                    "type": "number"
+                },
+                "close_date": {
+                    "description": "商機結束日期",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "created_by_users": {
+                    "description": "create_users data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/users.Base"
+                        }
+                    ]
+                },
+                "del_end_at": {
+                    "description": "刪除的結束時間",
+                    "type": "string"
+                },
+                "del_start_at": {
+                    "description": "刪除的開始時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "end_at": {
+                    "description": "結束時間",
+                    "type": "string"
+                },
+                "forecast_category": {
+                    "description": "商機預測種類",
+                    "type": "string"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "商機名稱",
+                    "type": "string"
+                },
+                "opportunity_id": {
+                    "description": "商機ID",
+                    "type": "string"
+                },
+                "order_by": {
+                    "description": "SQL OrderBy 區段",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "stage": {
+                    "description": "商機階段",
+                    "type": "string"
+                },
+                "start_at": {
+                    "description": "開始時間",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                },
+                "updated_by_users": {
+                    "description": "update_users data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/users.Base"
+                        }
+                    ]
+                }
+            }
+        },
         "opportunities.Create": {
             "type": "object",
             "required": [
@@ -6926,6 +7293,7 @@ const docTemplate = `{
                 "close_date",
                 "created_by",
                 "forecast_category",
+                "name",
                 "stage"
             ],
             "properties": {
@@ -6947,6 +7315,10 @@ const docTemplate = `{
                 },
                 "forecast_category": {
                     "description": "商機預測種類",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "商機名稱",
                     "type": "string"
                 },
                 "stage": {
@@ -6976,6 +7348,10 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "account_name": {
+                                "description": "帳戶名稱",
+                                "type": "string"
+                            },
                             "amount": {
                                 "description": "預期收入金額",
                                 "type": "number"
@@ -6998,6 +7374,10 @@ const docTemplate = `{
                             },
                             "forecast_category": {
                                 "description": "商機預測種類",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "商機名稱",
                                 "type": "string"
                             },
                             "opportunity_id": {
@@ -7040,6 +7420,10 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
                 "amount": {
                     "description": "預期收入金額",
                     "type": "number"
@@ -7062,6 +7446,10 @@ const docTemplate = `{
                 },
                 "forecast_category": {
                     "description": "商機預測種類",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "商機名稱",
                     "type": "string"
                 },
                 "opportunity_id": {
@@ -7098,6 +7486,10 @@ const docTemplate = `{
                 },
                 "forecast_category": {
                     "description": "商機預測種類",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "商機名稱",
                     "type": "string"
                 },
                 "stage": {
@@ -7230,6 +7622,31 @@ const docTemplate = `{
                 "total": {
                     "description": "總筆數",
                     "type": "integer"
+                }
+            }
+        },
+        "order_products.OrderSingle": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "訂單產品描述",
+                    "type": "string"
+                },
+                "product_id": {
+                    "description": "產品ID",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "訂單產品數量",
+                    "type": "integer"
+                },
+                "sub_total": {
+                    "description": "訂單產品小計",
+                    "type": "number"
+                },
+                "unit_price": {
+                    "description": "訂單產品單價",
+                    "type": "number"
                 }
             }
         },
@@ -7411,6 +7828,13 @@ const docTemplate = `{
                                 "description": "訂單ID",
                                 "type": "string"
                             },
+                            "products": {
+                                "description": "order_products data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/order_products.OrderSingle"
+                                }
+                            },
                             "start_date": {
                                 "description": "訂單開始日期",
                                 "type": "string"
@@ -7486,6 +7910,13 @@ const docTemplate = `{
                 "order_id": {
                     "description": "訂單ID",
                     "type": "string"
+                },
+                "products": {
+                    "description": "order_products data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order_products.OrderSingle"
+                    }
                 },
                 "start_date": {
                     "description": "訂單開始日期",
@@ -7839,8 +8270,20 @@ const docTemplate = `{
                                 "description": "報價名稱",
                                 "type": "string"
                             },
+                            "opportunities": {
+                                "description": "opportunities data",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/opportunities.Base"
+                                    }
+                                ]
+                            },
                             "opportunity_id": {
                                 "description": "商機ID",
+                                "type": "string"
+                            },
+                            "opportunity_name": {
+                                "description": "商機名稱",
                                 "type": "string"
                             },
                             "quote_id": {
@@ -7911,8 +8354,20 @@ const docTemplate = `{
                     "description": "報價名稱",
                     "type": "string"
                 },
+                "opportunities": {
+                    "description": "opportunities data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/opportunities.Base"
+                        }
+                    ]
+                },
                 "opportunity_id": {
                     "description": "商機ID",
+                    "type": "string"
+                },
+                "opportunity_name": {
+                    "description": "商機名稱",
                     "type": "string"
                 },
                 "quote_id": {
@@ -7985,6 +8440,95 @@ const docTemplate = `{
                 },
                 "updated_by": {
                     "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "users.Base": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "company_id": {
+                    "description": "公司ID",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "del_end_at": {
+                    "description": "刪除的結束時間",
+                    "type": "string"
+                },
+                "del_start_at": {
+                    "description": "刪除的開始時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "使用者電子郵件",
+                    "type": "string"
+                },
+                "end_at": {
+                    "description": "結束時間",
+                    "type": "string"
+                },
+                "is_deleted": {
+                    "description": "使用者是否刪除",
+                    "type": "boolean"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "使用者中文名稱",
+                    "type": "string"
+                },
+                "order_by": {
+                    "description": "SQL OrderBy 區段",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "password": {
+                    "description": "使用者密碼",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "使用者電話",
+                    "type": "string"
+                },
+                "start_at": {
+                    "description": "開始時間",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                },
+                "user_id": {
+                    "description": "使用者ID",
+                    "type": "string"
+                },
+                "user_name": {
+                    "description": "使用者名稱",
                     "type": "string"
                 }
             }

@@ -2,6 +2,7 @@ package accounts
 
 import (
 	"app.eirc/internal/entity/postgresql/db/contacts"
+	"app.eirc/internal/entity/postgresql/db/industries"
 	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/special"
 )
@@ -16,6 +17,8 @@ type Table struct {
 	PhoneNumber string `gorm:"column:phone_number;type:text;" json:"phone_number"`
 	// 行業ID
 	IndustryID string `gorm:"column:industry_id;type:uuid;not null;" json:"industry_id"`
+	// industries data
+	Industries industries.Table `gorm:"foreignKey:IndustryID;references:IndustryID" json:"industries,omitempty"`
 	// 帳戶類型
 	Type string `gorm:"column:type;type:text;not null;" json:"type"`
 	// 父系帳戶ID
@@ -39,6 +42,8 @@ type Base struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	// 行業ID
 	IndustryID *string `json:"industry_id,omitempty"`
+	// industries data
+	Industries industries.Base `json:"industries,omitempty"`
 	// 帳戶類型
 	Type *string `json:"type,omitempty"`
 	// 父系帳戶ID

@@ -68,6 +68,8 @@ func (m *manager) GetByList(input *quoteModel.Fields) interface{} {
 	}
 
 	for _, quotes := range output.Quotes {
+		quotes.OpportunityName = *quotes.Opportunities.Name
+		quotes.Opportunities = nil
 		quotes.CreatedBy = *quotes.CreatedByUsers.Name
 		quotes.CreatedByUsers = nil
 		quotes.UpdatedBy = *quotes.UpdatedByUsers.Name
@@ -96,6 +98,8 @@ func (m *manager) GetBySingle(input *quoteModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
+	output.OpportunityName = *output.Opportunities.Name
+	output.Opportunities = nil
 	output.CreatedBy = *output.CreatedByUsers.Name
 	output.CreatedByUsers = nil
 	output.UpdatedBy = *output.UpdatedByUsers.Name

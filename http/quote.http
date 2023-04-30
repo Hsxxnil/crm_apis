@@ -24,11 +24,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
+PATCH http://localhost:8080/crm/v1.0/quotes/b94e79fb-f116-4976-b243-9a8f3501ea3d
 Content-Type: application/json
 
 {
-  "is_syncing": true,
+  "opportunity_id": "373042d7-3cb4-4e17-b69f-9b294b69eb7f",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 

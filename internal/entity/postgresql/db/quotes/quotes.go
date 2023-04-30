@@ -3,6 +3,8 @@ package quotes
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/opportunities"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/special"
@@ -21,6 +23,8 @@ type Table struct {
 	IsSyncing bool `gorm:"column:is_syncing;type:bool;not null;" json:"is_syncing"`
 	// 商機ID
 	OpportunityID string `gorm:"column:opportunity_id;type:uuid;not null;" json:"opportunity_id"`
+	// opportunities data
+	Opportunities opportunities.Table `gorm:"foreignKey:OpportunityID;references:OpportunityID" json:"opportunities,omitempty"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// 報價到期日期
@@ -50,6 +54,8 @@ type Base struct {
 	IsSyncing *bool `json:"is_syncing,omitempty"`
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty"`
+	// opportunities data
+	Opportunities opportunities.Base `json:"opportunities,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
 	// 報價到期日期

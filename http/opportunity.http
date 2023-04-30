@@ -11,6 +11,7 @@ POST http://localhost:8080/crm/v1.0/opportunities
 Content-Type: application/json
 
 {
+  "name": "test",
   "stage": "資格評估",
   "forecast_category": "結案",
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
@@ -20,14 +21,14 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/opportunities/8e4cf7ff-08ac-4772-8c1d-c5c1090649e8
+PATCH http://localhost:8080/crm/v1.0/opportunities/373042d7-3cb4-4e17-b69f-9b294b69eb7f
 Content-Type: application/json
 
 {
-  "close_date": "2023-04-27T11:00:00Z",
+  "name": "A",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/opportunities/8e4cf7ff-08ac-4772-8c1d-c5c1090649e8
+DELETE http://localhost:8080/crm/v1.0/opportunities/fd62da01-7206-4e59-8e24-30d22c270163
 Accept: application/json

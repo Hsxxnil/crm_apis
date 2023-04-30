@@ -3,6 +3,8 @@ package opportunities
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/accounts"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/special"
@@ -13,6 +15,8 @@ import (
 type Table struct {
 	// 商機ID
 	OpportunityID string `gorm:"<-:create;column:opportunity_id;type:uuid;not null;primaryKey;" json:"opportunity_id"`
+	// 商機名稱
+	Name string `gorm:"column:name;type:text;not null;" json:"name"`
 	// 商機階段
 	Stage string `gorm:"column:stage;type:text;not null;" json:"stage"`
 	// 商機預測種類
@@ -21,6 +25,8 @@ type Table struct {
 	CloseDate time.Time `gorm:"column:close_date;type:date;not null;" json:"close_date"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
+	// accounts data
+	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
 	// 預期收入金額
 	Amount decimal.Decimal `gorm:"column:amount;type:numeric;" json:"amount"`
 	// create_users data
@@ -34,6 +40,8 @@ type Table struct {
 type Base struct {
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty"`
+	// 商機名稱
+	Name *string `json:"name,omitempty"`
 	// 商機階段
 	Stage *string `json:"stage,omitempty"`
 	// 商機預測種類
@@ -42,6 +50,8 @@ type Base struct {
 	CloseDate *time.Time `json:"close_date,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
+	// accounts data
+	Accounts accounts.Base `json:"accounts,omitempty"`
 	// 預期收入金額
 	Amount *decimal.Decimal `json:"amount,omitempty"`
 	// create_users data

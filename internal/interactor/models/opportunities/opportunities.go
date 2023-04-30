@@ -3,6 +3,8 @@ package opportunities
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/accounts"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/page"
@@ -12,6 +14,8 @@ import (
 
 // Create struct is used to create achieves
 type Create struct {
+	// 商機名稱
+	Name string `json:"name,omitempty" binding:"required" validate:"required"`
 	// 商機階段
 	Stage string `json:"stage,omitempty" binding:"required" validate:"required"`
 	// 商機預測種類
@@ -30,6 +34,8 @@ type Create struct {
 type Field struct {
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
+	// 商機名稱
+	Name *string `json:"name,omitempty" form:"name"`
 	// 商機階段
 	Stage *string `json:"stage,omitempty" form:"stage"`
 	// 商機預測種類
@@ -56,6 +62,8 @@ type List struct {
 	Opportunities []*struct {
 		// 商機ID
 		OpportunityID string `json:"opportunity_id,omitempty"`
+		// 商機名稱
+		Name string `json:"name,omitempty"`
 		// 商機階段
 		Stage string `json:"stage,omitempty"`
 		// 商機預測種類
@@ -64,6 +72,10 @@ type List struct {
 		CloseDate time.Time `json:"close_date,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		AccountName string `json:"account_name,omitempty"`
+		// accounts data
+		Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 		// 預期收入金額
 		Amount decimal.Decimal `json:"amount,omitempty"`
 		// 創建者
@@ -85,6 +97,8 @@ type List struct {
 type Single struct {
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty"`
+	// 商機名稱
+	Name string `json:"name,omitempty"`
 	// 商機階段
 	Stage string `json:"stage,omitempty"`
 	// 商機預測種類
@@ -93,6 +107,10 @@ type Single struct {
 	CloseDate time.Time `json:"close_date,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	AccountName string `json:"account_name,omitempty"`
+	// accounts data
+	Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 	// 預期收入金額
 	Amount decimal.Decimal `json:"amount,omitempty"`
 	// 創建者
@@ -111,6 +129,8 @@ type Single struct {
 type Update struct {
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
+	// 商機名稱
+	Name *string `json:"name,omitempty"`
 	// 商機階段
 	Stage *string `json:"stage,omitempty"`
 	// 商機預測種類

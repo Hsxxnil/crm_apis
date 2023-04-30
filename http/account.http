@@ -20,11 +20,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/accounts/e0504567-20da-4953-9275-0e1e5fcb7e1b
+PATCH http://localhost:8080/crm/v1.0/accounts/cf6f654e-fb06-4740-bf03-374f32406d37
 Content-Type: application/json
 
 {
-  "industry_id": "820615ea-455f-4de0-bb0e-88a94c374307",
+  "industry_id": "b1ff0cda-c8c3-4fd6-a263-2f8cbcfe61ea",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 

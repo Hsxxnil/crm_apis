@@ -3,6 +3,8 @@ package orders
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/order_products"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/entity/postgresql/db/contracts"
@@ -91,6 +93,8 @@ type List struct {
 		UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 		// 時間戳記
 		section.TimeAt
+		// order_products data
+		OrderProducts []order_products.OrderSingle `json:"products,omitempty"`
 	} `json:"orders"`
 	// 分頁返回結構檔
 	page.Total
@@ -130,6 +134,8 @@ type Single struct {
 	UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 	// 時間戳記
 	section.TimeAt
+	// order_products data
+	OrderProducts []order_products.OrderSingle `json:"products,omitempty"`
 }
 
 // Update struct is used to update achieves

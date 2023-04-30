@@ -3,6 +3,8 @@ package quotes
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/opportunities"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/page"
@@ -80,6 +82,10 @@ type List struct {
 		IsSyncing bool `json:"is_syncing"`
 		// 商機ID
 		OpportunityID string `json:"opportunity_id,omitempty"`
+		// 商機名稱
+		OpportunityName string `json:"opportunity_name,omitempty"`
+		// opportunities data
+		Opportunities *opportunities.Base `json:"opportunities,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 報價到期日期
@@ -117,6 +123,10 @@ type Single struct {
 	IsSyncing bool `json:"is_syncing"`
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty"`
+	// 商機名稱
+	OpportunityName string `json:"opportunity_name,omitempty"`
+	// opportunities data
+	Opportunities *opportunities.Base `json:"opportunities,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 報價到期日期
