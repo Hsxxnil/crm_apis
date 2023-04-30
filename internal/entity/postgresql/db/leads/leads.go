@@ -2,6 +2,7 @@ package leads
 
 import (
 	"app.eirc/internal/entity/postgresql/db/accounts"
+	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -21,6 +22,10 @@ type Table struct {
 	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
 	// 線索分級
 	Rating string `gorm:"column:rating;type:text;not null;" json:"rating"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 }
 
@@ -40,6 +45,10 @@ type Base struct {
 	Accounts accounts.Base `json:"accounts,omitempty"`
 	// 線索分級
 	Rating *string `json:"rating,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 }
 

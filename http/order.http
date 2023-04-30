@@ -15,7 +15,7 @@ Content-Type: application/json
   "status": "Draft",
   "start_date": "2023-04-21T00:00:00Z",
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
-  "account_id": "6c2cfd14-87e0-4370-a3d9-12601ced9440",
+  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
   "contract_id": "05c76ec9-070e-42a1-b54e-9f2e048e4ced",
   "description": "test"
 }
@@ -25,7 +25,7 @@ PATCH http://localhost:8080/crm/v1.0/orders/b5c5be4f-9ef3-4b18-8777-bd25e573c462
 Content-Type: application/json
 
 {
-  "contract_id": "05c76ec9-070e-42a1-b54e-9f2e048e4ced",
+  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 

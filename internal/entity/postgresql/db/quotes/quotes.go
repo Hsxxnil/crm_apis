@@ -3,6 +3,8 @@ package quotes
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/users"
+
 	"app.eirc/internal/interactor/models/special"
 	"github.com/shopspring/decimal"
 )
@@ -29,6 +31,10 @@ type Table struct {
 	Tax decimal.Decimal `gorm:"column:tax;type:numeric;" json:"tax"`
 	// 報價運輸和處理費
 	ShippingAndHandling decimal.Decimal `gorm:"column:shipping_and_handling;type:numeric;" json:"shipping_and_handling"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 }
 
@@ -54,6 +60,10 @@ type Base struct {
 	Tax *decimal.Decimal `json:"tax,omitempty"`
 	// 報價運輸和處理費
 	ShippingAndHandling *decimal.Decimal `json:"shipping_and_handling,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 }
 

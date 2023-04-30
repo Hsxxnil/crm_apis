@@ -67,6 +67,13 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for _, opportunities := range output.Opportunities {
+		opportunities.CreatedBy = *opportunities.CreatedByUsers.Name
+		opportunities.CreatedByUsers = nil
+		opportunities.UpdatedBy = *opportunities.UpdatedByUsers.Name
+		opportunities.UpdatedByUsers = nil
+	}
+
 	return code.GetCodeMessage(code.Successful, output)
 }
 
@@ -88,6 +95,11 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
+	output.CreatedBy = *output.CreatedByUsers.Name
+	output.CreatedByUsers = nil
+	output.UpdatedBy = *output.UpdatedByUsers.Name
+	output.UpdatedByUsers = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }

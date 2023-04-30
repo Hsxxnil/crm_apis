@@ -14,24 +14,24 @@ Content-Type: application/json
   "name": "test",
   "code": "test123",
   "is_enable": true,
-  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "description": "test",
   "price": 50
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/products/65c782d7-b0e6-49c4-9097-33b4e5356bb6
+PATCH http://localhost:8080/crm/v1.0/products/faf53183-1a71-41d4-9a66-8100a55842b0
 Content-Type: application/json
 
 {
   "name": "test",
-  "code": "test",
+  "code": "test123",
   "is_enable": false,
   "description": "test",
   "price": 100,
-  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/products/0f929150-e4f2-4e04-b9cc-bd8a6158e284
+DELETE http://localhost:8080/crm/v1.0/products/1a22b43a-cdd1-40e0-9247-b6fd4a0b61b6
 Accept: application/json

@@ -2,6 +2,7 @@ package accounts
 
 import (
 	"app.eirc/internal/entity/postgresql/db/contacts"
+	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -19,6 +20,10 @@ type Table struct {
 	Type string `gorm:"column:type;type:text;not null;" json:"type"`
 	// 父系帳戶ID
 	ParentAccountID string `gorm:"column:parent_account_id;type:uuid;not null;" json:"parent_account_id"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 	// contacts data
 	Contacts []contacts.Table `gorm:"foreignKey:AccountID;" json:"contacts"`
@@ -38,6 +43,10 @@ type Base struct {
 	Type *string `json:"type,omitempty"`
 	// 父系帳戶ID
 	ParentAccountID *string `json:"parent_account_id,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 	// contacts data
 	Contacts []contacts.Base `json:"contacts,omitempty"`

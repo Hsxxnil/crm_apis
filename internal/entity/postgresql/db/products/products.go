@@ -1,6 +1,7 @@
 package products
 
 import (
+	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/special"
 	"github.com/shopspring/decimal"
 )
@@ -19,6 +20,10 @@ type Table struct {
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 產品價格
 	Price decimal.Decimal `gorm:"column:price;type:numeric;not null;" json:"price"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 }
 
@@ -36,6 +41,10 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 產品價格
 	Price *decimal.Decimal `json:"price,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 }
 

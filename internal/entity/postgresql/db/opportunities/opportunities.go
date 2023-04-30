@@ -3,6 +3,8 @@ package opportunities
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/users"
+
 	"app.eirc/internal/interactor/models/special"
 	"github.com/shopspring/decimal"
 )
@@ -21,6 +23,10 @@ type Table struct {
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// 預期收入金額
 	Amount decimal.Decimal `gorm:"column:amount;type:numeric;" json:"amount"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 }
 
@@ -38,6 +44,10 @@ type Base struct {
 	AccountID *string `json:"account_id,omitempty"`
 	// 預期收入金額
 	Amount *decimal.Decimal `json:"amount,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 }
 

@@ -67,6 +67,13 @@ func (m *manager) GetByList(input *campaignModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for _, campaigns := range output.Campaigns {
+		campaigns.CreatedBy = *campaigns.CreatedByUsers.Name
+		campaigns.CreatedByUsers = nil
+		campaigns.UpdatedBy = *campaigns.UpdatedByUsers.Name
+		campaigns.UpdatedByUsers = nil
+	}
+
 	return code.GetCodeMessage(code.Successful, output)
 }
 
@@ -88,6 +95,11 @@ func (m *manager) GetBySingle(input *campaignModel.Field) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
+	output.CreatedBy = *output.CreatedByUsers.Name
+	output.CreatedByUsers = nil
+	output.UpdatedBy = *output.UpdatedByUsers.Name
+	output.UpdatedByUsers = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }
