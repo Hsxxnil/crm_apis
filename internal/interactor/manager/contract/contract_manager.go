@@ -68,9 +68,9 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, contract := range output.Contracts {
-		contract.AccountName = *contract.Accounts.Name
-		contract.Accounts = nil
+	for _, contracts := range output.Contracts {
+		contracts.AccountName = *contracts.Accounts.Name
+		contracts.Accounts = nil
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
