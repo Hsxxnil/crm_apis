@@ -3422,7 +3422,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "取得全部訂單產品",
                 "parameters": [
@@ -3514,7 +3514,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "新增訂單產品",
                 "parameters": [
@@ -3603,7 +3603,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "取得單一訂單產品",
                 "parameters": [
@@ -3688,7 +3688,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "刪除單一訂單產品",
                 "parameters": [
@@ -3773,7 +3773,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "更新單一訂單產品",
                 "parameters": [

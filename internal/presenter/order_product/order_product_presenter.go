@@ -34,7 +34,7 @@ func Init(db *gorm.DB) Control {
 // Create
 // @Summary 新增訂單產品
 // @description 新增訂單產品
-// @Tags order_product
+// @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
@@ -63,7 +63,7 @@ func (c *control) Create(ctx *gin.Context) {
 // GetByList
 // @Summary 取得全部訂單產品
 // @description 取得全部訂單產品
-// @Tags order_product
+// @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
@@ -95,7 +95,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // GetBySingle
 // @Summary 取得單一訂單產品
 // @description 取得單一訂單產品
-// @Tags order_product
+// @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
@@ -123,7 +123,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // Delete
 // @Summary 刪除單一訂單產品
 // @description 刪除單一訂單產品
-// @Tags order_product
+// @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
@@ -152,7 +152,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // Update
 // @Summary 更新單一訂單產品
 // @description 更新單一訂單產品
-// @Tags order_product
+// @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
