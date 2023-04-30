@@ -16,7 +16,7 @@ Content-Type: application/json
   "quantity": 2,
   "unit_price": 30,
   "description": "test",
-  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a"
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
 }
 
 ### Update
@@ -25,9 +25,9 @@ Content-Type: application/json
 
 {
   "unit_price": 10,
-  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/orders/products/4f9d5825-7c92-484f-9eda-61f446424424
+DELETE http://localhost:8080/crm/v1.0/orders/products/1053a384-9cd3-44d8-b6cd-afe3302447b8
 Accept: application/json

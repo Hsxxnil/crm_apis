@@ -1,6 +1,7 @@
 package order_products
 
 import (
+	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/special"
 	"github.com/shopspring/decimal"
 )
@@ -21,6 +22,10 @@ type Table struct {
 	SubTotal decimal.Decimal `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
 	// 訂單產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 }
 
@@ -40,6 +45,10 @@ type Base struct {
 	SubTotal *decimal.Decimal `json:"sub_total,omitempty"`
 	// 訂單產品描述
 	Description *string `json:"description,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 }
 
