@@ -129,10 +129,6 @@ func (m *manager) Update(input *campaignModel.Update) interface{} {
 
 	err = m.CampaignService.Update(input)
 	if err != nil {
-		if err.Error() == "code already exists" {
-			return code.GetCodeMessage(code.BadRequest, err.Error())
-		}
-
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
