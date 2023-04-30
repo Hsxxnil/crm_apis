@@ -13,21 +13,21 @@ Content-Type: application/json
 {
   "stage": "資格評估",
   "forecast_category": "結案",
-  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "close_date": "2023-04-27T00:00:00Z",
-  "account_id": "00000000-0000-4000-a000-000000000000",
+  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
   "amount": 500
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/opportunities/f17d8b17-35fa-4262-8495-09e56d512876
+PATCH http://localhost:8080/crm/v1.0/opportunities/8e4cf7ff-08ac-4772-8c1d-c5c1090649e8
 Content-Type: application/json
 
 {
   "close_date": "2023-04-27T11:00:00Z",
-  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/opportunities/f17d8b17-35fa-4262-8495-09e56d512876
+DELETE http://localhost:8080/crm/v1.0/opportunities/8e4cf7ff-08ac-4772-8c1d-c5c1090649e8
 Accept: application/json
