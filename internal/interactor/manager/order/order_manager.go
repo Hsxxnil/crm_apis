@@ -72,6 +72,10 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 		orders.Accounts = nil
 		orders.ContractCode = *orders.Contracts.Code
 		orders.Contracts = nil
+		orders.CreatedBy = *orders.CreatedByUsers.Name
+		orders.CreatedByUsers = nil
+		orders.UpdatedBy = *orders.UpdatedByUsers.Name
+		orders.UpdatedByUsers = nil
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -100,6 +104,10 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 	output.Accounts = nil
 	output.ContractCode = *output.Contracts.Code
 	output.Contracts = nil
+	output.CreatedBy = *output.CreatedByUsers.Name
+	output.CreatedByUsers = nil
+	output.UpdatedBy = *output.UpdatedByUsers.Name
+	output.UpdatedByUsers = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }
