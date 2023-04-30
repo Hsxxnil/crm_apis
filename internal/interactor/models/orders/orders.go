@@ -68,13 +68,13 @@ type List struct {
 		// 帳戶名稱
 		AccountName string `json:"account_name,omitempty"`
 		// accounts data
-		Accounts *accounts.Base `json:"accounts,omitempty"`
+		Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 		// 契約ID
 		ContractID string `json:"contract_id,omitempty"`
 		// 契約號碼
 		ContractCode int `json:"contract_code,omitempty"`
 		// contracts data
-		Contracts *contracts.Base `json:"contracts,omitempty"`
+		Contracts *contracts.Base `json:"contracts,omitempty" swaggerignore:"true"`
 		// 訂單描述
 		Description string `json:"description,omitempty"`
 		// 訂單號碼
@@ -103,11 +103,11 @@ type Single struct {
 	// 帳戶名稱
 	AccountName string `json:"account_name,omitempty"`
 	// accounts data
-	Accounts *accounts.Base `json:"accounts,omitempty"`
+	Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 	// 契約號碼
 	ContractCode int `json:"contract_code,omitempty"`
 	// contracts data
-	Contracts *contracts.Base `json:"contracts,omitempty"`
+	Contracts *contracts.Base `json:"contracts,omitempty" swaggerignore:"true"`
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述

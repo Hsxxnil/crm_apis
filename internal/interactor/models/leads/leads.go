@@ -63,7 +63,7 @@ type List struct {
 		// 帳戶名稱
 		AccountName string `json:"account_name,omitempty"`
 		// accounts data
-		Accounts *accounts.Base `json:"accounts,omitempty"`
+		Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 		// 線索分級
 		Rating string `json:"rating,omitempty"`
 		// 創建者
@@ -92,7 +92,7 @@ type Single struct {
 	// 帳戶名稱
 	AccountName string `json:"account_name,omitempty"`
 	// accounts data
-	Accounts *accounts.Base `json:"accounts,omitempty"`
+	Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
