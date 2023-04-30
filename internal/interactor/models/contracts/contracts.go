@@ -66,7 +66,7 @@ type List struct {
 		// 帳戶名稱
 		AccountName string `json:"account_name,omitempty"`
 		// accounts data
-		Accounts *accounts.Base `json:"accounts,omitempty"`
+		Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 		// 契約有效期限(月)
 		Term int `json:"term,omitempty"`
 		// 契約描述
@@ -99,7 +99,7 @@ type Single struct {
 	// 帳戶名稱
 	AccountName string `json:"account_name,omitempty"`
 	// accounts data
-	Accounts *accounts.Base `json:"accounts,omitempty"`
+	Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 	// 契約描述
 	Description string `json:"description,omitempty"`
 	// 契約號碼
