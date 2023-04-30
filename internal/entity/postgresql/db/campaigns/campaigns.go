@@ -3,6 +3,8 @@ package campaigns
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/users"
+
 	"app.eirc/internal/interactor/models/special"
 	"github.com/shopspring/decimal"
 )
@@ -37,6 +39,10 @@ type Table struct {
 	ActualCost decimal.Decimal `gorm:"column:actual_cost;type:numeric;" json:"actual_cost"`
 	// 行銷活動預期收入
 	ExpectedIncome decimal.Decimal `gorm:"column:expected_income;type:numeric;" json:"expected_income"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 }
 
@@ -70,6 +76,10 @@ type Base struct {
 	ActualCost *decimal.Decimal `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
 	ExpectedIncome *decimal.Decimal `json:"expected_income,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 }
 

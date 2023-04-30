@@ -14,7 +14,7 @@ Content-Type: application/json
   "name": "test",
   "status": "草稿",
   "is_enable": false,
-  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "parent_campaign_id": "00000000-0000-4000-a000-000000000000",
   "description": "test",
   "start_date": "2023-04-26T00:00:00Z",
@@ -32,9 +32,9 @@ Content-Type: application/json
 
 {
   "is_enable": true,
-  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/campaigns/dbcb0c9d-f278-40d8-be5a-5884383ff332
+DELETE http://localhost:8080/crm/v1.0/campaigns/8b07eb27-a6a3-4567-b073-53f858538b58
 Accept: application/json
