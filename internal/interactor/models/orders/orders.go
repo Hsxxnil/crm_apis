@@ -3,9 +3,9 @@ package orders
 import (
 	"time"
 
-	"app.eirc/internal/interactor/models/contracts"
+	"app.eirc/internal/entity/postgresql/db/contracts"
 
-	"app.eirc/internal/interactor/models/accounts"
+	"app.eirc/internal/entity/postgresql/db/accounts"
 
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
@@ -66,11 +66,15 @@ type List struct {
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 帳戶名稱
-		Accounts accounts.AccountName `json:"accounts,omitempty"`
+		AccountName string `json:"account_name,omitempty"`
+		// accounts data
+		Accounts *accounts.Base `json:"accounts,omitempty"`
 		// 契約ID
 		ContractID string `json:"contract_id,omitempty"`
 		// 契約號碼
-		Contracts contracts.ContractCode `json:"contracts,omitempty"`
+		ContractCode int `json:"contract_code,omitempty"`
+		// contracts data
+		Contracts *contracts.Base `json:"contracts,omitempty"`
 		// 訂單描述
 		Description string `json:"description,omitempty"`
 		// 訂單號碼
@@ -96,8 +100,14 @@ type Single struct {
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	AccountName string `json:"account_name,omitempty"`
+	// accounts data
+	Accounts *accounts.Base `json:"accounts,omitempty"`
 	// 契約號碼
-	Contracts contracts.ContractCode `json:"contracts,omitempty"`
+	ContractCode int `json:"contract_code,omitempty"`
+	// contracts data
+	Contracts *contracts.Base `json:"contracts,omitempty"`
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述
