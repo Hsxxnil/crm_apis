@@ -46,10 +46,6 @@ func (m *manager) Create(trx *gorm.DB, input *userModel.Create) interface{} {
 
 	userBase, err := m.UserService.WithTrx(trx).Create(input)
 	if err != nil {
-		if err.Error() == "user already exists" {
-			return code.GetCodeMessage(code.BadRequest, err.Error())
-		}
-
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}

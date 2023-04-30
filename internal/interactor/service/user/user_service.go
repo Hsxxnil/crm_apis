@@ -43,21 +43,6 @@ func (s *service) WithTrx(tx *gorm.DB) Service {
 }
 
 func (s *service) Create(input *model.Create) (output *db.Base, err error) {
-	//field := &db.Base{}
-	//field.UserName = util.PointerString(input.UserName)
-	//field.CompanyID = util.PointerString(input.CompanyID)
-	//field.IsDeleted = util.PointerBool(false)
-	//quantity, err := s.Repository.GetByQuantity(field)
-	//if err != nil {
-	//	log.Error(err)
-	//	return nil, err
-	//}
-	//
-	//if quantity > 0 {
-	//	log.Info("UserName already exists. UserName: ", input.UserName, ",CompanyID:", input.CompanyID)
-	//	return nil, errors.New("user already exists")
-	//}
-	//
 	base := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
