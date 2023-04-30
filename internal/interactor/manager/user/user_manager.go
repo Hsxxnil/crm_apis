@@ -34,6 +34,15 @@ func Init(db *gorm.DB) Manager {
 
 func (m *manager) Create(trx *gorm.DB, input *userModel.Create) interface{} {
 	defer trx.Rollback()
+	quantity, _ := m.UserService.GetByQuantity(&userModel.Field{
+		UserName:  util.PointerString(input.UserName),
+		CompanyID: util.PointerString(input.CompanyID),
+	})
+
+	if quantity > 0 {
+		log.Info("UserName already exists. UserName: ", input.UserName, ",CompanyID:", input.CompanyID)
+		return code.GetCodeMessage(code.BadRequest, "user already exists")
+	}
 
 	userBase, err := m.UserService.WithTrx(trx).Create(input)
 	if err != nil {
