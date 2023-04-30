@@ -67,6 +67,13 @@ func (m *manager) GetByList(input *quoteModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for _, quotes := range output.Quotes {
+		quotes.CreatedBy = *quotes.CreatedByUsers.Name
+		quotes.CreatedByUsers = nil
+		quotes.UpdatedBy = *quotes.UpdatedByUsers.Name
+		quotes.UpdatedByUsers = nil
+	}
+
 	return code.GetCodeMessage(code.Successful, output)
 }
 
@@ -88,6 +95,11 @@ func (m *manager) GetBySingle(input *quoteModel.Field) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
+	output.CreatedBy = *output.CreatedByUsers.Name
+	output.CreatedByUsers = nil
+	output.UpdatedBy = *output.UpdatedByUsers.Name
+	output.UpdatedByUsers = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }

@@ -14,9 +14,9 @@ Content-Type: application/json
   "name": "test",
   "status": "草稿",
   "is_syncing": false,
-  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "opportunity_id": "00000000-0000-4000-a000-000000000000",
-  "account_id": "00000000-0000-4000-a000-000000000000",
+  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
   "description": "test",
   "expiration_date": "2023-04-26T00:00:00Z",
   "tax": 50,
@@ -29,9 +29,9 @@ Content-Type: application/json
 
 {
   "is_syncing": true,
-  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
+DELETE http://localhost:8080/crm/v1.0/quotes/28a8b00e-e30a-4fb2-954a-7e0bacbdc940
 Accept: application/json
