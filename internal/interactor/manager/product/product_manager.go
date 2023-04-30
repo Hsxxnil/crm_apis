@@ -34,13 +34,17 @@ func Init(db *gorm.DB) Manager {
 
 func (m *manager) Create(trx *gorm.DB, input *productModel.Create) interface{} {
 	defer trx.Rollback()
+	quantity, _ := m.ProductService.GetByQuantity(&productModel.Field{
+		Code: util.PointerString(input.Code),
+	})
+
+	if quantity > 0 {
+		log.Info("Code already exists. Code: ", input.Code)
+		return code.GetCodeMessage(code.BadRequest, "code already exists")
+	}
 
 	productBase, err := m.ProductService.WithTrx(trx).Create(input)
 	if err != nil {
-		if err.Error() == "code already exists" {
-			return code.GetCodeMessage(code.BadRequest, err.Error())
-		}
-
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
@@ -58,12 +62,14 @@ func (m *manager) GetByList(input *productModel.Fields) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
+
 	output.Total.Total = quantity
 	productByte, err := json.Marshal(productBase)
 	if err != nil {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
+
 	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(productByte, &output.Products)
 	if err != nil {
@@ -143,10 +149,6 @@ func (m *manager) Update(input *productModel.Update) interface{} {
 
 	err = m.ProductService.Update(input)
 	if err != nil {
-		if err.Error() == "code already exists" {
-			return code.GetCodeMessage(code.BadRequest, err.Error())
-		}
-
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
