@@ -5635,6 +5635,10 @@ const docTemplate = `{
                                 "description": "行業ID",
                                 "type": "string"
                             },
+                            "industry_name": {
+                                "description": "行業名稱",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "帳戶名稱",
                                 "type": "string"
@@ -5708,6 +5712,10 @@ const docTemplate = `{
                 },
                 "industry_id": {
                     "description": "行業ID",
+                    "type": "string"
+                },
+                "industry_name": {
+                    "description": "行業名稱",
                     "type": "string"
                 },
                 "name": {

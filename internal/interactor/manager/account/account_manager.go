@@ -68,6 +68,8 @@ func (m *manager) GetByList(input *accountModel.Fields) interface{} {
 	}
 
 	for _, accounts := range output.Accounts {
+		accounts.IndustryName = *accounts.Industries.Name
+		accounts.Industries = nil
 		accounts.CreatedBy = *accounts.CreatedByUsers.Name
 		accounts.CreatedByUsers = nil
 		accounts.UpdatedBy = *accounts.UpdatedByUsers.Name
@@ -96,6 +98,8 @@ func (m *manager) GetBySingle(input *accountModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
+	output.IndustryName = *output.Industries.Name
+	output.Industries = nil
 	output.CreatedBy = *output.CreatedByUsers.Name
 	output.CreatedByUsers = nil
 	output.UpdatedBy = *output.UpdatedByUsers.Name

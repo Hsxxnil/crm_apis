@@ -5631,6 +5631,10 @@
                                 "description": "行業ID",
                                 "type": "string"
                             },
+                            "industry_name": {
+                                "description": "行業名稱",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "帳戶名稱",
                                 "type": "string"
@@ -5704,6 +5708,10 @@
                 },
                 "industry_id": {
                     "description": "行業ID",
+                    "type": "string"
+                },
+                "industry_name": {
+                    "description": "行業名稱",
                     "type": "string"
                 },
                 "name": {

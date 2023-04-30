@@ -1,6 +1,7 @@
 package accounts
 
 import (
+	"app.eirc/internal/entity/postgresql/db/industries"
 	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/contacts"
 	"app.eirc/internal/interactor/models/page"
@@ -61,6 +62,10 @@ type List struct {
 		Type string `json:"type,omitempty"`
 		// 行業ID
 		IndustryID string `json:"industry_id,omitempty"`
+		// 行業名稱
+		IndustryName string `json:"industry_name,omitempty"`
+		// industries data
+		Industries *industries.Base `json:"industries,omitempty" swaggerignore:"true"`
 		// 父系帳戶ID
 		ParentAccountID string `json:"parent_account_id,omitempty"`
 		// 創建者
@@ -92,6 +97,10 @@ type Single struct {
 	Type string `json:"type,omitempty"`
 	// 行業ID
 	IndustryID string `json:"industry_id,omitempty"`
+	// 行業名稱
+	IndustryName string `json:"industry_name,omitempty"`
+	// industries data
+	Industries *industries.Base `json:"industries,omitempty" swaggerignore:"true"`
 	// 父系帳戶ID
 	ParentAccountID string `json:"parent_account_id,omitempty"`
 	// 創建者
