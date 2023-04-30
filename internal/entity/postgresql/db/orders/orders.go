@@ -3,6 +3,8 @@ package orders
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/users"
+
 	"app.eirc/internal/entity/postgresql/db/contracts"
 
 	"app.eirc/internal/entity/postgresql/db/accounts"
@@ -30,6 +32,10 @@ type Table struct {
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 訂單號碼
 	Code uint `gorm:"->;column:code;type:serial;auto_increment" json:"code"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 }
 
@@ -53,6 +59,10 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 訂單號碼
 	Code *int `json:"code,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 }
 

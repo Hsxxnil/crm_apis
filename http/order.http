@@ -14,21 +14,21 @@ Content-Type: application/json
 {
   "status": "Draft",
   "start_date": "2023-04-21T00:00:00Z",
-  "created_by": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "account_id": "52f18d90-e4c3-43cb-b9d4-f62b409e7392",
-  "contract_id": "00000000-0000-4000-a000-000000000000",
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
+  "account_id": "6c2cfd14-87e0-4370-a3d9-12601ced9440",
+  "contract_id": "05c76ec9-070e-42a1-b54e-9f2e048e4ced",
   "description": "test"
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/orders/3b481d4c-f746-4fcd-824d-e6141f62e4e8
+PATCH http://localhost:8080/crm/v1.0/orders/b5c5be4f-9ef3-4b18-8777-bd25e573c462
 Content-Type: application/json
 
 {
-  "contract_id": "4ce94280-cad8-40c4-88e0-3ff5d7940db3",
-  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+  "contract_id": "05c76ec9-070e-42a1-b54e-9f2e048e4ced",
+  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/orders/ef6402e0-56c8-455f-bbe1-89628e173761
+DELETE http://localhost:8080/crm/v1.0/orders/b5c5be4f-9ef3-4b18-8777-bd25e573c462
 Accept: application/json
