@@ -1026,10 +1026,13 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
+            account_name:
+              description: 帳戶名稱
+              type: string
             accounts:
               allOf:
-              - $ref: '#/definitions/accounts.AccountName'
-              description: 帳戶名稱
+              - $ref: '#/definitions/accounts.Base'
+              description: accounts data
             created_at:
               description: 創建時間
               type: string
@@ -1083,10 +1086,13 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
+      account_name:
+        description: 帳戶名稱
+        type: string
       accounts:
         allOf:
-        - $ref: '#/definitions/accounts.AccountName'
-        description: 帳戶名稱
+        - $ref: '#/definitions/accounts.Base'
+        description: accounts data
       created_at:
         description: 創建時間
         type: string

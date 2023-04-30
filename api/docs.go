@@ -6970,11 +6970,15 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
-                            "accounts": {
+                            "account_name": {
                                 "description": "帳戶名稱",
+                                "type": "string"
+                            },
+                            "accounts": {
+                                "description": "accounts data",
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/accounts.AccountName"
+                                        "$ref": "#/definitions/accounts.Base"
                                     }
                                 ]
                             },
@@ -7046,11 +7050,15 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "accounts": {
+                "account_name": {
                     "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "accounts": {
+                    "description": "accounts data",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/accounts.AccountName"
+                            "$ref": "#/definitions/accounts.Base"
                         }
                     ]
                 },

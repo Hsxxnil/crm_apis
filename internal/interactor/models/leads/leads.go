@@ -1,7 +1,7 @@
 package leads
 
 import (
-	"app.eirc/internal/interactor/models/accounts"
+	"app.eirc/internal/entity/postgresql/db/accounts"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 )
@@ -61,7 +61,9 @@ type List struct {
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 帳戶名稱
-		Accounts accounts.AccountName `json:"accounts,omitempty"`
+		AccountName string `json:"account_name,omitempty"`
+		// accounts data
+		Accounts *accounts.Base `json:"accounts,omitempty"`
 		// 線索分級
 		Rating string `json:"rating,omitempty"`
 		// 創建者
@@ -88,7 +90,9 @@ type Single struct {
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 帳戶名稱
-	Accounts accounts.AccountName `json:"accounts,omitempty"`
+	AccountName string `json:"account_name,omitempty"`
+	// accounts data
+	Accounts *accounts.Base `json:"accounts,omitempty"`
 	// 線索分級
 	Rating string `json:"rating,omitempty"`
 	// 創建者
