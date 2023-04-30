@@ -15,6 +15,8 @@ import (
 type Table struct {
 	// 商機ID
 	OpportunityID string `gorm:"<-:create;column:opportunity_id;type:uuid;not null;primaryKey;" json:"opportunity_id"`
+	// 商機名稱
+	Name string `gorm:"column:name;type:text;not null;" json:"name"`
 	// 商機階段
 	Stage string `gorm:"column:stage;type:text;not null;" json:"stage"`
 	// 商機預測種類
@@ -38,6 +40,8 @@ type Table struct {
 type Base struct {
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty"`
+	// 商機名稱
+	Name *string `json:"name,omitempty"`
 	// 商機階段
 	Stage *string `json:"stage,omitempty"`
 	// 商機預測種類

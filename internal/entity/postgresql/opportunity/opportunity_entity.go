@@ -108,6 +108,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
 	data := map[string]any{}
 
+	if input.Name != nil {
+		data["name"] = input.Name
+	}
+
 	if input.Stage != nil {
 		data["stage"] = input.Stage
 	}
