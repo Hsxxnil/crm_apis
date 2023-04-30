@@ -4,7 +4,7 @@ GET http://localhost:8080/crm/v1.0/contracts?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/crm/v1.0/contracts/cb6da4e5-e2da-49ab-923f-7a9442ec9633
+GET http://localhost:8080/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
 Accept: application/json
 
 ### Create
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/contracts/4ce94280-cad8-40c4-88e0-3ff5d7940db3
+PATCH http://localhost:8080/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
 Content-Type: application/json
 
 {
@@ -30,5 +30,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/contracts/9ebd25ba-811e-4527-9786-e94f2b421b44
+DELETE http://localhost:8080/crm/v1.0/contracts/c1df0068-2a85-4a6f-900a-b5f0ed0dc8a4
 Accept: application/json

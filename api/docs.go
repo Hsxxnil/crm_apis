@@ -3422,7 +3422,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "取得全部訂單產品",
                 "parameters": [
@@ -3514,7 +3514,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "新增訂單產品",
                 "parameters": [
@@ -3603,7 +3603,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "取得單一訂單產品",
                 "parameters": [
@@ -3688,7 +3688,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "刪除單一訂單產品",
                 "parameters": [
@@ -3773,7 +3773,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "order_product"
+                    "order-product"
                 ],
                 "summary": "更新單一訂單產品",
                 "parameters": [
@@ -5559,11 +5559,90 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "accounts.AccountName": {
+        "accounts.Base": {
             "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
             "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "contacts": {
+                    "description": "contacts data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/contacts.Base"
+                    }
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "del_end_at": {
+                    "description": "刪除的結束時間",
+                    "type": "string"
+                },
+                "del_start_at": {
+                    "description": "刪除的開始時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "end_at": {
+                    "description": "結束時間",
+                    "type": "string"
+                },
+                "industry_id": {
+                    "description": "行業ID",
+                    "type": "string"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
                 "name": {
                     "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "order_by": {
+                    "description": "SQL OrderBy 區段",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "parent_account_id": {
+                    "description": "父系帳戶ID",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "帳戶電話",
+                    "type": "string"
+                },
+                "start_at": {
+                    "description": "開始時間",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "帳戶類型",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
                     "type": "string"
                 }
             }
@@ -6137,6 +6216,103 @@ const docTemplate = `{
                 }
             }
         },
+        "contacts.Base": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "cell_phone": {
+                    "description": "聯絡人行動電話",
+                    "type": "string"
+                },
+                "contact_id": {
+                    "description": "聯絡人ID",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "del_end_at": {
+                    "description": "刪除的結束時間",
+                    "type": "string"
+                },
+                "del_start_at": {
+                    "description": "刪除的開始時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "department": {
+                    "description": "聯絡人部門",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "end_at": {
+                    "description": "結束時間",
+                    "type": "string"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "order_by": {
+                    "description": "SQL OrderBy 區段",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "phone_number": {
+                    "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "start_at": {
+                    "description": "開始時間",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "聯絡人直屬上司ID",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "聯絡人職稱",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
         "contacts.Create": {
             "type": "object",
             "required": [
@@ -6396,12 +6572,96 @@ const docTemplate = `{
                 }
             }
         },
-        "contracts.ContractCode": {
+        "contracts.Base": {
             "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
             "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "accounts": {
+                    "description": "accounts data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/accounts.Base"
+                        }
+                    ]
+                },
                 "code": {
                     "description": "契約號碼",
                     "type": "integer"
+                },
+                "contract_id": {
+                    "description": "契約ID",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "del_end_at": {
+                    "description": "刪除的結束時間",
+                    "type": "string"
+                },
+                "del_start_at": {
+                    "description": "刪除的開始時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "契約描述",
+                    "type": "string"
+                },
+                "end_at": {
+                    "description": "結束時間",
+                    "type": "string"
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "order_by": {
+                    "description": "SQL OrderBy 區段",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "start_at": {
+                    "description": "開始時間",
+                    "type": "string"
+                },
+                "start_date": {
+                    "description": "契約開始日期",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "契約狀態",
+                    "type": "string"
+                },
+                "term": {
+                    "description": "契約有效期限(月)",
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
                 }
             }
         },
@@ -6458,11 +6718,15 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
-                            "accounts": {
+                            "account_name": {
                                 "description": "帳戶名稱",
+                                "type": "string"
+                            },
+                            "accounts": {
+                                "description": "accounts data",
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/accounts.AccountName"
+                                        "$ref": "#/definitions/accounts.Base"
                                     }
                                 ]
                             },
@@ -6538,11 +6802,15 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "accounts": {
+                "account_name": {
                     "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "accounts": {
+                    "description": "accounts data",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/accounts.AccountName"
+                            "$ref": "#/definitions/accounts.Base"
                         }
                     ]
                 },
@@ -6777,11 +7045,15 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
-                            "accounts": {
+                            "account_name": {
                                 "description": "帳戶名稱",
+                                "type": "string"
+                            },
+                            "accounts": {
+                                "description": "accounts data",
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/accounts.AccountName"
+                                        "$ref": "#/definitions/accounts.Base"
                                     }
                                 ]
                             },
@@ -6853,11 +7125,15 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "accounts": {
+                "account_name": {
                     "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "accounts": {
+                    "description": "accounts data",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/accounts.AccountName"
+                            "$ref": "#/definitions/accounts.Base"
                         }
                     ]
                 },
@@ -7409,11 +7685,15 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
-                            "accounts": {
+                            "account_name": {
                                 "description": "帳戶名稱",
+                                "type": "string"
+                            },
+                            "accounts": {
+                                "description": "accounts data",
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/accounts.AccountName"
+                                        "$ref": "#/definitions/accounts.Base"
                                     }
                                 ]
                             },
@@ -7421,15 +7701,19 @@ const docTemplate = `{
                                 "description": "訂單號碼",
                                 "type": "integer"
                             },
+                            "contract_code": {
+                                "description": "契約號碼",
+                                "type": "integer"
+                            },
                             "contract_id": {
                                 "description": "契約ID",
                                 "type": "string"
                             },
                             "contracts": {
-                                "description": "契約號碼",
+                                "description": "contracts data",
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/contracts.ContractCode"
+                                        "$ref": "#/definitions/contracts.Base"
                                     }
                                 ]
                             },
@@ -7493,8 +7777,24 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "accounts": {
+                    "description": "accounts data",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/accounts.Base"
+                        }
+                    ]
+                },
                 "code": {
                     "description": "訂單號碼",
+                    "type": "integer"
+                },
+                "contract_code": {
+                    "description": "契約號碼",
                     "type": "integer"
                 },
                 "contract_id": {
@@ -7502,10 +7802,10 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "contracts": {
-                    "description": "契約號碼",
+                    "description": "contracts data",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/contracts.ContractCode"
+                            "$ref": "#/definitions/contracts.Base"
                         }
                     ]
                 },

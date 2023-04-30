@@ -67,6 +67,13 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for _, orders := range output.Orders {
+		orders.AccountName = *orders.Accounts.Name
+		orders.Accounts = nil
+		orders.ContractCode = *orders.Contracts.Code
+		orders.Contracts = nil
+	}
+
 	return code.GetCodeMessage(code.Successful, output)
 }
 
@@ -88,6 +95,11 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
+	output.AccountName = *output.Accounts.Name
+	output.Accounts = nil
+	output.ContractCode = *output.Contracts.Code
+	output.Contracts = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }
