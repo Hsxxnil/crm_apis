@@ -2,6 +2,7 @@ package leads
 
 import (
 	"app.eirc/internal/entity/postgresql/db/accounts"
+	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 )
@@ -68,8 +69,12 @@ type List struct {
 		Rating string `json:"rating,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
+		// create_users data
+		CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
+		// update_users data
+		UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 		// 時間戳記
 		section.TimeAt
 	} `json:"leads"`
@@ -97,8 +102,12 @@ type Single struct {
 	Rating string `json:"rating,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
+	// create_users data
+	CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
+	// update_users data
+	UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 	// 時間戳記
 	section.TimeAt
 }

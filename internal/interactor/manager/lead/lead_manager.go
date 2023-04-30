@@ -70,6 +70,10 @@ func (m *manager) GetByList(input *leadModel.Fields) interface{} {
 	for _, leads := range output.Leads {
 		leads.AccountName = *leads.Accounts.Name
 		leads.Accounts = nil
+		leads.CreatedBy = *leads.CreatedByUsers.Name
+		leads.CreatedByUsers = nil
+		leads.UpdatedBy = *leads.UpdatedByUsers.Name
+		leads.UpdatedByUsers = nil
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -96,6 +100,10 @@ func (m *manager) GetBySingle(input *leadModel.Field) interface{} {
 
 	output.AccountName = *output.Accounts.Name
 	output.Accounts = nil
+	output.CreatedBy = *output.CreatedByUsers.Name
+	output.CreatedByUsers = nil
+	output.UpdatedBy = *output.UpdatedByUsers.Name
+	output.UpdatedByUsers = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }
