@@ -1238,6 +1238,24 @@ definitions:
     - limit
     - page
     type: object
+  order_products.OrderSingle:
+    properties:
+      description:
+        description: 訂單產品描述
+        type: string
+      product_id:
+        description: 產品ID
+        type: string
+      quantity:
+        description: 訂單產品數量
+        type: integer
+      sub_total:
+        description: 訂單產品小計
+        type: number
+      unit_price:
+        description: 訂單產品單價
+        type: number
+    type: object
   order_products.Single:
     properties:
       created_at:
@@ -1366,6 +1384,11 @@ definitions:
             order_id:
               description: 訂單ID
               type: string
+            products:
+              description: order_products data
+              items:
+                $ref: '#/definitions/order_products.OrderSingle'
+              type: array
             start_date:
               description: 訂單開始日期
               type: string
@@ -1425,6 +1448,11 @@ definitions:
       order_id:
         description: 訂單ID
         type: string
+      products:
+        description: order_products data
+        items:
+          $ref: '#/definitions/order_products.OrderSingle'
+        type: array
       start_date:
         description: 訂單開始日期
         type: string

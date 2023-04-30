@@ -3,6 +3,8 @@ package orders
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/order_products"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/entity/postgresql/db/contracts"
@@ -37,6 +39,8 @@ type Table struct {
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
+	// order_products data
+	OrderProducts []order_products.Table `gorm:"foreignKey:OrderID;" json:"products"`
 }
 
 // Base struct is corresponding to orders table structure file
@@ -64,6 +68,8 @@ type Base struct {
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
+	// order_products data
+	OrderProducts []order_products.Base `json:"products,omitempty"`
 }
 
 // TableName sets the insert table name for this struct type

@@ -7249,6 +7249,31 @@ const docTemplate = `{
                 }
             }
         },
+        "order_products.OrderSingle": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "訂單產品描述",
+                    "type": "string"
+                },
+                "product_id": {
+                    "description": "產品ID",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "訂單產品數量",
+                    "type": "integer"
+                },
+                "sub_total": {
+                    "description": "訂單產品小計",
+                    "type": "number"
+                },
+                "unit_price": {
+                    "description": "訂單產品單價",
+                    "type": "number"
+                }
+            }
+        },
         "order_products.Single": {
             "type": "object",
             "properties": {
@@ -7427,6 +7452,13 @@ const docTemplate = `{
                                 "description": "訂單ID",
                                 "type": "string"
                             },
+                            "products": {
+                                "description": "order_products data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/order_products.OrderSingle"
+                                }
+                            },
                             "start_date": {
                                 "description": "訂單開始日期",
                                 "type": "string"
@@ -7502,6 +7534,13 @@ const docTemplate = `{
                 "order_id": {
                     "description": "訂單ID",
                     "type": "string"
+                },
+                "products": {
+                    "description": "order_products data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order_products.OrderSingle"
+                    }
                 },
                 "start_date": {
                     "description": "訂單開始日期",
