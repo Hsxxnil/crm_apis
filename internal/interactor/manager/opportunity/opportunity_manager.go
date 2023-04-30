@@ -68,6 +68,8 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 	}
 
 	for _, opportunities := range output.Opportunities {
+		opportunities.AccountName = *opportunities.Accounts.Name
+		opportunities.Accounts = nil
 		opportunities.CreatedBy = *opportunities.CreatedByUsers.Name
 		opportunities.CreatedByUsers = nil
 		opportunities.UpdatedBy = *opportunities.UpdatedByUsers.Name
@@ -96,6 +98,8 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
+	output.AccountName = *output.Accounts.Name
+	output.Accounts = nil
 	output.CreatedBy = *output.CreatedByUsers.Name
 	output.CreatedByUsers = nil
 	output.UpdatedBy = *output.UpdatedByUsers.Name

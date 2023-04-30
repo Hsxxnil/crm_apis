@@ -3,6 +3,8 @@ package opportunities
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/accounts"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/page"
@@ -64,6 +66,10 @@ type List struct {
 		CloseDate time.Time `json:"close_date,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		AccountName string `json:"account_name,omitempty"`
+		// accounts data
+		Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 		// 預期收入金額
 		Amount decimal.Decimal `json:"amount,omitempty"`
 		// 創建者
@@ -93,6 +99,10 @@ type Single struct {
 	CloseDate time.Time `json:"close_date,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	AccountName string `json:"account_name,omitempty"`
+	// accounts data
+	Accounts *accounts.Base `json:"accounts,omitempty" swaggerignore:"true"`
 	// 預期收入金額
 	Amount decimal.Decimal `json:"amount,omitempty"`
 	// 創建者

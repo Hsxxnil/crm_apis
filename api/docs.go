@@ -6984,6 +6984,10 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "account_name": {
+                                "description": "帳戶名稱",
+                                "type": "string"
+                            },
                             "amount": {
                                 "description": "預期收入金額",
                                 "type": "number"
@@ -7046,6 +7050,10 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
+                    "type": "string"
+                },
+                "account_name": {
+                    "description": "帳戶名稱",
                     "type": "string"
                 },
                 "amount": {
