@@ -71,6 +71,10 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 	for _, contracts := range output.Contracts {
 		contracts.AccountName = *contracts.Accounts.Name
 		contracts.Accounts = nil
+		contracts.CreatedBy = *contracts.CreatedByUsers.Name
+		contracts.CreatedByUsers = nil
+		contracts.UpdatedBy = *contracts.UpdatedByUsers.Name
+		contracts.UpdatedByUsers = nil
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -97,6 +101,10 @@ func (m *manager) GetBySingle(input *contractModel.Field) interface{} {
 
 	output.AccountName = *output.Accounts.Name
 	output.Accounts = nil
+	output.CreatedBy = *output.CreatedByUsers.Name
+	output.CreatedByUsers = nil
+	output.UpdatedBy = *output.UpdatedByUsers.Name
+	output.UpdatedByUsers = nil
 
 	return code.GetCodeMessage(code.Successful, output)
 }
