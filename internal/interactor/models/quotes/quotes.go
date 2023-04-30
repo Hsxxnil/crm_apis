@@ -85,7 +85,7 @@ type List struct {
 		// 商機名稱
 		OpportunityName string `json:"opportunity_name,omitempty"`
 		// opportunities data
-		Opportunities *opportunities.Base `json:"opportunities,omitempty"`
+		Opportunities *opportunities.Base `json:"opportunities,omitempty" swaggerignore:"true"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 報價到期日期
@@ -126,7 +126,7 @@ type Single struct {
 	// 商機名稱
 	OpportunityName string `json:"opportunity_name,omitempty"`
 	// opportunities data
-	Opportunities *opportunities.Base `json:"opportunities,omitempty"`
+	Opportunities *opportunities.Base `json:"opportunities,omitempty" swaggerignore:"true"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 報價到期日期
