@@ -71,6 +71,8 @@ func (m *manager) GetByList(input *orderProductModel.Fields) interface{} {
 	}
 
 	for _, orderProducts := range output.OrderProducts {
+		orderProducts.ProductName = orderProducts.Products.Name
+		orderProducts.Products = nil
 		orderProducts.CreatedBy = *orderProducts.CreatedByUsers.Name
 		orderProducts.CreatedByUsers = nil
 		orderProducts.UpdatedBy = *orderProducts.UpdatedByUsers.Name
@@ -99,6 +101,8 @@ func (m *manager) GetBySingle(input *orderProductModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
+	output.ProductName = output.Products.Name
+	output.Products = nil
 	output.CreatedBy = *output.CreatedByUsers.Name
 	output.CreatedByUsers = nil
 	output.UpdatedBy = *output.UpdatedByUsers.Name

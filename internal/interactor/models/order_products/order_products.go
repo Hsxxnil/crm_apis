@@ -3,6 +3,7 @@ package order_products
 import (
 	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/page"
+	"app.eirc/internal/interactor/models/products"
 	"app.eirc/internal/interactor/models/section"
 	"github.com/shopspring/decimal"
 )
@@ -61,6 +62,10 @@ type List struct {
 		OrderID string `json:"order_id,omitempty"`
 		// 產品ID
 		ProductID string `json:"product_id,omitempty"`
+		// 產品名稱
+		ProductName string `json:"product_name,omitempty"`
+		// products data
+		Products *products.OrderProductSingle `json:"products,omitempty" swaggerignore:"true"`
 		// 訂單產品數量
 		Quantity int `json:"quantity,omitempty"`
 		// 訂單產品單價
@@ -92,6 +97,10 @@ type Single struct {
 	OrderID string `json:"order_id,omitempty"`
 	// 產品ID
 	ProductID string `json:"product_id,omitempty"`
+	// 產品名稱
+	ProductName string `json:"product_name,omitempty"`
+	// products data
+	Products *products.OrderProductSingle `json:"products,omitempty" swaggerignore:"true"`
 	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
@@ -133,6 +142,12 @@ type Update struct {
 type OrderSingle struct {
 	// 產品ID
 	ProductID string `json:"product_id,omitempty"`
+	// 產品名稱
+	ProductName string `json:"product_name,omitempty"`
+	// 產品定價
+	ProductPrice decimal.Decimal `json:"standard_price,omitempty"`
+	// products data
+	Products *products.OrderProductSingle `json:"products,omitempty" swaggerignore:"true"`
 	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
