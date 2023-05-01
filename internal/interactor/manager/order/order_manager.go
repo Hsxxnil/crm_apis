@@ -67,19 +67,15 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, ordersBase := range orderBase {
-		for _, orders := range output.Orders {
-			orders.AccountName = *ordersBase.Accounts.Name
-			orders.ContractCode = *ordersBase.Contracts.Code
-			orders.CreatedBy = *ordersBase.CreatedByUsers.Name
-			orders.UpdatedBy = *ordersBase.UpdatedByUsers.Name
+	for i, orders := range output.Orders {
+		orders.AccountName = *orderBase[i].Accounts.Name
+		orders.ContractCode = *orderBase[i].Contracts.Code
+		orders.CreatedBy = *orderBase[i].CreatedByUsers.Name
+		orders.UpdatedBy = *orderBase[i].UpdatedByUsers.Name
+		for j, ordersBase := range orderBase[i].OrderProducts {
+			orders.OrderProducts[j].ProductName = *ordersBase.Products.Name
+			orders.OrderProducts[j].ProductPrice = *ordersBase.Products.Price
 		}
-
-		//for _, orderProducts := range orders.OrderProducts {
-		//	orderProducts.ProductName = orderProducts.Products.Name
-		//	orderProducts.ProductPrice = orderProducts.Products.Price
-		//	orderProducts.Products = nil
-		//}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -110,6 +106,10 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 	output.ContractCode = *orderBase.Contracts.Code
 	output.CreatedBy = *orderBase.CreatedByUsers.Name
 	output.UpdatedBy = *orderBase.UpdatedByUsers.Name
+	for i, orders := range orderBase.OrderProducts {
+		output.OrderProducts[i].ProductName = *orders.Products.Name
+		output.OrderProducts[i].ProductPrice = *orders.Products.Price
+	}
 
 	return code.GetCodeMessage(code.Successful, output)
 }

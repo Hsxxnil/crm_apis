@@ -2,7 +2,6 @@ package order_products
 
 import (
 	"app.eirc/internal/interactor/models/page"
-	"app.eirc/internal/interactor/models/products"
 	"app.eirc/internal/interactor/models/section"
 	"github.com/shopspring/decimal"
 )
@@ -133,8 +132,6 @@ type OrderSingle struct {
 	ProductName string `json:"product_name,omitempty"`
 	// 產品定價
 	ProductPrice decimal.Decimal `json:"standard_price,omitempty"`
-	// products data
-	Products *products.OrderProductSingle `json:"products,omitempty" swaggerignore:"true"`
 	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
