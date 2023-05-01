@@ -67,11 +67,9 @@ func (m *manager) GetByList(input *campaignModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, campaignsBase := range campaignBase {
-		for _, campaigns := range output.Campaigns {
-			campaigns.CreatedBy = *campaignsBase.CreatedByUsers.Name
-			campaigns.UpdatedBy = *campaignsBase.UpdatedByUsers.Name
-		}
+	for i, campaigns := range output.Campaigns {
+		campaigns.CreatedBy = *campaignBase[i].CreatedByUsers.Name
+		campaigns.UpdatedBy = *campaignBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

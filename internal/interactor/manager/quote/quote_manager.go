@@ -67,12 +67,10 @@ func (m *manager) GetByList(input *quoteModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, quotesBase := range quoteBase {
-		for _, quotes := range output.Quotes {
-			quotes.OpportunityName = *quotesBase.Opportunities.Name
-			quotes.CreatedBy = *quotesBase.CreatedByUsers.Name
-			quotes.UpdatedBy = *quotesBase.UpdatedByUsers.Name
-		}
+	for i, quotes := range output.Quotes {
+		quotes.OpportunityName = *quoteBase[i].Opportunities.Name
+		quotes.CreatedBy = *quoteBase[i].CreatedByUsers.Name
+		quotes.UpdatedBy = *quoteBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

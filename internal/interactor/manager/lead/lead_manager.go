@@ -67,12 +67,10 @@ func (m *manager) GetByList(input *leadModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, leadsBase := range leadBase {
-		for _, leads := range output.Leads {
-			leads.AccountName = *leadsBase.Accounts.Name
-			leads.CreatedBy = *leadsBase.CreatedByUsers.Name
-			leads.UpdatedBy = *leadsBase.UpdatedByUsers.Name
-		}
+	for i, leads := range output.Leads {
+		leads.AccountName = *leadBase[i].Accounts.Name
+		leads.CreatedBy = *leadBase[i].CreatedByUsers.Name
+		leads.UpdatedBy = *leadBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

@@ -70,12 +70,10 @@ func (m *manager) GetByList(input *orderProductModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, orderProductsBase := range orderProductBase {
-		for _, orderProducts := range output.OrderProducts {
-			orderProducts.ProductName = *orderProductsBase.Products.Name
-			orderProducts.CreatedBy = *orderProductsBase.CreatedByUsers.Name
-			orderProducts.UpdatedBy = *orderProductsBase.UpdatedByUsers.Name
-		}
+	for i, orderProducts := range output.OrderProducts {
+		orderProducts.ProductName = *orderProductBase[i].Products.Name
+		orderProducts.CreatedBy = *orderProductBase[i].CreatedByUsers.Name
+		orderProducts.UpdatedBy = *orderProductBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

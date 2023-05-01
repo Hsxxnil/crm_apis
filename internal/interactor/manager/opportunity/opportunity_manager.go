@@ -67,12 +67,10 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, opportunitiesBase := range opportunityBase {
-		for _, opportunities := range output.Opportunities {
-			opportunities.AccountName = *opportunitiesBase.Accounts.Name
-			opportunities.CreatedBy = *opportunitiesBase.CreatedByUsers.Name
-			opportunities.UpdatedBy = *opportunitiesBase.UpdatedByUsers.Name
-		}
+	for i, opportunities := range output.Opportunities {
+		opportunities.AccountName = *opportunityBase[i].Accounts.Name
+		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
+		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

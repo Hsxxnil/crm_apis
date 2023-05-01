@@ -77,11 +77,9 @@ func (m *manager) GetByList(input *productModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, productsBase := range productBase {
-		for _, products := range output.Products {
-			products.CreatedBy = *productsBase.CreatedByUsers.Name
-			products.UpdatedBy = *productsBase.UpdatedByUsers.Name
-		}
+	for i, products := range output.Products {
+		products.CreatedBy = *productBase[i].CreatedByUsers.Name
+		products.UpdatedBy = *productBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

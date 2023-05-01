@@ -67,11 +67,9 @@ func (m *manager) GetByList(input *contactModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, contactsBase := range contactBase {
-		for _, contacts := range output.Contacts {
-			contacts.CreatedBy = *contactsBase.CreatedByUsers.Name
-			contacts.UpdatedBy = *contactsBase.UpdatedByUsers.Name
-		}
+	for i, contacts := range output.Contacts {
+		contacts.CreatedBy = *contactBase[i].CreatedByUsers.Name
+		contacts.UpdatedBy = *contactBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

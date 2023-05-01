@@ -68,14 +68,13 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, contractsBase := range contractBase {
-		for _, contracts := range output.Contracts {
-			contracts.AccountName = *contractsBase.Accounts.Name
-			contracts.CreatedBy = *contractsBase.CreatedByUsers.Name
-			contracts.UpdatedBy = *contractsBase.UpdatedByUsers.Name
-		}
+	for i, contracts := range output.Contracts {
+		contracts.AccountName = *contractBase[i].Accounts.Name
+		contracts.CreatedBy = *contractBase[i].CreatedByUsers.Name
+		contracts.UpdatedBy = *contractBase[i].UpdatedByUsers.Name
 	}
 
+	log.Debug(*contractBase[1].Accounts.Name)
 	return code.GetCodeMessage(code.Successful, output)
 }
 
