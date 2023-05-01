@@ -59,7 +59,7 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("OrderProducts.Products").Preload(clause.Associations)
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
 	}
@@ -75,7 +75,7 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("OrderProducts.Products").Preload(clause.Associations)
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
 	}

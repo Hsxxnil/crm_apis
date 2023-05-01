@@ -1,7 +1,6 @@
 package products
 
 import (
-	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 	"github.com/shopspring/decimal"
@@ -65,12 +64,8 @@ type List struct {
 		Price decimal.Decimal `json:"price,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
-		// create_users data
-		CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
-		// update_users data
-		UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 		// 時間戳記
 		section.TimeAt
 	} `json:"products"`
@@ -94,12 +89,8 @@ type Single struct {
 	Price decimal.Decimal `json:"price,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
-	// create_users data
-	CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
-	// update_users data
-	UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 	// 時間戳記
 	section.TimeAt
 }
@@ -120,4 +111,19 @@ type Update struct {
 	Price *decimal.Decimal `json:"price,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+}
+
+type OrderProductSingle struct {
+	// 產品ID
+	ProductID string `json:"product_id,omitempty"`
+	// 產品名稱
+	Name string `json:"name,omitempty"`
+	// 產品識別碼
+	Code string `json:"code,omitempty"`
+	// 產品是否啟用
+	IsEnable bool `json:"is_enable"`
+	// 產品描述
+	Description string `json:"description,omitempty"`
+	// 產品價格
+	Price decimal.Decimal `json:"price,omitempty"`
 }

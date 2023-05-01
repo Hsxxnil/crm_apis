@@ -3,8 +3,6 @@ package campaigns
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/users"
-
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 	"github.com/shopspring/decimal"
@@ -116,12 +114,8 @@ type List struct {
 		ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
-		// create_users data
-		CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
-		// update_users data
-		UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 		// 時間戳記
 		section.TimeAt
 	} `json:"campaigns"`
@@ -161,12 +155,8 @@ type Single struct {
 	ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
-	// create_users data
-	CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
-	// update_users data
-	UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 	// 時間戳記
 	section.TimeAt
 }

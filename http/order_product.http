@@ -11,8 +11,8 @@ POST http://localhost:8080/crm/v1.0/orders/products
 Content-Type: application/json
 
 {
-  "order_id": "00000000-0000-4000-a000-000000000000",
-  "product_id": "00000000-0000-4000-a000-000000000000",
+  "order_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
+  "product_id": "faf53183-1a71-41d4-9a66-8100a55842b0",
   "quantity": 2,
   "unit_price": 30,
   "description": "test",
@@ -20,14 +20,14 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/orders/products/55485bf5-3d6e-4661-9e38-0d8e7086b0c6
+PATCH http://localhost:8080/crm/v1.0/orders/products/4df6fde8-4a3e-428c-b261-e3bdb5221998
 Content-Type: application/json
 
 {
-  "unit_price": 10,
+  "product_id": "faf53183-1a71-41d4-9a66-8100a55842b0",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/orders/products/1053a384-9cd3-44d8-b6cd-afe3302447b8
+DELETE http://localhost:8080/crm/v1.0/orders/products/43933b47-ae69-471e-923c-b5e677f67af3
 Accept: application/json

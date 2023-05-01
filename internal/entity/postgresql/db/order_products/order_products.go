@@ -1,6 +1,7 @@
 package order_products
 
 import (
+	"app.eirc/internal/entity/postgresql/db/products"
 	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/special"
 	"github.com/shopspring/decimal"
@@ -14,6 +15,8 @@ type Table struct {
 	OrderID string `gorm:"column:order_id;type:text;not null;" json:"order_id"`
 	// 產品ID
 	ProductID string `gorm:"column:product_id;type:text;not null;" json:"product_id"`
+	// products data
+	Products products.Table `gorm:"foreignKey:ProductID;references:ProductID" json:"products,omitempty"`
 	// 訂單產品數量
 	Quantity int `gorm:"column:quantity;type:int;not null;" json:"quantity"`
 	// 訂單產品單價
@@ -37,6 +40,8 @@ type Base struct {
 	OrderID *string `json:"order_id,omitempty"`
 	// 產品ID
 	ProductID *string `json:"product_id,omitempty"`
+	// products data
+	Products products.Base `json:"products,omitempty"`
 	// 訂單產品數量
 	Quantity *int `json:"quantity,omitempty"`
 	// 訂單產品單價

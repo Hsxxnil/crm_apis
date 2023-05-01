@@ -1,8 +1,6 @@
 package accounts
 
 import (
-	"app.eirc/internal/entity/postgresql/db/industries"
-	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/contacts"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
@@ -64,18 +62,12 @@ type List struct {
 		IndustryID string `json:"industry_id,omitempty"`
 		// 行業名稱
 		IndustryName string `json:"industry_name,omitempty"`
-		// industries data
-		Industries *industries.Base `json:"industries,omitempty" swaggerignore:"true"`
 		// 父系帳戶ID
 		ParentAccountID string `json:"parent_account_id,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
-		// create_users data
-		CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
-		// update_users data
-		UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 		// 時間戳記
 		section.TimeAt
 		// contacts data
@@ -99,18 +91,12 @@ type Single struct {
 	IndustryID string `json:"industry_id,omitempty"`
 	// 行業名稱
 	IndustryName string `json:"industry_name,omitempty"`
-	// industries data
-	Industries *industries.Base `json:"industries,omitempty" swaggerignore:"true"`
 	// 父系帳戶ID
 	ParentAccountID string `json:"parent_account_id,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
-	// create_users data
-	CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
-	// update_users data
-	UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 	// 時間戳記
 	section.TimeAt
 	// contacts data

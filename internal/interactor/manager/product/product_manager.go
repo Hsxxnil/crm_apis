@@ -77,11 +77,9 @@ func (m *manager) GetByList(input *productModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, products := range output.Products {
-		products.CreatedBy = *products.CreatedByUsers.Name
-		products.CreatedByUsers = nil
-		products.UpdatedBy = *products.UpdatedByUsers.Name
-		products.UpdatedByUsers = nil
+	for i, products := range output.Products {
+		products.CreatedBy = *productBase[i].CreatedByUsers.Name
+		products.UpdatedBy = *productBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -106,10 +104,8 @@ func (m *manager) GetBySingle(input *productModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	output.CreatedBy = *output.CreatedByUsers.Name
-	output.CreatedByUsers = nil
-	output.UpdatedBy = *output.UpdatedByUsers.Name
-	output.UpdatedByUsers = nil
+	output.CreatedBy = *productBase.CreatedByUsers.Name
+	output.UpdatedBy = *productBase.UpdatedByUsers.Name
 
 	return code.GetCodeMessage(code.Successful, output)
 }

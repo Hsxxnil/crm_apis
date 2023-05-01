@@ -3,10 +3,6 @@ package quotes
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/opportunities"
-
-	"app.eirc/internal/entity/postgresql/db/users"
-
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 	"github.com/shopspring/decimal"
@@ -84,8 +80,6 @@ type List struct {
 		OpportunityID string `json:"opportunity_id,omitempty"`
 		// 商機名稱
 		OpportunityName string `json:"opportunity_name,omitempty"`
-		// opportunities data
-		Opportunities *opportunities.Base `json:"opportunities,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 報價到期日期
@@ -98,12 +92,8 @@ type List struct {
 		ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
-		// create_users data
-		CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
-		// update_users data
-		UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 		// 時間戳記
 		section.TimeAt
 	} `json:"quotes"`
@@ -125,8 +115,6 @@ type Single struct {
 	OpportunityID string `json:"opportunity_id,omitempty"`
 	// 商機名稱
 	OpportunityName string `json:"opportunity_name,omitempty"`
-	// opportunities data
-	Opportunities *opportunities.Base `json:"opportunities,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 報價到期日期
@@ -139,12 +127,8 @@ type Single struct {
 	ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
-	// create_users data
-	CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
-	// update_users data
-	UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 	// 時間戳記
 	section.TimeAt
 }

@@ -67,11 +67,9 @@ func (m *manager) GetByList(input *contactModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, contacts := range output.Contacts {
-		contacts.CreatedBy = *contacts.CreatedByUsers.Name
-		contacts.CreatedByUsers = nil
-		contacts.UpdatedBy = *contacts.UpdatedByUsers.Name
-		contacts.UpdatedByUsers = nil
+	for i, contacts := range output.Contacts {
+		contacts.CreatedBy = *contactBase[i].CreatedByUsers.Name
+		contacts.UpdatedBy = *contactBase[i].UpdatedByUsers.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -96,10 +94,8 @@ func (m *manager) GetBySingle(input *contactModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	output.CreatedBy = *output.CreatedByUsers.Name
-	output.CreatedByUsers = nil
-	output.UpdatedBy = *output.UpdatedByUsers.Name
-	output.UpdatedByUsers = nil
+	output.CreatedBy = *contactBase.CreatedByUsers.Name
+	output.UpdatedBy = *contactBase.UpdatedByUsers.Name
 
 	return code.GetCodeMessage(code.Successful, output)
 }

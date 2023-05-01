@@ -40,7 +40,7 @@ type Table struct {
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 	// order_products data
-	OrderProducts []order_products.Table `gorm:"foreignKey:OrderID;" json:"products"`
+	OrderProducts []order_products.Table `gorm:"foreignKey:OrderID;" json:"order_products"`
 }
 
 // Base struct is corresponding to orders table structure file
@@ -69,7 +69,7 @@ type Base struct {
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
 	// order_products data
-	OrderProducts []order_products.Base `json:"products,omitempty"`
+	OrderProducts []order_products.Base `json:"order_products,omitempty"`
 }
 
 // TableName sets the insert table name for this struct type
