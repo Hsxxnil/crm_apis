@@ -34,6 +34,10 @@ type Table struct {
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 訂單號碼
 	Code uint `gorm:"->;column:code;type:serial;auto_increment" json:"code"`
+	// 啟用時間
+	ActivatedAt *time.Time `gorm:"column:activated_at;type:TIMESTAMP;" json:"activated_at,omitempty"`
+	// 啟用者
+	ActivatedBy *string `gorm:"column:activated_by;type:uuid;" json:"activated_by,omitempty"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -65,6 +69,7 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 訂單號碼
 	Code *int `json:"code,omitempty"`
+
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
