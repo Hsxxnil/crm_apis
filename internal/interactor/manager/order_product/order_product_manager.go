@@ -139,11 +139,13 @@ func (m *manager) Update(input *orderProductModel.Update) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
 	if input.UnitPrice != nil {
 		input.SubTotal = input.UnitPrice.Mul(decimal.NewFromInt(int64(*orderProductBase.Quantity)))
-	}
-	if input.Quantity != nil {
+	} else if input.Quantity != nil {
 		input.SubTotal = orderProductBase.UnitPrice.Mul(decimal.NewFromInt(int64(*input.Quantity)))
+	} else {
+		input.SubTotal = orderProductBase.UnitPrice.Mul(decimal.NewFromInt(int64(*orderProductBase.Quantity)))
 	}
 
 	err = m.OrderProductService.Update(input)
