@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/crm/v1.0/quotes?page=1&limit=20
+GET {{host}}/crm/v1.0/quotes?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
+GET {{host}}/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/crm/v1.0/quotes
+POST {{host}}/crm/v1.0/quotes
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/quotes/b94e79fb-f116-4976-b243-9a8f3501ea3d
+PATCH {{host}}/crm/v1.0/quotes/b94e79fb-f116-4976-b243-9a8f3501ea3d
 Content-Type: application/json
 
 {
@@ -33,5 +33,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/quotes/28a8b00e-e30a-4fb2-954a-7e0bacbdc940
+DELETE {{host}}/crm/v1.0/quotes/28a8b00e-e30a-4fb2-954a-7e0bacbdc940
 Accept: application/json

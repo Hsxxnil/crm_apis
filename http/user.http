@@ -1,5 +1,5 @@
 ### login
-POST http://localhost:8080/crm/v1.0/login
+POST {{host}}/crm/v1.0/login
 Content-Type: application/json
 
 {
@@ -11,15 +11,15 @@ Content-Type: application/json
 > {% client.global.set("accessToken", response.body.body.access_token); %}
 
 ### GetByList
-GET http://localhost:8080/crm/v1.0/users?page=1&limit=20
+GET {{host}}/crm/v1.0/users?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
+GET {{host}}/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/crm/v1.0/users
+POST {{host}}/crm/v1.0/users
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -32,7 +32,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/users/0c1668c9-ecd7-442c-ab94-ecefa377eec9
+PATCH {{host}}/crm/v1.0/users/0c1668c9-ecd7-442c-ab94-ecefa377eec9
 Content-Type: application/json
 
 {
@@ -41,7 +41,7 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
+DELETE {{host}}/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
 Content-Type: application/json
 
 {

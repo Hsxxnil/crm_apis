@@ -1,14 +1,14 @@
 
 ### GetByList
-GET http://localhost:8080/crm/v1.0/contracts?page=1&limit=20
+GET {{host}}/crm/v1.0/contracts?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
+GET {{host}}/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/crm/v1.0/contracts
+POST {{host}}/crm/v1.0/contracts
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
+PATCH {{host}}/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
 Content-Type: application/json
 
 {
@@ -30,5 +30,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/contracts/c1df0068-2a85-4a6f-900a-b5f0ed0dc8a4
+DELETE {{host}}/crm/v1.0/contracts/c1df0068-2a85-4a6f-900a-b5f0ed0dc8a4
 Accept: application/json
