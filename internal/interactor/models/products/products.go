@@ -121,3 +121,18 @@ type Update struct {
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
+
+type OrderProductSingle struct {
+	// 產品ID
+	ProductID string `json:"product_id,omitempty"`
+	// 產品名稱
+	Name string `json:"name,omitempty"`
+	// 產品識別碼
+	Code string `json:"code,omitempty"`
+	// 產品是否啟用
+	IsEnable bool `json:"is_enable"`
+	// 產品描述
+	Description string `json:"description,omitempty"`
+	// 產品價格
+	Price decimal.Decimal `json:"price,omitempty"`
+}
