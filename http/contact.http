@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/crm/v1.0/contacts?page=1&limit=20
+GET {{host}}/crm/v1.0/contacts?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/crm/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
+GET {{host}}/crm/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/crm/v1.0/contacts
+POST {{host}}/crm/v1.0/contacts
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/contacts/9a3d3fea-79d8-4760-923d-2618055dc116
+PATCH {{host}}/crm/v1.0/contacts/9a3d3fea-79d8-4760-923d-2618055dc116
 Content-Type: application/json
 
 {
@@ -33,5 +33,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/contacts/c695a31f-7b4c-4731-a8d4-96010b506498
+DELETE {{host}}/crm/v1.0/contacts/c695a31f-7b4c-4731-a8d4-96010b506498
 Accept: application/json

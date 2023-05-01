@@ -1,5 +1,5 @@
 ### login
-POST http://localhost:8080/crm/v1.0/login
+POST {{host}}/crm/v1.0/login
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 > {% client.global.set("refreshToken", response.body.body.refresh_token); %}
 
 ### refresh
-POST http://localhost:8080/crm/v1.0/refresh
+POST {{host}}/crm/v1.0/refresh
 Content-Type: application/json
 
 {

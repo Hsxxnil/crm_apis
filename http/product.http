@@ -1,13 +1,13 @@
 ### GetByList
-GET http://localhost:8080/crm/v1.0/products?page=1&limit=20
+GET {{host}}/crm/v1.0/products?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET http://localhost:8080/crm/v1.0/products/67506062-59ea-449f-afba-f85ae2cbfaa5
+GET {{host}}/crm/v1.0/products/67506062-59ea-449f-afba-f85ae2cbfaa5
 Accept: application/json
 
 ### Create
-POST http://localhost:8080/crm/v1.0/products
+POST {{host}}/crm/v1.0/products
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/products/faf53183-1a71-41d4-9a66-8100a55842b0
+PATCH {{host}}/crm/v1.0/products/faf53183-1a71-41d4-9a66-8100a55842b0
 Content-Type: application/json
 
 {
@@ -33,5 +33,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/products/1a22b43a-cdd1-40e0-9247-b6fd4a0b61b6
+DELETE {{host}}/crm/v1.0/products/1a22b43a-cdd1-40e0-9247-b6fd4a0b61b6
 Accept: application/json
