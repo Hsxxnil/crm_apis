@@ -68,13 +68,12 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, contracts := range output.Contracts {
-		contracts.AccountName = *contracts.Accounts.Name
-		contracts.Accounts = nil
-		contracts.CreatedBy = *contracts.CreatedByUsers.Name
-		contracts.CreatedByUsers = nil
-		contracts.UpdatedBy = *contracts.UpdatedByUsers.Name
-		contracts.UpdatedByUsers = nil
+	for _, contractsBase := range contractBase {
+		for _, contracts := range output.Contracts {
+			contracts.AccountName = *contractsBase.Accounts.Name
+			contracts.CreatedBy = *contractsBase.CreatedByUsers.Name
+			contracts.UpdatedBy = *contractsBase.UpdatedByUsers.Name
+		}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -99,12 +98,9 @@ func (m *manager) GetBySingle(input *contractModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	output.AccountName = *output.Accounts.Name
-	output.Accounts = nil
-	output.CreatedBy = *output.CreatedByUsers.Name
-	output.CreatedByUsers = nil
-	output.UpdatedBy = *output.UpdatedByUsers.Name
-	output.UpdatedByUsers = nil
+	output.AccountName = *contractBase.Accounts.Name
+	output.CreatedBy = *contractBase.CreatedByUsers.Name
+	output.UpdatedBy = *contractBase.UpdatedByUsers.Name
 
 	return code.GetCodeMessage(code.Successful, output)
 }
