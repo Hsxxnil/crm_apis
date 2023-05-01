@@ -7229,6 +7229,10 @@ const docTemplate = `{
                                 "description": "產品ID",
                                 "type": "string"
                             },
+                            "product_name": {
+                                "description": "產品名稱",
+                                "type": "string"
+                            },
                             "quantity": {
                                 "description": "訂單產品數量",
                                 "type": "integer"
@@ -7277,9 +7281,17 @@ const docTemplate = `{
                     "description": "產品ID",
                     "type": "string"
                 },
+                "product_name": {
+                    "description": "產品名稱",
+                    "type": "string"
+                },
                 "quantity": {
                     "description": "訂單產品數量",
                     "type": "integer"
+                },
+                "standard_price": {
+                    "description": "產品定價",
+                    "type": "number"
                 },
                 "sub_total": {
                     "description": "訂單產品小計",
@@ -7320,6 +7332,10 @@ const docTemplate = `{
                 },
                 "product_id": {
                     "description": "產品ID",
+                    "type": "string"
+                },
+                "product_name": {
+                    "description": "產品名稱",
                     "type": "string"
                 },
                 "quantity": {
@@ -7469,7 +7485,7 @@ const docTemplate = `{
                                 "description": "訂單ID",
                                 "type": "string"
                             },
-                            "products": {
+                            "order_products": {
                                 "description": "order_products data",
                                 "type": "array",
                                 "items": {
@@ -7552,7 +7568,7 @@ const docTemplate = `{
                     "description": "訂單ID",
                     "type": "string"
                 },
-                "products": {
+                "order_products": {
                     "description": "order_products data",
                     "type": "array",
                     "items": {

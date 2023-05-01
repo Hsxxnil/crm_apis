@@ -1221,6 +1221,9 @@ definitions:
             product_id:
               description: 產品ID
               type: string
+            product_name:
+              description: 產品名稱
+              type: string
             quantity:
               description: 訂單產品數量
               type: integer
@@ -1259,9 +1262,15 @@ definitions:
       product_id:
         description: 產品ID
         type: string
+      product_name:
+        description: 產品名稱
+        type: string
       quantity:
         description: 訂單產品數量
         type: integer
+      standard_price:
+        description: 產品定價
+        type: number
       sub_total:
         description: 訂單產品小計
         type: number
@@ -1291,6 +1300,9 @@ definitions:
         type: string
       product_id:
         description: 產品ID
+        type: string
+      product_name:
+        description: 產品名稱
         type: string
       quantity:
         description: 訂單產品數量
@@ -1397,7 +1409,7 @@ definitions:
             order_id:
               description: 訂單ID
               type: string
-            products:
+            order_products:
               description: order_products data
               items:
                 $ref: '#/definitions/order_products.OrderSingle'
@@ -1461,7 +1473,7 @@ definitions:
       order_id:
         description: 訂單ID
         type: string
-      products:
+      order_products:
         description: order_products data
         items:
           $ref: '#/definitions/order_products.OrderSingle'

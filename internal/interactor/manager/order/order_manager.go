@@ -67,15 +67,19 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, orders := range output.Orders {
-		orders.AccountName = *orders.Accounts.Name
-		orders.Accounts = nil
-		orders.ContractCode = *orders.Contracts.Code
-		orders.Contracts = nil
-		orders.CreatedBy = *orders.CreatedByUsers.Name
-		orders.CreatedByUsers = nil
-		orders.UpdatedBy = *orders.UpdatedByUsers.Name
-		orders.UpdatedByUsers = nil
+	for _, orders := range orderBase {
+		for _, order := range output.Orders {
+			order.AccountName = *orders.Accounts.Name
+			order.ContractCode = *orders.Contracts.Code
+			order.CreatedBy = *orders.CreatedByUsers.Name
+			order.UpdatedBy = *orders.UpdatedByUsers.Name
+		}
+
+		//for _, orderProducts := range orders.OrderProducts {
+		//	orderProducts.ProductName = orderProducts.Products.Name
+		//	orderProducts.ProductPrice = orderProducts.Products.Price
+		//	orderProducts.Products = nil
+		//}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -83,6 +87,8 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 
 func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 	orderBase, err := m.OrderService.GetBySingle(input)
+	log.Debug(*orderBase.Accounts.Name)
+
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.GetCodeMessage(code.DoesNotExist, err)
@@ -100,14 +106,10 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	output.AccountName = *output.Accounts.Name
-	output.Accounts = nil
-	output.ContractCode = *output.Contracts.Code
-	output.Contracts = nil
-	output.CreatedBy = *output.CreatedByUsers.Name
-	output.CreatedByUsers = nil
-	output.UpdatedBy = *output.UpdatedByUsers.Name
-	output.UpdatedByUsers = nil
+	output.AccountName = *orderBase.Accounts.Name
+	output.ContractCode = *orderBase.Contracts.Code
+	output.CreatedBy = *orderBase.CreatedByUsers.Name
+	output.UpdatedBy = *orderBase.UpdatedByUsers.Name
 
 	return code.GetCodeMessage(code.Successful, output)
 }
