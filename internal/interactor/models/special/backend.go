@@ -30,10 +30,6 @@ type UseTable struct {
 	UpdatedAt *time.Time `gorm:"column:updated_at;type:TIMESTAMP;not null;" json:"updated_at"`
 	// 更新者
 	UpdatedBy *string `gorm:"column:updated_by;type:uuid;not null;" json:"updated_by"`
-	// 啟用時間
-	ActivatedAt *time.Time `gorm:"column:activated_at;type:TIMESTAMP;" json:"activated_at,omitempty"`
-	// 啟用者
-	ActivatedBy *string `gorm:"column:activated_by;type:uuid;" json:"activated_by,omitempty"`
 }
 
 // Base is the common file of the backend base structure.
