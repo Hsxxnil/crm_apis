@@ -14,20 +14,20 @@ Content-Type: application/json
   "order_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
   "product_id": "faf53183-1a71-41d4-9a66-8100a55842b0",
   "quantity": 2,
-  "unit_price": 30,
+  "unit_price": 100,
   "description": "test",
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
 }
 
 ### Update
-PATCH http://localhost:8080/crm/v1.0/orders/products/4df6fde8-4a3e-428c-b261-e3bdb5221998
+PATCH http://localhost:8080/crm/v1.0/orders/products/19ba1a61-f13c-4c13-80b6-226332872eff
 Content-Type: application/json
 
 {
-  "product_id": "faf53183-1a71-41d4-9a66-8100a55842b0",
+  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/orders/products/43933b47-ae69-471e-923c-b5e677f67af3
+DELETE http://localhost:8080/crm/v1.0/orders/products/80edc94a-a880-4212-86b7-347b1e3402e7
 Accept: application/json
