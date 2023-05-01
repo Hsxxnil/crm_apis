@@ -1,7 +1,6 @@
 package order_products
 
 import (
-	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/products"
 	"app.eirc/internal/interactor/models/section"
@@ -64,8 +63,6 @@ type List struct {
 		ProductID string `json:"product_id,omitempty"`
 		// 產品名稱
 		ProductName string `json:"product_name,omitempty"`
-		// products data
-		Products *products.OrderProductSingle `json:"products,omitempty" swaggerignore:"true"`
 		// 訂單產品數量
 		Quantity int `json:"quantity,omitempty"`
 		// 訂單產品單價
@@ -76,12 +73,8 @@ type List struct {
 		Description string `json:"description,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
-		// create_users data
-		CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
-		// update_users data
-		UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 		// 時間戳記
 		section.TimeAt
 	} `json:"order_products"`
@@ -99,8 +92,6 @@ type Single struct {
 	ProductID string `json:"product_id,omitempty"`
 	// 產品名稱
 	ProductName string `json:"product_name,omitempty"`
-	// products data
-	Products *products.OrderProductSingle `json:"products,omitempty" swaggerignore:"true"`
 	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
@@ -111,12 +102,8 @@ type Single struct {
 	Description string `json:"description,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
-	// create_users data
-	CreatedByUsers *users.Base `json:"created_by_users,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
-	// update_users data
-	UpdatedByUsers *users.Base `json:"updated_by_users,omitempty" swaggerignore:"true"`
 	// 時間戳記
 	section.TimeAt
 }
