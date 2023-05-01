@@ -67,12 +67,12 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	for _, orders := range orderBase {
-		for _, order := range output.Orders {
-			order.AccountName = *orders.Accounts.Name
-			order.ContractCode = *orders.Contracts.Code
-			order.CreatedBy = *orders.CreatedByUsers.Name
-			order.UpdatedBy = *orders.UpdatedByUsers.Name
+	for _, ordersBase := range orderBase {
+		for _, orders := range output.Orders {
+			orders.AccountName = *ordersBase.Accounts.Name
+			orders.ContractCode = *ordersBase.Contracts.Code
+			orders.CreatedBy = *ordersBase.CreatedByUsers.Name
+			orders.UpdatedBy = *ordersBase.UpdatedByUsers.Name
 		}
 
 		//for _, orderProducts := range orders.OrderProducts {
