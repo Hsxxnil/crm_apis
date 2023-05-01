@@ -188,6 +188,11 @@ func (s *service) Update(input *model.Update) (err error) {
 	}
 
 	field.UpdatedAt = util.PointerTime(util.NowToUTC())
+	if field.ActivatedBy != nil {
+		field.ActivatedAt = util.PointerTime(util.NowToUTC())
+	} else {
+		field.ActivatedAt = nil
+	}
 	err = s.Repository.Update(field)
 	if err != nil {
 		log.Error(err)

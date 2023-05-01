@@ -18,6 +18,8 @@ type TimeAt struct {
 	UpdatedAt *time.Time `json:"updated_at"`
 	// 刪除時間
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	// 啟用時間
+	ActivatedAt *time.Time `json:"activated_at,omitempty"`
 }
 
 type ManagementExclusive struct {

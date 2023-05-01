@@ -5612,6 +5612,10 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "contacts": {
                                 "description": "contacts data",
                                 "type": "array",
@@ -5689,6 +5693,10 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
+                    "type": "string"
+                },
+                "activated_at": {
+                    "description": "啟用時間",
                     "type": "string"
                 },
                 "contacts": {
@@ -5856,6 +5864,10 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "actual_cost": {
                                 "description": "行銷活動實際成本",
                                 "type": "number"
@@ -5956,6 +5968,10 @@ const docTemplate = `{
         "campaigns.Single": {
             "type": "object",
             "properties": {
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
                 "actual_cost": {
                     "description": "行銷活動實際成本",
                     "type": "number"
@@ -6205,6 +6221,10 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "cell_phone": {
                                 "description": "聯絡人行動電話",
                                 "type": "string"
@@ -6287,6 +6307,10 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
+                    "type": "string"
+                },
+                "activated_at": {
+                    "description": "啟用時間",
                     "type": "string"
                 },
                 "cell_phone": {
@@ -6452,6 +6476,10 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "code": {
                                 "description": "契約號碼",
                                 "type": "integer"
@@ -6526,6 +6554,10 @@ const docTemplate = `{
                 },
                 "account_name": {
                     "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "activated_at": {
+                    "description": "啟用時間",
                     "type": "string"
                 },
                 "code": {
@@ -6763,6 +6795,10 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -6833,6 +6869,10 @@ const docTemplate = `{
                 },
                 "account_name": {
                     "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "activated_at": {
+                    "description": "啟用時間",
                     "type": "string"
                 },
                 "created_at": {
@@ -6993,6 +7033,10 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "amount": {
                                 "description": "預期收入金額",
                                 "type": "number"
@@ -7063,6 +7107,10 @@ const docTemplate = `{
                 },
                 "account_name": {
                     "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "activated_at": {
+                    "description": "啟用時間",
                     "type": "string"
                 },
                 "amount": {
@@ -7201,6 +7249,10 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -7306,6 +7358,10 @@ const docTemplate = `{
         "order_products.Single": {
             "type": "object",
             "properties": {
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
                 "created_at": {
                     "description": "創建時間",
                     "type": "string"
@@ -7453,6 +7509,14 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
+                            "activated_by": {
+                                "description": "啟用者",
+                                "type": "string"
+                            },
                             "code": {
                                 "description": "訂單號碼",
                                 "type": "integer"
@@ -7536,6 +7600,14 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "type": "string"
                 },
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
+                "activated_by": {
+                    "description": "啟用者",
+                    "type": "string"
+                },
                 "code": {
                     "description": "訂單號碼",
                     "type": "integer"
@@ -7601,6 +7673,10 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
+                    "type": "string"
+                },
+                "activated_by": {
+                    "description": "啟用者",
                     "type": "string"
                 },
                 "contract_id": {
@@ -7684,6 +7760,10 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "code": {
                                 "description": "產品識別碼",
                                 "type": "string"
@@ -7740,6 +7820,10 @@ const docTemplate = `{
         "products.Single": {
             "type": "object",
             "properties": {
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
                 "code": {
                     "description": "產品識別碼",
                     "type": "string"
@@ -7899,6 +7983,10 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -7973,6 +8061,10 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
+                    "type": "string"
+                },
+                "activated_at": {
+                    "description": "啟用時間",
                     "type": "string"
                 },
                 "created_at": {
@@ -8154,6 +8246,10 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
                             "company_id": {
                                 "description": "公司ID",
                                 "type": "string"
@@ -8214,6 +8310,10 @@ const docTemplate = `{
         "users.Single": {
             "type": "object",
             "properties": {
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
                 "company_id": {
                     "description": "公司ID",
                     "type": "string"
