@@ -38,6 +38,8 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
+	// activate_users data
+	ActivatedByUsers users.Table `gorm:"foreignKey:ActivatedBy;references:UserID" json:"activated_by_users,omitempty"`
 	special.UseTable
 	// order_products data
 	OrderProducts []order_products.Table `gorm:"foreignKey:OrderID;" json:"order_products"`
@@ -67,6 +69,8 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
+	// activate_users data
+	ActivatedByUsers users.Base `json:"activated_by_users,omitempty"`
 	special.UseBase
 	// order_products data
 	OrderProducts []order_products.Base `json:"order_products,omitempty"`

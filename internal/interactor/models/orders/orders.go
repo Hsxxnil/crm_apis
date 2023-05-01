@@ -73,6 +73,8 @@ type List struct {
 		Description string `json:"description,omitempty"`
 		// 訂單號碼
 		Code int `json:"code,omitempty"`
+		// 啟用者
+		ActivatedBy string `json:"activated_by,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -106,6 +108,8 @@ type Single struct {
 	Description string `json:"description,omitempty"`
 	// 訂單號碼
 	Code int `json:"code,omitempty"`
+	// 啟用者
+	ActivatedBy string `json:"activated_by,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -132,4 +136,6 @@ type Update struct {
 	Description *string `json:"description,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	// 啟用者
+	ActivatedBy *string `json:"activated_by,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }

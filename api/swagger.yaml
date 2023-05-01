@@ -36,6 +36,9 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
+            activated_at:
+              description: 啟用時間
+              type: string
             contacts:
               description: contacts data
               items:
@@ -96,6 +99,9 @@ definitions:
     properties:
       account_id:
         description: 帳戶ID
+        type: string
+      activated_at:
+        description: 啟用時間
         type: string
       contacts:
         description: contacts data
@@ -215,6 +221,9 @@ definitions:
         description: 多筆
         items:
           properties:
+            activated_at:
+              description: 啟用時間
+              type: string
             actual_cost:
               description: 行銷活動實際成本
               type: number
@@ -292,6 +301,9 @@ definitions:
     type: object
   campaigns.Single:
     properties:
+      activated_at:
+        description: 啟用時間
+        type: string
       actual_cost:
         description: 行銷活動實際成本
         type: number
@@ -472,6 +484,9 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
+            activated_at:
+              description: 啟用時間
+              type: string
             cell_phone:
               description: 聯絡人行動電話
               type: string
@@ -536,6 +551,9 @@ definitions:
     properties:
       account_id:
         description: 帳戶ID
+        type: string
+      activated_at:
+        description: 啟用時間
         type: string
       cell_phone:
         description: 聯絡人行動電話
@@ -654,6 +672,9 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
+            activated_at:
+              description: 啟用時間
+              type: string
             code:
               description: 契約號碼
               type: integer
@@ -712,6 +733,9 @@ definitions:
         type: string
       account_name:
         description: 帳戶名稱
+        type: string
+      activated_at:
+        description: 啟用時間
         type: string
       code:
         description: 契約號碼
@@ -878,6 +902,9 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
+            activated_at:
+              description: 啟用時間
+              type: string
             created_at:
               description: 創建時間
               type: string
@@ -933,6 +960,9 @@ definitions:
         type: string
       account_name:
         description: 帳戶名稱
+        type: string
+      activated_at:
+        description: 啟用時間
         type: string
       created_at:
         description: 創建時間
@@ -1047,6 +1077,9 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
+            activated_at:
+              description: 啟用時間
+              type: string
             amount:
               description: 預期收入金額
               type: number
@@ -1102,6 +1135,9 @@ definitions:
         type: string
       account_name:
         description: 帳戶名稱
+        type: string
+      activated_at:
+        description: 啟用時間
         type: string
       amount:
         description: 預期收入金額
@@ -1200,6 +1236,9 @@ definitions:
         description: 多筆
         items:
           properties:
+            activated_at:
+              description: 啟用時間
+              type: string
             created_at:
               description: 創建時間
               type: string
@@ -1280,6 +1319,9 @@ definitions:
     type: object
   order_products.Single:
     properties:
+      activated_at:
+        description: 啟用時間
+        type: string
       created_at:
         description: 創建時間
         type: string
@@ -1385,6 +1427,12 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
+            activated_at:
+              description: 啟用時間
+              type: string
+            activated_by:
+              description: 啟用者
+              type: string
             code:
               description: 訂單號碼
               type: integer
@@ -1449,6 +1497,12 @@ definitions:
       account_name:
         description: 帳戶名稱
         type: string
+      activated_at:
+        description: 啟用時間
+        type: string
+      activated_by:
+        description: 啟用者
+        type: string
       code:
         description: 訂單號碼
         type: integer
@@ -1495,6 +1549,9 @@ definitions:
     properties:
       account_id:
         description: 帳戶ID
+        type: string
+      activated_by:
+        description: 啟用者
         type: string
       contract_id:
         description: 契約ID
@@ -1554,6 +1611,9 @@ definitions:
         description: 多筆
         items:
           properties:
+            activated_at:
+              description: 啟用時間
+              type: string
             code:
               description: 產品識別碼
               type: string
@@ -1598,6 +1658,9 @@ definitions:
     type: object
   products.Single:
     properties:
+      activated_at:
+        description: 啟用時間
+        type: string
       code:
         description: 產品識別碼
         type: string
@@ -1712,6 +1775,9 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
+            activated_at:
+              description: 啟用時間
+              type: string
             created_at:
               description: 創建時間
               type: string
@@ -1770,6 +1836,9 @@ definitions:
     properties:
       account_id:
         description: 帳戶ID
+        type: string
+      activated_at:
+        description: 啟用時間
         type: string
       created_at:
         description: 創建時間
@@ -1900,6 +1969,9 @@ definitions:
         description: 多筆
         items:
           properties:
+            activated_at:
+              description: 啟用時間
+              type: string
             company_id:
               description: 公司ID
               type: string
@@ -1947,6 +2019,9 @@ definitions:
     type: object
   users.Single:
     properties:
+      activated_at:
+        description: 啟用時間
+        type: string
       company_id:
         description: 公司ID
         type: string

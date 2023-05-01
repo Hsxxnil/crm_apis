@@ -3,7 +3,7 @@ GET {{host}}/crm/v1.0/orders?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/orders/3234b981-dcd5-42dc-b589-f35d0138f84b
+GET {{host}}/crm/v1.0/orders/be75a422-62cb-4893-952d-4c9d1f504189
 Accept: application/json
 
 ### Create
@@ -11,7 +11,7 @@ POST {{host}}/crm/v1.0/orders
 Content-Type: application/json
 
 {
-  "status": "Draft",
+  "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
@@ -20,14 +20,14 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/orders/b5c5be4f-9ef3-4b18-8777-bd25e573c462
+PATCH {{host}}/crm/v1.0/orders/3776ecf5-9229-4a49-858f-0e89bc7be2d3
 Content-Type: application/json
 
 {
-  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
+  "status": "啟動中",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/orders/de61a142-c6eb-4c6f-8612-84c5cbd0b51c
+DELETE {{host}}/crm/v1.0/orders/f6999086-d10e-4947-8a0f-da92a8bf6127
 Accept: application/json

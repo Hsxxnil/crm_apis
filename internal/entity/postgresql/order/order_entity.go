@@ -132,6 +132,14 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["updated_by"] = input.UpdatedBy
 	}
 
+	if input.ActivatedBy != nil {
+		data["activated_by"] = input.ActivatedBy
+	}
+
+	if input.ActivatedAt != nil {
+		data["activated_at"] = input.ActivatedAt
+	}
+
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
 	}

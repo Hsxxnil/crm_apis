@@ -68,10 +68,16 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 	}
 
 	for i, orders := range output.Orders {
+		orders.ActivatedAt = nil
+		orders.ActivatedBy = ""
 		orders.AccountName = *orderBase[i].Accounts.Name
 		orders.ContractCode = *orderBase[i].Contracts.Code
 		orders.CreatedBy = *orderBase[i].CreatedByUsers.Name
 		orders.UpdatedBy = *orderBase[i].UpdatedByUsers.Name
+		if *orderBase[i].Status == "啟動中" {
+			orders.ActivatedBy = *orderBase[i].ActivatedByUsers.Name
+			orders.ActivatedAt = orderBase[i].ActivatedAt
+		}
 		for j, ordersBase := range orderBase[i].OrderProducts {
 			orders.OrderProducts[j].ProductName = *ordersBase.Products.Name
 			orders.OrderProducts[j].ProductPrice = *ordersBase.Products.Price
@@ -102,10 +108,16 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
+	output.ActivatedAt = nil
+	output.ActivatedBy = ""
 	output.AccountName = *orderBase.Accounts.Name
 	output.ContractCode = *orderBase.Contracts.Code
 	output.CreatedBy = *orderBase.CreatedByUsers.Name
 	output.UpdatedBy = *orderBase.UpdatedByUsers.Name
+	if *orderBase.Status == "啟動中" {
+		output.ActivatedBy = *orderBase.ActivatedByUsers.Name
+		output.ActivatedAt = orderBase.ActivatedAt
+	}
 	for i, orders := range orderBase.OrderProducts {
 		output.OrderProducts[i].ProductName = *orders.Products.Name
 		output.OrderProducts[i].ProductPrice = *orders.Products.Price
@@ -147,6 +159,12 @@ func (m *manager) Update(input *orderModel.Update) interface{} {
 
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	if *orderBase.Status != *input.Status {
+		if *input.Status == "啟動中" {
+			input.ActivatedBy = input.UpdatedBy
+		}
 	}
 
 	err = m.OrderService.Update(input)
