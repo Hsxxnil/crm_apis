@@ -12,8 +12,8 @@ Content-Type: application/json
 
 {
   "order_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
-  "product_id": "faf53183-1a71-41d4-9a66-8100a55842b0",
-  "quantity": 2,
+  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
+  "quantity": 1,
   "unit_price": 100,
   "description": "test",
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
@@ -24,10 +24,14 @@ PATCH http://localhost:8080/crm/v1.0/orders/products/19ba1a61-f13c-4c13-80b6-226
 Content-Type: application/json
 
 {
+  "order_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
+  "quantity": 1,
+  "unit_price": 100,
+  "description": "test",
   "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
-DELETE http://localhost:8080/crm/v1.0/orders/products/80edc94a-a880-4212-86b7-347b1e3402e7
+DELETE http://localhost:8080/crm/v1.0/orders/products/dae0acbf-1a06-4e2d-a22c-04a757b79116
 Accept: application/json
