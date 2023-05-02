@@ -42,7 +42,7 @@ type Create struct {
 
 // Field is structure file for search
 type Field struct {
-	// 產品ID
+	// 行銷活動ID
 	CampaignID string `json:"campaign_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 行銷活動名稱
 	Name *string `json:"name,omitempty" form:"name"`
@@ -163,7 +163,7 @@ type Single struct {
 
 // Update struct is used to update achieves
 type Update struct {
-	// 產品ID
+	// 行銷活動ID
 	CampaignID string `json:"campaign_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 行銷活動名稱
 	Name *string `json:"name,omitempty"`

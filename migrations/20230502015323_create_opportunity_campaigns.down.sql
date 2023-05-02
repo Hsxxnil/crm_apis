@@ -1,0 +1,8 @@
+drop index idx_opportunity_campaigns_opportunity_campaign_id;
+drop index idx_opportunity_campaigns_opportunity_id;
+drop index idx_opportunity_campaigns_campaign_id;
+drop index idx_opportunity_campaigns_created_at;
+drop index idx_opportunity_campaigns_created_by;
+drop index idx_opportunity_campaigns_updated_at;
+drop index idx_opportunity_campaigns_updated_by;
+drop table opportunity_campaigns;
