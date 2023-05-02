@@ -29,7 +29,7 @@ type Table struct {
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
 	// contacts data
-	Contacts []contacts.Table `gorm:"foreignKey:AccountID;" json:"contacts"`
+	Contacts []contacts.Table `gorm:"foreignKey:AccountID;" json:"contacts,omitempty"`
 }
 
 // Base struct is corresponding to accounts table structure file
