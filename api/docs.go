@@ -6231,143 +6231,6 @@ const docTemplate = `{
                 }
             }
         },
-        "campaigns.Base": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
-                "activated_by": {
-                    "description": "啟用者",
-                    "type": "string"
-                },
-                "actual_cost": {
-                    "description": "行銷活動實際成本",
-                    "type": "number"
-                },
-                "budget_cost": {
-                    "description": "行銷活動預算成本",
-                    "type": "number"
-                },
-                "campaign_id": {
-                    "description": "行銷活動ID",
-                    "type": "string"
-                },
-                "created_at": {
-                    "description": "創建時間",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
-                "created_by_users": {
-                    "description": "create_users data",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/users.Base"
-                        }
-                    ]
-                },
-                "del_end_at": {
-                    "description": "刪除的結束時間",
-                    "type": "string"
-                },
-                "del_start_at": {
-                    "description": "刪除的開始時間",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "行銷活動描述",
-                    "type": "string"
-                },
-                "end_at": {
-                    "description": "結束時間",
-                    "type": "string"
-                },
-                "end_date": {
-                    "description": "行銷活動結束日期",
-                    "type": "string"
-                },
-                "expected_income": {
-                    "description": "行銷活動預期收入",
-                    "type": "number"
-                },
-                "expected_responses": {
-                    "description": "行銷活動預期回應(%)",
-                    "type": "integer"
-                },
-                "is_enable": {
-                    "description": "行銷活動是否啟用",
-                    "type": "boolean"
-                },
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "行銷活動名稱",
-                    "type": "string"
-                },
-                "order_by": {
-                    "description": "SQL OrderBy 區段",
-                    "type": "string"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "parent_campaign_id": {
-                    "description": "父系行銷活動ID",
-                    "type": "string"
-                },
-                "sent": {
-                    "description": "行銷活動已傳送數量",
-                    "type": "integer"
-                },
-                "start_at": {
-                    "description": "開始時間",
-                    "type": "string"
-                },
-                "start_date": {
-                    "description": "行銷活動開始日期",
-                    "type": "string"
-                },
-                "status": {
-                    "description": "行銷活動狀態",
-                    "type": "string"
-                },
-                "type": {
-                    "description": "行銷活動類型",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "description": "更新時間",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
-                },
-                "updated_by_users": {
-                    "description": "update_users data",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/users.Base"
-                        }
-                    ]
-                }
-            }
-        },
         "campaigns.Create": {
             "type": "object",
             "required": [
@@ -6500,6 +6363,13 @@ const docTemplate = `{
                                 "description": "行銷活動名稱",
                                 "type": "string"
                             },
+                            "opportunities": {
+                                "description": "opportunity_campaigns data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/opportunity_campaigns.CampaignSingle"
+                                }
+                            },
                             "parent_campaign_id": {
                                 "description": "父系行銷活動ID",
                                 "type": "string"
@@ -6603,6 +6473,13 @@ const docTemplate = `{
                 "name": {
                     "description": "行銷活動名稱",
                     "type": "string"
+                },
+                "opportunities": {
+                    "description": "opportunity_campaigns data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/opportunity_campaigns.CampaignSingle"
+                    }
                 },
                 "parent_campaign_id": {
                     "description": "父系行銷活動ID",
@@ -7625,6 +7502,13 @@ const docTemplate = `{
                                 "description": "預期收入金額",
                                 "type": "number"
                             },
+                            "campaigns": {
+                                "description": "opportunity_campaigns data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/opportunity_campaigns.OpportunitySingle"
+                                }
+                            },
                             "close_date": {
                                 "description": "商機結束日期",
                                 "type": "string"
@@ -7648,13 +7532,6 @@ const docTemplate = `{
                             "name": {
                                 "description": "商機名稱",
                                 "type": "string"
-                            },
-                            "opportunity_campaigns": {
-                                "description": "campaigns data",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/campaigns.Base"
-                                }
                             },
                             "opportunity_id": {
                                 "description": "商機ID",
@@ -7708,6 +7585,13 @@ const docTemplate = `{
                     "description": "預期收入金額",
                     "type": "number"
                 },
+                "campaigns": {
+                    "description": "opportunity_campaigns data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/opportunity_campaigns.OpportunitySingle"
+                    }
+                },
                 "close_date": {
                     "description": "商機結束日期",
                     "type": "string"
@@ -7731,13 +7615,6 @@ const docTemplate = `{
                 "name": {
                     "description": "商機名稱",
                     "type": "string"
-                },
-                "opportunity_campaigns": {
-                    "description": "campaigns data",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/campaigns.Base"
-                    }
                 },
                 "opportunity_id": {
                     "description": "商機ID",
@@ -7785,6 +7662,19 @@ const docTemplate = `{
                 },
                 "updated_by": {
                     "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "opportunity_campaigns.CampaignSingle": {
+            "type": "object",
+            "properties": {
+                "opportunity_id": {
+                    "description": "商機ID",
+                    "type": "string"
+                },
+                "opportunity_name": {
+                    "description": "商機名稱",
                     "type": "string"
                 }
             }
@@ -7878,6 +7768,19 @@ const docTemplate = `{
                 "total": {
                     "description": "總筆數",
                     "type": "integer"
+                }
+            }
+        },
+        "opportunity_campaigns.OpportunitySingle": {
+            "type": "object",
+            "properties": {
+                "campaign_id": {
+                    "description": "行銷活動ID",
+                    "type": "string"
+                },
+                "campaign_name": {
+                    "description": "行銷活動名稱",
+                    "type": "string"
                 }
             }
         },
@@ -8300,7 +8203,7 @@ const docTemplate = `{
                                 "description": "訂單ID",
                                 "type": "string"
                             },
-                            "order_products": {
+                            "products": {
                                 "description": "order_products data",
                                 "type": "array",
                                 "items": {
@@ -8391,7 +8294,7 @@ const docTemplate = `{
                     "description": "訂單ID",
                     "type": "string"
                 },
-                "order_products": {
+                "products": {
                     "description": "order_products data",
                     "type": "array",
                     "items": {
@@ -8932,103 +8835,6 @@ const docTemplate = `{
                 },
                 "updated_by": {
                     "description": "更新者",
-                    "type": "string"
-                }
-            }
-        },
-        "users.Base": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
-                "activated_by": {
-                    "description": "啟用者",
-                    "type": "string"
-                },
-                "company_id": {
-                    "description": "公司ID",
-                    "type": "string"
-                },
-                "created_at": {
-                    "description": "創建時間",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
-                "del_end_at": {
-                    "description": "刪除的結束時間",
-                    "type": "string"
-                },
-                "del_start_at": {
-                    "description": "刪除的開始時間",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
-                    "type": "string"
-                },
-                "email": {
-                    "description": "使用者電子郵件",
-                    "type": "string"
-                },
-                "end_at": {
-                    "description": "結束時間",
-                    "type": "string"
-                },
-                "is_deleted": {
-                    "description": "使用者是否刪除",
-                    "type": "boolean"
-                },
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "使用者中文名稱",
-                    "type": "string"
-                },
-                "order_by": {
-                    "description": "SQL OrderBy 區段",
-                    "type": "string"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "password": {
-                    "description": "使用者密碼",
-                    "type": "string"
-                },
-                "phone_number": {
-                    "description": "使用者電話",
-                    "type": "string"
-                },
-                "start_at": {
-                    "description": "開始時間",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "description": "更新時間",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
-                },
-                "user_id": {
-                    "description": "使用者ID",
-                    "type": "string"
-                },
-                "user_name": {
-                    "description": "使用者名稱",
                     "type": "string"
                 }
             }

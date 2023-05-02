@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/internal/interactor/pkg/util"
-
+	campaignModel "app.eirc/internal/interactor/models/campaigns"
 	opportunityModel "app.eirc/internal/interactor/models/opportunities"
+	"app.eirc/internal/interactor/pkg/util"
+	campaignService "app.eirc/internal/interactor/service/campaign"
 	opportunityService "app.eirc/internal/interactor/service/opportunity"
 	"gorm.io/gorm"
 
@@ -24,11 +25,13 @@ type Manager interface {
 
 type manager struct {
 	OpportunityService opportunityService.Service
+	CampaignService    campaignService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
 		OpportunityService: opportunityService.Init(db),
+		CampaignService:    campaignService.Init(db),
 	}
 }
 
@@ -71,6 +74,12 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 		opportunities.AccountName = *opportunityBase[i].Accounts.Name
 		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
 		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
+		for j, campaigns := range opportunityBase[i].OpportunityCampaigns {
+			campaignBase, _ := m.CampaignService.GetBySingle(&campaignModel.Field{
+				CampaignID: *campaigns.CampaignID,
+			})
+			opportunities.OpportunityCampaigns[j].CampaignName = *campaignBase.Name
+		}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -98,6 +107,12 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
 	output.AccountName = *opportunityBase.Accounts.Name
 	output.CreatedBy = *opportunityBase.CreatedByUsers.Name
 	output.UpdatedBy = *opportunityBase.UpdatedByUsers.Name
+	for i, campaigns := range opportunityBase.OpportunityCampaigns {
+		campaignBase, _ := m.CampaignService.GetBySingle(&campaignModel.Field{
+			CampaignID: *campaigns.CampaignID,
+		})
+		output.OpportunityCampaigns[i].CampaignName = *campaignBase.Name
+	}
 
 	return code.GetCodeMessage(code.Successful, output)
 }

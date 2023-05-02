@@ -82,7 +82,7 @@ type List struct {
 		// 時間戳記
 		section.TimeAt
 		// order_products data
-		OrderProducts []order_products.OrderSingle `json:"order_products,omitempty"`
+		OrderProducts []order_products.OrderSingle `json:"products,omitempty"`
 	} `json:"orders"`
 	// 分頁返回結構檔
 	page.Total
@@ -117,7 +117,7 @@ type Single struct {
 	// 時間戳記
 	section.TimeAt
 	// order_products data
-	OrderProducts []order_products.OrderSingle `json:"order_products,omitempty"`
+	OrderProducts []order_products.OrderSingle `json:"products,omitempty"`
 }
 
 // Update struct is used to update achieves

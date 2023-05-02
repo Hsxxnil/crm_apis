@@ -3,6 +3,8 @@ package campaigns
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/opportunity_campaigns"
+
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/special"
@@ -44,6 +46,8 @@ type Table struct {
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
+	// opportunity_campaigns data
+	OpportunityCampaigns []opportunity_campaigns.Table `gorm:"foreignKey:CampaignID;" json:"opportunities,omitempty"`
 }
 
 // Base struct is corresponding to campaigns table structure file
@@ -81,6 +85,8 @@ type Base struct {
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
+	// opportunity_campaigns data
+	OpportunityCampaigns []opportunity_campaigns.Base `json:"opportunities,omitempty"`
 }
 
 // TableName sets the insert table name for this struct type

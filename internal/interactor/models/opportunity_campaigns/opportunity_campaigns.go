@@ -81,3 +81,17 @@ type Update struct {
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
+
+type OpportunitySingle struct {
+	// 行銷活動ID
+	CampaignID string `json:"campaign_id,omitempty"`
+	// 行銷活動名稱
+	CampaignName string `json:"campaign_name,omitempty"`
+}
+
+type CampaignSingle struct {
+	// 商機ID
+	OpportunityID string `json:"opportunity_id,omitempty"`
+	// 商機名稱
+	OpportunityName string `json:"opportunity_name,omitempty"`
+}

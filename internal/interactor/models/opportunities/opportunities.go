@@ -3,6 +3,8 @@ package opportunities
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/opportunity_campaigns"
+
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 	"github.com/shopspring/decimal"
@@ -78,6 +80,8 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
+		// opportunity_campaigns data
+		OpportunityCampaigns []opportunity_campaigns.OpportunitySingle `json:"campaigns,omitempty"`
 	} `json:"opportunities"`
 	// 分頁返回結構檔
 	page.Total
@@ -107,6 +111,8 @@ type Single struct {
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
 	section.TimeAt
+	// opportunity_campaigns data
+	OpportunityCampaigns []opportunity_campaigns.OpportunitySingle `json:"campaigns,omitempty"`
 }
 
 // Update struct is used to update achieves
