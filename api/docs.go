@@ -6067,7 +6067,7 @@ const docTemplate = `{
                                 "description": "contacts data",
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/definitions/contacts.Single"
+                                    "$ref": "#/definitions/contacts.AccountSingle"
                                 }
                             },
                             "created_at": {
@@ -6150,7 +6150,7 @@ const docTemplate = `{
                     "description": "contacts data",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/contacts.Single"
+                        "$ref": "#/definitions/contacts.AccountSingle"
                     }
                 },
                 "created_at": {
@@ -6610,6 +6610,47 @@ const docTemplate = `{
                     "description": "錯誤時間",
                     "type": "string",
                     "example": "2021-07-29T07:23:47Z"
+                }
+            }
+        },
+        "contacts.AccountSingle": {
+            "type": "object",
+            "properties": {
+                "cell_phone": {
+                    "description": "聯絡人行動電話",
+                    "type": "string"
+                },
+                "contact_id": {
+                    "description": "聯絡人ID",
+                    "type": "string"
+                },
+                "department": {
+                    "description": "聯絡人部門",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "supervisor_id": {
+                    "description": "聯絡人直屬上司ID",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "聯絡人職稱",
+                    "type": "string"
                 }
             }
         },

@@ -71,7 +71,7 @@ type List struct {
 		// 時間戳記
 		section.TimeAt
 		// contacts data
-		Contacts []contacts.Single `json:"contacts,omitempty"`
+		Contacts []contacts.AccountSingle `json:"contacts,omitempty"`
 	} `json:"accounts"`
 	// 分頁返回結構檔
 	page.Total
@@ -100,7 +100,7 @@ type Single struct {
 	// 時間戳記
 	section.TimeAt
 	// contacts data
-	Contacts []contacts.Single `json:"contacts,omitempty"`
+	Contacts []contacts.AccountSingle `json:"contacts,omitempty"`
 }
 
 // Update struct is used to update achieves
