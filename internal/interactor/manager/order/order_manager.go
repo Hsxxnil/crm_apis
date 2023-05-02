@@ -78,9 +78,9 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 			orders.ActivatedBy = *orderBase[i].ActivatedByUsers.Name
 			orders.ActivatedAt = orderBase[i].ActivatedAt
 		}
-		for j, ordersBase := range orderBase[i].OrderProducts {
-			orders.OrderProducts[j].ProductName = *ordersBase.Products.Name
-			orders.OrderProducts[j].ProductPrice = *ordersBase.Products.Price
+		for j, productsBase := range orderBase[i].OrderProducts {
+			orders.OrderProducts[j].ProductName = *productsBase.Products.Name
+			orders.OrderProducts[j].ProductPrice = *productsBase.Products.Price
 		}
 	}
 
@@ -118,9 +118,9 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 		output.ActivatedBy = *orderBase.ActivatedByUsers.Name
 		output.ActivatedAt = orderBase.ActivatedAt
 	}
-	for i, orders := range orderBase.OrderProducts {
-		output.OrderProducts[i].ProductName = *orders.Products.Name
-		output.OrderProducts[i].ProductPrice = *orders.Products.Price
+	for i, products := range orderBase.OrderProducts {
+		output.OrderProducts[i].ProductName = *products.Products.Name
+		output.OrderProducts[i].ProductPrice = *products.Products.Price
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
