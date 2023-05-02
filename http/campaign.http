@@ -13,7 +13,7 @@ Content-Type: application/json
 {
   "name": "test",
   "status": "草稿",
-  "is_enable": false,
+  "is_enable": true,
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "parent_campaign_id": "00000000-0000-4000-a000-000000000000",
   "description": "test",
@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/campaigns/dbcb0c9d-f278-40d8-be5a-5884383ff332
+PATCH {{host}}/crm/v1.0/campaigns/7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1
 Content-Type: application/json
 
 {
