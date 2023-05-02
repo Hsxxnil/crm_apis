@@ -38,7 +38,7 @@ type Field struct {
 	// 契約描述
 	Description *string `json:"description,omitempty" form:"description"`
 	// 契約號碼
-	Code *int `json:"code,omitempty" form:"code"`
+	Code *uint `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -68,7 +68,7 @@ type List struct {
 		// 契約描述
 		Description string `json:"description,omitempty"`
 		// 契約號碼
-		Code int `json:"code,omitempty"`
+		Code uint `json:"code,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -97,7 +97,7 @@ type Single struct {
 	// 契約描述
 	Description string `json:"description,omitempty"`
 	// 契約號碼
-	Code int `json:"code,omitempty"`
+	Code uint `json:"code,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者

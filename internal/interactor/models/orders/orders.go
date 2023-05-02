@@ -40,7 +40,7 @@ type Field struct {
 	// 訂單描述
 	Description *string `json:"description,omitempty" form:"description"`
 	// 訂單號碼
-	Code *int `json:"code,omitempty" form:"code"`
+	Code *uint `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -68,11 +68,11 @@ type List struct {
 		// 契約ID
 		ContractID string `json:"contract_id,omitempty"`
 		// 契約號碼
-		ContractCode int `json:"contract_code,omitempty"`
+		ContractCode uint `json:"contract_code,omitempty"`
 		// 訂單描述
 		Description string `json:"description,omitempty"`
 		// 訂單號碼
-		Code int `json:"code,omitempty"`
+		Code uint `json:"code,omitempty"`
 		// 啟用者
 		ActivatedBy string `json:"activated_by,omitempty"`
 		// 創建者
@@ -101,13 +101,13 @@ type Single struct {
 	// 帳戶名稱
 	AccountName string `json:"account_name,omitempty"`
 	// 契約號碼
-	ContractCode int `json:"contract_code,omitempty"`
+	ContractCode uint `json:"contract_code,omitempty"`
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述
 	Description string `json:"description,omitempty"`
 	// 訂單號碼
-	Code int `json:"code,omitempty"`
+	Code uint `json:"code,omitempty"`
 	// 啟用者
 	ActivatedBy string `json:"activated_by,omitempty"`
 	// 創建者
