@@ -88,3 +88,10 @@ type OpportunitySingle struct {
 	// 行銷活動名稱
 	CampaignName string `json:"campaign_name,omitempty"`
 }
+
+type CampaignSingle struct {
+	// 商機ID
+	OpportunityID string `json:"opportunity_id,omitempty"`
+	// 商機名稱
+	OpportunityName string `json:"opportunity_name,omitempty"`
+}

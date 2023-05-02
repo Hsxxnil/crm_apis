@@ -260,6 +260,11 @@ definitions:
             name:
               description: 行銷活動名稱
               type: string
+            opportunities:
+              description: opportunity_campaigns data
+              items:
+                $ref: '#/definitions/opportunity_campaigns.CampaignSingle'
+              type: array
             parent_campaign_id:
               description: 父系行銷活動ID
               type: string
@@ -340,6 +345,11 @@ definitions:
       name:
         description: 行銷活動名稱
         type: string
+      opportunities:
+        description: opportunity_campaigns data
+        items:
+          $ref: '#/definitions/opportunity_campaigns.CampaignSingle'
+        type: array
       parent_campaign_id:
         description: 父系行銷活動ID
         type: string
@@ -1205,6 +1215,15 @@ definitions:
         type: string
     required:
     - updated_by
+    type: object
+  opportunity_campaigns.CampaignSingle:
+    properties:
+      opportunity_id:
+        description: 商機ID
+        type: string
+      opportunity_name:
+        description: 商機名稱
+        type: string
     type: object
   opportunity_campaigns.Create:
     properties:

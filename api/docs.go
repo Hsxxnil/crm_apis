@@ -6363,6 +6363,13 @@ const docTemplate = `{
                                 "description": "行銷活動名稱",
                                 "type": "string"
                             },
+                            "opportunities": {
+                                "description": "opportunity_campaigns data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/opportunity_campaigns.CampaignSingle"
+                                }
+                            },
                             "parent_campaign_id": {
                                 "description": "父系行銷活動ID",
                                 "type": "string"
@@ -6466,6 +6473,13 @@ const docTemplate = `{
                 "name": {
                     "description": "行銷活動名稱",
                     "type": "string"
+                },
+                "opportunities": {
+                    "description": "opportunity_campaigns data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/opportunity_campaigns.CampaignSingle"
+                    }
                 },
                 "parent_campaign_id": {
                     "description": "父系行銷活動ID",
@@ -7648,6 +7662,19 @@ const docTemplate = `{
                 },
                 "updated_by": {
                     "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "opportunity_campaigns.CampaignSingle": {
+            "type": "object",
+            "properties": {
+                "opportunity_id": {
+                    "description": "商機ID",
+                    "type": "string"
+                },
+                "opportunity_name": {
+                    "description": "商機名稱",
                     "type": "string"
                 }
             }
