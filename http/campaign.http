@@ -2,8 +2,16 @@
 GET {{host}}/crm/v1.0/campaigns?page=1&limit=20
 Accept: application/json
 
+### GetByListOpportunities
+GET {{host}}/crm/v1.0/campaigns/opportunities?page=1&limit=20
+Accept: application/json
+
 ### GetBySingle
 GET {{host}}/crm/v1.0/campaigns/7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1
+Accept: application/json
+
+### GetBySingleOpportunities
+GET {{host}}/crm/v1.0/campaigns/opportunities/7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1
 Accept: application/json
 
 ### Create

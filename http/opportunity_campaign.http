@@ -1,13 +1,13 @@
 ### GetByList
-GET {{host}}/crm/v1.0/opportunities/campaigns?page=1&limit=20
+GET {{host}}/crm/v1.0/opportunities-campaigns?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/opportunities/campaigns/8e6aca7b-beca-4def-8240-c5628aeb7951
+GET {{host}}/crm/v1.0/opportunities-campaigns/8e6aca7b-beca-4def-8240-c5628aeb7951
 Accept: application/json
 
 ### Create
-POST {{host}}/crm/v1.0/opportunities/campaigns
+POST {{host}}/crm/v1.0/opportunities-campaigns
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/opportunities/campaigns/8e6aca7b-beca-4def-8240-c5628aeb7951
+PATCH {{host}}/crm/v1.0/opportunities-campaigns/8e6aca7b-beca-4def-8240-c5628aeb7951
 Content-Type: application/json
 
 {
@@ -27,5 +27,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/opportunities/campaigns/d497a01c-2e47-4530-b4b9-821c1dde695a
+DELETE {{host}}/crm/v1.0/opportunities-campaigns/d497a01c-2e47-4530-b4b9-821c1dde695a
 Accept: application/json

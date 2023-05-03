@@ -17,7 +17,9 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *orderModel.Create) interface{}
 	GetByList(input *orderModel.Fields) interface{}
+	GetByListProducts(input *orderModel.Fields) interface{}
 	GetBySingle(input *orderModel.Field) interface{}
+	GetBySingleProducts(input *orderModel.Field) interface{}
 	Delete(input *orderModel.Field) interface{}
 	Update(input *orderModel.Update) interface{}
 }
@@ -78,6 +80,44 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 			orders.ActivatedBy = *orderBase[i].ActivatedByUsers.Name
 			orders.ActivatedAt = orderBase[i].ActivatedAt
 		}
+	}
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListProducts(input *orderModel.Fields) interface{} {
+	output := &orderModel.ListProducts{}
+	output.Limit = input.Limit
+	output.Page = input.Page
+	quantity, orderBase, err := m.OrderService.GetByList(input)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Total.Total = quantity
+	orderByte, err := json.Marshal(orderBase)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Pages = util.Pagination(quantity, output.Limit)
+	err = json.Unmarshal(orderByte, &output.Orders)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	for i, orders := range output.Orders {
+		orders.ActivatedAt = nil
+		orders.ActivatedBy = ""
+		orders.AccountName = *orderBase[i].Accounts.Name
+		orders.ContractCode = *orderBase[i].Contracts.Code
+		orders.CreatedBy = *orderBase[i].CreatedByUsers.Name
+		orders.UpdatedBy = *orderBase[i].UpdatedByUsers.Name
+		if *orderBase[i].Status == "啟動中" {
+			orders.ActivatedBy = *orderBase[i].ActivatedByUsers.Name
+			orders.ActivatedAt = orderBase[i].ActivatedAt
+		}
 		for j, productsBase := range orderBase[i].OrderProducts {
 			orders.OrderProducts[j].ProductName = *productsBase.Products.Name
 			orders.OrderProducts[j].ProductPrice = *productsBase.Products.Price
@@ -89,7 +129,6 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 
 func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 	orderBase, err := m.OrderService.GetBySingle(input)
-	log.Debug(*orderBase.Accounts.Name)
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -101,6 +140,40 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 	}
 
 	output := &orderModel.Single{}
+	orderByte, _ := json.Marshal(orderBase)
+	err = json.Unmarshal(orderByte, &output)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output.ActivatedAt = nil
+	output.ActivatedBy = ""
+	output.AccountName = *orderBase.Accounts.Name
+	output.ContractCode = *orderBase.Contracts.Code
+	output.CreatedBy = *orderBase.CreatedByUsers.Name
+	output.UpdatedBy = *orderBase.UpdatedByUsers.Name
+	if *orderBase.Status == "啟動中" {
+		output.ActivatedBy = *orderBase.ActivatedByUsers.Name
+		output.ActivatedAt = orderBase.ActivatedAt
+	}
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetBySingleProducts(input *orderModel.Field) interface{} {
+	orderBase, err := m.OrderService.GetBySingle(input)
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output := &orderModel.SingleProducts{}
 	orderByte, _ := json.Marshal(orderBase)
 	err = json.Unmarshal(orderByte, &output)
 	if err != nil {

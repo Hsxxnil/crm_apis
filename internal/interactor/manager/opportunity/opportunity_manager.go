@@ -18,7 +18,9 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *opportunityModel.Create) interface{}
 	GetByList(input *opportunityModel.Fields) interface{}
+	GetByListCampaigns(input *opportunityModel.Fields) interface{}
 	GetBySingle(input *opportunityModel.Field) interface{}
+	GetBySingleCampaigns(input *opportunityModel.Field) interface{}
 	Delete(input *opportunityModel.Field) interface{}
 	Update(input *opportunityModel.Update) interface{}
 }
@@ -74,6 +76,37 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 		opportunities.AccountName = *opportunityBase[i].Accounts.Name
 		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
 		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
+	}
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListCampaigns(input *opportunityModel.Fields) interface{} {
+	output := &opportunityModel.ListCampaigns{}
+	output.Limit = input.Limit
+	output.Page = input.Page
+	quantity, opportunityBase, err := m.OpportunityService.GetByList(input)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Total.Total = quantity
+	opportunityByte, err := json.Marshal(opportunityBase)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Pages = util.Pagination(quantity, output.Limit)
+	err = json.Unmarshal(opportunityByte, &output.Opportunities)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	for i, opportunities := range output.Opportunities {
+		opportunities.AccountName = *opportunityBase[i].Accounts.Name
+		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
+		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
 		for j, campaigns := range opportunityBase[i].OpportunityCampaigns {
 			campaignBase, _ := m.CampaignService.GetBySingle(&campaignModel.Field{
 				CampaignID: *campaigns.CampaignID,
@@ -97,6 +130,32 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
 	}
 
 	output := &opportunityModel.Single{}
+	opportunityByte, _ := json.Marshal(opportunityBase)
+	err = json.Unmarshal(opportunityByte, &output)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output.AccountName = *opportunityBase.Accounts.Name
+	output.CreatedBy = *opportunityBase.CreatedByUsers.Name
+	output.UpdatedBy = *opportunityBase.UpdatedByUsers.Name
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) interface{} {
+	opportunityBase, err := m.OpportunityService.GetBySingle(input)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output := &opportunityModel.SingleCampaigns{}
 	opportunityByte, _ := json.Marshal(opportunityBase)
 	err = json.Unmarshal(opportunityByte, &output)
 	if err != nil {

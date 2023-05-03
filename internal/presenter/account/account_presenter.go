@@ -16,7 +16,9 @@ import (
 type Control interface {
 	Create(ctx *gin.Context)
 	GetByList(ctx *gin.Context)
+	GetByListContacts(ctx *gin.Context)
 	GetBySingle(ctx *gin.Context)
+	GetBySingleContacts(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 	Update(ctx *gin.Context)
 }
@@ -92,6 +94,38 @@ func (c *control) GetByList(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 
+// GetByListContacts
+// @Summary 取得全部帳戶含聯絡人
+// @description 取得全部帳戶含聯絡人
+// @Tags account
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param page query int true "目前頁數,請從1開始帶入"
+// @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
+// @success 200 object code.SuccessfulMessage{body=accounts.ListContacts} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /accounts/contacts [get]
+func (c *control) GetByListContacts(ctx *gin.Context) {
+	input := &accountModel.Fields{}
+
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	if input.Limit >= constant.DefaultLimit {
+		input.Limit = constant.DefaultLimit
+	}
+
+	codeMessage := c.Manager.GetByListContacts(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+}
+
 // GetBySingle
 // @Summary 取得單一帳戶
 // @description 取得單一帳戶
@@ -117,6 +151,34 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 	}
 
 	codeMessage := c.Manager.GetBySingle(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+}
+
+// GetBySingleContacts
+// @Summary 取得單一帳戶含聯絡人
+// @description 取得單一帳戶含聯絡人
+// @Tags account
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param accountID path string true "帳戶ID"
+// @success 200 object code.SuccessfulMessage{body=accounts.SingleContacts} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /accounts/contacts/{accountID} [get]
+func (c *control) GetBySingleContacts(ctx *gin.Context) {
+	accountID := ctx.Param("accountID")
+	input := &accountModel.Field{}
+	input.AccountID = accountID
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	codeMessage := c.Manager.GetBySingleContacts(input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 

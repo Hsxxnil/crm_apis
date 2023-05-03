@@ -82,6 +82,7 @@ type Update struct {
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
 
+// OpportunitySingle return structure file for opportunities
 type OpportunitySingle struct {
 	// 行銷活動ID
 	CampaignID string `json:"campaign_id,omitempty"`
@@ -89,6 +90,7 @@ type OpportunitySingle struct {
 	CampaignName string `json:"campaign_name,omitempty"`
 }
 
+// CampaignSingle return structure file for campaigns
 type CampaignSingle struct {
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty"`

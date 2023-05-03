@@ -125,6 +125,7 @@ type Update struct {
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
 
+// OrderSingle return structure file for orders
 type OrderSingle struct {
 	// 產品ID
 	ProductID string `json:"product_id,omitempty"`

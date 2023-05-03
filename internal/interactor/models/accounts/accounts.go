@@ -70,8 +70,37 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
+	} `json:"accounts"`
+	// 分頁返回結構檔
+	page.Total
+}
+
+// ListContacts is multiple return structure files containing contacts
+type ListContacts struct {
+	// 多筆
+	Accounts []*struct {
+		// 帳戶ID
+		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		Name string `json:"name,omitempty"`
+		// 帳戶電話
+		PhoneNumber string `json:"phone_number,omitempty"`
+		// 帳戶類型
+		Type string `json:"type,omitempty"`
+		// 行業ID
+		IndustryID string `json:"industry_id,omitempty"`
+		// 行業名稱
+		IndustryName string `json:"industry_name,omitempty"`
+		// 父系帳戶ID
+		ParentAccountID string `json:"parent_account_id,omitempty"`
+		// 創建者
+		CreatedBy string `json:"created_by,omitempty"`
+		// 更新者
+		UpdatedBy string `json:"updated_by,omitempty"`
+		// 時間戳記
+		section.TimeAt
 		// contacts data
-		Contacts []contacts.Single `json:"contacts,omitempty"`
+		Contacts []contacts.AccountSingle `json:"contacts,omitempty"`
 	} `json:"accounts"`
 	// 分頁返回結構檔
 	page.Total
@@ -99,8 +128,32 @@ type Single struct {
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
 	section.TimeAt
+}
+
+// SingleContacts return structure file containing contacts
+type SingleContacts struct {
+	// 帳戶ID
+	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	Name string `json:"name,omitempty"`
+	// 帳戶電話
+	PhoneNumber string `json:"phone_number,omitempty"`
+	// 帳戶類型
+	Type string `json:"type,omitempty"`
+	// 行業ID
+	IndustryID string `json:"industry_id,omitempty"`
+	// 行業名稱
+	IndustryName string `json:"industry_name,omitempty"`
+	// 父系帳戶ID
+	ParentAccountID string `json:"parent_account_id,omitempty"`
+	// 創建者
+	CreatedBy string `json:"created_by,omitempty"`
+	// 更新者
+	UpdatedBy string `json:"updated_by,omitempty"`
+	// 時間戳記
+	section.TimeAt
 	// contacts data
-	Contacts []contacts.Single `json:"contacts,omitempty"`
+	Contacts []contacts.AccountSingle `json:"contacts,omitempty"`
 }
 
 // Update struct is used to update achieves

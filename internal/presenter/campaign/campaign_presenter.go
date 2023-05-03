@@ -16,7 +16,9 @@ import (
 type Control interface {
 	Create(ctx *gin.Context)
 	GetByList(ctx *gin.Context)
+	GetByListOpportunities(ctx *gin.Context)
 	GetBySingle(ctx *gin.Context)
+	GetBySingleOpportunities(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 	Update(ctx *gin.Context)
 }
@@ -92,6 +94,38 @@ func (c *control) GetByList(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 
+// GetByListOpportunities
+// @Summary 取得全部行銷活動含受影響的商機
+// @description 取得全部行銷活動含受影響的商機
+// @Tags campaign
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param page query int true "目前頁數,請從1開始帶入"
+// @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
+// @success 200 object code.SuccessfulMessage{body=campaigns.ListOpportunities} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /campaigns/opportunities [get]
+func (c *control) GetByListOpportunities(ctx *gin.Context) {
+	input := &campaignModel.Fields{}
+
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	if input.Limit >= constant.DefaultLimit {
+		input.Limit = constant.DefaultLimit
+	}
+
+	codeMessage := c.Manager.GetByListOpportunities(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+}
+
 // GetBySingle
 // @Summary 取得單一行銷活動
 // @description 取得單一行銷活動
@@ -117,6 +151,34 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 	}
 
 	codeMessage := c.Manager.GetBySingle(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+}
+
+// GetBySingleOpportunities
+// @Summary 取得單一行銷活動含受影響的商機
+// @description 取得單一行銷活動含受影響的商機
+// @Tags campaign
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param campaignID path string true "行銷活動ID"
+// @success 200 object code.SuccessfulMessage{body=campaigns.SingleOpportunities} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /campaigns/opportunities/{campaignID} [get]
+func (c *control) GetBySingleOpportunities(ctx *gin.Context) {
+	campaignID := ctx.Param("campaignID")
+	input := &campaignModel.Field{}
+	input.CampaignID = campaignID
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	codeMessage := c.Manager.GetBySingleOpportunities(input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 
