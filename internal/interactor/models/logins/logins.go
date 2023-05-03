@@ -1,5 +1,6 @@
 package logins
 
+// Login struct is used to log in
 type Login struct {
 	// 公司ID
 	CompanyID string `json:"company_id,omitempty" binding:"required" validate:"required"`
