@@ -174,6 +174,4 @@ type AccountSingle struct {
 	Salutation string `json:"salutation,omitempty"`
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
-	// 聯絡人直屬上司ID
-	SupervisorID string `json:"supervisor_id,omitempty"`
 }
