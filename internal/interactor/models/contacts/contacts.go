@@ -83,6 +83,8 @@ type List struct {
 		Department string `json:"department,omitempty"`
 		// 聯絡人直屬上司ID
 		SupervisorID string `json:"supervisor_id,omitempty"`
+		// 聯絡人直屬上司名稱
+		SupervisorName string `json:"supervisor_name,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 創建者
@@ -116,6 +118,8 @@ type Single struct {
 	Department string `json:"department,omitempty"`
 	// 聯絡人直屬上司ID
 	SupervisorID string `json:"supervisor_id,omitempty"`
+	// 聯絡人直屬上司名稱
+	SupervisorName string `json:"supervisor_name,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 創建者
