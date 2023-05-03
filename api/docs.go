@@ -6815,6 +6815,10 @@ const docTemplate = `{
                                 "description": "父系帳戶ID",
                                 "type": "string"
                             },
+                            "parent_account_name": {
+                                "description": "父系帳戶名稱",
+                                "type": "string"
+                            },
                             "phone_number": {
                                 "description": "帳戶電話",
                                 "type": "string"
@@ -6908,6 +6912,10 @@ const docTemplate = `{
                                 "description": "父系帳戶ID",
                                 "type": "string"
                             },
+                            "parent_account_name": {
+                                "description": "父系帳戶名稱",
+                                "type": "string"
+                            },
                             "phone_number": {
                                 "description": "帳戶電話",
                                 "type": "string"
@@ -6984,6 +6992,10 @@ const docTemplate = `{
                     "description": "父系帳戶ID",
                     "type": "string"
                 },
+                "parent_account_name": {
+                    "description": "父系帳戶名稱",
+                    "type": "string"
+                },
                 "phone_number": {
                     "description": "帳戶電話",
                     "type": "string"
@@ -7046,6 +7058,10 @@ const docTemplate = `{
                 },
                 "parent_account_id": {
                     "description": "父系帳戶ID",
+                    "type": "string"
+                },
+                "parent_account_name": {
+                    "description": "父系帳戶名稱",
                     "type": "string"
                 },
                 "phone_number": {
