@@ -152,6 +152,7 @@ type Update struct {
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
 
+// AccountSingle return structure file for accounts
 type AccountSingle struct {
 	// 聯絡人ID
 	ContactID string `json:"contact_id,omitempty"`
