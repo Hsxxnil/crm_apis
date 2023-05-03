@@ -1999,6 +1999,78 @@ definitions:
             order_id:
               description: 訂單ID
               type: string
+            start_date:
+              description: 訂單開始日期
+              type: string
+            status:
+              description: 訂單狀態
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  orders.ListProducts:
+    properties:
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      orders:
+        description: 多筆
+        items:
+          properties:
+            account_id:
+              description: 帳戶ID
+              type: string
+            account_name:
+              description: 帳戶名稱
+              type: string
+            activated_at:
+              description: 啟用時間
+              type: string
+            activated_by:
+              description: 啟用者
+              type: string
+            code:
+              description: 訂單號碼
+              type: integer
+            contract_code:
+              description: 契約號碼
+              type: integer
+            contract_id:
+              description: 契約ID
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            description:
+              description: 訂單描述
+              type: string
+            order_id:
+              description: 訂單ID
+              type: string
             products:
               description: order_products data
               items:
@@ -2032,6 +2104,57 @@ definitions:
     - page
     type: object
   orders.Single:
+    properties:
+      account_id:
+        description: 帳戶ID
+        type: string
+      account_name:
+        description: 帳戶名稱
+        type: string
+      activated_at:
+        description: 啟用時間
+        type: string
+      activated_by:
+        description: 啟用者
+        type: string
+      code:
+        description: 訂單號碼
+        type: integer
+      contract_code:
+        description: 契約號碼
+        type: integer
+      contract_id:
+        description: 契約ID
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      description:
+        description: 訂單描述
+        type: string
+      order_id:
+        description: 訂單ID
+        type: string
+      start_date:
+        description: 訂單開始日期
+        type: string
+      status:
+        description: 訂單狀態
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  orders.SingleProducts:
     properties:
       account_id:
         description: 帳戶ID
@@ -5538,6 +5661,109 @@ paths:
                   type: string
               type: object
       summary: 更新單一訂單
+      tags:
+      - order
+  /orders/products:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部訂單包含產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/orders.ListProducts'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部訂單包含產品
+      tags:
+      - order
+  /orders/products/{orderID}:
+    get:
+      consumes:
+      - application/json
+      description: 取得單一訂單包含產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 訂單ID
+        in: path
+        name: orderID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/orders.SingleProducts'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一訂單包含產品
       tags:
       - order
   /products:
