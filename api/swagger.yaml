@@ -60,6 +60,9 @@ definitions:
             parent_account_id:
               description: 父系帳戶ID
               type: string
+            parent_account_name:
+              description: 父系帳戶名稱
+              type: string
             phone_number:
               description: 帳戶電話
               type: string
@@ -128,6 +131,9 @@ definitions:
             parent_account_id:
               description: 父系帳戶ID
               type: string
+            parent_account_name:
+              description: 父系帳戶名稱
+              type: string
             phone_number:
               description: 帳戶電話
               type: string
@@ -187,6 +193,9 @@ definitions:
       parent_account_id:
         description: 父系帳戶ID
         type: string
+      parent_account_name:
+        description: 父系帳戶名稱
+        type: string
       phone_number:
         description: 帳戶電話
         type: string
@@ -233,6 +242,9 @@ definitions:
         type: string
       parent_account_id:
         description: 父系帳戶ID
+        type: string
+      parent_account_name:
+        description: 父系帳戶名稱
         type: string
       phone_number:
         description: 帳戶電話
@@ -5068,7 +5080,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得全部商機包含影響的行銷活動
+      description: 取得全部商機含影響的行銷活動
       parameters:
       - description: JWE Token
         in: header
@@ -5115,14 +5127,14 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部商機包含影響的行銷活動
+      summary: 取得全部商機含影響的行銷活動
       tags:
       - opportunity
   /opportunities/campaigns/{opportunityID}:
     get:
       consumes:
       - application/json
-      description: 取得單一商機包含影響的行銷活動
+      description: 取得單一商機含影響的行銷活動
       parameters:
       - description: JWE Token
         in: header
@@ -5164,7 +5176,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得單一商機包含影響的行銷活動
+      summary: 取得單一商機含影響的行銷活動
       tags:
       - opportunity
   /orders:
@@ -5679,7 +5691,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得全部訂單包含產品
+      description: 取得全部訂單含產品
       parameters:
       - description: JWE Token
         in: header
@@ -5726,14 +5738,14 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部訂單包含產品
+      summary: 取得全部訂單含產品
       tags:
       - order
   /orders/products/{orderID}:
     get:
       consumes:
       - application/json
-      description: 取得單一訂單包含產品
+      description: 取得單一訂單含產品
       parameters:
       - description: JWE Token
         in: header
@@ -5775,7 +5787,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得單一訂單包含產品
+      summary: 取得單一訂單含產品
       tags:
       - order
   /products:

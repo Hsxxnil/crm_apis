@@ -3776,7 +3776,7 @@ const docTemplate = `{
         },
         "/opportunities/campaigns": {
             "get": {
-                "description": "取得全部商機包含影響的行銷活動",
+                "description": "取得全部商機含影響的行銷活動",
                 "consumes": [
                     "application/json"
                 ],
@@ -3786,7 +3786,7 @@ const docTemplate = `{
                 "tags": [
                     "opportunity"
                 ],
-                "summary": "取得全部商機包含影響的行銷活動",
+                "summary": "取得全部商機含影響的行銷活動",
                 "parameters": [
                     {
                         "type": "string",
@@ -3870,7 +3870,7 @@ const docTemplate = `{
         },
         "/opportunities/campaigns/{opportunityID}": {
             "get": {
-                "description": "取得單一商機包含影響的行銷活動",
+                "description": "取得單一商機含影響的行銷活動",
                 "consumes": [
                     "application/json"
                 ],
@@ -3880,7 +3880,7 @@ const docTemplate = `{
                 "tags": [
                     "opportunity"
                 ],
-                "summary": "取得單一商機包含影響的行銷活動",
+                "summary": "取得單一商機含影響的行銷活動",
                 "parameters": [
                     {
                         "type": "string",
@@ -4851,7 +4851,7 @@ const docTemplate = `{
         },
         "/orders/products": {
             "get": {
-                "description": "取得全部訂單包含產品",
+                "description": "取得全部訂單含產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -4861,7 +4861,7 @@ const docTemplate = `{
                 "tags": [
                     "order"
                 ],
-                "summary": "取得全部訂單包含產品",
+                "summary": "取得全部訂單含產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -4945,7 +4945,7 @@ const docTemplate = `{
         },
         "/orders/products/{orderID}": {
             "get": {
-                "description": "取得單一訂單包含產品",
+                "description": "取得單一訂單含產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -4955,7 +4955,7 @@ const docTemplate = `{
                 "tags": [
                     "order"
                 ],
-                "summary": "取得單一訂單包含產品",
+                "summary": "取得單一訂單含產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -6815,6 +6815,10 @@ const docTemplate = `{
                                 "description": "父系帳戶ID",
                                 "type": "string"
                             },
+                            "parent_account_name": {
+                                "description": "父系帳戶名稱",
+                                "type": "string"
+                            },
                             "phone_number": {
                                 "description": "帳戶電話",
                                 "type": "string"
@@ -6908,6 +6912,10 @@ const docTemplate = `{
                                 "description": "父系帳戶ID",
                                 "type": "string"
                             },
+                            "parent_account_name": {
+                                "description": "父系帳戶名稱",
+                                "type": "string"
+                            },
                             "phone_number": {
                                 "description": "帳戶電話",
                                 "type": "string"
@@ -6984,6 +6992,10 @@ const docTemplate = `{
                     "description": "父系帳戶ID",
                     "type": "string"
                 },
+                "parent_account_name": {
+                    "description": "父系帳戶名稱",
+                    "type": "string"
+                },
                 "phone_number": {
                     "description": "帳戶電話",
                     "type": "string"
@@ -7046,6 +7058,10 @@ const docTemplate = `{
                 },
                 "parent_account_id": {
                     "description": "父系帳戶ID",
+                    "type": "string"
+                },
+                "parent_account_name": {
+                    "description": "父系帳戶名稱",
                     "type": "string"
                 },
                 "phone_number": {

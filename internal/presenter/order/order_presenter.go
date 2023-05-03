@@ -95,8 +95,8 @@ func (c *control) GetByList(ctx *gin.Context) {
 }
 
 // GetByListProducts
-// @Summary 取得全部訂單包含產品
-// @description 取得全部訂單包含產品
+// @Summary 取得全部訂單含產品
+// @description 取得全部訂單含產品
 // @Tags order
 // @version 1.0
 // @Accept json
@@ -155,8 +155,8 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 }
 
 // GetBySingleProducts
-// @Summary 取得單一訂單包含產品
-// @description 取得單一訂單包含產品
+// @Summary 取得單一訂單含產品
+// @description 取得單一訂單含產品
 // @Tags order
 // @version 1.0
 // @Accept json

@@ -95,8 +95,8 @@ func (c *control) GetByList(ctx *gin.Context) {
 }
 
 // GetByListCampaigns
-// @Summary 取得全部商機包含影響的行銷活動
-// @description 取得全部商機包含影響的行銷活動
+// @Summary 取得全部商機含影響的行銷活動
+// @description 取得全部商機含影響的行銷活動
 // @Tags opportunity
 // @version 1.0
 // @Accept json
@@ -155,8 +155,8 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 }
 
 // GetBySingleCampaigns
-// @Summary 取得單一商機包含影響的行銷活動
-// @description 取得單一商機包含影響的行銷活動
+// @Summary 取得單一商機含影響的行銷活動
+// @description 取得單一商機含影響的行銷活動
 // @Tags opportunity
 // @version 1.0
 // @Accept json

@@ -73,6 +73,13 @@ func (m *manager) GetByList(input *accountModel.Fields) interface{} {
 		accounts.IndustryName = *accountBase[i].Industries.Name
 		accounts.CreatedBy = *accountBase[i].CreatedByUsers.Name
 		accounts.UpdatedBy = *accountBase[i].UpdatedByUsers.Name
+		if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+			AccountID: accounts.ParentAccountID,
+		}); err != nil {
+			accounts.ParentAccountName = ""
+		} else {
+			accounts.ParentAccountName = *parentAccountsBase.Name
+		}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -104,6 +111,13 @@ func (m *manager) GetByListContacts(input *accountModel.Fields) interface{} {
 		accounts.IndustryName = *accountBase[i].Industries.Name
 		accounts.CreatedBy = *accountBase[i].CreatedByUsers.Name
 		accounts.UpdatedBy = *accountBase[i].UpdatedByUsers.Name
+		if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+			AccountID: accounts.ParentAccountID,
+		}); err != nil {
+			accounts.ParentAccountName = ""
+		} else {
+			accounts.ParentAccountName = *parentAccountsBase.Name
+		}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -131,6 +145,13 @@ func (m *manager) GetBySingle(input *accountModel.Field) interface{} {
 	output.IndustryName = *accountBase.Industries.Name
 	output.CreatedBy = *accountBase.CreatedByUsers.Name
 	output.UpdatedBy = *accountBase.UpdatedByUsers.Name
+	if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+		AccountID: *accountBase.ParentAccountID,
+	}); err != nil {
+		output.ParentAccountName = ""
+	} else {
+		output.ParentAccountName = *parentAccountsBase.Name
+	}
 
 	return code.GetCodeMessage(code.Successful, output)
 }
@@ -157,6 +178,13 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) interface{} {
 	output.IndustryName = *accountBase.Industries.Name
 	output.CreatedBy = *accountBase.CreatedByUsers.Name
 	output.UpdatedBy = *accountBase.UpdatedByUsers.Name
+	if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+		AccountID: *accountBase.ParentAccountID,
+	}); err != nil {
+		output.ParentAccountName = ""
+	} else {
+		output.ParentAccountName = *parentAccountsBase.Name
+	}
 
 	return code.GetCodeMessage(code.Successful, output)
 }

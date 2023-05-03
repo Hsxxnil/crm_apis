@@ -64,6 +64,8 @@ type List struct {
 		IndustryName string `json:"industry_name,omitempty"`
 		// 父系帳戶ID
 		ParentAccountID string `json:"parent_account_id,omitempty"`
+		// 父系帳戶名稱
+		ParentAccountName string `json:"parent_account_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -93,6 +95,8 @@ type ListContacts struct {
 		IndustryName string `json:"industry_name,omitempty"`
 		// 父系帳戶ID
 		ParentAccountID string `json:"parent_account_id,omitempty"`
+		// 父系帳戶名稱
+		ParentAccountName string `json:"parent_account_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -122,6 +126,8 @@ type Single struct {
 	IndustryName string `json:"industry_name,omitempty"`
 	// 父系帳戶ID
 	ParentAccountID string `json:"parent_account_id,omitempty"`
+	// 父系帳戶名稱
+	ParentAccountName string `json:"parent_account_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -146,6 +152,8 @@ type SingleContacts struct {
 	IndustryName string `json:"industry_name,omitempty"`
 	// 父系帳戶ID
 	ParentAccountID string `json:"parent_account_id,omitempty"`
+	// 父系帳戶名稱
+	ParentAccountName string `json:"parent_account_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
