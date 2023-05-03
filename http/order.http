@@ -29,11 +29,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/orders/3776ecf5-9229-4a49-858f-0e89bc7be2d3
+PATCH {{host}}/crm/v1.0/orders/0a49dd08-ddfa-4c0e-844e-bf028d928be2
 Content-Type: application/json
 
 {
-  "status": "啟動中",
+  "status": "草稿",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 

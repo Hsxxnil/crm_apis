@@ -7869,6 +7869,10 @@ const docTemplate = `{
                                 "description": "聯絡人直屬上司ID",
                                 "type": "string"
                             },
+                            "supervisor_name": {
+                                "description": "聯絡人直屬上司名稱",
+                                "type": "string"
+                            },
                             "title": {
                                 "description": "聯絡人職稱",
                                 "type": "string"
@@ -7955,6 +7959,10 @@ const docTemplate = `{
                 },
                 "supervisor_id": {
                     "description": "聯絡人直屬上司ID",
+                    "type": "string"
+                },
+                "supervisor_name": {
+                    "description": "聯絡人直屬上司名稱",
                     "type": "string"
                 },
                 "title": {
