@@ -77,6 +77,13 @@ func (m *manager) GetByList(input *campaignModel.Fields) interface{} {
 	for i, campaigns := range output.Campaigns {
 		campaigns.CreatedBy = *campaignBase[i].CreatedByUsers.Name
 		campaigns.UpdatedBy = *campaignBase[i].UpdatedByUsers.Name
+		if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+			CampaignID: campaigns.ParentCampaignID,
+		}); err != nil {
+			campaigns.ParentCampaignName = ""
+		} else {
+			campaigns.ParentCampaignName = *parentCampaignsBase.Name
+		}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -107,6 +114,13 @@ func (m *manager) GetByListOpportunities(input *campaignModel.Fields) interface{
 	for i, campaigns := range output.Campaigns {
 		campaigns.CreatedBy = *campaignBase[i].CreatedByUsers.Name
 		campaigns.UpdatedBy = *campaignBase[i].UpdatedByUsers.Name
+		if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+			CampaignID: campaigns.ParentCampaignID,
+		}); err != nil {
+			campaigns.ParentCampaignName = ""
+		} else {
+			campaigns.ParentCampaignName = *parentCampaignsBase.Name
+		}
 		for j, opportunities := range campaignBase[i].OpportunityCampaigns {
 			opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 				OpportunityID: *opportunities.OpportunityID,
@@ -139,6 +153,13 @@ func (m *manager) GetBySingle(input *campaignModel.Field) interface{} {
 
 	output.CreatedBy = *campaignBase.CreatedByUsers.Name
 	output.UpdatedBy = *campaignBase.UpdatedByUsers.Name
+	if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+		CampaignID: *campaignBase.ParentCampaignID,
+	}); err != nil {
+		output.ParentCampaignName = ""
+	} else {
+		output.ParentCampaignName = *parentCampaignsBase.Name
+	}
 
 	return code.GetCodeMessage(code.Successful, output)
 }
@@ -164,6 +185,13 @@ func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) interface
 
 	output.CreatedBy = *campaignBase.CreatedByUsers.Name
 	output.UpdatedBy = *campaignBase.UpdatedByUsers.Name
+	if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+		CampaignID: *campaignBase.ParentCampaignID,
+	}); err != nil {
+		output.ParentCampaignName = ""
+	} else {
+		output.ParentCampaignName = *parentCampaignsBase.Name
+	}
 	for i, opportunities := range campaignBase.OpportunityCampaigns {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *opportunities.OpportunityID,

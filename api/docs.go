@@ -7234,6 +7234,10 @@ const docTemplate = `{
                                 "description": "父系行銷活動ID",
                                 "type": "string"
                             },
+                            "parent_campaign_name": {
+                                "description": "父系行銷活動名稱",
+                                "type": "string"
+                            },
                             "sent": {
                                 "description": "行銷活動已傳送數量",
                                 "type": "integer"
@@ -7355,6 +7359,10 @@ const docTemplate = `{
                                 "description": "父系行銷活動ID",
                                 "type": "string"
                             },
+                            "parent_campaign_name": {
+                                "description": "父系行銷活動名稱",
+                                "type": "string"
+                            },
                             "sent": {
                                 "description": "行銷活動已傳送數量",
                                 "type": "integer"
@@ -7459,6 +7467,10 @@ const docTemplate = `{
                     "description": "父系行銷活動ID",
                     "type": "string"
                 },
+                "parent_campaign_name": {
+                    "description": "父系行銷活動名稱",
+                    "type": "string"
+                },
                 "sent": {
                     "description": "行銷活動已傳送數量",
                     "type": "integer"
@@ -7549,6 +7561,10 @@ const docTemplate = `{
                 },
                 "parent_campaign_id": {
                     "description": "父系行銷活動ID",
+                    "type": "string"
+                },
+                "parent_campaign_name": {
+                    "description": "父系行銷活動名稱",
                     "type": "string"
                 },
                 "sent": {

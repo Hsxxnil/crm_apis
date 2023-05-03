@@ -98,6 +98,8 @@ type List struct {
 		Type string `json:"type,omitempty"`
 		// 父系行銷活動ID
 		ParentCampaignID string `json:"parent_campaign_id,omitempty"`
+		// 父系行銷活動名稱
+		ParentCampaignName string `json:"parent_campaign_name,omitempty"`
 		// 行銷活動開始日期
 		StartDate time.Time `json:"start_date,omitempty"`
 		// 行銷活動結束日期
@@ -141,6 +143,8 @@ type ListOpportunities struct {
 		Type string `json:"type,omitempty"`
 		// 父系行銷活動ID
 		ParentCampaignID string `json:"parent_campaign_id,omitempty"`
+		// 父系行銷活動名稱
+		ParentCampaignName string `json:"parent_campaign_name,omitempty"`
 		// 行銷活動開始日期
 		StartDate time.Time `json:"start_date,omitempty"`
 		// 行銷活動結束日期
@@ -184,6 +188,8 @@ type Single struct {
 	Type string `json:"type,omitempty"`
 	// 父系行銷活動ID
 	ParentCampaignID string `json:"parent_campaign_id,omitempty"`
+	// 父系行銷活動名稱
+	ParentCampaignName string `json:"parent_campaign_name,omitempty"`
 	// 行銷活動開始日期
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 行銷活動結束日期
@@ -222,6 +228,8 @@ type SingleOpportunities struct {
 	Type string `json:"type,omitempty"`
 	// 父系行銷活動ID
 	ParentCampaignID string `json:"parent_campaign_id,omitempty"`
+	// 父系行銷活動名稱
+	ParentCampaignName string `json:"parent_campaign_name,omitempty"`
 	// 行銷活動開始日期
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 行銷活動結束日期
