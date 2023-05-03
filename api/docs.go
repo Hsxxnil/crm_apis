@@ -829,6 +829,187 @@ const docTemplate = `{
                 }
             }
         },
+        "/campaigns/opportunities": {
+            "get": {
+                "description": "取得全部行銷活動含受影響的商機",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "campaign"
+                ],
+                "summary": "取得全部行銷活動含受影響的商機",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/campaigns.ListOpportunities"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/campaigns/opportunities/{campaignID}": {
+            "get": {
+                "description": "取得單一行銷活動含受影響的商機",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "campaign"
+                ],
+                "summary": "取得單一行銷活動含受影響的商機",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "行銷活動ID",
+                        "name": "campaignID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/campaigns.SingleOpportunities"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/campaigns/{campaignID}": {
             "get": {
                 "description": "取得單一行銷活動",
@@ -6687,6 +6868,120 @@ const docTemplate = `{
                                 "description": "行銷活動名稱",
                                 "type": "string"
                             },
+                            "parent_campaign_id": {
+                                "description": "父系行銷活動ID",
+                                "type": "string"
+                            },
+                            "sent": {
+                                "description": "行銷活動已傳送數量",
+                                "type": "integer"
+                            },
+                            "start_date": {
+                                "description": "行銷活動開始日期",
+                                "type": "string"
+                            },
+                            "status": {
+                                "description": "行銷活動狀態",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "行銷活動類型",
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "description": "更新時間",
+                                "type": "string"
+                            },
+                            "updated_by": {
+                                "description": "更新者",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "pages": {
+                    "description": "總頁數",
+                    "type": "integer"
+                },
+                "total": {
+                    "description": "總筆數",
+                    "type": "integer"
+                }
+            }
+        },
+        "campaigns.ListOpportunities": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "campaigns": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
+                            "actual_cost": {
+                                "description": "行銷活動實際成本",
+                                "type": "number"
+                            },
+                            "budget_cost": {
+                                "description": "行銷活動預算成本",
+                                "type": "number"
+                            },
+                            "campaign_id": {
+                                "description": "行銷活動ID",
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "description": "創建時間",
+                                "type": "string"
+                            },
+                            "created_by": {
+                                "description": "創建者",
+                                "type": "string"
+                            },
+                            "deleted_at": {
+                                "description": "刪除時間",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "行銷活動描述",
+                                "type": "string"
+                            },
+                            "end_date": {
+                                "description": "行銷活動結束日期",
+                                "type": "string"
+                            },
+                            "expected_income": {
+                                "description": "行銷活動預期收入",
+                                "type": "number"
+                            },
+                            "expected_responses": {
+                                "description": "行銷活動預期回應(%)",
+                                "type": "integer"
+                            },
+                            "is_enable": {
+                                "description": "行銷活動是否啟用",
+                                "type": "boolean"
+                            },
+                            "name": {
+                                "description": "行銷活動名稱",
+                                "type": "string"
+                            },
                             "opportunities": {
                                 "description": "opportunity_campaigns data",
                                 "type": "array",
@@ -6744,6 +7039,91 @@ const docTemplate = `{
             }
         },
         "campaigns.Single": {
+            "type": "object",
+            "properties": {
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
+                "actual_cost": {
+                    "description": "行銷活動實際成本",
+                    "type": "number"
+                },
+                "budget_cost": {
+                    "description": "行銷活動預算成本",
+                    "type": "number"
+                },
+                "campaign_id": {
+                    "description": "行銷活動ID",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "行銷活動描述",
+                    "type": "string"
+                },
+                "end_date": {
+                    "description": "行銷活動結束日期",
+                    "type": "string"
+                },
+                "expected_income": {
+                    "description": "行銷活動預期收入",
+                    "type": "number"
+                },
+                "expected_responses": {
+                    "description": "行銷活動預期回應(%)",
+                    "type": "integer"
+                },
+                "is_enable": {
+                    "description": "行銷活動是否啟用",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "行銷活動名稱",
+                    "type": "string"
+                },
+                "parent_campaign_id": {
+                    "description": "父系行銷活動ID",
+                    "type": "string"
+                },
+                "sent": {
+                    "description": "行銷活動已傳送數量",
+                    "type": "integer"
+                },
+                "start_date": {
+                    "description": "行銷活動開始日期",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "行銷活動狀態",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "行銷活動類型",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "campaigns.SingleOpportunities": {
             "type": "object",
             "properties": {
                 "activated_at": {
