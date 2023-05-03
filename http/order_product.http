@@ -1,13 +1,13 @@
 ### GetByList
-GET {{host}}/crm/v1.0/orders/products?page=1&limit=20
+GET {{host}}/crm/v1.0/orders-products?page=1&limit=20
 Accept: application/json
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/orders/products/f31e414a-1315-418a-bc70-45660ba212f9
+GET {{host}}/crm/v1.0/orders-products/f31e414a-1315-418a-bc70-45660ba212f9
 Accept: application/json
 
 ### Create
-POST {{host}}/crm/v1.0/orders/products
+POST {{host}}/crm/v1.0/orders-products
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/orders/products/19ba1a61-f13c-4c13-80b6-226332872eff
+PATCH {{host}}/crm/v1.0/orders-products/19ba1a61-f13c-4c13-80b6-226332872eff
 Content-Type: application/json
 
 {
@@ -33,5 +33,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/orders/products/dae0acbf-1a06-4e2d-a22c-04a757b79116
+DELETE {{host}}/crm/v1.0/orders-products/dae0acbf-1a06-4e2d-a22c-04a757b79116
 Accept: application/json

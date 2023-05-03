@@ -3955,6 +3955,260 @@ paths:
       summary: 新增商機
       tags:
       - opportunity
+  /opportunities-campaigns:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部商機行銷活動
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/opportunity_campaigns.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部商機行銷活動
+      tags:
+      - opportunity-campaign
+    post:
+      consumes:
+      - application/json
+      description: 新增商機行銷活動
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增商機行銷活動
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/opportunity_campaigns.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增商機行銷活動
+      tags:
+      - opportunity-campaign
+  /opportunities-campaigns/{opportunityCampaignID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一商機行銷活動
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商機行銷活動ID
+        in: path
+        name: opportunityCampaignID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一商機行銷活動
+      tags:
+      - opportunity-campaign
+    get:
+      consumes:
+      - application/json
+      description: 取得單一商機行銷活動
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商機行銷活動ID
+        in: path
+        name: opportunityCampaignID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/opportunity_campaigns.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一商機行銷活動
+      tags:
+      - opportunity-campaign
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一商機行銷活動
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商機行銷活動ID
+        in: path
+        name: opportunityCampaignID
+        required: true
+        type: string
+      - description: 更新商機行銷活動
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/opportunity_campaigns.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一商機行銷活動
+      tags:
+      - opportunity-campaign
   /opportunities/{opportunityID}:
     delete:
       consumes:
@@ -4106,260 +4360,6 @@ paths:
       summary: 更新單一商機
       tags:
       - opportunity
-  /opportunities/campaigns:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部商機行銷活動
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/opportunity_campaigns.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部商機行銷活動
-      tags:
-      - opportunity-campaign
-    post:
-      consumes:
-      - application/json
-      description: 新增商機行銷活動
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 新增商機行銷活動
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/opportunity_campaigns.Create'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 新增商機行銷活動
-      tags:
-      - opportunity-campaign
-  /opportunities/campaigns/{opportunityCampaignID}:
-    delete:
-      consumes:
-      - application/json
-      description: 刪除單一商機行銷活動
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 商機行銷活動ID
-        in: path
-        name: opportunityCampaignID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 刪除單一商機行銷活動
-      tags:
-      - opportunity-campaign
-    get:
-      consumes:
-      - application/json
-      description: 取得單一商機行銷活動
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 商機行銷活動ID
-        in: path
-        name: opportunityCampaignID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/opportunity_campaigns.Single'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得單一商機行銷活動
-      tags:
-      - opportunity-campaign
-    patch:
-      consumes:
-      - application/json
-      description: 更新單一商機行銷活動
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 商機行銷活動ID
-        in: path
-        name: opportunityCampaignID
-        required: true
-        type: string
-      - description: 更新商機行銷活動
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/opportunity_campaigns.Update'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 更新單一商機行銷活動
-      tags:
-      - opportunity-campaign
   /orders:
     get:
       consumes:
@@ -4463,6 +4463,260 @@ paths:
       summary: 新增訂單
       tags:
       - order
+  /orders-products:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部訂單產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/order_products.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部訂單產品
+      tags:
+      - order-product
+    post:
+      consumes:
+      - application/json
+      description: 新增訂單產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增訂單產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/order_products.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增訂單產品
+      tags:
+      - order-product
+  /orders-products/{orderProductID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一訂單產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 訂單產品ID
+        in: path
+        name: orderProductID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一訂單產品
+      tags:
+      - order-product
+    get:
+      consumes:
+      - application/json
+      description: 取得單一訂單產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 訂單產品ID
+        in: path
+        name: orderProductID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/order_products.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一訂單產品
+      tags:
+      - order-product
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一訂單產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 訂單產品ID
+        in: path
+        name: orderProductID
+        required: true
+        type: string
+      - description: 更新訂單產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/order_products.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一訂單產品
+      tags:
+      - order-product
   /orders/{orderID}:
     delete:
       consumes:
@@ -4614,260 +4868,6 @@ paths:
       summary: 更新單一訂單
       tags:
       - order
-  /orders/products:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部訂單產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/order_products.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部訂單產品
-      tags:
-      - order-product
-    post:
-      consumes:
-      - application/json
-      description: 新增訂單產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 新增訂單產品
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/order_products.Create'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 新增訂單產品
-      tags:
-      - order-product
-  /orders/products/{orderProductID}:
-    delete:
-      consumes:
-      - application/json
-      description: 刪除單一訂單產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 訂單產品ID
-        in: path
-        name: orderProductID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 刪除單一訂單產品
-      tags:
-      - order-product
-    get:
-      consumes:
-      - application/json
-      description: 取得單一訂單產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 訂單產品ID
-        in: path
-        name: orderProductID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/order_products.Single'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得單一訂單產品
-      tags:
-      - order-product
-    patch:
-      consumes:
-      - application/json
-      description: 更新單一訂單產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 訂單產品ID
-        in: path
-        name: orderProductID
-        required: true
-        type: string
-      - description: 更新訂單產品
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/order_products.Update'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 更新單一訂單產品
-      tags:
-      - order-product
   /products:
     get:
       consumes:

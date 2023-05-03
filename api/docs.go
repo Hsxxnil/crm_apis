@@ -2965,7 +2965,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/opportunities/campaigns": {
+        "/opportunities-campaigns": {
             "get": {
                 "description": "取得全部商機行銷活動",
                 "consumes": [
@@ -3146,7 +3146,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/opportunities/campaigns/{opportunityCampaignID}": {
+        "/opportunities-campaigns/{opportunityCampaignID}": {
             "get": {
                 "description": "取得單一商機行銷活動",
                 "consumes": [
@@ -3859,7 +3859,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/orders/products": {
+        "/orders-products": {
             "get": {
                 "description": "取得全部訂單產品",
                 "consumes": [
@@ -4040,7 +4040,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/orders/products/{orderProductID}": {
+        "/orders-products/{orderProductID}": {
             "get": {
                 "description": "取得單一訂單產品",
                 "consumes": [
