@@ -1,0 +1,164 @@
+package quote_product
+
+import (
+	"encoding/json"
+	"errors"
+
+	"github.com/shopspring/decimal"
+
+	"app.eirc/internal/interactor/pkg/util"
+
+	quoteProductModel "app.eirc/internal/interactor/models/quote_products"
+	quoteProductService "app.eirc/internal/interactor/service/quote_product"
+	"gorm.io/gorm"
+
+	"app.eirc/internal/interactor/pkg/util/code"
+	"app.eirc/internal/interactor/pkg/util/log"
+)
+
+type Manager interface {
+	Create(trx *gorm.DB, input *quoteProductModel.Create) interface{}
+	GetByList(input *quoteProductModel.Fields) interface{}
+	GetBySingle(input *quoteProductModel.Field) interface{}
+	Delete(input *quoteProductModel.Field) interface{}
+	Update(input *quoteProductModel.Update) interface{}
+}
+
+type manager struct {
+	QuoteProductService quoteProductService.Service
+}
+
+func Init(db *gorm.DB) Manager {
+	return &manager{
+		QuoteProductService: quoteProductService.Init(db),
+	}
+}
+
+func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.Create) interface{} {
+	defer trx.Rollback()
+
+	input.SubTotal = input.UnitPrice.Mul(decimal.NewFromInt(int64(input.Quantity))).Mul(input.Discount.Div(decimal.NewFromInt(100)))
+	quoteProductBase, err := m.QuoteProductService.WithTrx(trx).Create(input)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	trx.Commit()
+	return code.GetCodeMessage(code.Successful, quoteProductBase.QuoteProductID)
+}
+
+func (m *manager) GetByList(input *quoteProductModel.Fields) interface{} {
+	output := &quoteProductModel.List{}
+	output.Limit = input.Limit
+	output.Page = input.Page
+	quantity, quoteProductBase, err := m.QuoteProductService.GetByList(input)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Total.Total = quantity
+	quoteProductByte, err := json.Marshal(quoteProductBase)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Pages = util.Pagination(quantity, output.Limit)
+	err = json.Unmarshal(quoteProductByte, &output.QuoteProducts)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	for i, quoteProducts := range output.QuoteProducts {
+		quoteProducts.ProductName = *quoteProductBase[i].Products.Name
+		quoteProducts.CreatedBy = *quoteProductBase[i].CreatedByUsers.Name
+		quoteProducts.UpdatedBy = *quoteProductBase[i].UpdatedByUsers.Name
+	}
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetBySingle(input *quoteProductModel.Field) interface{} {
+	quoteProductBase, err := m.QuoteProductService.GetBySingle(input)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output := &quoteProductModel.Single{}
+	quoteProductByte, _ := json.Marshal(quoteProductBase)
+	err = json.Unmarshal(quoteProductByte, &output)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output.ProductName = *quoteProductBase.Products.Name
+	output.CreatedBy = *quoteProductBase.CreatedByUsers.Name
+	output.UpdatedBy = *quoteProductBase.UpdatedByUsers.Name
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) Delete(input *quoteProductModel.Field) interface{} {
+	_, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
+		QuoteProductID: input.QuoteProductID,
+	})
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	err = m.QuoteProductService.Delete(input)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	return code.GetCodeMessage(code.Successful, "Delete ok!")
+}
+
+func (m *manager) Update(input *quoteProductModel.Update) interface{} {
+	quoteProductBase, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
+		QuoteProductID: input.QuoteProductID,
+	})
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	unitPrice := input.UnitPrice
+	quantity := input.Quantity
+	discount := input.Discount
+	if input.UnitPrice == quoteProductBase.UnitPrice {
+		unitPrice = quoteProductBase.UnitPrice
+	}
+	if input.Quantity == quoteProductBase.Quantity {
+		quantity = quoteProductBase.Quantity
+	}
+	if input.Discount == quoteProductBase.Discount {
+		discount = quoteProductBase.Discount
+	}
+	input.SubTotal = unitPrice.Mul(decimal.NewFromInt(int64(*quantity))).Mul(discount.Div(decimal.NewFromInt(100)))
+
+	err = m.QuoteProductService.Update(input)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	return code.GetCodeMessage(code.Successful, quoteProductBase.QuoteProductID)
+}

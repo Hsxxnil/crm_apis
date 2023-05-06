@@ -2410,6 +2410,172 @@ definitions:
     required:
     - updated_by
     type: object
+  quote_products.Create:
+    properties:
+      created_by:
+        description: 創建者
+        type: string
+      discount:
+        description: 報價產品5k6d.4
+        type: number
+      product_id:
+        description: 產品ID
+        type: string
+      quantity:
+        description: 報價產品數量
+        type: integer
+      quote_id:
+        description: 報價ID
+        type: string
+      sub_total:
+        description: 報價產品小計
+        type: number
+      unit_price:
+        description: 報價產品單價
+        type: number
+    required:
+    - created_by
+    - discount
+    - product_id
+    - quantity
+    - quote_id
+    - sub_total
+    - unit_price
+    type: object
+  quote_products.List:
+    properties:
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      quote_products:
+        description: 多筆
+        items:
+          properties:
+            activated_at:
+              description: 啟用時間
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            discount:
+              description: 報價產品折扣
+              type: number
+            product_id:
+              description: 產品ID
+              type: string
+            product_name:
+              description: 產品名稱
+              type: string
+            quantity:
+              description: 報價產品數量
+              type: integer
+            quote_id:
+              description: 報價ID
+              type: string
+            quote_product_id:
+              description: 報價產品ID
+              type: string
+            sub_total:
+              description: 報價產品小計
+              type: number
+            unit_price:
+              description: 報價產品單價
+              type: number
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  quote_products.Single:
+    properties:
+      activated_at:
+        description: 啟用時間
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      discount:
+        description: 報價產品折扣
+        type: number
+      product_id:
+        description: 產品ID
+        type: string
+      product_name:
+        description: 產品名稱
+        type: string
+      quantity:
+        description: 報價產品數量
+        type: integer
+      quote_id:
+        description: 報價ID
+        type: string
+      quote_product_id:
+        description: 報價產品ID
+        type: string
+      sub_total:
+        description: 報價產品小計
+        type: number
+      unit_price:
+        description: 報價產品單價
+        type: number
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  quote_products.Update:
+    properties:
+      discount:
+        description: 報價產品折扣
+        type: number
+      product_id:
+        description: 產品ID
+        type: string
+      quantity:
+        description: 報價產品數量
+        type: integer
+      sub_total:
+        description: 報價產品小計
+        type: number
+      unit_price:
+        description: 報價產品單價
+        type: number
+      updated_by:
+        description: 更新者
+        type: string
+    required:
+    - updated_by
+    type: object
   quotes.Create:
     properties:
       account_id:
@@ -6150,6 +6316,260 @@ paths:
       summary: 新增報價
       tags:
       - quote
+  /quotes-products:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部報價產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/quote_products.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部報價產品
+      tags:
+      - quote-product
+    post:
+      consumes:
+      - application/json
+      description: 新增報價產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增報價產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/quote_products.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增報價產品
+      tags:
+      - quote-product
+  /quotes-products/{quoteProductID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一報價產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 報價產品ID
+        in: path
+        name: quoteProductID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一報價產品
+      tags:
+      - quote-product
+    get:
+      consumes:
+      - application/json
+      description: 取得單一報價產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 報價產品ID
+        in: path
+        name: quoteProductID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/quote_products.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一報價產品
+      tags:
+      - quote-product
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一報價產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 報價產品ID
+        in: path
+        name: quoteProductID
+        required: true
+        type: string
+      - description: 更新報價產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/quote_products.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一報價產品
+      tags:
+      - quote-product
   /quotes/{quoteID}:
     delete:
       consumes:
