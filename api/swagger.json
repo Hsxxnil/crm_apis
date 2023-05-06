@@ -5920,6 +5920,634 @@
                 }
             }
         },
+        "/quotes-products": {
+            "get": {
+                "description": "取得全部報價產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote-product"
+                ],
+                "summary": "取得全部報價產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/quote_products.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "新增報價產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote-product"
+                ],
+                "summary": "新增報價產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "新增報價產品",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/quote_products.Create"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/quotes-products/{quoteProductID}": {
+            "get": {
+                "description": "取得單一報價產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote-product"
+                ],
+                "summary": "取得單一報價產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "報價產品ID",
+                        "name": "quoteProductID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/quote_products.Single"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除單一報價產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote-product"
+                ],
+                "summary": "刪除單一報價產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "報價產品ID",
+                        "name": "quoteProductID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "更新單一報價產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote-product"
+                ],
+                "summary": "更新單一報價產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "報價產品ID",
+                        "name": "quoteProductID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新報價產品",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/quote_products.Update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/quotes/products": {
+            "get": {
+                "description": "取得全部報價含產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote"
+                ],
+                "summary": "取得全部報價含產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/quotes.ListProducts"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/quotes/products/{quoteID}": {
+            "get": {
+                "description": "取得單一報價含產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote"
+                ],
+                "summary": "取得單一報價含產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "報價ID",
+                        "name": "quoteID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/quotes.SingleProducts"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/quotes/{quoteID}": {
             "get": {
                 "description": "取得單一報價",
@@ -10013,6 +10641,264 @@
                 }
             }
         },
+        "quote_products.Create": {
+            "type": "object",
+            "required": [
+                "created_by",
+                "discount",
+                "product_id",
+                "quantity",
+                "quote_id",
+                "sub_total",
+                "unit_price"
+            ],
+            "properties": {
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "discount": {
+                    "description": "報價產品5k6d.4",
+                    "type": "number"
+                },
+                "product_id": {
+                    "description": "產品ID",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "報價產品數量",
+                    "type": "integer"
+                },
+                "quote_id": {
+                    "description": "報價ID",
+                    "type": "string"
+                },
+                "sub_total": {
+                    "description": "報價產品小計",
+                    "type": "number"
+                },
+                "unit_price": {
+                    "description": "報價產品單價",
+                    "type": "number"
+                }
+            }
+        },
+        "quote_products.List": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "pages": {
+                    "description": "總頁數",
+                    "type": "integer"
+                },
+                "quote_products": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "description": "創建時間",
+                                "type": "string"
+                            },
+                            "created_by": {
+                                "description": "創建者",
+                                "type": "string"
+                            },
+                            "deleted_at": {
+                                "description": "刪除時間",
+                                "type": "string"
+                            },
+                            "discount": {
+                                "description": "報價產品折扣",
+                                "type": "number"
+                            },
+                            "product_id": {
+                                "description": "產品ID",
+                                "type": "string"
+                            },
+                            "product_name": {
+                                "description": "產品名稱",
+                                "type": "string"
+                            },
+                            "quantity": {
+                                "description": "報價產品數量",
+                                "type": "integer"
+                            },
+                            "quote_id": {
+                                "description": "報價ID",
+                                "type": "string"
+                            },
+                            "quote_product_id": {
+                                "description": "報價產品ID",
+                                "type": "string"
+                            },
+                            "sub_total": {
+                                "description": "報價產品小計",
+                                "type": "number"
+                            },
+                            "unit_price": {
+                                "description": "報價產品單價",
+                                "type": "number"
+                            },
+                            "updated_at": {
+                                "description": "更新時間",
+                                "type": "string"
+                            },
+                            "updated_by": {
+                                "description": "更新者",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "total": {
+                    "description": "總筆數",
+                    "type": "integer"
+                }
+            }
+        },
+        "quote_products.QuoteSingle": {
+            "type": "object",
+            "properties": {
+                "discount": {
+                    "description": "報價產品折扣",
+                    "type": "number"
+                },
+                "product_id": {
+                    "description": "產品ID",
+                    "type": "string"
+                },
+                "product_name": {
+                    "description": "產品名稱",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "報價產品數量",
+                    "type": "integer"
+                },
+                "standard_price": {
+                    "description": "產品定價",
+                    "type": "number"
+                },
+                "sub_total": {
+                    "description": "報價產品小計",
+                    "type": "number"
+                },
+                "unit_price": {
+                    "description": "報價產品單價",
+                    "type": "number"
+                }
+            }
+        },
+        "quote_products.Single": {
+            "type": "object",
+            "properties": {
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "discount": {
+                    "description": "報價產品折扣",
+                    "type": "number"
+                },
+                "product_id": {
+                    "description": "產品ID",
+                    "type": "string"
+                },
+                "product_name": {
+                    "description": "產品名稱",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "報價產品數量",
+                    "type": "integer"
+                },
+                "quote_id": {
+                    "description": "報價ID",
+                    "type": "string"
+                },
+                "quote_product_id": {
+                    "description": "報價產品ID",
+                    "type": "string"
+                },
+                "sub_total": {
+                    "description": "報價產品小計",
+                    "type": "number"
+                },
+                "unit_price": {
+                    "description": "報價產品單價",
+                    "type": "number"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "quote_products.Update": {
+            "type": "object",
+            "required": [
+                "updated_by"
+            ],
+            "properties": {
+                "discount": {
+                    "description": "報價產品折扣",
+                    "type": "number"
+                },
+                "product_id": {
+                    "description": "產品ID",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "報價產品數量",
+                    "type": "integer"
+                },
+                "sub_total": {
+                    "description": "報價產品小計",
+                    "type": "number"
+                },
+                "unit_price": {
+                    "description": "報價產品單價",
+                    "type": "number"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
         "quotes.Create": {
             "type": "object",
             "required": [
@@ -10171,6 +11057,119 @@
                 }
             }
         },
+        "quotes.ListProducts": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "pages": {
+                    "description": "總頁數",
+                    "type": "integer"
+                },
+                "quotes": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "account_id": {
+                                "description": "帳戶ID",
+                                "type": "string"
+                            },
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
+                            "code": {
+                                "description": "報價號碼",
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "description": "創建時間",
+                                "type": "string"
+                            },
+                            "created_by": {
+                                "description": "創建者",
+                                "type": "string"
+                            },
+                            "deleted_at": {
+                                "description": "刪除時間",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "報價描述",
+                                "type": "string"
+                            },
+                            "expiration_date": {
+                                "description": "報價到期日期",
+                                "type": "string"
+                            },
+                            "is_syncing": {
+                                "description": "報價與商機是否同步化",
+                                "type": "boolean"
+                            },
+                            "name": {
+                                "description": "報價名稱",
+                                "type": "string"
+                            },
+                            "opportunity_id": {
+                                "description": "商機ID",
+                                "type": "string"
+                            },
+                            "opportunity_name": {
+                                "description": "商機名稱",
+                                "type": "string"
+                            },
+                            "products": {
+                                "description": "quote_products data",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/quote_products.QuoteSingle"
+                                }
+                            },
+                            "quote_id": {
+                                "description": "報價ID",
+                                "type": "string"
+                            },
+                            "shipping_and_handling": {
+                                "description": "報價運輸和處理費",
+                                "type": "number"
+                            },
+                            "status": {
+                                "description": "報價狀態",
+                                "type": "string"
+                            },
+                            "tax": {
+                                "description": "報價稅額",
+                                "type": "number"
+                            },
+                            "updated_at": {
+                                "description": "更新時間",
+                                "type": "string"
+                            },
+                            "updated_by": {
+                                "description": "更新者",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "total": {
+                    "description": "總筆數",
+                    "type": "integer"
+                }
+            }
+        },
         "quotes.Single": {
             "type": "object",
             "properties": {
@@ -10221,6 +11220,90 @@
                 "opportunity_name": {
                     "description": "商機名稱",
                     "type": "string"
+                },
+                "quote_id": {
+                    "description": "報價ID",
+                    "type": "string"
+                },
+                "shipping_and_handling": {
+                    "description": "報價運輸和處理費",
+                    "type": "number"
+                },
+                "status": {
+                    "description": "報價狀態",
+                    "type": "string"
+                },
+                "tax": {
+                    "description": "報價稅額",
+                    "type": "number"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "quotes.SingleProducts": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "報價號碼",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "報價描述",
+                    "type": "string"
+                },
+                "expiration_date": {
+                    "description": "報價到期日期",
+                    "type": "string"
+                },
+                "is_syncing": {
+                    "description": "報價與商機是否同步化",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "報價名稱",
+                    "type": "string"
+                },
+                "opportunity_id": {
+                    "description": "商機ID",
+                    "type": "string"
+                },
+                "opportunity_name": {
+                    "description": "商機名稱",
+                    "type": "string"
+                },
+                "products": {
+                    "description": "quote_products data",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/quote_products.QuoteSingle"
+                    }
                 },
                 "quote_id": {
                     "description": "報價ID",

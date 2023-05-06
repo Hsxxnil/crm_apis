@@ -3,6 +3,8 @@ package quotes
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/quote_products"
+
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 	"github.com/shopspring/decimal"
@@ -105,6 +107,47 @@ type List struct {
 	page.Total
 }
 
+// ListProducts is multiple return structure files containing products
+type ListProducts struct {
+	// 多筆
+	Quotes []*struct {
+		// 報價ID
+		QuoteID string `json:"quote_id,omitempty"`
+		// 報價名稱
+		Name string `json:"name,omitempty"`
+		// 報價狀態
+		Status string `json:"status,omitempty"`
+		// 報價與商機是否同步化
+		IsSyncing bool `json:"is_syncing"`
+		// 商機ID
+		OpportunityID string `json:"opportunity_id,omitempty"`
+		// 商機名稱
+		OpportunityName string `json:"opportunity_name,omitempty"`
+		// 帳戶ID
+		AccountID string `json:"account_id,omitempty"`
+		// 報價到期日期
+		ExpirationDate time.Time `json:"expiration_date,omitempty"`
+		// 報價描述
+		Description string `json:"description,omitempty"`
+		// 報價稅額
+		Tax decimal.Decimal `json:"tax,omitempty"`
+		// 報價運輸和處理費
+		ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
+		// 報價號碼
+		Code string `json:"code,omitempty"`
+		// 創建者
+		CreatedBy string `json:"created_by,omitempty"`
+		// 更新者
+		UpdatedBy string `json:"updated_by,omitempty"`
+		// 時間戳記
+		section.TimeAt
+		// quote_products data
+		QuoteProducts []quote_products.QuoteSingle `json:"products,omitempty"`
+	} `json:"quotes"`
+	// 分頁返回結構檔
+	page.Total
+}
+
 // Single return structure file
 type Single struct {
 	// 報價ID
@@ -137,6 +180,42 @@ type Single struct {
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
 	section.TimeAt
+}
+
+// SingleProducts return structure file containing products
+type SingleProducts struct {
+	// 報價ID
+	QuoteID string `json:"quote_id,omitempty"`
+	// 報價名稱
+	Name string `json:"name,omitempty"`
+	// 報價狀態
+	Status string `json:"status,omitempty"`
+	// 報價與商機是否同步化
+	IsSyncing bool `json:"is_syncing"`
+	// 商機ID
+	OpportunityID string `json:"opportunity_id,omitempty"`
+	// 商機名稱
+	OpportunityName string `json:"opportunity_name,omitempty"`
+	// 帳戶ID
+	AccountID string `json:"account_id,omitempty"`
+	// 報價到期日期
+	ExpirationDate time.Time `json:"expiration_date,omitempty"`
+	// 報價描述
+	Description string `json:"description,omitempty"`
+	// 報價稅額
+	Tax decimal.Decimal `json:"tax,omitempty"`
+	// 報價運輸和處理費
+	ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
+	// 報價號碼
+	Code string `json:"code,omitempty"`
+	// 創建者
+	CreatedBy string `json:"created_by,omitempty"`
+	// 更新者
+	UpdatedBy string `json:"updated_by,omitempty"`
+	// 時間戳記
+	section.TimeAt
+	// quote_products data
+	QuoteProducts []quote_products.QuoteSingle `json:"products,omitempty"`
 }
 
 // Update struct is used to update achieves

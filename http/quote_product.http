@@ -1,0 +1,37 @@
+### GetByList
+GET {{host}}/crm/v1.0/quotes-products?page=1&limit=20
+Accept: application/json
+
+### GetBySingle
+GET {{host}}/crm/v1.0/quotes-products/a0c68ba6-cc3a-4579-8c9c-c6580ef76f2b
+Accept: application/json
+
+### Create
+POST {{host}}/crm/v1.0/quotes-products
+Content-Type: application/json
+
+{
+  "quote_id": "2197d141-c820-45cf-8930-c3d80dc945d6",
+  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
+  "quantity": 1,
+  "unit_price": 100,
+  "discount": 50,
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
+}
+
+### Update
+PATCH {{host}}/crm/v1.0/quotes-products/a0c68ba6-cc3a-4579-8c9c-c6580ef76f2b
+Content-Type: application/json
+
+{
+  "quote_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
+  "quantity": 1,
+  "unit_price": 100,
+  "discount": 20,
+  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
+  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+}
+
+### Delete
+DELETE {{host}}/crm/v1.0/quotes-products/a0c68ba6-cc3a-4579-8c9c-c6580ef76f2b
+Accept: application/json

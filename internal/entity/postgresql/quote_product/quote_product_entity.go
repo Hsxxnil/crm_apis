@@ -1,9 +1,9 @@
-package quote
+package quote_product
 
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/quotes"
+	model "app.eirc/internal/entity/postgresql/db/quote_products"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -59,9 +59,9 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload("QuoteProducts.Products").Preload(clause.Associations)
-	if input.QuoteID != nil {
-		query.Where("quote_id = ?", input.QuoteID)
+	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	if input.QuoteProductID != nil {
+		query.Where("quote_product_id = ?", input.QuoteProductID)
 	}
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
@@ -75,9 +75,9 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload("QuoteProducts.Products").Preload(clause.Associations)
-	if input.QuoteID != nil {
-		query.Where("quote_id = ?", input.QuoteID)
+	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	if input.QuoteProductID != nil {
+		query.Where("quote_product_id = ?", input.QuoteProductID)
 	}
 
 	err = query.First(&output).Error
@@ -91,8 +91,8 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 
 func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
-	if input.QuoteID != nil {
-		query.Where("quote_id = ?", input.QuoteID)
+	if input.QuoteProductID != nil {
+		query.Where("quote_product_id = ?", input.QuoteProductID)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -108,48 +108,32 @@ func (s *storage) Update(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
 	data := map[string]any{}
 
-	if input.Name != nil {
-		data["name"] = input.Name
+	if input.ProductID != nil {
+		data["product_id"] = input.ProductID
 	}
 
-	if input.Status != nil {
-		data["status"] = input.Status
+	if input.Quantity != nil {
+		data["quantity"] = input.Quantity
 	}
 
-	if input.IsSyncing != nil {
-		data["is_syncing"] = input.IsSyncing
+	if input.UnitPrice != nil {
+		data["unit_price"] = input.UnitPrice
 	}
 
-	if input.OpportunityID != nil {
-		data["opportunity_id"] = input.OpportunityID
+	if input.SubTotal != nil {
+		data["sub_total"] = input.SubTotal
 	}
 
-	if input.AccountID != nil {
-		data["account_id"] = input.AccountID
-	}
-
-	if input.ExpirationDate != nil {
-		data["expiration_date"] = input.ExpirationDate
-	}
-
-	if input.Description != nil {
-		data["description"] = input.Description
-	}
-
-	if input.Tax != nil {
-		data["tax"] = input.Tax
-	}
-
-	if input.ShippingAndHandling != nil {
-		data["shipping_and_handling"] = input.ShippingAndHandling
+	if input.Discount != nil {
+		data["discount"] = input.Discount
 	}
 
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
 
-	if input.QuoteID != nil {
-		query.Where("quote_id = ?", input.QuoteID)
+	if input.QuoteProductID != nil {
+		query.Where("quote_product_id = ?", input.QuoteProductID)
 	}
 
 	err = query.Select("*").Updates(data).Error
@@ -163,8 +147,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 func (s *storage) Delete(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
-	if input.QuoteID != nil {
-		query.Where("quote_id = ?", input.QuoteID)
+	if input.QuoteProductID != nil {
+		query.Where("quote_product_id = ?", input.QuoteProductID)
 	}
 
 	err = query.Delete(&model.Table{}).Error

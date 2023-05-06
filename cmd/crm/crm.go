@@ -17,6 +17,7 @@ import (
 	"app.eirc/internal/router/order_product"
 	"app.eirc/internal/router/product"
 	"app.eirc/internal/router/quote"
+	"app.eirc/internal/router/quote_product"
 	"app.eirc/internal/router/user"
 	"github.com/apex/gateway"
 )
@@ -42,5 +43,6 @@ func main() {
 	engine = quote.GetRouter(engine, db)
 	engine = opportunity.GetRouter(engine, db)
 	engine = opportunity_campaign.GetRouter(engine, db)
+	engine = quote_product.GetRouter(engine, db)
 	log.Fatal(gateway.ListenAndServe(":8080", engine))
 }
