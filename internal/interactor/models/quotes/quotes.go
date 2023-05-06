@@ -55,7 +55,7 @@ type Field struct {
 	// 報價運輸和處理費
 	ShippingAndHandling *decimal.Decimal `json:"shipping_and_handling,omitempty" form:"shipping_and_handling"`
 	// 報價號碼
-	Code *uint `json:"code,omitempty" form:"code"`
+	Code *string `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)

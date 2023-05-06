@@ -69,7 +69,7 @@ type Base struct {
 	// 報價運輸和處理費
 	ShippingAndHandling *decimal.Decimal `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
-	Code *uint `json:"code,omitempty"`
+	Code *string `json:"code,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

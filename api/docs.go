@@ -9467,7 +9467,7 @@ const docTemplate = `{
                             },
                             "code": {
                                 "description": "訂單號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_code": {
                                 "description": "契約號碼",
@@ -9565,7 +9565,7 @@ const docTemplate = `{
                             },
                             "code": {
                                 "description": "訂單號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_code": {
                                 "description": "契約號碼",
@@ -9656,7 +9656,7 @@ const docTemplate = `{
                 },
                 "code": {
                     "description": "訂單號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_code": {
                     "description": "契約號碼",
@@ -9725,7 +9725,7 @@ const docTemplate = `{
                 },
                 "code": {
                     "description": "訂單號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_code": {
                     "description": "契約號碼",
