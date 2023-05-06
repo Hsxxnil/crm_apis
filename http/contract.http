@@ -1,4 +1,3 @@
-
 ### GetByList
 GET {{host}}/crm/v1.0/contracts?page=1&limit=20
 Accept: application/json
@@ -30,5 +29,5 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/contracts/c1df0068-2a85-4a6f-900a-b5f0ed0dc8a4
+DELETE {{host}}/crm/v1.0/contracts/ecb06715-854d-4720-adaf-91a2da0f59e2
 Accept: application/json

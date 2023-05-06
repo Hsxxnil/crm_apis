@@ -996,7 +996,7 @@ definitions:
               type: string
             code:
               description: 契約號碼
-              type: integer
+              type: string
             contract_id:
               description: 契約ID
               type: string
@@ -1058,7 +1058,7 @@ definitions:
         type: string
       code:
         description: 契約號碼
-        type: integer
+        type: string
       contract_id:
         description: 契約ID
         type: string
@@ -2007,7 +2007,7 @@ definitions:
               type: integer
             contract_code:
               description: 契約號碼
-              type: integer
+              type: string
             contract_id:
               description: 契約ID
               type: string
@@ -2079,7 +2079,7 @@ definitions:
               type: integer
             contract_code:
               description: 契約號碼
-              type: integer
+              type: string
             contract_id:
               description: 契約ID
               type: string
@@ -2149,7 +2149,7 @@ definitions:
         type: integer
       contract_code:
         description: 契約號碼
-        type: integer
+        type: string
       contract_id:
         description: 契約ID
         type: string
@@ -2200,7 +2200,7 @@ definitions:
         type: integer
       contract_code:
         description: 契約號碼
-        type: integer
+        type: string
       contract_id:
         description: 契約ID
         type: string

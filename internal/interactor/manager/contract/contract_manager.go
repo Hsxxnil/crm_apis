@@ -74,7 +74,6 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 		contracts.UpdatedBy = *contractBase[i].UpdatedByUsers.Name
 	}
 
-	log.Debug(*contractBase[1].Accounts.Name)
 	return code.GetCodeMessage(code.Successful, output)
 }
 
