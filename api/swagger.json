@@ -8082,7 +8082,7 @@
                             },
                             "code": {
                                 "description": "契約號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_id": {
                                 "description": "契約ID",
@@ -8162,7 +8162,7 @@
                 },
                 "code": {
                     "description": "契約號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_id": {
                     "description": "契約ID",
@@ -9467,7 +9467,7 @@
                             },
                             "contract_code": {
                                 "description": "契約號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_id": {
                                 "description": "契約ID",
@@ -9565,7 +9565,7 @@
                             },
                             "contract_code": {
                                 "description": "契約號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_id": {
                                 "description": "契約ID",
@@ -9656,7 +9656,7 @@
                 },
                 "contract_code": {
                     "description": "契約號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_id": {
                     "description": "契約ID",
@@ -9725,7 +9725,7 @@
                 },
                 "contract_code": {
                     "description": "契約號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_id": {
                     "description": "契約ID",

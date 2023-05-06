@@ -27,7 +27,7 @@ type Table struct {
 	// 契約描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 契約號碼
-	Code uint `gorm:"->;column:code;type:serial;auto_increment" json:"code"`
+	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -52,7 +52,7 @@ type Base struct {
 	// 契約描述
 	Description *string `json:"description,omitempty"`
 	// 契約號碼
-	Code *uint `json:"code,omitempty"`
+	Code *string `json:"code,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

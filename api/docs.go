@@ -8086,7 +8086,7 @@ const docTemplate = `{
                             },
                             "code": {
                                 "description": "契約號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_id": {
                                 "description": "契約ID",
@@ -8166,7 +8166,7 @@ const docTemplate = `{
                 },
                 "code": {
                     "description": "契約號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_id": {
                     "description": "契約ID",
@@ -9471,7 +9471,7 @@ const docTemplate = `{
                             },
                             "contract_code": {
                                 "description": "契約號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_id": {
                                 "description": "契約ID",
@@ -9569,7 +9569,7 @@ const docTemplate = `{
                             },
                             "contract_code": {
                                 "description": "契約號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "contract_id": {
                                 "description": "契約ID",
@@ -9660,7 +9660,7 @@ const docTemplate = `{
                 },
                 "contract_code": {
                     "description": "契約號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_id": {
                     "description": "契約ID",
@@ -9729,7 +9729,7 @@ const docTemplate = `{
                 },
                 "contract_code": {
                     "description": "契約號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "contract_id": {
                     "description": "契約ID",

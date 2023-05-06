@@ -1,0 +1,1 @@
+drop function contract_code()
