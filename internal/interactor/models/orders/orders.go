@@ -40,7 +40,7 @@ type Field struct {
 	// 訂單描述
 	Description *string `json:"description,omitempty" form:"description"`
 	// 訂單號碼
-	Code *uint `json:"code,omitempty" form:"code"`
+	Code *string `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -72,7 +72,7 @@ type List struct {
 		// 訂單描述
 		Description string `json:"description,omitempty"`
 		// 訂單號碼
-		Code uint `json:"code,omitempty"`
+		Code string `json:"code,omitempty"`
 		// 啟用者
 		ActivatedBy string `json:"activated_by,omitempty"`
 		// 創建者
@@ -107,7 +107,7 @@ type ListProducts struct {
 		// 訂單描述
 		Description string `json:"description,omitempty"`
 		// 訂單號碼
-		Code uint `json:"code,omitempty"`
+		Code string `json:"code,omitempty"`
 		// 啟用者
 		ActivatedBy string `json:"activated_by,omitempty"`
 		// 創建者
@@ -142,7 +142,7 @@ type Single struct {
 	// 訂單描述
 	Description string `json:"description,omitempty"`
 	// 訂單號碼
-	Code uint `json:"code,omitempty"`
+	Code string `json:"code,omitempty"`
 	// 啟用者
 	ActivatedBy string `json:"activated_by,omitempty"`
 	// 創建者
@@ -172,7 +172,7 @@ type SingleProducts struct {
 	// 訂單描述
 	Description string `json:"description,omitempty"`
 	// 訂單號碼
-	Code uint `json:"code,omitempty"`
+	Code string `json:"code,omitempty"`
 	// 啟用者
 	ActivatedBy string `json:"activated_by,omitempty"`
 	// 創建者

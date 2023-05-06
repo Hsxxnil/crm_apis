@@ -36,7 +36,7 @@ type Table struct {
 	// 報價運輸和處理費
 	ShippingAndHandling decimal.Decimal `gorm:"column:shipping_and_handling;type:numeric;" json:"shipping_and_handling"`
 	// 報價號碼
-	Code uint `gorm:"->;column:code;type:serial;auto_increment" json:"code"`
+	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -69,7 +69,7 @@ type Base struct {
 	// 報價運輸和處理費
 	ShippingAndHandling *decimal.Decimal `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
-	Code *uint `json:"code,omitempty"`
+	Code *string `json:"code,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

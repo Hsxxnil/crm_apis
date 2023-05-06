@@ -33,7 +33,7 @@ type Table struct {
 	// 訂單描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 訂單號碼
-	Code uint `gorm:"->;column:code;type:serial;auto_increment" json:"code"`
+	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
 	// 啟用時間
 	ActivatedAt *time.Time `gorm:"column:activated_at;type:TIMESTAMP;" json:"activated_at,omitempty"`
 	// 啟用者
@@ -68,7 +68,7 @@ type Base struct {
 	// 訂單描述
 	Description *string `json:"description,omitempty"`
 	// 訂單號碼
-	Code *uint `json:"code,omitempty"`
+	Code *string `json:"code,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
