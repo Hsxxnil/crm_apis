@@ -3,6 +3,8 @@ package quotes
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/quote_products"
+
 	"app.eirc/internal/entity/postgresql/db/opportunities"
 
 	"app.eirc/internal/entity/postgresql/db/users"
@@ -42,6 +44,8 @@ type Table struct {
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	special.UseTable
+	// quote_products data
+	QuoteProducts []quote_products.Table `gorm:"foreignKey:QuoteID;" json:"products,omitempty"`
 }
 
 // Base struct is corresponding to quotes table structure file
@@ -75,6 +79,8 @@ type Base struct {
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
+	// quote_products data
+	QuoteProducts []quote_products.Base `json:"products,omitempty"`
 }
 
 // TableName sets the insert table name for this struct type

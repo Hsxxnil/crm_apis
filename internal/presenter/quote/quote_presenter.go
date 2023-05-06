@@ -3,10 +3,11 @@ package quote
 import (
 	"net/http"
 
+	quoteModel "app.eirc/internal/interactor/models/quotes"
+
 	constant "app.eirc/internal/interactor/constants"
 
 	"app.eirc/internal/interactor/manager/quote"
-	quoteModel "app.eirc/internal/interactor/models/quotes"
 	"app.eirc/internal/interactor/pkg/util/code"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,9 @@ import (
 type Control interface {
 	Create(ctx *gin.Context)
 	GetByList(ctx *gin.Context)
+	GetByListProducts(ctx *gin.Context)
 	GetBySingle(ctx *gin.Context)
+	GetBySingleProducts(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 	Update(ctx *gin.Context)
 }
@@ -92,6 +95,38 @@ func (c *control) GetByList(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 
+// GetByListProducts
+// @Summary 取得全部報價含產品
+// @description 取得全部報價含產品
+// @Tags quote
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param page query int true "目前頁數,請從1開始帶入"
+// @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
+// @success 200 object code.SuccessfulMessage{body=quotes.ListProducts} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /quotes/products [get]
+func (c *control) GetByListProducts(ctx *gin.Context) {
+	input := &quoteModel.Fields{}
+
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	if input.Limit >= constant.DefaultLimit {
+		input.Limit = constant.DefaultLimit
+	}
+
+	codeMessage := c.Manager.GetByListProducts(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+}
+
 // GetBySingle
 // @Summary 取得單一報價
 // @description 取得單一報價
@@ -117,6 +152,34 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 	}
 
 	codeMessage := c.Manager.GetBySingle(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+}
+
+// GetBySingleProducts
+// @Summary 取得單一報價含產品
+// @description 取得單一報價含產品
+// @Tags quote
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param quoteID path string true "報價ID"
+// @success 200 object code.SuccessfulMessage{body=quotes.SingleProducts} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /quotes/products/{quoteID} [get]
+func (c *control) GetBySingleProducts(ctx *gin.Context) {
+	quoteID := ctx.Param("quoteID")
+	input := &quoteModel.Field{}
+	input.QuoteID = quoteID
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	codeMessage := c.Manager.GetBySingleProducts(input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 

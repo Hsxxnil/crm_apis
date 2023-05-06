@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 
+	quoteModel "app.eirc/internal/interactor/models/quotes"
+
 	"app.eirc/internal/interactor/pkg/util"
 
-	quoteModel "app.eirc/internal/interactor/models/quotes"
 	quoteService "app.eirc/internal/interactor/service/quote"
 	"gorm.io/gorm"
 
@@ -17,7 +18,9 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *quoteModel.Create) interface{}
 	GetByList(input *quoteModel.Fields) interface{}
+	GetByListProducts(input *quoteModel.Fields) interface{}
 	GetBySingle(input *quoteModel.Field) interface{}
+	GetBySingleProducts(input *quoteModel.Field) interface{}
 	Delete(input *quoteModel.Field) interface{}
 	Update(input *quoteModel.Update) interface{}
 }
@@ -76,6 +79,41 @@ func (m *manager) GetByList(input *quoteModel.Fields) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
+func (m *manager) GetByListProducts(input *quoteModel.Fields) interface{} {
+	output := &quoteModel.ListProducts{}
+	output.Limit = input.Limit
+	output.Page = input.Page
+	quantity, quoteBase, err := m.QuoteService.GetByList(input)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Total.Total = quantity
+	quoteByte, err := json.Marshal(quoteBase)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	output.Pages = util.Pagination(quantity, output.Limit)
+	err = json.Unmarshal(quoteByte, &output.Quotes)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	for i, quotes := range output.Quotes {
+		quotes.OpportunityName = *quoteBase[i].Opportunities.Name
+		quotes.CreatedBy = *quoteBase[i].CreatedByUsers.Name
+		quotes.UpdatedBy = *quoteBase[i].UpdatedByUsers.Name
+		for j, productsBase := range quoteBase[i].QuoteProducts {
+			quotes.QuoteProducts[j].ProductName = *productsBase.Products.Name
+			quotes.QuoteProducts[j].ProductPrice = *productsBase.Products.Price
+		}
+	}
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
 func (m *manager) GetBySingle(input *quoteModel.Field) interface{} {
 	quoteBase, err := m.QuoteService.GetBySingle(input)
 	if err != nil {
@@ -98,6 +136,37 @@ func (m *manager) GetBySingle(input *quoteModel.Field) interface{} {
 	output.OpportunityName = *quoteBase.Opportunities.Name
 	output.CreatedBy = *quoteBase.CreatedByUsers.Name
 	output.UpdatedBy = *quoteBase.UpdatedByUsers.Name
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetBySingleProducts(input *quoteModel.Field) interface{} {
+	quoteBase, err := m.QuoteService.GetBySingle(input)
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output := &quoteModel.SingleProducts{}
+	quoteByte, _ := json.Marshal(quoteBase)
+	err = json.Unmarshal(quoteByte, &output)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output.OpportunityName = *quoteBase.Opportunities.Name
+	output.CreatedBy = *quoteBase.CreatedByUsers.Name
+	output.UpdatedBy = *quoteBase.UpdatedByUsers.Name
+	for i, products := range quoteBase.QuoteProducts {
+		output.QuoteProducts[i].ProductName = *products.Products.Name
+		output.QuoteProducts[i].ProductPrice = *products.Products.Price
+	}
 
 	return code.GetCodeMessage(code.Successful, output)
 }
