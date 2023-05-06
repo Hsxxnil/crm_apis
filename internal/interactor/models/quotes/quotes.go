@@ -93,7 +93,7 @@ type List struct {
 		// 報價運輸和處理費
 		ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
 		// 報價號碼
-		Code uint `json:"code,omitempty"`
+		Code string `json:"code,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -130,7 +130,7 @@ type Single struct {
 	// 報價運輸和處理費
 	ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
-	Code uint `json:"code,omitempty"`
+	Code string `json:"code,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者

@@ -10104,7 +10104,7 @@ const docTemplate = `{
                             },
                             "code": {
                                 "description": "報價號碼",
-                                "type": "integer"
+                                "type": "string"
                             },
                             "created_at": {
                                 "description": "創建時間",
@@ -10188,7 +10188,7 @@ const docTemplate = `{
                 },
                 "code": {
                     "description": "報價號碼",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "created_at": {
                     "description": "創建時間",

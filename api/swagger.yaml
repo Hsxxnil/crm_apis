@@ -2472,7 +2472,7 @@ definitions:
               type: string
             code:
               description: 報價號碼
-              type: integer
+              type: string
             created_at:
               description: 創建時間
               type: string
@@ -2537,7 +2537,7 @@ definitions:
         type: string
       code:
         description: 報價號碼
-        type: integer
+        type: string
       created_at:
         description: 創建時間
         type: string
