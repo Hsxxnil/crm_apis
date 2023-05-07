@@ -2,6 +2,7 @@ package product
 
 import (
 	"net/http"
+	"strconv"
 
 	constant "app.eirc/internal/interactor/constants"
 
@@ -76,8 +77,11 @@ func (c *control) Create(ctx *gin.Context) {
 // @Router /products [get]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &productModel.Fields{}
-
-	if err := ctx.ShouldBindQuery(input); err != nil {
+	limit := ctx.Query("limit")
+	page := ctx.Query("page")
+	input.Limit, _ = strconv.ParseInt(limit, 10, 64)
+	input.Page, _ = strconv.ParseInt(page, 10, 64)
+	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
 
