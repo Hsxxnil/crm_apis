@@ -76,6 +76,7 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 		opportunities.AccountName = *opportunityBase[i].Accounts.Name
 		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
 		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
+		opportunities.SalespersonName = *opportunityBase[i].Salespeople.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -107,6 +108,7 @@ func (m *manager) GetByListCampaigns(input *opportunityModel.Fields) interface{}
 		opportunities.AccountName = *opportunityBase[i].Accounts.Name
 		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
 		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
+		opportunities.SalespersonName = *opportunityBase[i].Salespeople.Name
 		for j, campaigns := range opportunityBase[i].OpportunityCampaigns {
 			campaignBase, _ := m.CampaignService.GetBySingle(&campaignModel.Field{
 				CampaignID: *campaigns.CampaignID,
@@ -140,6 +142,7 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
 	output.AccountName = *opportunityBase.Accounts.Name
 	output.CreatedBy = *opportunityBase.CreatedByUsers.Name
 	output.UpdatedBy = *opportunityBase.UpdatedByUsers.Name
+	output.SalespersonName = *opportunityBase.Salespeople.Name
 
 	return code.GetCodeMessage(code.Successful, output)
 }
@@ -166,6 +169,7 @@ func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) interface{
 	output.AccountName = *opportunityBase.Accounts.Name
 	output.CreatedBy = *opportunityBase.CreatedByUsers.Name
 	output.UpdatedBy = *opportunityBase.UpdatedByUsers.Name
+	output.SalespersonName = *opportunityBase.Salespeople.Name
 	for i, campaigns := range opportunityBase.OpportunityCampaigns {
 		campaignBase, _ := m.CampaignService.GetBySingle(&campaignModel.Field{
 			CampaignID: *campaigns.CampaignID,
