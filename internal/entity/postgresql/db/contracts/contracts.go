@@ -28,6 +28,10 @@ type Table struct {
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 契約號碼
 	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
+	// 業務員ID
+	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
+	// salespeople  data
+	Salespeople users.Table `gorm:"foreignKey:SalespersonID;references:UserID" json:"salespeople,omitempty"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -53,6 +57,10 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 契約號碼
 	Code *string `json:"code,omitempty"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty"`
+	// salespeople  data
+	Salespeople users.Base `json:"salespeople,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

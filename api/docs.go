@@ -8792,6 +8792,14 @@ const docTemplate = `{
                                 "description": "契約描述",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "start_date": {
                                 "description": "契約開始日期",
                                 "type": "string"
@@ -8872,6 +8880,14 @@ const docTemplate = `{
                     "description": "契約描述",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "start_date": {
                     "description": "契約開始日期",
                     "type": "string"
@@ -8906,6 +8922,10 @@ const docTemplate = `{
                 },
                 "description": {
                     "description": "契約描述",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "start_date": {
