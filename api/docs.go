@@ -8521,6 +8521,14 @@ const docTemplate = `{
                                 "description": "聯絡人電話",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "salutation": {
                                 "description": "聯絡人稱謂",
                                 "type": "string"
@@ -8613,6 +8621,14 @@ const docTemplate = `{
                     "description": "聯絡人電話",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "salutation": {
                     "description": "聯絡人稱謂",
                     "type": "string"
@@ -8667,6 +8683,10 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "salutation": {
