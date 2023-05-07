@@ -7451,6 +7451,14 @@ const docTemplate = `{
                                 "description": "帳戶電話",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "type": {
                                 "description": "帳戶類型",
                                 "type": "string"
@@ -7548,6 +7556,14 @@ const docTemplate = `{
                                 "description": "帳戶電話",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "type": {
                                 "description": "帳戶類型",
                                 "type": "string"
@@ -7628,6 +7644,14 @@ const docTemplate = `{
                     "description": "帳戶電話",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "type": {
                     "description": "帳戶類型",
                     "type": "string"
@@ -7696,6 +7720,14 @@ const docTemplate = `{
                     "description": "帳戶電話",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "type": {
                     "description": "帳戶類型",
                     "type": "string"
@@ -7730,6 +7762,10 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "description": "帳戶電話",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "type": {

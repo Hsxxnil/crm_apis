@@ -36,6 +36,8 @@ type Field struct {
 	IndustryID *string `json:"industry_id,omitempty" form:"industry_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 父系帳戶ID
 	ParentAccountID *string `json:"parent_account_id,omitempty" form:"parent_account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" form:"salesperson_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -66,6 +68,10 @@ type List struct {
 		ParentAccountID string `json:"parent_account_id,omitempty"`
 		// 父系帳戶名稱
 		ParentAccountName string `json:"parent_account_name,omitempty"`
+		// 業務員ID
+		SalespersonID string `json:"salesperson_id,omitempty"`
+		// 業務員名稱
+		SalespersonName string `json:"salesperson_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -97,6 +103,10 @@ type ListContacts struct {
 		ParentAccountID string `json:"parent_account_id,omitempty"`
 		// 父系帳戶名稱
 		ParentAccountName string `json:"parent_account_name,omitempty"`
+		// 業務員ID
+		SalespersonID string `json:"salesperson_id,omitempty"`
+		// 業務員名稱
+		SalespersonName string `json:"salesperson_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -128,6 +138,10 @@ type Single struct {
 	ParentAccountID string `json:"parent_account_id,omitempty"`
 	// 父系帳戶名稱
 	ParentAccountName string `json:"parent_account_name,omitempty"`
+	// 業務員ID
+	SalespersonID string `json:"salesperson_id,omitempty"`
+	// 業務員名稱
+	SalespersonName string `json:"salesperson_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -154,6 +168,10 @@ type SingleContacts struct {
 	ParentAccountID string `json:"parent_account_id,omitempty"`
 	// 父系帳戶名稱
 	ParentAccountName string `json:"parent_account_name,omitempty"`
+	// 業務員ID
+	SalespersonID string `json:"salesperson_id,omitempty"`
+	// 業務員名稱
+	SalespersonName string `json:"salesperson_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -178,6 +196,8 @@ type Update struct {
 	IndustryID *string `json:"industry_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 父系帳戶ID
 	ParentAccountID *string `json:"parent_account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
