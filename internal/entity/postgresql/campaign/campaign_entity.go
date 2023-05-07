@@ -160,6 +160,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["is_enable"] = input.IsEnable
 	}
 
+	if input.SalespersonID != nil {
+		data["salesperson_id"] = input.SalespersonID
+	}
+
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}

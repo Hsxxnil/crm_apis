@@ -41,6 +41,10 @@ type Table struct {
 	ActualCost decimal.Decimal `gorm:"column:actual_cost;type:numeric;" json:"actual_cost"`
 	// 行銷活動預期收入
 	ExpectedIncome decimal.Decimal `gorm:"column:expected_income;type:numeric;" json:"expected_income"`
+	// 業務員ID
+	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
+	// salespeople  data
+	Salespeople users.Table `gorm:"foreignKey:SalespersonID;references:UserID" json:"salespeople,omitempty"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -80,6 +84,10 @@ type Base struct {
 	ActualCost *decimal.Decimal `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
 	ExpectedIncome *decimal.Decimal `json:"expected_income,omitempty"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty"`
+	// salespeople  data
+	Salespeople users.Base `json:"salespeople,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
