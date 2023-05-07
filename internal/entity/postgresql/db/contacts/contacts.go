@@ -27,6 +27,10 @@ type Table struct {
 	SupervisorID string `gorm:"column:supervisor_id;type:uuid;not null;" json:"supervisor_id"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
+	// 業務員ID
+	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
+	// salespeople  data
+	Salespeople users.Table `gorm:"foreignKey:SalespersonID;references:UserID" json:"salespeople,omitempty"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -56,6 +60,10 @@ type Base struct {
 	SupervisorID *string `json:"supervisor_id,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty"`
+	// salespeople  data
+	Salespeople users.Base `json:"salespeople,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

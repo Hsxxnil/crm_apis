@@ -7451,6 +7451,14 @@ const docTemplate = `{
                                 "description": "帳戶電話",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "type": {
                                 "description": "帳戶類型",
                                 "type": "string"
@@ -7548,6 +7556,14 @@ const docTemplate = `{
                                 "description": "帳戶電話",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "type": {
                                 "description": "帳戶類型",
                                 "type": "string"
@@ -7628,6 +7644,14 @@ const docTemplate = `{
                     "description": "帳戶電話",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "type": {
                     "description": "帳戶類型",
                     "type": "string"
@@ -7696,6 +7720,14 @@ const docTemplate = `{
                     "description": "帳戶電話",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "type": {
                     "description": "帳戶類型",
                     "type": "string"
@@ -7730,6 +7762,10 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "description": "帳戶電話",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "type": {
@@ -7882,6 +7918,14 @@ const docTemplate = `{
                                 "description": "父系行銷活動名稱",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "sent": {
                                 "description": "行銷活動已傳送數量",
                                 "type": "integer"
@@ -8007,6 +8051,14 @@ const docTemplate = `{
                                 "description": "父系行銷活動名稱",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "sent": {
                                 "description": "行銷活動已傳送數量",
                                 "type": "integer"
@@ -8115,6 +8167,14 @@ const docTemplate = `{
                     "description": "父系行銷活動名稱",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "sent": {
                     "description": "行銷活動已傳送數量",
                     "type": "integer"
@@ -8211,6 +8271,14 @@ const docTemplate = `{
                     "description": "父系行銷活動名稱",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "sent": {
                     "description": "行銷活動已傳送數量",
                     "type": "integer"
@@ -8277,6 +8345,10 @@ const docTemplate = `{
                 },
                 "parent_campaign_id": {
                     "description": "父系行銷活動ID",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "sent": {
@@ -8485,6 +8557,14 @@ const docTemplate = `{
                                 "description": "聯絡人電話",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "salutation": {
                                 "description": "聯絡人稱謂",
                                 "type": "string"
@@ -8577,6 +8657,14 @@ const docTemplate = `{
                     "description": "聯絡人電話",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "salutation": {
                     "description": "聯絡人稱謂",
                     "type": "string"
@@ -8631,6 +8719,10 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "salutation": {
@@ -8736,6 +8828,14 @@ const docTemplate = `{
                                 "description": "契約描述",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "start_date": {
                                 "description": "契約開始日期",
                                 "type": "string"
@@ -8816,6 +8916,14 @@ const docTemplate = `{
                     "description": "契約描述",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "start_date": {
                     "description": "契約開始日期",
                     "type": "string"
@@ -8850,6 +8958,10 @@ const docTemplate = `{
                 },
                 "description": {
                     "description": "契約描述",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "start_date": {
@@ -9055,6 +9167,14 @@ const docTemplate = `{
                                 "description": "線索分級",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "source": {
                                 "description": "線索來源",
                                 "type": "string"
@@ -9131,6 +9251,14 @@ const docTemplate = `{
                     "description": "線索分級",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "source": {
                     "description": "線索來源",
                     "type": "string"
@@ -9161,6 +9289,10 @@ const docTemplate = `{
                 },
                 "rating": {
                     "description": "線索分級",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "source": {
@@ -9301,6 +9433,14 @@ const docTemplate = `{
                                 "description": "商機ID",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "stage": {
                                 "description": "商機階段",
                                 "type": "string"
@@ -9398,6 +9538,14 @@ const docTemplate = `{
                                 "description": "商機ID",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "stage": {
                                 "description": "商機階段",
                                 "type": "string"
@@ -9474,6 +9622,14 @@ const docTemplate = `{
                     "description": "商機ID",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "stage": {
                     "description": "商機階段",
                     "type": "string"
@@ -9542,6 +9698,14 @@ const docTemplate = `{
                     "description": "商機ID",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "stage": {
                     "description": "商機階段",
                     "type": "string"
@@ -9576,6 +9740,10 @@ const docTemplate = `{
                 },
                 "name": {
                     "description": "商機名稱",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "stage": {

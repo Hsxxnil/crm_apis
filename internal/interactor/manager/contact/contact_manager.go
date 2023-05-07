@@ -70,6 +70,7 @@ func (m *manager) GetByList(input *contactModel.Fields) interface{} {
 	for i, contacts := range output.Contacts {
 		contacts.CreatedBy = *contactBase[i].CreatedByUsers.Name
 		contacts.UpdatedBy = *contactBase[i].UpdatedByUsers.Name
+		contacts.SalespersonName = *contactBase[i].Salespeople.Name
 		if supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: contacts.SupervisorID,
 		}); err != nil {
@@ -103,6 +104,7 @@ func (m *manager) GetBySingle(input *contactModel.Field) interface{} {
 
 	output.CreatedBy = *contactBase.CreatedByUsers.Name
 	output.UpdatedBy = *contactBase.UpdatedByUsers.Name
+	output.SalespersonName = *contactBase.Salespeople.Name
 	if supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: *contactBase.SupervisorID,
 	}); err != nil {

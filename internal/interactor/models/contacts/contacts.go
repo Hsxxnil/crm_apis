@@ -51,6 +51,8 @@ type Field struct {
 	SupervisorID *string `json:"supervisor_id,omitempty" form:"supervisor_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4" `
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" form:"salesperson_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -87,6 +89,10 @@ type List struct {
 		SupervisorName string `json:"supervisor_name,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
+		// 業務員ID
+		SalespersonID string `json:"salesperson_id,omitempty"`
+		// 業務員名稱
+		SalespersonName string `json:"salesperson_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -122,6 +128,10 @@ type Single struct {
 	SupervisorName string `json:"supervisor_name,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 業務員ID
+	SalespersonID string `json:"salesperson_id,omitempty"`
+	// 業務員名稱
+	SalespersonName string `json:"salesperson_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -152,6 +162,8 @@ type Update struct {
 	SupervisorID *string `json:"supervisor_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

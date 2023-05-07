@@ -72,6 +72,8 @@ type Field struct {
 	ActualCost *decimal.Decimal `json:"actual_cost,omitempty" form:"actual_cost"`
 	// 行銷活動預期收入
 	ExpectedIncome *decimal.Decimal `json:"expected_income,omitempty" form:"expected_income"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" form:"salesperson_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -116,6 +118,10 @@ type List struct {
 		ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
 		// 行銷活動預期收入
 		ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+		// 業務員ID
+		SalespersonID string `json:"salesperson_id,omitempty"`
+		// 業務員名稱
+		SalespersonName string `json:"salesperson_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -161,6 +167,10 @@ type ListOpportunities struct {
 		ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
 		// 行銷活動預期收入
 		ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+		// 業務員ID
+		SalespersonID string `json:"salesperson_id,omitempty"`
+		// 業務員名稱
+		SalespersonName string `json:"salesperson_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -206,6 +216,10 @@ type Single struct {
 	ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
 	ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+	// 業務員ID
+	SalespersonID string `json:"salesperson_id,omitempty"`
+	// 業務員名稱
+	SalespersonName string `json:"salesperson_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -246,6 +260,10 @@ type SingleOpportunities struct {
 	ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
 	ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+	// 業務員ID
+	SalespersonID string `json:"salesperson_id,omitempty"`
+	// 業務員名稱
+	SalespersonName string `json:"salesperson_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -286,6 +304,8 @@ type Update struct {
 	ActualCost *decimal.Decimal `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
 	ExpectedIncome *decimal.Decimal `json:"expected_income,omitempty"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

@@ -128,6 +128,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["amount"] = input.Amount
 	}
 
+	if input.SalespersonID != nil {
+		data["salesperson_id"] = input.SalespersonID
+	}
+
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}

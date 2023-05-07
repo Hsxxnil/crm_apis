@@ -72,6 +72,7 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 		contracts.AccountName = *contractBase[i].Accounts.Name
 		contracts.CreatedBy = *contractBase[i].CreatedByUsers.Name
 		contracts.UpdatedBy = *contractBase[i].UpdatedByUsers.Name
+		contracts.SalespersonName = *contractBase[i].Salespeople.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -99,6 +100,7 @@ func (m *manager) GetBySingle(input *contractModel.Field) interface{} {
 	output.AccountName = *contractBase.Accounts.Name
 	output.CreatedBy = *contractBase.CreatedByUsers.Name
 	output.UpdatedBy = *contractBase.UpdatedByUsers.Name
+	output.SalespersonName = *contractBase.Salespeople.Name
 
 	return code.GetCodeMessage(code.Successful, output)
 }

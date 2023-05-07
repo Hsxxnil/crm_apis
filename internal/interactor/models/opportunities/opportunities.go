@@ -44,6 +44,8 @@ type Field struct {
 	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 預期收入金額
 	Amount *decimal.Decimal `json:"amount,omitempty" form:"amount"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" form:"salesperson_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -74,6 +76,10 @@ type List struct {
 		AccountName string `json:"account_name,omitempty"`
 		// 預期收入金額
 		Amount decimal.Decimal `json:"amount,omitempty"`
+		// 業務員ID
+		SalespersonID string `json:"salesperson_id,omitempty"`
+		// 業務員名稱
+		SalespersonName string `json:"salesperson_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -105,6 +111,10 @@ type ListCampaigns struct {
 		AccountName string `json:"account_name,omitempty"`
 		// 預期收入金額
 		Amount decimal.Decimal `json:"amount,omitempty"`
+		// 業務員ID
+		SalespersonID string `json:"salesperson_id,omitempty"`
+		// 業務員名稱
+		SalespersonName string `json:"salesperson_name,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -136,6 +146,10 @@ type Single struct {
 	AccountName string `json:"account_name,omitempty"`
 	// 預期收入金額
 	Amount decimal.Decimal `json:"amount,omitempty"`
+	// 業務員ID
+	SalespersonID string `json:"salesperson_id,omitempty"`
+	// 業務員名稱
+	SalespersonName string `json:"salesperson_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -162,6 +176,10 @@ type SingleCampaigns struct {
 	AccountName string `json:"account_name,omitempty"`
 	// 預期收入金額
 	Amount decimal.Decimal `json:"amount,omitempty"`
+	// 業務員ID
+	SalespersonID string `json:"salesperson_id,omitempty"`
+	// 業務員名稱
+	SalespersonName string `json:"salesperson_name,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -186,6 +204,8 @@ type Update struct {
 	CloseDate *time.Time `json:"close_date,omitempty"`
 	// 預期收入金額
 	Amount *decimal.Decimal `json:"amount,omitempty"`
+	// 業務員ID
+	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
