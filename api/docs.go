@@ -9111,6 +9111,14 @@ const docTemplate = `{
                                 "description": "線索分級",
                                 "type": "string"
                             },
+                            "salesperson_id": {
+                                "description": "業務員ID",
+                                "type": "string"
+                            },
+                            "salesperson_name": {
+                                "description": "業務員名稱",
+                                "type": "string"
+                            },
                             "source": {
                                 "description": "線索來源",
                                 "type": "string"
@@ -9187,6 +9195,14 @@ const docTemplate = `{
                     "description": "線索分級",
                     "type": "string"
                 },
+                "salesperson_id": {
+                    "description": "業務員ID",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "source": {
                     "description": "線索來源",
                     "type": "string"
@@ -9217,6 +9233,10 @@ const docTemplate = `{
                 },
                 "rating": {
                     "description": "線索分級",
+                    "type": "string"
+                },
+                "salesperson_id": {
+                    "description": "業務員ID",
                     "type": "string"
                 },
                 "source": {

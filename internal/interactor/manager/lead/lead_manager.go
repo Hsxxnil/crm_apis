@@ -71,6 +71,7 @@ func (m *manager) GetByList(input *leadModel.Fields) interface{} {
 		leads.AccountName = *leadBase[i].Accounts.Name
 		leads.CreatedBy = *leadBase[i].CreatedByUsers.Name
 		leads.UpdatedBy = *leadBase[i].UpdatedByUsers.Name
+		leads.SalespersonName = *leadBase[i].Salespeople.Name
 	}
 
 	return code.GetCodeMessage(code.Successful, output)
@@ -98,6 +99,7 @@ func (m *manager) GetBySingle(input *leadModel.Field) interface{} {
 	output.AccountName = *leadBase.Accounts.Name
 	output.CreatedBy = *leadBase.CreatedByUsers.Name
 	output.UpdatedBy = *leadBase.UpdatedByUsers.Name
+	output.SalespersonName = *leadBase.Salespeople.Name
 
 	return code.GetCodeMessage(code.Successful, output)
 }
