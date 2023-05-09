@@ -3,10 +3,12 @@ package campaigns
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/users"
+	"app.eirc/internal/interactor/models/sort"
+
 	"app.eirc/internal/entity/postgresql/db/opportunity_campaigns"
 
-	"app.eirc/internal/entity/postgresql/db/users"
-
+	model "app.eirc/internal/interactor/models/campaigns"
 	"app.eirc/internal/interactor/models/special"
 	"github.com/shopspring/decimal"
 )
@@ -92,9 +94,13 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
-	special.UseBase
 	// opportunity_campaigns data
 	OpportunityCampaigns []opportunity_campaigns.Base `json:"opportunities,omitempty"`
+	special.UseBase
+	// 搜尋欄位
+	model.Filter `json:"filter"`
+	// 排序欄位
+	sort.Sort `json:"sort"`
 }
 
 // TableName sets the insert table name for this struct type

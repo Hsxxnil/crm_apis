@@ -3,6 +3,8 @@ package campaigns
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/sort"
+
 	"app.eirc/internal/interactor/models/opportunity_campaigns"
 
 	"app.eirc/internal/interactor/models/page"
@@ -80,8 +82,22 @@ type Field struct {
 type Fields struct {
 	// 搜尋結構檔
 	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
 	// 分頁搜尋結構檔
 	page.Pagination
+	// 排序欄位
+	sort.Sort `json:"sort"`
+}
+
+// Filter struct is used to store the search field
+type Filter struct {
+	// 行銷活動名稱
+	FilterName *string `json:"name,omitempty"`
+	// TODO 父系行銷活動名稱
+	// 行銷活動類型
+	FilterType *string `json:"type,omitempty"`
+	// TODO 業務員名稱
 }
 
 // List is multiple return structure files
@@ -128,57 +144,6 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
-	} `json:"campaigns"`
-	// 分頁返回結構檔
-	page.Total
-}
-
-// ListOpportunities is multiple return structure files containing opportunities
-type ListOpportunities struct {
-	// 多筆
-	Campaigns []*struct {
-		// 行銷活動ID
-		CampaignID string `json:"campaign_id,omitempty"`
-		// 行銷活動名稱
-		Name string `json:"name,omitempty"`
-		// 行銷活動狀態
-		Status string `json:"status,omitempty"`
-		// 行銷活動是否啟用
-		IsEnable bool `json:"is_enable"`
-		// 行銷活動類型
-		Type string `json:"type,omitempty"`
-		// 父系行銷活動ID
-		ParentCampaignID string `json:"parent_campaign_id,omitempty"`
-		// 父系行銷活動名稱
-		ParentCampaignName string `json:"parent_campaign_name,omitempty"`
-		// 行銷活動開始日期
-		StartDate time.Time `json:"start_date,omitempty"`
-		// 行銷活動結束日期
-		EndDate time.Time `json:"end_date,omitempty"`
-		// 行銷活動描述
-		Description string `json:"description,omitempty"`
-		// 行銷活動已傳送數量
-		Sent int `json:"sent,omitempty"`
-		// 行銷活動預算成本
-		BudgetCost decimal.Decimal `json:"budget_cost,omitempty"`
-		// 行銷活動預期回應(%)
-		ExpectedResponses int `json:"expected_responses,omitempty"`
-		// 行銷活動實際成本
-		ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
-		// 行銷活動預期收入
-		ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
-		// 業務員ID
-		SalespersonID string `json:"salesperson_id,omitempty"`
-		// 業務員名稱
-		SalespersonName string `json:"salesperson_name,omitempty"`
-		// 創建者
-		CreatedBy string `json:"created_by,omitempty"`
-		// 更新者
-		UpdatedBy string `json:"updated_by,omitempty"`
-		// 時間戳記
-		section.TimeAt
-		// opportunity_campaigns data
-		OpportunityCampaigns []opportunity_campaigns.CampaignSingle `json:"opportunities,omitempty"`
 	} `json:"campaigns"`
 	// 分頁返回結構檔
 	page.Total

@@ -64,6 +64,24 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("campaign_id = ?", input.CampaignID)
 	}
 
+	// filter
+	isFiltered := false
+	filterdb := s.db.Model(&model.Table{})
+	if input.FilterName != nil {
+		filterdb.Where("name like ?", "%"+*input.FilterName+"%")
+		isFiltered = true
+	}
+
+	if input.FilterType != nil {
+		if isFiltered {
+			filterdb.Or("type like ?", "%"+*input.FilterType+"%")
+		} else {
+			filterdb.Where("type like ?", "%"+*input.FilterType+"%")
+		}
+	}
+
+	query.Where(filterdb)
+
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
 	if err != nil {
