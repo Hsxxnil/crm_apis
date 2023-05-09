@@ -3,9 +3,11 @@ package orders
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/order_products"
+	"app.eirc/internal/interactor/models/sort"
 
+	"app.eirc/internal/entity/postgresql/db/order_products"
 	"app.eirc/internal/entity/postgresql/db/users"
+	model "app.eirc/internal/interactor/models/orders"
 
 	"app.eirc/internal/entity/postgresql/db/contracts"
 
@@ -44,9 +46,9 @@ type Table struct {
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	// activate_users data
 	ActivatedByUsers users.Table `gorm:"foreignKey:ActivatedBy;references:UserID" json:"activated_by_users,omitempty"`
-	special.UseTable
 	// order_products data
 	OrderProducts []order_products.Table `gorm:"foreignKey:OrderID;" json:"products,omitempty"`
+	special.UseTable
 }
 
 // Base struct is corresponding to orders table structure file
@@ -75,9 +77,13 @@ type Base struct {
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	// activate_users data
 	ActivatedByUsers users.Base `json:"activated_by_users,omitempty"`
-	special.UseBase
 	// order_products data
 	OrderProducts []order_products.Base `json:"products,omitempty"`
+	special.UseBase
+	// 搜尋欄位
+	model.Filter `json:"filter"`
+	// 排序欄位
+	sort.Sort `json:"sort"`
 }
 
 // TableName sets the insert table name for this struct type

@@ -1,6 +1,12 @@
 ### GetByList
-GET {{host}}/crm/v1.0/orders?page=1&limit=20
-Accept: application/json
+POST {{host}}/crm/v1.0/orders/list?page=1&limit=20
+Content-Type: application/json
+
+{
+  "filter": {
+    "code": "03"
+  }
+}
 
 ### GetByListProducts
 GET {{host}}/crm/v1.0/orders/products?page=1&limit=20
