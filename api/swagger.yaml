@@ -3116,6 +3116,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -3371,6 +3383,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -3675,6 +3699,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -3930,6 +3966,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -4439,6 +4487,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -5042,6 +5102,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -5551,6 +5623,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -5855,6 +5939,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -6364,6 +6460,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: order
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
