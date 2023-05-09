@@ -45,6 +45,7 @@ type Field struct {
 	Code *string `json:"code,omitempty" form:"code"`
 }
 
+// Fields is the searched structure file (including pagination)
 type Fields struct {
 	// 搜尋結構檔
 	Field

@@ -50,6 +50,7 @@ type Field struct {
 	SalespersonID *string `json:"salesperson_id,omitempty" form:"salesperson_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
+// Fields is the searched structure file (including pagination)
 type Fields struct {
 	// 搜尋結構檔
 	Field

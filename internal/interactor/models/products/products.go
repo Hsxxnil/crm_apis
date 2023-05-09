@@ -39,6 +39,7 @@ type Field struct {
 	Price *decimal.Decimal `json:"price,omitempty" form:"price"`
 }
 
+// Fields is the searched structure file (including pagination)
 type Fields struct {
 	// 搜尋結構檔
 	Field
