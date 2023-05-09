@@ -4,6 +4,8 @@ import (
 	"time"
 
 	"app.eirc/internal/entity/postgresql/db/opportunity_campaigns"
+	model "app.eirc/internal/interactor/models/opportunities"
+	"app.eirc/internal/interactor/models/sort"
 
 	"app.eirc/internal/entity/postgresql/db/accounts"
 
@@ -39,9 +41,9 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
-	special.UseTable
 	// opportunity_campaigns data
 	OpportunityCampaigns []opportunity_campaigns.Table `gorm:"foreignKey:OpportunityID;" json:"campaigns,omitempty"`
+	special.UseTable
 }
 
 // Base struct is corresponding to opportunities table structure file
@@ -70,9 +72,13 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
-	special.UseBase
 	// opportunity_campaigns data
 	OpportunityCampaigns []opportunity_campaigns.Base `json:"campaigns,omitempty"`
+	special.UseBase
+	// 搜尋欄位
+	model.Filter `json:"filter"`
+	// 排序欄位
+	sort.Sort `json:"sort"`
 }
 
 // TableName sets the insert table name for this struct type
