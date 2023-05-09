@@ -64,8 +64,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("account_id = ?", input.AccountID)
 	}
 
-	log.Debug(input.FilterName)
-
 	// filter
 	isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
