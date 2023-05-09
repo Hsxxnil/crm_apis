@@ -3,9 +3,11 @@ package quotes
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/quote_products"
+	"app.eirc/internal/interactor/models/sort"
 
 	"app.eirc/internal/entity/postgresql/db/opportunities"
+	"app.eirc/internal/entity/postgresql/db/quote_products"
+	model "app.eirc/internal/interactor/models/quotes"
 
 	"app.eirc/internal/entity/postgresql/db/users"
 
@@ -43,9 +45,9 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
-	special.UseTable
 	// quote_products data
 	QuoteProducts []quote_products.Table `gorm:"foreignKey:QuoteID;" json:"products,omitempty"`
+	special.UseTable
 }
 
 // Base struct is corresponding to quotes table structure file
@@ -78,9 +80,13 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
-	special.UseBase
 	// quote_products data
 	QuoteProducts []quote_products.Base `json:"products,omitempty"`
+	special.UseBase
+	// 搜尋欄位
+	model.Filter `json:"filter"`
+	// 排序欄位
+	sort.Sort `json:"sort"`
 }
 
 // TableName sets the insert table name for this struct type
