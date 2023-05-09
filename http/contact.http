@@ -1,6 +1,14 @@
 ### GetByList
-GET {{host}}/crm/v1.0/contacts?page=1&limit=20
-Accept: application/json
+POST {{host}}/crm/v1.0/contacts/list?page=1&limit=20
+Content-Type: application/json
+
+{
+  "filter": {
+    "name": "H",
+    "cell_phone": "",
+    "email": "a"
+  }
+}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
