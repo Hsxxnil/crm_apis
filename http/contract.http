@@ -1,6 +1,12 @@
 ### GetByList
-GET {{host}}/crm/v1.0/contracts?page=1&limit=20
-Accept: application/json
+POST {{host}}/crm/v1.0/contracts/list?page=1&limit=20
+Content-Type: application/json
+
+{
+  "filter": {
+    "code": "1"
+  }
+}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18

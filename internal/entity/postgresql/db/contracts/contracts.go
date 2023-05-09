@@ -3,9 +3,11 @@ package contracts
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/users"
+	"app.eirc/internal/interactor/models/sort"
 
 	"app.eirc/internal/entity/postgresql/db/accounts"
+	"app.eirc/internal/entity/postgresql/db/users"
+	model "app.eirc/internal/interactor/models/contracts"
 
 	"app.eirc/internal/interactor/models/special"
 )
@@ -66,6 +68,10 @@ type Base struct {
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	special.UseBase
+	// 搜尋欄位
+	model.Filter `json:"filter"`
+	// 排序欄位
+	sort.Sort `json:"sort"`
 }
 
 // TableName sets the insert table name for this struct type
