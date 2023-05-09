@@ -64,6 +64,10 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("order_id = ?", input.OrderID)
 	}
 
+	if input.Sort.Field != "" && input.Sort.Direction != "" {
+		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+	}
+
 	// filter
 	//isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
