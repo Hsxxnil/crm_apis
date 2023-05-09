@@ -2,6 +2,7 @@ package lead
 
 import (
 	"net/http"
+	"strconv"
 
 	constant "app.eirc/internal/interactor/constants"
 
@@ -73,11 +74,15 @@ func (c *control) Create(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=leads.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /leads [get]
+// @Router /leads/list [post]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &leadModel.Fields{}
+	limit := ctx.Query("limit")
+	page := ctx.Query("page")
+	input.Limit, _ = strconv.ParseInt(limit, 10, 64)
+	input.Page, _ = strconv.ParseInt(page, 10, 64)
 
-	if err := ctx.ShouldBindQuery(input); err != nil {
+	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
 
