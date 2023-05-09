@@ -3,6 +3,10 @@ POST {{host}}/crm/v1.0/opportunities/list?page=1&limit=20
 Content-Type: application/json
 
 {
+  "sort": {
+    "field": "code",
+    "direction": "asc"
+  },
   "filter": {
     "name": ""
   }
