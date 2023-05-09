@@ -3,6 +3,8 @@ package opportunities
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/sort"
+
 	"app.eirc/internal/interactor/models/opportunity_campaigns"
 
 	"app.eirc/internal/interactor/models/page"
@@ -52,8 +54,20 @@ type Field struct {
 type Fields struct {
 	// 搜尋結構檔
 	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
 	// 分頁搜尋結構檔
 	page.Pagination
+	// 排序欄位
+	sort.Sort `json:"sort"`
+}
+
+// Filter struct is used to store the search field
+type Filter struct {
+	// 商機名稱
+	FilterName *string `json:"name,omitempty"`
+	// TODO 帳戶名稱
+	// TODO 業務員名稱
 }
 
 // List is multiple return structure files
@@ -86,43 +100,6 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
-	} `json:"opportunities"`
-	// 分頁返回結構檔
-	page.Total
-}
-
-// ListCampaigns is multiple return structure files containing campaigns
-type ListCampaigns struct {
-	// 多筆
-	Opportunities []*struct {
-		// 商機ID
-		OpportunityID string `json:"opportunity_id,omitempty"`
-		// 商機名稱
-		Name string `json:"name,omitempty"`
-		// 商機階段
-		Stage string `json:"stage,omitempty"`
-		// 商機預測種類
-		ForecastCategory string `json:"forecast_category,omitempty"`
-		// 商機結束日期
-		CloseDate time.Time `json:"close_date,omitempty"`
-		// 帳戶ID
-		AccountID string `json:"account_id,omitempty"`
-		// 帳戶名稱
-		AccountName string `json:"account_name,omitempty"`
-		// 預期收入金額
-		Amount decimal.Decimal `json:"amount,omitempty"`
-		// 業務員ID
-		SalespersonID string `json:"salesperson_id,omitempty"`
-		// 業務員名稱
-		SalespersonName string `json:"salesperson_name,omitempty"`
-		// 創建者
-		CreatedBy string `json:"created_by,omitempty"`
-		// 更新者
-		UpdatedBy string `json:"updated_by,omitempty"`
-		// 時間戳記
-		section.TimeAt
-		// opportunity_campaigns data
-		OpportunityCampaigns []opportunity_campaigns.OpportunitySingle `json:"campaigns,omitempty"`
 	} `json:"opportunities"`
 	// 分頁返回結構檔
 	page.Total

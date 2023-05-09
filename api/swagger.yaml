@@ -99,83 +99,6 @@ definitions:
     - limit
     - page
     type: object
-  accounts.ListContacts:
-    properties:
-      accounts:
-        description: 多筆
-        items:
-          properties:
-            account_id:
-              description: 帳戶ID
-              type: string
-            activated_at:
-              description: 啟用時間
-              type: string
-            contacts:
-              description: contacts data
-              items:
-                $ref: '#/definitions/contacts.AccountSingle'
-              type: array
-            created_at:
-              description: 創建時間
-              type: string
-            created_by:
-              description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
-              type: string
-            industry_id:
-              description: 行業ID
-              type: string
-            industry_name:
-              description: 行業名稱
-              type: string
-            name:
-              description: 帳戶名稱
-              type: string
-            parent_account_id:
-              description: 父系帳戶ID
-              type: string
-            parent_account_name:
-              description: 父系帳戶名稱
-              type: string
-            phone_number:
-              description: 帳戶電話
-              type: string
-            salesperson_id:
-              description: 業務員ID
-              type: string
-            salesperson_name:
-              description: 業務員名稱
-              type: string
-            type:
-              description: 帳戶類型
-              type: string
-            updated_at:
-              description: 更新時間
-              type: string
-            updated_by:
-              description: 更新者
-              type: string
-          type: object
-        type: array
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
-    type: object
   accounts.Single:
     properties:
       account_id:
@@ -404,104 +327,6 @@ definitions:
             name:
               description: 行銷活動名稱
               type: string
-            parent_campaign_id:
-              description: 父系行銷活動ID
-              type: string
-            parent_campaign_name:
-              description: 父系行銷活動名稱
-              type: string
-            salesperson_id:
-              description: 業務員ID
-              type: string
-            salesperson_name:
-              description: 業務員名稱
-              type: string
-            sent:
-              description: 行銷活動已傳送數量
-              type: integer
-            start_date:
-              description: 行銷活動開始日期
-              type: string
-            status:
-              description: 行銷活動狀態
-              type: string
-            type:
-              description: 行銷活動類型
-              type: string
-            updated_at:
-              description: 更新時間
-              type: string
-            updated_by:
-              description: 更新者
-              type: string
-          type: object
-        type: array
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
-    type: object
-  campaigns.ListOpportunities:
-    properties:
-      campaigns:
-        description: 多筆
-        items:
-          properties:
-            activated_at:
-              description: 啟用時間
-              type: string
-            actual_cost:
-              description: 行銷活動實際成本
-              type: number
-            budget_cost:
-              description: 行銷活動預算成本
-              type: number
-            campaign_id:
-              description: 行銷活動ID
-              type: string
-            created_at:
-              description: 創建時間
-              type: string
-            created_by:
-              description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
-              type: string
-            description:
-              description: 行銷活動描述
-              type: string
-            end_date:
-              description: 行銷活動結束日期
-              type: string
-            expected_income:
-              description: 行銷活動預期收入
-              type: number
-            expected_responses:
-              description: 行銷活動預期回應(%)
-              type: integer
-            is_enable:
-              description: 行銷活動是否啟用
-              type: boolean
-            name:
-              description: 行銷活動名稱
-              type: string
-            opportunities:
-              description: opportunity_campaigns data
-              items:
-                $ref: '#/definitions/opportunity_campaigns.CampaignSingle'
-              type: array
             parent_campaign_id:
               description: 父系行銷活動ID
               type: string
@@ -1552,83 +1377,6 @@ definitions:
     - limit
     - page
     type: object
-  opportunities.ListCampaigns:
-    properties:
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      opportunities:
-        description: 多筆
-        items:
-          properties:
-            account_id:
-              description: 帳戶ID
-              type: string
-            account_name:
-              description: 帳戶名稱
-              type: string
-            activated_at:
-              description: 啟用時間
-              type: string
-            amount:
-              description: 預期收入金額
-              type: number
-            campaigns:
-              description: opportunity_campaigns data
-              items:
-                $ref: '#/definitions/opportunity_campaigns.OpportunitySingle'
-              type: array
-            close_date:
-              description: 商機結束日期
-              type: string
-            created_at:
-              description: 創建時間
-              type: string
-            created_by:
-              description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
-              type: string
-            forecast_category:
-              description: 商機預測種類
-              type: string
-            name:
-              description: 商機名稱
-              type: string
-            opportunity_id:
-              description: 商機ID
-              type: string
-            salesperson_id:
-              description: 業務員ID
-              type: string
-            salesperson_name:
-              description: 業務員名稱
-              type: string
-            stage:
-              description: 商機階段
-              type: string
-            updated_at:
-              description: 更新時間
-              type: string
-            updated_by:
-              description: 更新者
-              type: string
-          type: object
-        type: array
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
-    type: object
   opportunities.Single:
     properties:
       account_id:
@@ -2152,83 +1900,6 @@ definitions:
             order_id:
               description: 訂單ID
               type: string
-            start_date:
-              description: 訂單開始日期
-              type: string
-            status:
-              description: 訂單狀態
-              type: string
-            updated_at:
-              description: 更新時間
-              type: string
-            updated_by:
-              description: 更新者
-              type: string
-          type: object
-        type: array
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
-    type: object
-  orders.ListProducts:
-    properties:
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      orders:
-        description: 多筆
-        items:
-          properties:
-            account_id:
-              description: 帳戶ID
-              type: string
-            account_name:
-              description: 帳戶名稱
-              type: string
-            activated_at:
-              description: 啟用時間
-              type: string
-            activated_by:
-              description: 啟用者
-              type: string
-            code:
-              description: 訂單號碼
-              type: string
-            contract_code:
-              description: 契約號碼
-              type: string
-            contract_id:
-              description: 契約ID
-              type: string
-            created_at:
-              description: 創建時間
-              type: string
-            created_by:
-              description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
-              type: string
-            description:
-              description: 訂單描述
-              type: string
-            order_id:
-              description: 訂單ID
-              type: string
-            products:
-              description: order_products data
-              items:
-                $ref: '#/definitions/order_products.OrderSingle'
-              type: array
             start_date:
               description: 訂單開始日期
               type: string
@@ -2843,89 +2514,6 @@ definitions:
     - limit
     - page
     type: object
-  quotes.ListProducts:
-    properties:
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      quotes:
-        description: 多筆
-        items:
-          properties:
-            account_id:
-              description: 帳戶ID
-              type: string
-            activated_at:
-              description: 啟用時間
-              type: string
-            code:
-              description: 報價號碼
-              type: string
-            created_at:
-              description: 創建時間
-              type: string
-            created_by:
-              description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
-              type: string
-            description:
-              description: 報價描述
-              type: string
-            expiration_date:
-              description: 報價到期日期
-              type: string
-            is_syncing:
-              description: 報價與商機是否同步化
-              type: boolean
-            name:
-              description: 報價名稱
-              type: string
-            opportunity_id:
-              description: 商機ID
-              type: string
-            opportunity_name:
-              description: 商機名稱
-              type: string
-            products:
-              description: quote_products data
-              items:
-                $ref: '#/definitions/quote_products.QuoteSingle'
-              type: array
-            quote_id:
-              description: 報價ID
-              type: string
-            shipping_and_handling:
-              description: 報價運輸和處理費
-              type: number
-            status:
-              description: 報價狀態
-              type: string
-            tax:
-              description: 報價稅額
-              type: number
-            updated_at:
-              description: 更新時間
-              type: string
-            updated_by:
-              description: 更新者
-              type: string
-          type: object
-        type: array
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
-    type: object
   quotes.Single:
     properties:
       account_id:
@@ -3258,59 +2846,6 @@ info:
   version: "0.1"
 paths:
   /accounts:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部帳戶
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/accounts.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部帳戶
-      tags:
-      - account
     post:
       consumes:
       - application/json
@@ -3511,60 +3046,6 @@ paths:
       summary: 更新單一帳戶
       tags:
       - account
-  /accounts/contacts:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部帳戶含聯絡人
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/accounts.ListContacts'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部帳戶含聯絡人
-      tags:
-      - account
   /accounts/contacts/{accountID}:
     get:
       consumes:
@@ -3614,11 +3095,11 @@ paths:
       summary: 取得單一帳戶含聯絡人
       tags:
       - account
-  /campaigns:
-    get:
+  /accounts/list:
+    post:
       consumes:
       - application/json
-      description: 取得全部行銷活動
+      description: 取得全部帳戶
       parameters:
       - description: JWE Token
         in: header
@@ -3635,6 +3116,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -3645,7 +3138,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/campaigns.List'
+                  $ref: '#/definitions/accounts.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -3665,9 +3158,10 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部行銷活動
+      summary: 取得全部帳戶
       tags:
-      - campaign
+      - account
+  /campaigns:
     post:
       consumes:
       - application/json
@@ -3868,11 +3362,11 @@ paths:
       summary: 更新單一行銷活動
       tags:
       - campaign
-  /campaigns/opportunities:
-    get:
+  /campaigns/list:
+    post:
       consumes:
       - application/json
-      description: 取得全部行銷活動含受影響的商機
+      description: 取得全部行銷活動
       parameters:
       - description: JWE Token
         in: header
@@ -3889,6 +3383,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -3899,7 +3405,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/campaigns.ListOpportunities'
+                  $ref: '#/definitions/campaigns.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -3919,7 +3425,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部行銷活動含受影響的商機
+      summary: 取得全部行銷活動
       tags:
       - campaign
   /campaigns/opportunities/{campaignID}:
@@ -3972,59 +3478,6 @@ paths:
       tags:
       - campaign
   /contacts:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部聯絡人
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/contacts.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部聯絡人
-      tags:
-      - contact
     post:
       consumes:
       - application/json
@@ -4225,11 +3678,11 @@ paths:
       summary: 更新單一聯絡人
       tags:
       - contact
-  /contracts:
-    get:
+  /contacts/list:
+    post:
       consumes:
       - application/json
-      description: 取得全部契約
+      description: 取得全部聯絡人
       parameters:
       - description: JWE Token
         in: header
@@ -4246,6 +3699,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -4256,7 +3721,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/contracts.List'
+                  $ref: '#/definitions/contacts.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -4276,9 +3741,10 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部契約
+      summary: 取得全部聯絡人
       tags:
-      - contract
+      - contact
+  /contracts:
     post:
       consumes:
       - application/json
@@ -4477,6 +3943,72 @@ paths:
                   type: string
               type: object
       summary: 更新單一契約
+      tags:
+      - contract
+  /contracts/list:
+    post:
+      consumes:
+      - application/json
+      description: 取得全部契約
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/contracts.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部契約
       tags:
       - contract
   /industries:
@@ -4734,59 +4266,6 @@ paths:
       tags:
       - industry
   /leads:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部線索
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/leads.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部線索
-      tags:
-      - lead
     post:
       consumes:
       - application/json
@@ -4987,6 +4466,72 @@ paths:
       summary: 更新單一線索
       tags:
       - lead
+  /leads/list:
+    post:
+      consumes:
+      - application/json
+      description: 取得全部線索
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/leads.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部線索
+      tags:
+      - lead
   /login:
     post:
       consumes:
@@ -5033,59 +4578,6 @@ paths:
       tags:
       - login
   /opportunities:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部商機
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/opportunities.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部商機
-      tags:
-      - opportunity
     post:
       consumes:
       - application/json
@@ -5540,60 +5032,6 @@ paths:
       summary: 更新單一商機
       tags:
       - opportunity
-  /opportunities/campaigns:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部商機含影響的行銷活動
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/opportunities.ListCampaigns'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部商機含影響的行銷活動
-      tags:
-      - opportunity
   /opportunities/campaigns/{opportunityID}:
     get:
       consumes:
@@ -5643,11 +5081,11 @@ paths:
       summary: 取得單一商機含影響的行銷活動
       tags:
       - opportunity
-  /orders:
-    get:
+  /opportunities/list:
+    post:
       consumes:
       - application/json
-      description: 取得全部訂單
+      description: 取得全部商機
       parameters:
       - description: JWE Token
         in: header
@@ -5664,6 +5102,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -5674,7 +5124,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/orders.List'
+                  $ref: '#/definitions/opportunities.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -5694,9 +5144,10 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部訂單
+      summary: 取得全部商機
       tags:
-      - order
+      - opportunity
+  /orders:
     post:
       consumes:
       - application/json
@@ -6151,11 +5602,11 @@ paths:
       summary: 更新單一訂單
       tags:
       - order
-  /orders/products:
-    get:
+  /orders/list:
+    post:
       consumes:
       - application/json
-      description: 取得全部訂單含產品
+      description: 取得全部訂單
       parameters:
       - description: JWE Token
         in: header
@@ -6172,6 +5623,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -6182,7 +5645,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/orders.ListProducts'
+                  $ref: '#/definitions/orders.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -6202,7 +5665,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部訂單含產品
+      summary: 取得全部訂單
       tags:
       - order
   /orders/products/{orderID}:
@@ -6255,59 +5718,6 @@ paths:
       tags:
       - order
   /products:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/products.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部產品
-      tags:
-      - product
     post:
       consumes:
       - application/json
@@ -6508,11 +5918,11 @@ paths:
       summary: 更新單一產品
       tags:
       - product
-  /quotes:
-    get:
+  /products/list:
+    post:
       consumes:
       - application/json
-      description: 取得全部報價
+      description: 取得全部產品
       parameters:
       - description: JWE Token
         in: header
@@ -6529,6 +5939,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -6539,7 +5961,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/quotes.List'
+                  $ref: '#/definitions/products.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -6559,9 +5981,10 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部報價
+      summary: 取得全部產品
       tags:
-      - quote
+      - product
+  /quotes:
     post:
       consumes:
       - application/json
@@ -7016,11 +6439,11 @@ paths:
       summary: 更新單一報價
       tags:
       - quote
-  /quotes/products:
-    get:
+  /quotes/list:
+    post:
       consumes:
       - application/json
-      description: 取得全部報價含產品
+      description: 取得全部報價
       parameters:
       - description: JWE Token
         in: header
@@ -7037,6 +6460,18 @@ paths:
         name: limit
         required: true
         type: integer
+      - description: 排序
+        in: query
+        name: sort
+        type: string
+      - description: 排序方式
+        in: query
+        name: direction
+        type: string
+      - description: 搜尋
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:
@@ -7047,7 +6482,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/quotes.ListProducts'
+                  $ref: '#/definitions/quotes.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -7067,7 +6502,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部報價含產品
+      summary: 取得全部報價
       tags:
       - quote
   /quotes/products/{quoteID}:

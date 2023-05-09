@@ -20,7 +20,6 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *campaignModel.Create) interface{}
 	GetByList(input *campaignModel.Fields) interface{}
-	GetByListOpportunities(input *campaignModel.Fields) interface{}
 	GetBySingle(input *campaignModel.Field) interface{}
 	GetBySingleOpportunities(input *campaignModel.Field) interface{}
 	Delete(input *campaignModel.Field) interface{}
@@ -84,50 +83,6 @@ func (m *manager) GetByList(input *campaignModel.Fields) interface{} {
 			campaigns.ParentCampaignName = ""
 		} else {
 			campaigns.ParentCampaignName = *parentCampaignsBase.Name
-		}
-	}
-
-	return code.GetCodeMessage(code.Successful, output)
-}
-
-func (m *manager) GetByListOpportunities(input *campaignModel.Fields) interface{} {
-	output := &campaignModel.ListOpportunities{}
-	output.Limit = input.Limit
-	output.Page = input.Page
-	quantity, campaignBase, err := m.CampaignService.GetByList(input)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Total.Total = quantity
-	campaignByte, err := json.Marshal(campaignBase)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(campaignByte, &output.Campaigns)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-
-	for i, campaigns := range output.Campaigns {
-		campaigns.CreatedBy = *campaignBase[i].CreatedByUsers.Name
-		campaigns.UpdatedBy = *campaignBase[i].UpdatedByUsers.Name
-		campaigns.SalespersonName = *campaignBase[i].Salespeople.Name
-		if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
-			CampaignID: campaigns.ParentCampaignID,
-		}); err != nil {
-			campaigns.ParentCampaignName = ""
-		} else {
-			campaigns.ParentCampaignName = *parentCampaignsBase.Name
-		}
-		for j, opportunities := range campaignBase[i].OpportunityCampaigns {
-			opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
-				OpportunityID: *opportunities.OpportunityID,
-			})
-			campaigns.OpportunityCampaigns[j].OpportunityName = *opportunityBase.Name
 		}
 	}
 

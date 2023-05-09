@@ -64,6 +64,20 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("quote_id = ?", input.QuoteID)
 	}
 
+	if input.Sort.Field != "" && input.Sort.Direction != "" {
+		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+	}
+
+	// filter
+	//isFiltered := false
+	filterdb := s.db.Model(&model.Table{})
+	if *input.FilterName != "" {
+		filterdb.Where("name like ?", "%"+*input.FilterName+"%")
+		//isFiltered = true
+	}
+
+	query.Where(filterdb)
+
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
 	if err != nil {

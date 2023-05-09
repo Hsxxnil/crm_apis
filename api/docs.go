@@ -21,98 +21,6 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/accounts": {
-            "get": {
-                "description": "取得全部帳戶",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "account"
-                ],
-                "summary": "取得全部帳戶",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/accounts.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增帳戶",
                 "consumes": [
@@ -201,9 +109,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/accounts/contacts": {
+        "/accounts/contacts/{accountID}": {
             "get": {
-                "description": "取得全部帳戶含聯絡人",
+                "description": "取得單一帳戶含聯絡人",
                 "consumes": [
                     "application/json"
                 ],
@@ -213,7 +121,7 @@ const docTemplate = `{
                 "tags": [
                     "account"
                 ],
-                "summary": "取得全部帳戶含聯絡人",
+                "summary": "取得單一帳戶含聯絡人",
                 "parameters": [
                     {
                         "type": "string",
@@ -223,17 +131,10 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
+                        "type": "string",
+                        "description": "帳戶ID",
+                        "name": "accountID",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -249,7 +150,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/accounts.ListContacts"
+                                            "$ref": "#/definitions/accounts.SingleContacts"
                                         }
                                     }
                                 }
@@ -295,9 +196,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/accounts/contacts/{accountID}": {
-            "get": {
-                "description": "取得單一帳戶含聯絡人",
+        "/accounts/list": {
+            "post": {
+                "description": "取得全部帳戶",
                 "consumes": [
                     "application/json"
                 ],
@@ -307,7 +208,7 @@ const docTemplate = `{
                 "tags": [
                     "account"
                 ],
-                "summary": "取得單一帳戶含聯絡人",
+                "summary": "取得全部帳戶",
                 "parameters": [
                     {
                         "type": "string",
@@ -317,11 +218,36 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "帳戶ID",
-                        "name": "accountID",
-                        "in": "path",
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -336,7 +262,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/accounts.SingleContacts"
+                                            "$ref": "#/definitions/accounts.List"
                                         }
                                     }
                                 }
@@ -649,98 +575,6 @@ const docTemplate = `{
             }
         },
         "/campaigns": {
-            "get": {
-                "description": "取得全部行銷活動",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "campaign"
-                ],
-                "summary": "取得全部行銷活動",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/campaigns.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增行銷活動",
                 "consumes": [
@@ -829,9 +663,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/campaigns/opportunities": {
-            "get": {
-                "description": "取得全部行銷活動含受影響的商機",
+        "/campaigns/list": {
+            "post": {
+                "description": "取得全部行銷活動",
                 "consumes": [
                     "application/json"
                 ],
@@ -841,7 +675,7 @@ const docTemplate = `{
                 "tags": [
                     "campaign"
                 ],
-                "summary": "取得全部行銷活動含受影響的商機",
+                "summary": "取得全部行銷活動",
                 "parameters": [
                     {
                         "type": "string",
@@ -863,6 +697,24 @@ const docTemplate = `{
                         "name": "limit",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -877,7 +729,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/campaigns.ListOpportunities"
+                                            "$ref": "#/definitions/campaigns.List"
                                         }
                                     }
                                 }
@@ -1277,98 +1129,6 @@ const docTemplate = `{
             }
         },
         "/contacts": {
-            "get": {
-                "description": "取得全部聯絡人",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "contact"
-                ],
-                "summary": "取得全部聯絡人",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/contacts.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增聯絡人",
                 "consumes": [
@@ -1412,6 +1172,118 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/list": {
+            "post": {
+                "description": "取得全部聯絡人",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contact"
+                ],
+                "summary": "取得全部聯絡人",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/contacts.List"
                                         }
                                     }
                                 }
@@ -1724,98 +1596,6 @@ const docTemplate = `{
             }
         },
         "/contracts": {
-            "get": {
-                "description": "取得全部契約",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "contract"
-                ],
-                "summary": "取得全部契約",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/contracts.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增契約",
                 "consumes": [
@@ -1859,6 +1639,118 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/list": {
+            "post": {
+                "description": "取得全部契約",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contract"
+                ],
+                "summary": "取得全部契約",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/contracts.List"
                                         }
                                     }
                                 }
@@ -2618,98 +2510,6 @@ const docTemplate = `{
             }
         },
         "/leads": {
-            "get": {
-                "description": "取得全部線索",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "lead"
-                ],
-                "summary": "取得全部線索",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/leads.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增線索",
                 "consumes": [
@@ -2753,6 +2553,118 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/leads/list": {
+            "post": {
+                "description": "取得全部線索",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "lead"
+                ],
+                "summary": "取得全部線索",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/leads.List"
                                         }
                                     }
                                 }
@@ -3147,98 +3059,6 @@ const docTemplate = `{
             }
         },
         "/opportunities": {
-            "get": {
-                "description": "取得全部商機",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "opportunity"
-                ],
-                "summary": "取得全部商機",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/opportunities.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增商機",
                 "consumes": [
@@ -3774,9 +3594,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/opportunities/campaigns": {
+        "/opportunities/campaigns/{opportunityID}": {
             "get": {
-                "description": "取得全部商機含影響的行銷活動",
+                "description": "取得單一商機含影響的行銷活動",
                 "consumes": [
                     "application/json"
                 ],
@@ -3786,7 +3606,7 @@ const docTemplate = `{
                 "tags": [
                     "opportunity"
                 ],
-                "summary": "取得全部商機含影響的行銷活動",
+                "summary": "取得單一商機含影響的行銷活動",
                 "parameters": [
                     {
                         "type": "string",
@@ -3796,17 +3616,10 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
+                        "type": "string",
+                        "description": "商機ID",
+                        "name": "opportunityID",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -3822,7 +3635,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/opportunities.ListCampaigns"
+                                            "$ref": "#/definitions/opportunities.SingleCampaigns"
                                         }
                                     }
                                 }
@@ -3868,9 +3681,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/opportunities/campaigns/{opportunityID}": {
-            "get": {
-                "description": "取得單一商機含影響的行銷活動",
+        "/opportunities/list": {
+            "post": {
+                "description": "取得全部商機",
                 "consumes": [
                     "application/json"
                 ],
@@ -3880,7 +3693,7 @@ const docTemplate = `{
                 "tags": [
                     "opportunity"
                 ],
-                "summary": "取得單一商機含影響的行銷活動",
+                "summary": "取得全部商機",
                 "parameters": [
                     {
                         "type": "string",
@@ -3890,11 +3703,36 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "商機ID",
-                        "name": "opportunityID",
-                        "in": "path",
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -3909,7 +3747,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/opportunities.SingleCampaigns"
+                                            "$ref": "#/definitions/opportunities.List"
                                         }
                                     }
                                 }
@@ -4222,98 +4060,6 @@ const docTemplate = `{
             }
         },
         "/orders": {
-            "get": {
-                "description": "取得全部訂單",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "order"
-                ],
-                "summary": "取得全部訂單",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/orders.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增訂單",
                 "consumes": [
@@ -4849,9 +4595,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/orders/products": {
-            "get": {
-                "description": "取得全部訂單含產品",
+        "/orders/list": {
+            "post": {
+                "description": "取得全部訂單",
                 "consumes": [
                     "application/json"
                 ],
@@ -4861,7 +4607,7 @@ const docTemplate = `{
                 "tags": [
                     "order"
                 ],
-                "summary": "取得全部訂單含產品",
+                "summary": "取得全部訂單",
                 "parameters": [
                     {
                         "type": "string",
@@ -4883,6 +4629,24 @@ const docTemplate = `{
                         "name": "limit",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -4897,7 +4661,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/orders.ListProducts"
+                                            "$ref": "#/definitions/orders.List"
                                         }
                                     }
                                 }
@@ -5297,98 +5061,6 @@ const docTemplate = `{
             }
         },
         "/products": {
-            "get": {
-                "description": "取得全部產品",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "product"
-                ],
-                "summary": "取得全部產品",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/products.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增產品",
                 "consumes": [
@@ -5432,6 +5104,118 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/products/list": {
+            "post": {
+                "description": "取得全部產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "取得全部產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/products.List"
                                         }
                                     }
                                 }
@@ -5744,98 +5528,6 @@ const docTemplate = `{
             }
         },
         "/quotes": {
-            "get": {
-                "description": "取得全部報價",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "quote"
-                ],
-                "summary": "取得全部報價",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/quotes.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增報價",
                 "consumes": [
@@ -6371,9 +6063,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/quotes/products": {
-            "get": {
-                "description": "取得全部報價含產品",
+        "/quotes/list": {
+            "post": {
+                "description": "取得全部報價",
                 "consumes": [
                     "application/json"
                 ],
@@ -6383,7 +6075,7 @@ const docTemplate = `{
                 "tags": [
                     "quote"
                 ],
-                "summary": "取得全部報價含產品",
+                "summary": "取得全部報價",
                 "parameters": [
                     {
                         "type": "string",
@@ -6405,6 +6097,24 @@ const docTemplate = `{
                         "name": "limit",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "搜尋",
+                        "name": "search",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -6419,7 +6129,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/quotes.ListProducts"
+                                            "$ref": "#/definitions/quotes.List"
                                         }
                                     }
                                 }
@@ -7492,111 +7202,6 @@ const docTemplate = `{
                 }
             }
         },
-        "accounts.ListContacts": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "accounts": {
-                    "description": "多筆",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "account_id": {
-                                "description": "帳戶ID",
-                                "type": "string"
-                            },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
-                            "contacts": {
-                                "description": "contacts data",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/contacts.AccountSingle"
-                                }
-                            },
-                            "created_at": {
-                                "description": "創建時間",
-                                "type": "string"
-                            },
-                            "created_by": {
-                                "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
-                            "industry_id": {
-                                "description": "行業ID",
-                                "type": "string"
-                            },
-                            "industry_name": {
-                                "description": "行業名稱",
-                                "type": "string"
-                            },
-                            "name": {
-                                "description": "帳戶名稱",
-                                "type": "string"
-                            },
-                            "parent_account_id": {
-                                "description": "父系帳戶ID",
-                                "type": "string"
-                            },
-                            "parent_account_name": {
-                                "description": "父系帳戶名稱",
-                                "type": "string"
-                            },
-                            "phone_number": {
-                                "description": "帳戶電話",
-                                "type": "string"
-                            },
-                            "salesperson_id": {
-                                "description": "業務員ID",
-                                "type": "string"
-                            },
-                            "salesperson_name": {
-                                "description": "業務員名稱",
-                                "type": "string"
-                            },
-                            "type": {
-                                "description": "帳戶類型",
-                                "type": "string"
-                            },
-                            "updated_at": {
-                                "description": "更新時間",
-                                "type": "string"
-                            },
-                            "updated_by": {
-                                "description": "更新者",
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
-                },
-                "total": {
-                    "description": "總筆數",
-                    "type": "integer"
-                }
-            }
-        },
         "accounts.Single": {
             "type": "object",
             "properties": {
@@ -7909,139 +7514,6 @@ const docTemplate = `{
                             "name": {
                                 "description": "行銷活動名稱",
                                 "type": "string"
-                            },
-                            "parent_campaign_id": {
-                                "description": "父系行銷活動ID",
-                                "type": "string"
-                            },
-                            "parent_campaign_name": {
-                                "description": "父系行銷活動名稱",
-                                "type": "string"
-                            },
-                            "salesperson_id": {
-                                "description": "業務員ID",
-                                "type": "string"
-                            },
-                            "salesperson_name": {
-                                "description": "業務員名稱",
-                                "type": "string"
-                            },
-                            "sent": {
-                                "description": "行銷活動已傳送數量",
-                                "type": "integer"
-                            },
-                            "start_date": {
-                                "description": "行銷活動開始日期",
-                                "type": "string"
-                            },
-                            "status": {
-                                "description": "行銷活動狀態",
-                                "type": "string"
-                            },
-                            "type": {
-                                "description": "行銷活動類型",
-                                "type": "string"
-                            },
-                            "updated_at": {
-                                "description": "更新時間",
-                                "type": "string"
-                            },
-                            "updated_by": {
-                                "description": "更新者",
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
-                },
-                "total": {
-                    "description": "總筆數",
-                    "type": "integer"
-                }
-            }
-        },
-        "campaigns.ListOpportunities": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "campaigns": {
-                    "description": "多筆",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
-                            "actual_cost": {
-                                "description": "行銷活動實際成本",
-                                "type": "number"
-                            },
-                            "budget_cost": {
-                                "description": "行銷活動預算成本",
-                                "type": "number"
-                            },
-                            "campaign_id": {
-                                "description": "行銷活動ID",
-                                "type": "string"
-                            },
-                            "created_at": {
-                                "description": "創建時間",
-                                "type": "string"
-                            },
-                            "created_by": {
-                                "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
-                            "description": {
-                                "description": "行銷活動描述",
-                                "type": "string"
-                            },
-                            "end_date": {
-                                "description": "行銷活動結束日期",
-                                "type": "string"
-                            },
-                            "expected_income": {
-                                "description": "行銷活動預期收入",
-                                "type": "number"
-                            },
-                            "expected_responses": {
-                                "description": "行銷活動預期回應(%)",
-                                "type": "integer"
-                            },
-                            "is_enable": {
-                                "description": "行銷活動是否啟用",
-                                "type": "boolean"
-                            },
-                            "name": {
-                                "description": "行銷活動名稱",
-                                "type": "string"
-                            },
-                            "opportunities": {
-                                "description": "opportunity_campaigns data",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/opportunity_campaigns.CampaignSingle"
-                                }
                             },
                             "parent_campaign_id": {
                                 "description": "父系行銷活動ID",
@@ -9470,111 +8942,6 @@ const docTemplate = `{
                 }
             }
         },
-        "opportunities.ListCampaigns": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "opportunities": {
-                    "description": "多筆",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "account_id": {
-                                "description": "帳戶ID",
-                                "type": "string"
-                            },
-                            "account_name": {
-                                "description": "帳戶名稱",
-                                "type": "string"
-                            },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
-                            "amount": {
-                                "description": "預期收入金額",
-                                "type": "number"
-                            },
-                            "campaigns": {
-                                "description": "opportunity_campaigns data",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/opportunity_campaigns.OpportunitySingle"
-                                }
-                            },
-                            "close_date": {
-                                "description": "商機結束日期",
-                                "type": "string"
-                            },
-                            "created_at": {
-                                "description": "創建時間",
-                                "type": "string"
-                            },
-                            "created_by": {
-                                "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
-                            "forecast_category": {
-                                "description": "商機預測種類",
-                                "type": "string"
-                            },
-                            "name": {
-                                "description": "商機名稱",
-                                "type": "string"
-                            },
-                            "opportunity_id": {
-                                "description": "商機ID",
-                                "type": "string"
-                            },
-                            "salesperson_id": {
-                                "description": "業務員ID",
-                                "type": "string"
-                            },
-                            "salesperson_name": {
-                                "description": "業務員名稱",
-                                "type": "string"
-                            },
-                            "stage": {
-                                "description": "商機階段",
-                                "type": "string"
-                            },
-                            "updated_at": {
-                                "description": "更新時間",
-                                "type": "string"
-                            },
-                            "updated_by": {
-                                "description": "更新者",
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
-                },
-                "total": {
-                    "description": "總筆數",
-                    "type": "integer"
-                }
-            }
-        },
         "opportunities.Single": {
             "type": "object",
             "properties": {
@@ -10292,111 +9659,6 @@ const docTemplate = `{
                             "order_id": {
                                 "description": "訂單ID",
                                 "type": "string"
-                            },
-                            "start_date": {
-                                "description": "訂單開始日期",
-                                "type": "string"
-                            },
-                            "status": {
-                                "description": "訂單狀態",
-                                "type": "string"
-                            },
-                            "updated_at": {
-                                "description": "更新時間",
-                                "type": "string"
-                            },
-                            "updated_by": {
-                                "description": "更新者",
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
-                },
-                "total": {
-                    "description": "總筆數",
-                    "type": "integer"
-                }
-            }
-        },
-        "orders.ListProducts": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "orders": {
-                    "description": "多筆",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "account_id": {
-                                "description": "帳戶ID",
-                                "type": "string"
-                            },
-                            "account_name": {
-                                "description": "帳戶名稱",
-                                "type": "string"
-                            },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
-                            "activated_by": {
-                                "description": "啟用者",
-                                "type": "string"
-                            },
-                            "code": {
-                                "description": "訂單號碼",
-                                "type": "string"
-                            },
-                            "contract_code": {
-                                "description": "契約號碼",
-                                "type": "string"
-                            },
-                            "contract_id": {
-                                "description": "契約ID",
-                                "type": "string"
-                            },
-                            "created_at": {
-                                "description": "創建時間",
-                                "type": "string"
-                            },
-                            "created_by": {
-                                "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
-                            "description": {
-                                "description": "訂單描述",
-                                "type": "string"
-                            },
-                            "order_id": {
-                                "description": "訂單ID",
-                                "type": "string"
-                            },
-                            "products": {
-                                "description": "order_products data",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/order_products.OrderSingle"
-                                }
                             },
                             "start_date": {
                                 "description": "訂單開始日期",
@@ -11195,119 +10457,6 @@ const docTemplate = `{
                             "opportunity_name": {
                                 "description": "商機名稱",
                                 "type": "string"
-                            },
-                            "quote_id": {
-                                "description": "報價ID",
-                                "type": "string"
-                            },
-                            "shipping_and_handling": {
-                                "description": "報價運輸和處理費",
-                                "type": "number"
-                            },
-                            "status": {
-                                "description": "報價狀態",
-                                "type": "string"
-                            },
-                            "tax": {
-                                "description": "報價稅額",
-                                "type": "number"
-                            },
-                            "updated_at": {
-                                "description": "更新時間",
-                                "type": "string"
-                            },
-                            "updated_by": {
-                                "description": "更新者",
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "total": {
-                    "description": "總筆數",
-                    "type": "integer"
-                }
-            }
-        },
-        "quotes.ListProducts": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
-                },
-                "quotes": {
-                    "description": "多筆",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "account_id": {
-                                "description": "帳戶ID",
-                                "type": "string"
-                            },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
-                            "code": {
-                                "description": "報價號碼",
-                                "type": "string"
-                            },
-                            "created_at": {
-                                "description": "創建時間",
-                                "type": "string"
-                            },
-                            "created_by": {
-                                "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
-                            "description": {
-                                "description": "報價描述",
-                                "type": "string"
-                            },
-                            "expiration_date": {
-                                "description": "報價到期日期",
-                                "type": "string"
-                            },
-                            "is_syncing": {
-                                "description": "報價與商機是否同步化",
-                                "type": "boolean"
-                            },
-                            "name": {
-                                "description": "報價名稱",
-                                "type": "string"
-                            },
-                            "opportunity_id": {
-                                "description": "商機ID",
-                                "type": "string"
-                            },
-                            "opportunity_name": {
-                                "description": "商機名稱",
-                                "type": "string"
-                            },
-                            "products": {
-                                "description": "quote_products data",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/quote_products.QuoteSingle"
-                                }
                             },
                             "quote_id": {
                                 "description": "報價ID",

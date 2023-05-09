@@ -18,7 +18,6 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *opportunityModel.Create) interface{}
 	GetByList(input *opportunityModel.Fields) interface{}
-	GetByListCampaigns(input *opportunityModel.Fields) interface{}
 	GetBySingle(input *opportunityModel.Field) interface{}
 	GetBySingleCampaigns(input *opportunityModel.Field) interface{}
 	Delete(input *opportunityModel.Field) interface{}
@@ -77,44 +76,6 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
 		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
 		opportunities.SalespersonName = *opportunityBase[i].Salespeople.Name
-	}
-
-	return code.GetCodeMessage(code.Successful, output)
-}
-
-func (m *manager) GetByListCampaigns(input *opportunityModel.Fields) interface{} {
-	output := &opportunityModel.ListCampaigns{}
-	output.Limit = input.Limit
-	output.Page = input.Page
-	quantity, opportunityBase, err := m.OpportunityService.GetByList(input)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Total.Total = quantity
-	opportunityByte, err := json.Marshal(opportunityBase)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(opportunityByte, &output.Opportunities)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-
-	for i, opportunities := range output.Opportunities {
-		opportunities.AccountName = *opportunityBase[i].Accounts.Name
-		opportunities.CreatedBy = *opportunityBase[i].CreatedByUsers.Name
-		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
-		opportunities.SalespersonName = *opportunityBase[i].Salespeople.Name
-		for j, campaigns := range opportunityBase[i].OpportunityCampaigns {
-			campaignBase, _ := m.CampaignService.GetBySingle(&campaignModel.Field{
-				CampaignID: *campaigns.CampaignID,
-			})
-			opportunities.OpportunityCampaigns[j].CampaignName = *campaignBase.Name
-		}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

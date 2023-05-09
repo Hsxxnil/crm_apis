@@ -18,7 +18,6 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *quoteModel.Create) interface{}
 	GetByList(input *quoteModel.Fields) interface{}
-	GetByListProducts(input *quoteModel.Fields) interface{}
 	GetBySingle(input *quoteModel.Field) interface{}
 	GetBySingleProducts(input *quoteModel.Field) interface{}
 	Delete(input *quoteModel.Field) interface{}
@@ -74,41 +73,6 @@ func (m *manager) GetByList(input *quoteModel.Fields) interface{} {
 		quotes.OpportunityName = *quoteBase[i].Opportunities.Name
 		quotes.CreatedBy = *quoteBase[i].CreatedByUsers.Name
 		quotes.UpdatedBy = *quoteBase[i].UpdatedByUsers.Name
-	}
-
-	return code.GetCodeMessage(code.Successful, output)
-}
-
-func (m *manager) GetByListProducts(input *quoteModel.Fields) interface{} {
-	output := &quoteModel.ListProducts{}
-	output.Limit = input.Limit
-	output.Page = input.Page
-	quantity, quoteBase, err := m.QuoteService.GetByList(input)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Total.Total = quantity
-	quoteByte, err := json.Marshal(quoteBase)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(quoteByte, &output.Quotes)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-
-	for i, quotes := range output.Quotes {
-		quotes.OpportunityName = *quoteBase[i].Opportunities.Name
-		quotes.CreatedBy = *quoteBase[i].CreatedByUsers.Name
-		quotes.UpdatedBy = *quoteBase[i].UpdatedByUsers.Name
-		for j, productsBase := range quoteBase[i].QuoteProducts {
-			quotes.QuoteProducts[j].ProductName = *productsBase.Products.Name
-			quotes.QuoteProducts[j].ProductPrice = *productsBase.Products.Price
-		}
 	}
 
 	return code.GetCodeMessage(code.Successful, output)

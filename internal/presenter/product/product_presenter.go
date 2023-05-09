@@ -71,17 +71,21 @@ func (c *control) Create(ctx *gin.Context) {
 // @param Authorization header string  true "JWE Token"
 // @param page query int true "目前頁數,請從1開始帶入"
 // @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
+// @param sort query string false "排序"
+// @param direction query string false "排序方式"
+// @param search query string false "搜尋"
 // @success 200 object code.SuccessfulMessage{body=products.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /products [get]
+// @Router /products/list [post]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &productModel.Fields{}
 	limit := ctx.Query("limit")
 	page := ctx.Query("page")
 	input.Limit, _ = strconv.ParseInt(limit, 10, 64)
 	input.Page, _ = strconv.ParseInt(page, 10, 64)
-	if err := ctx.ShouldBindQuery(input); err != nil {
+
+	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
 

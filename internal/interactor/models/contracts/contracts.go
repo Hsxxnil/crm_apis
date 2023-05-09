@@ -3,6 +3,8 @@ package contracts
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/sort"
+
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 )
@@ -47,8 +49,19 @@ type Field struct {
 type Fields struct {
 	// 搜尋結構檔
 	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
 	// 分頁搜尋結構檔
 	page.Pagination
+	// 排序欄位
+	sort.Sort `json:"sort"`
+}
+
+// Filter struct is used to store the search field
+type Filter struct {
+	// 契約號碼
+	FilterCode *string `json:"code,omitempty"`
+	// TODO 帳戶名稱
 }
 
 // List is multiple return structure files

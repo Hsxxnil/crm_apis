@@ -3,6 +3,7 @@ package contacts
 import (
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
+	"app.eirc/internal/interactor/models/sort"
 )
 
 // Create struct is used to create achieves
@@ -59,8 +60,24 @@ type Field struct {
 type Fields struct {
 	// 搜尋結構檔
 	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
 	// 分頁搜尋結構檔
 	page.Pagination
+	// 排序欄位
+	sort.Sort `json:"sort"`
+}
+
+// Filter struct is used to store the search field
+type Filter struct {
+	// 聯絡人名稱
+	FilterName *string `json:"name,omitempty"`
+	// TODO 帳戶名稱
+	// 聯絡人行動電話
+	FilterCellPhone *string `json:"cell_phone,omitempty"`
+	// 聯絡人電子郵件
+	FilterEmail *string `json:"email,omitempty"`
+	// TODO 業務員名稱
 }
 
 // List is multiple return structure files

@@ -3,6 +3,7 @@ package products
 import (
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
+	"app.eirc/internal/interactor/models/sort"
 	"github.com/shopspring/decimal"
 )
 
@@ -42,8 +43,22 @@ type Field struct {
 type Fields struct {
 	// 搜尋結構檔
 	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
 	// 分頁搜尋結構檔
 	page.Pagination
+	// 排序欄位
+	sort.Sort `json:"sort"`
+}
+
+// Filter struct is used to store the search field
+type Filter struct {
+	// 產品名稱
+	FilterName *string `json:"name,omitempty"`
+	// 產品識別碼
+	FilterCode *string `json:"code,omitempty"`
+	// 產品描述
+	FilterDescription *string `json:"description,omitempty"`
 }
 
 // List is multiple return structure files

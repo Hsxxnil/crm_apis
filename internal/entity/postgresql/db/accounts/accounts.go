@@ -4,6 +4,8 @@ import (
 	"app.eirc/internal/entity/postgresql/db/contacts"
 	"app.eirc/internal/entity/postgresql/db/industries"
 	"app.eirc/internal/entity/postgresql/db/users"
+	model "app.eirc/internal/interactor/models/accounts"
+	"app.eirc/internal/interactor/models/sort"
 	"app.eirc/internal/interactor/models/special"
 )
 
@@ -31,9 +33,9 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
-	special.UseTable
 	// contacts data
 	Contacts []contacts.Table `gorm:"foreignKey:AccountID;" json:"contacts,omitempty"`
+	special.UseTable
 }
 
 // Base struct is corresponding to accounts table structure file
@@ -60,9 +62,13 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
-	special.UseBase
 	// contacts data
 	Contacts []contacts.Base `json:"contacts,omitempty"`
+	special.UseBase
+	// 搜尋欄位
+	model.Filter `json:"filter"`
+	// 排序欄位
+	sort.Sort `json:"sort"`
 }
 
 // TableName sets the insert table name for this struct type

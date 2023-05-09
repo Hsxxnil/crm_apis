@@ -1,10 +1,18 @@
 ### GetByList
-GET {{host}}/crm/v1.0/accounts?page=1&limit=20
-Accept: application/json
+POST {{host}}/crm/v1.0/accounts/list?page=1&limit=20
+Content-Type: application/json
 
-### GetByListContacts
-GET {{host}}/crm/v1.0/accounts/contacts?page=1&limit=20
-Accept: application/json
+{
+  "sort": {
+    "field": "name",
+    "direction": "asc"
+  },
+  "filter": {
+    "name": "林",
+    "type": "林",
+    "phone_number": "林"
+  }
+}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/accounts/cf6f654e-fb06-4740-bf03-374f32406d37

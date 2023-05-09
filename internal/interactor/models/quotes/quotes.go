@@ -3,6 +3,8 @@ package quotes
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/sort"
+
 	"app.eirc/internal/interactor/models/quote_products"
 
 	"app.eirc/internal/interactor/models/page"
@@ -64,8 +66,19 @@ type Field struct {
 type Fields struct {
 	// 搜尋結構檔
 	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
 	// 分頁搜尋結構檔
 	page.Pagination
+	// 排序欄位
+	sort.Sort `json:"sort"`
+}
+
+// Filter struct is used to store the search field
+type Filter struct {
+	// 報價名稱
+	FilterName *string `json:"name,omitempty"`
+	// TODO 商機名稱
 }
 
 // List is multiple return structure files
@@ -102,47 +115,6 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
-	} `json:"quotes"`
-	// 分頁返回結構檔
-	page.Total
-}
-
-// ListProducts is multiple return structure files containing products
-type ListProducts struct {
-	// 多筆
-	Quotes []*struct {
-		// 報價ID
-		QuoteID string `json:"quote_id,omitempty"`
-		// 報價名稱
-		Name string `json:"name,omitempty"`
-		// 報價狀態
-		Status string `json:"status,omitempty"`
-		// 報價與商機是否同步化
-		IsSyncing bool `json:"is_syncing"`
-		// 商機ID
-		OpportunityID string `json:"opportunity_id,omitempty"`
-		// 商機名稱
-		OpportunityName string `json:"opportunity_name,omitempty"`
-		// 帳戶ID
-		AccountID string `json:"account_id,omitempty"`
-		// 報價到期日期
-		ExpirationDate time.Time `json:"expiration_date,omitempty"`
-		// 報價描述
-		Description string `json:"description,omitempty"`
-		// 報價稅額
-		Tax decimal.Decimal `json:"tax,omitempty"`
-		// 報價運輸和處理費
-		ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
-		// 報價號碼
-		Code string `json:"code,omitempty"`
-		// 創建者
-		CreatedBy string `json:"created_by,omitempty"`
-		// 更新者
-		UpdatedBy string `json:"updated_by,omitempty"`
-		// 時間戳記
-		section.TimeAt
-		// quote_products data
-		QuoteProducts []quote_products.QuoteSingle `json:"products,omitempty"`
 	} `json:"quotes"`
 	// 分頁返回結構檔
 	page.Total

@@ -4,6 +4,7 @@ import (
 	"app.eirc/internal/interactor/models/contacts"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
+	"app.eirc/internal/interactor/models/sort"
 )
 
 // Create struct is used to create achieves
@@ -44,8 +45,23 @@ type Field struct {
 type Fields struct {
 	// 搜尋結構檔
 	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
 	// 分頁搜尋結構檔
 	page.Pagination
+	// 排序欄位
+	sort.Sort `json:"sort"`
+}
+
+// Filter struct is used to store the search field
+type Filter struct {
+	// 帳戶名稱
+	FilterName *string `json:"name,omitempty"`
+	// 帳戶電話
+	FilterPhoneNumber *string `json:"phone_number,omitempty"`
+	// 帳戶類型
+	FilterType *string `json:"type,omitempty"`
+	// TODO 業務員名稱
 }
 
 // List is multiple return structure files
@@ -78,43 +94,6 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
-	} `json:"accounts"`
-	// 分頁返回結構檔
-	page.Total
-}
-
-// ListContacts is multiple return structure files containing contacts
-type ListContacts struct {
-	// 多筆
-	Accounts []*struct {
-		// 帳戶ID
-		AccountID string `json:"account_id,omitempty"`
-		// 帳戶名稱
-		Name string `json:"name,omitempty"`
-		// 帳戶電話
-		PhoneNumber string `json:"phone_number,omitempty"`
-		// 帳戶類型
-		Type string `json:"type,omitempty"`
-		// 行業ID
-		IndustryID string `json:"industry_id,omitempty"`
-		// 行業名稱
-		IndustryName string `json:"industry_name,omitempty"`
-		// 父系帳戶ID
-		ParentAccountID string `json:"parent_account_id,omitempty"`
-		// 父系帳戶名稱
-		ParentAccountName string `json:"parent_account_name,omitempty"`
-		// 業務員ID
-		SalespersonID string `json:"salesperson_id,omitempty"`
-		// 業務員名稱
-		SalespersonName string `json:"salesperson_name,omitempty"`
-		// 創建者
-		CreatedBy string `json:"created_by,omitempty"`
-		// 更新者
-		UpdatedBy string `json:"updated_by,omitempty"`
-		// 時間戳記
-		section.TimeAt
-		// contacts data
-		Contacts []contacts.AccountSingle `json:"contacts,omitempty"`
 	} `json:"accounts"`
 	// 分頁返回結構檔
 	page.Total
