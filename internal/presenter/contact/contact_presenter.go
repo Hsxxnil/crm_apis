@@ -85,7 +85,8 @@ func (c *control) GetByList(ctx *gin.Context) {
 	input.Limit, _ = strconv.ParseInt(limit, 10, 64)
 	input.Page, _ = strconv.ParseInt(page, 10, 64)
 
-	if err := ctx.ShouldBindJSON(input); err != nil {
+	//if err := ctx.ShouldBindJSON(input); err != nil {
+	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
 
