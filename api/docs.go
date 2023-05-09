@@ -21,98 +21,6 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/accounts": {
-            "get": {
-                "description": "取得全部帳戶",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "account"
-                ],
-                "summary": "取得全部帳戶",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/accounts.List"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增帳戶",
                 "consumes": [
@@ -201,9 +109,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/accounts/contacts": {
+        "/accounts/contacts/{accountID}": {
             "get": {
-                "description": "取得全部帳戶含聯絡人",
+                "description": "取得單一帳戶含聯絡人",
                 "consumes": [
                     "application/json"
                 ],
@@ -213,7 +121,7 @@ const docTemplate = `{
                 "tags": [
                     "account"
                 ],
-                "summary": "取得全部帳戶含聯絡人",
+                "summary": "取得單一帳戶含聯絡人",
                 "parameters": [
                     {
                         "type": "string",
@@ -223,17 +131,10 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
+                        "type": "string",
+                        "description": "帳戶ID",
+                        "name": "accountID",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -249,7 +150,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/accounts.ListContacts"
+                                            "$ref": "#/definitions/accounts.SingleContacts"
                                         }
                                     }
                                 }
@@ -295,9 +196,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/accounts/contacts/{accountID}": {
-            "get": {
-                "description": "取得單一帳戶含聯絡人",
+        "/accounts/list": {
+            "post": {
+                "description": "取得全部帳戶",
                 "consumes": [
                     "application/json"
                 ],
@@ -307,7 +208,7 @@ const docTemplate = `{
                 "tags": [
                     "account"
                 ],
-                "summary": "取得單一帳戶含聯絡人",
+                "summary": "取得全部帳戶",
                 "parameters": [
                     {
                         "type": "string",
@@ -317,10 +218,17 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "帳戶ID",
-                        "name": "accountID",
-                        "in": "path",
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -336,7 +244,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/accounts.SingleContacts"
+                                            "$ref": "#/definitions/accounts.List"
                                         }
                                     }
                                 }
@@ -7414,111 +7322,6 @@ const docTemplate = `{
                             "activated_at": {
                                 "description": "啟用時間",
                                 "type": "string"
-                            },
-                            "created_at": {
-                                "description": "創建時間",
-                                "type": "string"
-                            },
-                            "created_by": {
-                                "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
-                            "industry_id": {
-                                "description": "行業ID",
-                                "type": "string"
-                            },
-                            "industry_name": {
-                                "description": "行業名稱",
-                                "type": "string"
-                            },
-                            "name": {
-                                "description": "帳戶名稱",
-                                "type": "string"
-                            },
-                            "parent_account_id": {
-                                "description": "父系帳戶ID",
-                                "type": "string"
-                            },
-                            "parent_account_name": {
-                                "description": "父系帳戶名稱",
-                                "type": "string"
-                            },
-                            "phone_number": {
-                                "description": "帳戶電話",
-                                "type": "string"
-                            },
-                            "salesperson_id": {
-                                "description": "業務員ID",
-                                "type": "string"
-                            },
-                            "salesperson_name": {
-                                "description": "業務員名稱",
-                                "type": "string"
-                            },
-                            "type": {
-                                "description": "帳戶類型",
-                                "type": "string"
-                            },
-                            "updated_at": {
-                                "description": "更新時間",
-                                "type": "string"
-                            },
-                            "updated_by": {
-                                "description": "更新者",
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
-                },
-                "total": {
-                    "description": "總筆數",
-                    "type": "integer"
-                }
-            }
-        },
-        "accounts.ListContacts": {
-            "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
-            "properties": {
-                "accounts": {
-                    "description": "多筆",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "account_id": {
-                                "description": "帳戶ID",
-                                "type": "string"
-                            },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
-                            "contacts": {
-                                "description": "contacts data",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/contacts.AccountSingle"
-                                }
                             },
                             "created_at": {
                                 "description": "創建時間",

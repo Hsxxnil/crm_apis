@@ -17,7 +17,6 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *accountModel.Create) interface{}
 	GetByList(input *accountModel.Fields) interface{}
-	GetByListContacts(input *accountModel.Fields) interface{}
 	GetBySingle(input *accountModel.Field) interface{}
 	GetBySingleContacts(input *accountModel.Field) interface{}
 	Delete(input *accountModel.Field) interface{}
@@ -49,45 +48,6 @@ func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) interface{} {
 
 func (m *manager) GetByList(input *accountModel.Fields) interface{} {
 	output := &accountModel.List{}
-	output.Limit = input.Limit
-	output.Page = input.Page
-	quantity, accountBase, err := m.AccountService.GetByList(input)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Total.Total = quantity
-	accountByte, err := json.Marshal(accountBase)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(accountByte, &output.Accounts)
-	if err != nil {
-		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-
-	for i, accounts := range output.Accounts {
-		accounts.IndustryName = *accountBase[i].Industries.Name
-		accounts.CreatedBy = *accountBase[i].CreatedByUsers.Name
-		accounts.UpdatedBy = *accountBase[i].UpdatedByUsers.Name
-		accounts.SalespersonName = *accountBase[i].Salespeople.Name
-		if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
-			AccountID: accounts.ParentAccountID,
-		}); err != nil {
-			accounts.ParentAccountName = ""
-		} else {
-			accounts.ParentAccountName = *parentAccountsBase.Name
-		}
-	}
-
-	return code.GetCodeMessage(code.Successful, output)
-}
-
-func (m *manager) GetByListContacts(input *accountModel.Fields) interface{} {
-	output := &accountModel.ListContacts{}
 	output.Limit = input.Limit
 	output.Page = input.Page
 	quantity, accountBase, err := m.AccountService.GetByList(input)
