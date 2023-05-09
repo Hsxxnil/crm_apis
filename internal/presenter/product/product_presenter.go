@@ -72,7 +72,7 @@ func (c *control) Create(ctx *gin.Context) {
 // @param page query int true "目前頁數,請從1開始帶入"
 // @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
 // @param sort query string false "排序"
-// @param order query string false "排序方式"
+// @param direction query string false "排序方式"
 // @param search query string false "搜尋"
 // @success 200 object code.SuccessfulMessage{body=products.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"

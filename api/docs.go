@@ -240,7 +240,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -707,7 +707,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -1261,7 +1261,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -1728,7 +1728,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -2642,7 +2642,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -3725,7 +3725,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -4639,7 +4639,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -5193,7 +5193,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {
@@ -6107,7 +6107,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "排序方式",
-                        "name": "order",
+                        "name": "direction",
                         "in": "query"
                     },
                     {

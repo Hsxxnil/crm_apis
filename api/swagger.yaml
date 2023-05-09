@@ -3122,7 +3122,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -3389,7 +3389,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -3705,7 +3705,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -3972,7 +3972,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -4493,7 +4493,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -5108,7 +5108,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -5629,7 +5629,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -5945,7 +5945,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
@@ -6466,7 +6466,7 @@ paths:
         type: string
       - description: 排序方式
         in: query
-        name: order
+        name: direction
         type: string
       - description: 搜尋
         in: query
