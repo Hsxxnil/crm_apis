@@ -61,6 +61,7 @@ type Filter struct {
 	FilterPhoneNumber *string `json:"phone_number,omitempty"`
 	// 帳戶類型
 	FilterType *string `json:"type,omitempty"`
+	// TODO 業務員名稱
 }
 
 // List is multiple return structure files
