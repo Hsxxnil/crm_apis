@@ -72,13 +72,12 @@ type Fields struct {
 type Filter struct {
 	// 聯絡人名稱
 	FilterName *string `json:"name,omitempty"`
-	//TODO 帳戶名稱
-
+	// TODO 帳戶名稱
 	// 聯絡人行動電話
 	FilterCellPhone *string `json:"cell_phone,omitempty"`
 	// 聯絡人電子郵件
 	FilterEmail *string `json:"email,omitempty"`
-	//TODO 業務員名稱
+	// TODO 業務員名稱
 }
 
 // List is multiple return structure files
