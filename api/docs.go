@@ -7989,6 +7989,10 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
+                            "account_name": {
+                                "description": "帳戶名稱",
+                                "type": "string"
+                            },
                             "activated_at": {
                                 "description": "啟用時間",
                                 "type": "string"
@@ -8087,6 +8091,10 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
+                    "type": "string"
+                },
+                "account_name": {
+                    "description": "帳戶名稱",
                     "type": "string"
                 },
                 "activated_at": {
