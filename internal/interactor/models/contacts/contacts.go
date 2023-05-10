@@ -106,6 +106,8 @@ type List struct {
 		SupervisorName string `json:"supervisor_name,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
+		// 帳戶名稱
+		AccountName string `json:"account_name,omitempty"`
 		// 業務員ID
 		SalespersonID string `json:"salesperson_id,omitempty"`
 		// 業務員名稱
@@ -145,6 +147,8 @@ type Single struct {
 	SupervisorName string `json:"supervisor_name,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
+	// 帳戶名稱
+	AccountName string `json:"account_name,omitempty"`
 	// 業務員ID
 	SalespersonID string `json:"salesperson_id,omitempty"`
 	// 業務員名稱

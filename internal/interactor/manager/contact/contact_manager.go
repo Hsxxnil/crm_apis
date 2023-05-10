@@ -1,6 +1,8 @@
 package contact
 
 import (
+	accountModel "app.eirc/internal/interactor/models/accounts"
+	accountService "app.eirc/internal/interactor/service/account"
 	"encoding/json"
 	"errors"
 
@@ -24,11 +26,13 @@ type Manager interface {
 
 type manager struct {
 	ContactService contactService.Service
+	AccountService accountService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
 		ContactService: contactService.Init(db),
+		AccountService: accountService.Init(db),
 	}
 }
 
@@ -77,6 +81,13 @@ func (m *manager) GetByList(input *contactModel.Fields) interface{} {
 			contacts.SupervisorName = ""
 		} else {
 			contacts.SupervisorName = *supervisorBase.Name
+		}
+		if accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+			AccountID: contacts.AccountID,
+		}); err != nil {
+			contacts.AccountName = ""
+		} else {
+			contacts.AccountName = *accountBase.Name
 		}
 	}
 
