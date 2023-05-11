@@ -13,7 +13,6 @@ func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 	{
 		v10.POST("", middleware.Transaction(db), control.Create)
 		v10.POST("list", control.GetByList)
-		v10.GET("list", control.GetByList)
 		v10.GET(":accountID", control.GetBySingle)
 		v10.GET("contacts/:accountID", control.GetBySingleContacts)
 		v10.DELETE(":accountID", control.Delete)
