@@ -74,6 +74,7 @@ func (c *control) Create(ctx *gin.Context) {
 // @param sort query string false "排序"
 // @param direction query string false "排序方式"
 // @param search query string false "搜尋"
+// @param * body contacts.Filter false "搜尋"
 // @success 200 object code.SuccessfulMessage{body=contacts.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
