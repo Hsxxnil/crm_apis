@@ -244,10 +244,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/accounts.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -711,10 +713,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/campaigns.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -1269,6 +1273,14 @@ const docTemplate = `{
                         "description": "搜尋",
                         "name": "search",
                         "in": "query"
+                    },
+                    {
+                        "description": "搜尋",
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/contacts.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -1732,10 +1744,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/contracts.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -2646,10 +2660,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/leads.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -3729,10 +3745,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/opportunities.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -4643,10 +4661,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/orders.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -5197,10 +5217,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/products.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -6111,10 +6133,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
                         "description": "搜尋",
-                        "name": "search",
-                        "in": "query"
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/quotes.Filter"
+                        }
                     }
                 ],
                 "responses": {
@@ -7104,6 +7128,27 @@ const docTemplate = `{
                 }
             }
         },
+        "accounts.Filter": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "帳戶電話",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "帳戶類型",
+                    "type": "string"
+                }
+            }
+        },
         "accounts.List": {
             "type": "object",
             "required": [
@@ -7442,6 +7487,27 @@ const docTemplate = `{
                 },
                 "status": {
                     "description": "行銷活動狀態",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "行銷活動類型",
+                    "type": "string"
+                }
+            }
+        },
+        "campaigns.Filter": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "行銷活動名稱",
+                    "type": "string"
+                },
+                "parent_campaign_name": {
+                    "description": "父系行銷活動名稱",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
                     "type": "string"
                 },
                 "type": {
@@ -7972,6 +8038,27 @@ const docTemplate = `{
                 }
             }
         },
+        "contacts.Filter": {
+            "type": "object",
+            "properties": {
+                "cell_phone": {
+                    "description": "TODO 帳戶名稱\n聯絡人行動電話",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                }
+            }
+        },
         "contacts.List": {
             "type": "object",
             "required": [
@@ -8256,6 +8343,19 @@ const docTemplate = `{
                 "term": {
                     "description": "契約有效期限(月)",
                     "type": "integer"
+                }
+            }
+        },
+        "contracts.Filter": {
+            "type": "object",
+            "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "契約號碼",
+                    "type": "string"
                 }
             }
         },
@@ -8598,6 +8698,31 @@ const docTemplate = `{
                 }
             }
         },
+        "leads.Filter": {
+            "type": "object",
+            "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "線索描述",
+                    "type": "string"
+                },
+                "rating": {
+                    "description": "線索分級",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
+                "source": {
+                    "description": "線索來源",
+                    "type": "string"
+                }
+            }
+        },
         "leads.List": {
             "type": "object",
             "required": [
@@ -8848,6 +8973,23 @@ const docTemplate = `{
                 },
                 "stage": {
                     "description": "商機階段",
+                    "type": "string"
+                }
+            }
+        },
+        "opportunities.Filter": {
+            "type": "object",
+            "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "商機名稱",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
                     "type": "string"
                 }
             }
@@ -9603,6 +9745,23 @@ const docTemplate = `{
                 }
             }
         },
+        "orders.Filter": {
+            "type": "object",
+            "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "訂單號碼",
+                    "type": "string"
+                },
+                "contract_code": {
+                    "description": "契約號碼",
+                    "type": "string"
+                }
+            }
+        },
         "orders.List": {
             "type": "object",
             "required": [
@@ -9913,6 +10072,23 @@ const docTemplate = `{
                 "price": {
                     "description": "產品價格",
                     "type": "number"
+                }
+            }
+        },
+        "products.Filter": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "產品識別碼",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "產品描述",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "產品名稱",
+                    "type": "string"
                 }
             }
         },
@@ -10390,6 +10566,19 @@ const docTemplate = `{
                 "tax": {
                     "description": "報價稅額",
                     "type": "number"
+                }
+            }
+        },
+        "quotes.Filter": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "報價名稱",
+                    "type": "string"
+                },
+                "opportunity_name": {
+                    "description": "商機名稱",
+                    "type": "string"
                 }
             }
         },

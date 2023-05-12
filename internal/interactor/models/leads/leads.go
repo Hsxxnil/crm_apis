@@ -56,12 +56,14 @@ type Fields struct {
 type Filter struct {
 	// 線索描述
 	FilterDescription *string `json:"description,omitempty"`
-	// TODO 帳戶名稱
+	// 帳戶名稱
+	FilterAccountName *string `json:"account_name,omitempty"`
 	// 線索分級
 	FilterRating *string `json:"rating,omitempty"`
 	// 線索來源
 	FilterSource *string `json:"source,omitempty"`
-	// TODO 業務員名稱
+	// 業務員名稱
+	FilterSalespersonName *string `json:"salesperson_name,omitempty"`
 }
 
 // List is multiple return structure files

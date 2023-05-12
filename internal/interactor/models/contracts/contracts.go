@@ -61,7 +61,8 @@ type Fields struct {
 type Filter struct {
 	// 契約號碼
 	FilterCode *string `json:"code,omitempty"`
-	// TODO 帳戶名稱
+	// 帳戶名稱
+	FilterAccountName *string `json:"account_name,omitempty"`
 }
 
 // List is multiple return structure files

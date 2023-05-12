@@ -27,6 +27,21 @@ definitions:
     - parent_account_id
     - type
     type: object
+  accounts.Filter:
+    properties:
+      name:
+        description: 帳戶名稱
+        type: string
+      phone_number:
+        description: 帳戶電話
+        type: string
+      salesperson_name:
+        description: 業務員名稱
+        type: string
+      type:
+        description: 帳戶類型
+        type: string
+    type: object
   accounts.List:
     properties:
       accounts:
@@ -281,6 +296,21 @@ definitions:
     - name
     - parent_campaign_id
     - status
+    type: object
+  campaigns.Filter:
+    properties:
+      name:
+        description: 行銷活動名稱
+        type: string
+      parent_campaign_name:
+        description: 父系行銷活動名稱
+        type: string
+      salesperson_name:
+        description: 業務員名稱
+        type: string
+      type:
+        description: 行銷活動類型
+        type: string
     type: object
   campaigns.List:
     properties:
@@ -667,6 +697,23 @@ definitions:
     - phone_number
     - supervisor_id
     type: object
+  contacts.Filter:
+    properties:
+      cell_phone:
+        description: |-
+          TODO 帳戶名稱
+          聯絡人行動電話
+        type: string
+      email:
+        description: 聯絡人電子郵件
+        type: string
+      name:
+        description: 聯絡人名稱
+        type: string
+      salesperson_name:
+        description: 業務員名稱
+        type: string
+    type: object
   contacts.List:
     properties:
       contacts:
@@ -878,6 +925,15 @@ definitions:
     - start_date
     - status
     - term
+    type: object
+  contracts.Filter:
+    properties:
+      account_name:
+        description: 帳戶名稱
+        type: string
+      code:
+        description: 契約號碼
+        type: string
     type: object
   contracts.List:
     properties:
@@ -1124,6 +1180,24 @@ definitions:
     - description
     - status
     type: object
+  leads.Filter:
+    properties:
+      account_name:
+        description: 帳戶名稱
+        type: string
+      description:
+        description: 線索描述
+        type: string
+      rating:
+        description: 線索分級
+        type: string
+      salesperson_name:
+        description: 業務員名稱
+        type: string
+      source:
+        description: 線索來源
+        type: string
+    type: object
   leads.List:
     properties:
       leads:
@@ -1310,6 +1384,18 @@ definitions:
     - forecast_category
     - name
     - stage
+    type: object
+  opportunities.Filter:
+    properties:
+      account_name:
+        description: 帳戶名稱
+        type: string
+      name:
+        description: 商機名稱
+        type: string
+      salesperson_name:
+        description: 業務員名稱
+        type: string
     type: object
   opportunities.List:
     properties:
@@ -1861,6 +1947,18 @@ definitions:
     - start_date
     - status
     type: object
+  orders.Filter:
+    properties:
+      account_name:
+        description: 帳戶名稱
+        type: string
+      code:
+        description: 訂單號碼
+        type: string
+      contract_code:
+        description: 契約號碼
+        type: string
+    type: object
   orders.List:
     properties:
       limit:
@@ -2090,6 +2188,18 @@ definitions:
     - created_by
     - name
     - price
+    type: object
+  products.Filter:
+    properties:
+      code:
+        description: 產品識別碼
+        type: string
+      description:
+        description: 產品描述
+        type: string
+      name:
+        description: 產品名稱
+        type: string
     type: object
   products.List:
     properties:
@@ -2441,6 +2551,15 @@ definitions:
     - name
     - opportunity_id
     - status
+    type: object
+  quotes.Filter:
+    properties:
+      name:
+        description: 報價名稱
+        type: string
+      opportunity_name:
+        description: 商機名稱
+        type: string
     type: object
   quotes.List:
     properties:
@@ -3131,9 +3250,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/accounts.Filter'
       produces:
       - application/json
       responses:
@@ -3398,9 +3518,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/campaigns.Filter'
       produces:
       - application/json
       responses:
@@ -3717,6 +3838,11 @@ paths:
         in: query
         name: search
         type: string
+      - description: 搜尋
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/contacts.Filter'
       produces:
       - application/json
       responses:
@@ -3981,9 +4107,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/contracts.Filter'
       produces:
       - application/json
       responses:
@@ -4502,9 +4629,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/leads.Filter'
       produces:
       - application/json
       responses:
@@ -5117,9 +5245,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/opportunities.Filter'
       produces:
       - application/json
       responses:
@@ -5638,9 +5767,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/orders.Filter'
       produces:
       - application/json
       responses:
@@ -5954,9 +6084,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/products.Filter'
       produces:
       - application/json
       responses:
@@ -6475,9 +6606,10 @@ paths:
         name: direction
         type: string
       - description: 搜尋
-        in: query
-        name: search
-        type: string
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/quotes.Filter'
       produces:
       - application/json
       responses:

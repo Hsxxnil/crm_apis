@@ -94,10 +94,12 @@ type Fields struct {
 type Filter struct {
 	// 行銷活動名稱
 	FilterName *string `json:"name,omitempty"`
-	// TODO 父系行銷活動名稱
+	// 父系行銷活動名稱
+	FilterParentCampaignName *string `json:"parent_campaign_name,omitempty"`
 	// 行銷活動類型
 	FilterType *string `json:"type,omitempty"`
-	// TODO 業務員名稱
+	// 業務員名稱
+	FilterSalespersonName *string `json:"salesperson_name,omitempty"`
 }
 
 // List is multiple return structure files

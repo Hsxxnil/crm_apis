@@ -1,10 +1,11 @@
 package contact
 
 import (
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	accountService "app.eirc/internal/interactor/service/account"
 	"encoding/json"
 	"errors"
+
+	accountModel "app.eirc/internal/interactor/models/accounts"
+	accountService "app.eirc/internal/interactor/service/account"
 
 	"app.eirc/internal/interactor/pkg/util"
 

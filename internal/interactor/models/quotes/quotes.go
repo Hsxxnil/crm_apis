@@ -78,7 +78,8 @@ type Fields struct {
 type Filter struct {
 	// 報價名稱
 	FilterName *string `json:"name,omitempty"`
-	// TODO 商機名稱
+	// 商機名稱
+	FilterOpportunityName *string `json:"opportunity_name,omitempty"`
 }
 
 // List is multiple return structure files

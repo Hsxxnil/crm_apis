@@ -4,11 +4,13 @@ Content-Type: application/json
 
 {
   "sort": {
-    "field": "code",
-    "direction": "asc"
+    "field": "account_name",
+    "direction": "desc"
   },
   "filter": {
-    "name": ""
+    "name": "虛",
+    "account_name": "虛",
+    "salesperson_name": "虛"
   }
 }
 

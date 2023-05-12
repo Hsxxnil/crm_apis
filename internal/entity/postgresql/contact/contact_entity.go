@@ -59,36 +59,48 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Salespeople").Preload(clause.Associations)
 	if input.ContactID != nil {
 		query.Where("contact_id = ?", input.ContactID)
 	}
 
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
-		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
+			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
+		} else {
+			query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		}
 	}
 
 	// filter
 	isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
 	if input.FilterName != nil {
-		filterdb.Where("name like ?", "%"+*input.FilterName+"%")
+		filterdb.Where("contacts.name like ?", "%"+*input.FilterName+"%")
 		isFiltered = true
 	}
 
 	if input.FilterEmail != nil {
 		if isFiltered {
-			filterdb.Or("email like ?", "%"+*input.FilterEmail+"%")
+			filterdb.Or("contacts.email like ?", "%"+*input.FilterEmail+"%")
 		} else {
-			filterdb.Where("email like ?", "%"+*input.FilterEmail+"%")
+			filterdb.Where("contacts.email like ?", "%"+*input.FilterEmail+"%")
 		}
 	}
 
 	if input.FilterCellPhone != nil {
 		if isFiltered {
-			filterdb.Or("email like ?", "%"+*input.FilterCellPhone+"%")
+			filterdb.Or("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
 		} else {
-			filterdb.Where("email like ?", "%"+*input.FilterCellPhone+"%")
+			filterdb.Where("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
+		}
+	}
+
+	if input.FilterSalespersonName != nil {
+		if isFiltered {
+			filterdb.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+		} else {
+			filterdb.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		}
 	}
 
