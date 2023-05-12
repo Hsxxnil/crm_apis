@@ -7503,7 +7503,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "parent_campaign_name": {
-                    "description": "TODO 父系行銷活動名稱\n父系行銷活動名稱",
+                    "description": "父系行銷活動名稱",
                     "type": "string"
                 },
                 "salesperson_name": {
@@ -8051,6 +8051,10 @@ const docTemplate = `{
                 },
                 "name": {
                     "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
                     "type": "string"
                 }
             }

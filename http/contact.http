@@ -4,13 +4,14 @@ Content-Type: application/json
 
 {
   "sort": {
-    "field": "name",
-    "direction": "asc"
+    "field": "salesperson_name",
+    "direction": "desc"
   },
   "filter": {
-    "name": "H",
-    "cell_phone": "",
-    "email": "a"
+    "name": "管",
+    "cell_phone": "管",
+    "email": "管",
+    "salesperson_name": "管"
   }
 }
 
@@ -36,11 +37,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contacts/633ad3f5-6f98-410e-b717-73da706dae19
+PATCH {{host}}/crm/v1.0/contacts/34869303-5956-4dda-ab6e-652631a730f9
 Content-Type: application/json
 
 {
-  "name": "aaa",
+  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 

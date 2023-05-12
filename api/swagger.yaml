@@ -303,9 +303,7 @@ definitions:
         description: 行銷活動名稱
         type: string
       parent_campaign_name:
-        description: |-
-          TODO 父系行銷活動名稱
-          父系行銷活動名稱
+        description: 父系行銷活動名稱
         type: string
       salesperson_name:
         description: 業務員名稱
@@ -711,6 +709,9 @@ definitions:
         type: string
       name:
         description: 聯絡人名稱
+        type: string
+      salesperson_name:
+        description: 業務員名稱
         type: string
     type: object
   contacts.List:

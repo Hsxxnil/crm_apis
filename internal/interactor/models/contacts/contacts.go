@@ -77,7 +77,8 @@ type Filter struct {
 	FilterCellPhone *string `json:"cell_phone,omitempty"`
 	// 聯絡人電子郵件
 	FilterEmail *string `json:"email,omitempty"`
-	// TODO 業務員名稱
+	// 業務員名稱
+	FilterSalespersonName *string `json:"salesperson_name,omitempty"`
 }
 
 // List is multiple return structure files
