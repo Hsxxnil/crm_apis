@@ -59,36 +59,49 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Salespeople").Preload(clause.Associations)
 	if input.AccountID != nil {
 		query.Where("account_id = ?", input.AccountID)
 	}
 
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
-		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
+			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
+		} else {
+			query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		}
 	}
 
 	// filter
 	isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
+	//filterSales := s.db.Model(&model.Table{}.Salespeople{})
 	if input.FilterName != nil {
-		filterdb.Where("name like ?", "%"+*input.FilterName+"%")
+		filterdb.Where("accounts.name like ?", "%"+*input.FilterName+"%")
 		isFiltered = true
 	}
 
 	if input.FilterType != nil {
 		if isFiltered {
-			filterdb.Or("type like ?", "%"+*input.FilterType+"%")
+			filterdb.Or("accounts.type like ?", "%"+*input.FilterType+"%")
 		} else {
-			filterdb.Where("type like ?", "%"+*input.FilterType+"%")
+			filterdb.Where("accounts.type like ?", "%"+*input.FilterType+"%")
 		}
 	}
 
 	if input.FilterPhoneNumber != nil {
 		if isFiltered {
-			filterdb.Or("phone_number like ?", "%"+*input.FilterPhoneNumber+"%")
+			filterdb.Or("accounts.phone_number like ?", "%"+*input.FilterPhoneNumber+"%")
 		} else {
-			filterdb.Where("phone_number like ?", "%"+*input.FilterPhoneNumber+"%")
+			filterdb.Where("accounts.phone_number like ?", "%"+*input.FilterPhoneNumber+"%")
+		}
+	}
+
+	if input.FilterSalespersonName != nil {
+		if isFiltered {
+			filterdb.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+		} else {
+			filterdb.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		}
 	}
 

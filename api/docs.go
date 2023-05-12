@@ -7139,6 +7139,10 @@ const docTemplate = `{
                     "description": "帳戶電話",
                     "type": "string"
                 },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "type": {
                     "description": "帳戶類型",
                     "type": "string"
