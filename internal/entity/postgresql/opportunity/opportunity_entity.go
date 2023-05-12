@@ -84,9 +84,9 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 	if input.FilterAccountName != nil {
 		if isFiltered {
-			filterdb.Or(`"Accounts".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filterdb.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
 		} else {
-			filterdb.Where(`"Accounts".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filterdb.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
 		}
 	}
 
