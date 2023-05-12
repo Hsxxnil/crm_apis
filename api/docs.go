@@ -8349,6 +8349,10 @@ const docTemplate = `{
         "contracts.Filter": {
             "type": "object",
             "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
                 "code": {
                     "description": "契約號碼",
                     "type": "string"

@@ -59,21 +59,33 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Accounts").Preload(clause.Associations)
 	if input.ContractID != nil {
 		query.Where("contract_id = ?", input.ContractID)
 	}
 
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
-		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		if input.Sort.Field == "account_name" && input.Sort.Direction != "" {
+			query.Order(`"Accounts".name` + " " + input.Sort.Direction)
+		} else {
+			query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		}
 	}
 
 	// filter
-	//isFiltered := false
+	isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
 	if input.FilterCode != nil {
-		filterdb.Where("code like ?", "%"+*input.FilterCode+"%")
-		//isFiltered = true
+		filterdb.Where("contracts.code like ?", "%"+*input.FilterCode+"%")
+		isFiltered = true
+	}
+
+	if input.FilterAccountName != nil {
+		if isFiltered {
+			filterdb.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+		} else {
+			filterdb.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+		}
 	}
 
 	query.Where(filterdb)
