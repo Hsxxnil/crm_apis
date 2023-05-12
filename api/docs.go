@@ -8976,8 +8976,16 @@ const docTemplate = `{
         "opportunities.Filter": {
             "type": "object",
             "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
                 "name": {
                     "description": "商機名稱",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
                     "type": "string"
                 }
             }
