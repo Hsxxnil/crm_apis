@@ -8697,12 +8697,20 @@ const docTemplate = `{
         "leads.Filter": {
             "type": "object",
             "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
                 "description": {
                     "description": "線索描述",
                     "type": "string"
                 },
                 "rating": {
-                    "description": "TODO 帳戶名稱\n線索分級",
+                    "description": "線索分級",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
                     "type": "string"
                 },
                 "source": {

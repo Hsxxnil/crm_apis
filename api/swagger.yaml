@@ -1179,13 +1179,17 @@ definitions:
     type: object
   leads.Filter:
     properties:
+      account_name:
+        description: 帳戶名稱
+        type: string
       description:
         description: 線索描述
         type: string
       rating:
-        description: |-
-          TODO 帳戶名稱
-          線索分級
+        description: 線索分級
+        type: string
+      salesperson_name:
+        description: 業務員名稱
         type: string
       source:
         description: 線索來源

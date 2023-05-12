@@ -59,36 +59,58 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Salespeople").Joins("Accounts").Preload(clause.Associations)
 	if input.LeadID != nil {
 		query.Where("lead_id = ?", input.LeadID)
 	}
 
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
-		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
+			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
+		} else if input.Sort.Field == "account_name" && input.Sort.Direction != "" {
+			query.Order(`"Accounts".name` + " " + input.Sort.Direction)
+		} else {
+			query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		}
 	}
 
 	// filter
 	isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
 	if input.FilterDescription != nil {
-		filterdb.Where("description like ?", "%"+*input.FilterDescription+"%")
+		filterdb.Where("leads.description like ?", "%"+*input.FilterDescription+"%")
 		isFiltered = true
+	}
+
+	if input.FilterAccountName != nil {
+		if isFiltered {
+			filterdb.Or(`"Accounts".name like ?`, "%"+*input.FilterSalespersonName+"%")
+		} else {
+			filterdb.Where(`"Accounts".name like ?`, "%"+*input.FilterSalespersonName+"%")
+		}
 	}
 
 	if input.FilterRating != nil {
 		if isFiltered {
-			filterdb.Or("rating like ?", "%"+*input.FilterRating+"%")
+			filterdb.Or("leads.rating like ?", "%"+*input.FilterRating+"%")
 		} else {
-			filterdb.Where("rating like ?", "%"+*input.FilterRating+"%")
+			filterdb.Where("leads.rating like ?", "%"+*input.FilterRating+"%")
 		}
 	}
 
 	if input.FilterSource != nil {
 		if isFiltered {
-			filterdb.Or("source like ?", "%"+*input.FilterSource+"%")
+			filterdb.Or("leads.source like ?", "%"+*input.FilterSource+"%")
 		} else {
-			filterdb.Where("source like ?", "%"+*input.FilterSource+"%")
+			filterdb.Where("leads.source like ?", "%"+*input.FilterSource+"%")
+		}
+	}
+
+	if input.FilterSalespersonName != nil {
+		if isFiltered {
+			filterdb.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+		} else {
+			filterdb.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		}
 	}
 
