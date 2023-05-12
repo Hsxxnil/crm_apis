@@ -4,11 +4,12 @@ Content-Type: application/json
 
 {
   "sort": {
-    "field": "code",
-    "direction": "asc"
+    "field": "opportunity_name",
+    "direction": "desc"
   },
   "filter": {
-    "name": "1"
+    "name": "聞",
+    "opportunity_name": "聞"
   }
 }
 

@@ -59,21 +59,33 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload("QuoteProducts.Products").Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Opportunities").Preload(clause.Associations)
 	if input.QuoteID != nil {
 		query.Where("quote_id = ?", input.QuoteID)
 	}
 
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
-		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		if input.Sort.Field == "opportunity_name" && input.Sort.Direction != "" {
+			query.Order(`"Opportunities".name` + " " + input.Sort.Direction)
+		} else {
+			query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		}
 	}
 
 	// filter
-	//isFiltered := false
+	isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
 	if input.FilterName != nil {
-		filterdb.Where("name like ?", "%"+*input.FilterName+"%")
-		//isFiltered = true
+		filterdb.Where("quotes.name like ?", "%"+*input.FilterName+"%")
+		isFiltered = true
+	}
+
+	if input.FilterOpportunityName != nil {
+		if isFiltered {
+			filterdb.Or(`"Opportunities".name like ?`, "%"+*input.FilterOpportunityName+"%")
+		} else {
+			filterdb.Where(`"Opportunities".name like ?`, "%"+*input.FilterOpportunityName+"%")
+		}
 	}
 
 	query.Where(filterdb)

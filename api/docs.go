@@ -10575,6 +10575,10 @@ const docTemplate = `{
                 "name": {
                     "description": "報價名稱",
                     "type": "string"
+                },
+                "opportunity_name": {
+                    "description": "商機名稱",
+                    "type": "string"
                 }
             }
         },
