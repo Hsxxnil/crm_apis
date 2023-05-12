@@ -302,10 +302,16 @@ definitions:
       name:
         description: 行銷活動名稱
         type: string
-      type:
+      parent_campaign_name:
         description: |-
           TODO 父系行銷活動名稱
-          行銷活動類型
+          父系行銷活動名稱
+        type: string
+      salesperson_name:
+        description: 業務員名稱
+        type: string
+      type:
+        description: 行銷活動類型
         type: string
     type: object
   campaigns.List:

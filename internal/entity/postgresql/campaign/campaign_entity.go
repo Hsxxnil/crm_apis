@@ -59,28 +59,42 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Salespeople").Preload(clause.Associations)
 	if input.CampaignID != nil {
 		query.Where("campaign_id = ?", input.CampaignID)
 	}
 
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
-		query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
+			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
+		} else if input.Sort.Field == "parent_campaign_name" && input.Sort.Direction != "" {
+			query.Order("name" + " " + input.Sort.Direction)
+		} else {
+			query.Order(input.Sort.Field + " " + input.Sort.Direction)
+		}
 	}
 
 	// filter
 	isFiltered := false
 	filterdb := s.db.Model(&model.Table{})
-	if input.FilterName != nil {
-		filterdb.Where("name like ?", "%"+*input.FilterName+"%")
+	if input.FilterName != nil || input.FilterParentCampaignName != nil {
+		filterdb.Where("campaigns.name like ?", "%"+*input.FilterName+"%")
 		isFiltered = true
 	}
 
 	if input.FilterType != nil {
 		if isFiltered {
-			filterdb.Or("type like ?", "%"+*input.FilterType+"%")
+			filterdb.Or("campaigns.type like ?", "%"+*input.FilterType+"%")
 		} else {
-			filterdb.Where("type like ?", "%"+*input.FilterType+"%")
+			filterdb.Where("campaigns.type like ?", "%"+*input.FilterType+"%")
+		}
+	}
+
+	if input.FilterSalespersonName != nil {
+		if isFiltered {
+			filterdb.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+		} else {
+			filterdb.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		}
 	}
 

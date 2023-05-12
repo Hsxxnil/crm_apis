@@ -7498,8 +7498,16 @@
                     "description": "行銷活動名稱",
                     "type": "string"
                 },
+                "parent_campaign_name": {
+                    "description": "TODO 父系行銷活動名稱\n父系行銷活動名稱",
+                    "type": "string"
+                },
+                "salesperson_name": {
+                    "description": "業務員名稱",
+                    "type": "string"
+                },
                 "type": {
-                    "description": "TODO 父系行銷活動名稱\n行銷活動類型",
+                    "description": "行銷活動類型",
                     "type": "string"
                 }
             }

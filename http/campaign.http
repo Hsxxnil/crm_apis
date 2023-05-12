@@ -4,12 +4,14 @@ Content-Type: application/json
 
 {
   "sort": {
-    "field": "type",
-    "direction": "asc"
+    "field": "salesperson_name",
+    "direction": "desc"
   },
   "filter": {
     "name": "",
-    "type": ""
+    "parent_campaign_name": "",
+    "type": "",
+    "salesperson_name": ""
   }
 }
 
@@ -42,11 +44,11 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/campaigns/7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1
+PATCH {{host}}/crm/v1.0/campaigns/10395e89-3d20-4a5a-90bb-c7cbd8a314f1
 Content-Type: application/json
 
 {
-  "is_enable": true,
+  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
