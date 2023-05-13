@@ -22,6 +22,8 @@ type Table struct {
 	StartDate time.Time `gorm:"column:start_date;type:date;not null;" json:"start_date"`
 	// 契約有效期限(月)
 	Term int `gorm:"column:term;type:int;not null;" json:"term"`
+	// 契約結束日期
+	EndDate time.Time `gorm:"column:end_date;type:date;not null;" json:"end_date"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// accounts data
@@ -51,6 +53,8 @@ type Base struct {
 	StartDate *string `json:"start_date,omitempty"`
 	// 契約有效期限(月)
 	Term *int `json:"term,omitempty"`
+	// 契約結束日期
+	EndDate *time.Time `json:"end_date,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
 	// accounts data

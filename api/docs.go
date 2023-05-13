@@ -8408,6 +8408,10 @@ const docTemplate = `{
                                 "description": "契約描述",
                                 "type": "string"
                             },
+                            "end_date": {
+                                "description": "契約結束日期",
+                                "type": "string"
+                            },
                             "salesperson_id": {
                                 "description": "業務員ID",
                                 "type": "string"
@@ -8494,6 +8498,10 @@ const docTemplate = `{
                 },
                 "description": {
                     "description": "契約描述",
+                    "type": "string"
+                },
+                "end_date": {
+                    "description": "契約結束日期",
                     "type": "string"
                 },
                 "salesperson_id": {
@@ -9459,7 +9467,6 @@ const docTemplate = `{
                 "order_id",
                 "product_id",
                 "quantity",
-                "sub_total",
                 "unit_price"
             ],
             "properties": {
@@ -9482,10 +9489,6 @@ const docTemplate = `{
                 "quantity": {
                     "description": "訂單產品數量",
                     "type": "integer"
-                },
-                "sub_total": {
-                    "description": "訂單產品小計",
-                    "type": "number"
                 },
                 "unit_price": {
                     "description": "訂單產品單價",
@@ -9694,10 +9697,6 @@ const docTemplate = `{
                 "quantity": {
                     "description": "訂單產品數量",
                     "type": "integer"
-                },
-                "sub_total": {
-                    "description": "訂單產品小計",
-                    "type": "number"
                 },
                 "unit_price": {
                     "description": "訂單產品單價",
@@ -10267,7 +10266,6 @@ const docTemplate = `{
                 "product_id",
                 "quantity",
                 "quote_id",
-                "sub_total",
                 "unit_price"
             ],
             "properties": {
@@ -10290,10 +10288,6 @@ const docTemplate = `{
                 "quote_id": {
                     "description": "報價ID",
                     "type": "string"
-                },
-                "sub_total": {
-                    "description": "報價產品小計",
-                    "type": "number"
                 },
                 "unit_price": {
                     "description": "報價產品單價",
@@ -10412,10 +10406,6 @@ const docTemplate = `{
                 },
                 "standard_price": {
                     "description": "產品定價",
-                    "type": "number"
-                },
-                "sub_total": {
-                    "description": "報價產品小計",
                     "type": "number"
                 },
                 "unit_price": {

@@ -3,6 +3,7 @@ package contract
 import (
 	"encoding/json"
 	"errors"
+	"time"
 
 	"app.eirc/internal/interactor/pkg/util"
 
@@ -35,6 +36,7 @@ func Init(db *gorm.DB) Manager {
 func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) interface{} {
 	defer trx.Rollback()
 
+	input.EndDate = input.StartDate.AddDate(0, input.Term, 0)
 	contractBase, err := m.ContractService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
@@ -139,6 +141,17 @@ func (m *manager) Update(input *contractModel.Update) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
+	startDate := input.StartDate
+	term := input.Term
+	baseStartDate, _ := time.Parse("2006-01-02", *contractBase.StartDate)
+	if input.StartDate == &baseStartDate {
+		startDate = &baseStartDate
+	}
+	if input.Term == contractBase.Term {
+		term = contractBase.Term
+	}
+	input.EndDate = startDate.AddDate(0, *term, 0)
 
 	err = m.ContractService.Update(input)
 	if err != nil {

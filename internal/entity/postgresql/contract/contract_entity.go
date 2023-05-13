@@ -150,6 +150,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["term"] = input.Term
 	}
 
+	if input.EndDate != nil {
+		data["end_date"] = input.EndDate
+	}
+
 	if input.Description != nil {
 		data["description"] = input.Description
 	}
