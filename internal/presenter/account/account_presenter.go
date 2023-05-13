@@ -52,7 +52,7 @@ func (c *control) Create(ctx *gin.Context) {
 	input := &accountModel.Create{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
 	}
@@ -88,7 +88,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
 	}
@@ -120,7 +120,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 	input.AccountID = accountID
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
 	}
@@ -148,7 +148,7 @@ func (c *control) GetBySingleContacts(ctx *gin.Context) {
 	input.AccountID = accountID
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
 	}
@@ -177,7 +177,7 @@ func (c *control) Delete(ctx *gin.Context) {
 	input.AccountID = accountID
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
 	}
@@ -207,7 +207,7 @@ func (c *control) Update(ctx *gin.Context) {
 	input.AccountID = accountID
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
 	}
