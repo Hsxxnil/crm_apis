@@ -7439,11 +7439,13 @@ const docTemplate = `{
             "properties": {
                 "actual_cost": {
                     "description": "行銷活動實際成本",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "budget_cost": {
                     "description": "行銷活動預算成本",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "created_by": {
                     "description": "創建者",
@@ -7459,11 +7461,13 @@ const docTemplate = `{
                 },
                 "expected_income": {
                     "description": "行銷活動預期收入",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "expected_responses": {
                     "description": "行銷活動預期回應(%)",
-                    "type": "integer"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "is_enable": {
                     "description": "行銷活動是否啟用",
@@ -7479,7 +7483,8 @@ const docTemplate = `{
                 },
                 "sent": {
                     "description": "行銷活動已傳送數量",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "start_date": {
                     "description": "行銷活動開始日期",
@@ -7571,7 +7576,7 @@ const docTemplate = `{
                             },
                             "expected_responses": {
                                 "description": "行銷活動預期回應(%)",
-                                "type": "integer"
+                                "type": "number"
                             },
                             "is_enable": {
                                 "description": "行銷活動是否啟用",
@@ -7687,7 +7692,7 @@ const docTemplate = `{
                 },
                 "expected_responses": {
                     "description": "行銷活動預期回應(%)",
-                    "type": "integer"
+                    "type": "number"
                 },
                 "is_enable": {
                     "description": "行銷活動是否啟用",
@@ -7784,7 +7789,7 @@ const docTemplate = `{
                 },
                 "expected_responses": {
                     "description": "行銷活動預期回應(%)",
-                    "type": "integer"
+                    "type": "number"
                 },
                 "is_enable": {
                     "description": "行銷活動是否啟用",
@@ -7851,11 +7856,13 @@ const docTemplate = `{
             "properties": {
                 "actual_cost": {
                     "description": "行銷活動實際成本",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "budget_cost": {
                     "description": "行銷活動預算成本",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "description": {
                     "description": "行銷活動描述",
@@ -7867,11 +7874,13 @@ const docTemplate = `{
                 },
                 "expected_income": {
                     "description": "行銷活動預期收入",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "expected_responses": {
                     "description": "行銷活動預期回應(%)",
-                    "type": "integer"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "is_enable": {
                     "description": "行銷活動是否啟用",
@@ -7891,7 +7900,8 @@ const docTemplate = `{
                 },
                 "sent": {
                     "description": "行銷活動已傳送數量",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "start_date": {
                     "description": "行銷活動開始日期",
@@ -8961,7 +8971,8 @@ const docTemplate = `{
                 },
                 "amount": {
                     "description": "預期收入金額",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "close_date": {
                     "description": "商機結束日期",
@@ -9253,7 +9264,8 @@ const docTemplate = `{
             "properties": {
                 "amount": {
                     "description": "預期收入金額",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "close_date": {
                     "description": "商機結束日期",
@@ -9488,11 +9500,13 @@ const docTemplate = `{
                 },
                 "quantity": {
                     "description": "訂單產品數量",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "unit_price": {
                     "description": "訂單產品單價",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 }
             }
         },
@@ -9696,11 +9710,13 @@ const docTemplate = `{
                 },
                 "quantity": {
                     "description": "訂單產品數量",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "unit_price": {
                     "description": "訂單產品單價",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "updated_by": {
                     "description": "更新者",
@@ -10070,7 +10086,8 @@ const docTemplate = `{
                 },
                 "price": {
                     "description": "產品價格",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 }
             }
         },
@@ -10250,7 +10267,8 @@ const docTemplate = `{
                 },
                 "price": {
                     "description": "產品價格",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "updated_by": {
                     "description": "更新者",
@@ -10274,8 +10292,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "discount": {
-                    "description": "報價產品5k6d.4",
-                    "type": "number"
+                    "description": "報價產品折扣",
+                    "type": "number",
+                    "minimum": 0
                 },
                 "product_id": {
                     "description": "產品ID",
@@ -10283,7 +10302,8 @@ const docTemplate = `{
                 },
                 "quantity": {
                     "description": "報價產品數量",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "quote_id": {
                     "description": "報價ID",
@@ -10291,7 +10311,8 @@ const docTemplate = `{
                 },
                 "unit_price": {
                     "description": "報價產品單價",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 }
             }
         },
@@ -10483,7 +10504,8 @@ const docTemplate = `{
             "properties": {
                 "discount": {
                     "description": "報價產品折扣",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "product_id": {
                     "description": "產品ID",
@@ -10491,7 +10513,8 @@ const docTemplate = `{
                 },
                 "quantity": {
                     "description": "報價產品數量",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "sub_total": {
                     "description": "報價產品小計",
@@ -10499,7 +10522,8 @@ const docTemplate = `{
                 },
                 "unit_price": {
                     "description": "報價產品單價",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "updated_by": {
                     "description": "更新者",
@@ -10547,7 +10571,8 @@ const docTemplate = `{
                 },
                 "shipping_and_handling": {
                     "description": "報價運輸和處理費",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "status": {
                     "description": "報價狀態",
@@ -10555,7 +10580,8 @@ const docTemplate = `{
                 },
                 "tax": {
                     "description": "報價稅額",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 }
             }
         },
@@ -10871,7 +10897,8 @@ const docTemplate = `{
                 },
                 "shipping_and_handling": {
                     "description": "報價運輸和處理費",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "status": {
                     "description": "報價狀態",
@@ -10879,7 +10906,8 @@ const docTemplate = `{
                 },
                 "tax": {
                     "description": "報價稅額",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "updated_by": {
                     "description": "更新者",

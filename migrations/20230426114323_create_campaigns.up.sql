@@ -12,7 +12,7 @@ create table campaigns
     description        text,
     sent               int,
     budget_cost        numeric,
-    expected_responses int,
+    expected_responses numeric,
     actual_cost        numeric,
     expected_income    numeric,
     created_at         timestamp default now()              not null,

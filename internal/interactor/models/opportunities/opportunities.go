@@ -9,7 +9,6 @@ import (
 
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
-	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -25,7 +24,7 @@ type Create struct {
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 預期收入金額
-	Amount decimal.Decimal `json:"amount,omitempty"`
+	Amount float64 `json:"amount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -45,7 +44,7 @@ type Field struct {
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 預期收入金額
-	Amount *decimal.Decimal `json:"amount,omitempty" form:"amount"`
+	Amount *float64 `json:"amount,omitempty" form:"amount"`
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty" form:"salesperson_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
@@ -91,7 +90,7 @@ type List struct {
 		// 帳戶名稱
 		AccountName string `json:"account_name,omitempty"`
 		// 預期收入金額
-		Amount decimal.Decimal `json:"amount,omitempty"`
+		Amount float64 `json:"amount,omitempty"`
 		// 業務員ID
 		SalespersonID string `json:"salesperson_id,omitempty"`
 		// 業務員名稱
@@ -124,7 +123,7 @@ type Single struct {
 	// 帳戶名稱
 	AccountName string `json:"account_name,omitempty"`
 	// 預期收入金額
-	Amount decimal.Decimal `json:"amount,omitempty"`
+	Amount float64 `json:"amount,omitempty"`
 	// 業務員ID
 	SalespersonID string `json:"salesperson_id,omitempty"`
 	// 業務員名稱
@@ -154,7 +153,7 @@ type SingleCampaigns struct {
 	// 帳戶名稱
 	AccountName string `json:"account_name,omitempty"`
 	// 預期收入金額
-	Amount decimal.Decimal `json:"amount,omitempty"`
+	Amount float64 `json:"amount,omitempty"`
 	// 業務員ID
 	SalespersonID string `json:"salesperson_id,omitempty"`
 	// 業務員名稱
@@ -182,7 +181,7 @@ type Update struct {
 	// 商機結束日期
 	CloseDate *time.Time `json:"close_date,omitempty"`
 	// 預期收入金額
-	Amount *decimal.Decimal `json:"amount,omitempty"`
+	Amount *float64 `json:"amount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者

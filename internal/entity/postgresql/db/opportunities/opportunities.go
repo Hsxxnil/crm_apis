@@ -12,7 +12,6 @@ import (
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/special"
-	"github.com/shopspring/decimal"
 )
 
 // Table struct is opportunities database table struct
@@ -32,7 +31,7 @@ type Table struct {
 	// accounts data
 	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
 	// 預期收入金額
-	Amount decimal.Decimal `gorm:"column:amount;type:numeric;" json:"amount"`
+	Amount float64 `gorm:"column:amount;type:numeric;" json:"amount"`
 	// 業務員ID
 	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
 	// salespeople  data
@@ -63,7 +62,7 @@ type Base struct {
 	// accounts data
 	Accounts accounts.Base `json:"accounts,omitempty"`
 	// 預期收入金額
-	Amount *decimal.Decimal `json:"amount,omitempty"`
+	Amount *float64 `json:"amount,omitempty"`
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty"`
 	// salespeople  data

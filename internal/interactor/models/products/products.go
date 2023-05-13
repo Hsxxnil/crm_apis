@@ -4,7 +4,6 @@ import (
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 	"app.eirc/internal/interactor/models/sort"
-	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -18,7 +17,7 @@ type Create struct {
 	// 產品描述
 	Description string `json:"description,omitempty"`
 	// 產品價格
-	Price decimal.Decimal `json:"price,omitempty" binding:"required" validate:"required"`
+	Price float64 `json:"price,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -36,7 +35,7 @@ type Field struct {
 	// 產品描述
 	Description *string `json:"description,omitempty" form:"description"`
 	// 產品價格
-	Price *decimal.Decimal `json:"price,omitempty" form:"price"`
+	Price *float64 `json:"price,omitempty" form:"price"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -76,7 +75,7 @@ type List struct {
 		// 產品描述
 		Description string `json:"description,omitempty"`
 		// 產品價格
-		Price decimal.Decimal `json:"price,omitempty"`
+		Price float64 `json:"price,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -101,7 +100,7 @@ type Single struct {
 	// 產品描述
 	Description string `json:"description,omitempty"`
 	// 產品價格
-	Price decimal.Decimal `json:"price,omitempty"`
+	Price float64 `json:"price,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -123,7 +122,7 @@ type Update struct {
 	// 產品描述
 	Description *string `json:"description,omitempty"`
 	// 產品價格
-	Price *decimal.Decimal `json:"price,omitempty"`
+	Price *float64 `json:"price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

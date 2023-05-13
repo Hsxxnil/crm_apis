@@ -3,7 +3,6 @@ package quote_products
 import (
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
-	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -13,13 +12,13 @@ type Create struct {
 	// 產品ID
 	ProductID string `json:"product_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 報價產品數量
-	Quantity int `json:"quantity,omitempty" binding:"required" validate:"required"`
+	Quantity int `json:"quantity,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 報價產品單價
-	UnitPrice decimal.Decimal `json:"unit_price,omitempty" binding:"required" validate:"required"`
+	UnitPrice float64 `json:"unit_price,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 報價產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty" swaggerignore:"true"`
-	// 報價產品5k6d.4
-	Discount decimal.Decimal `json:"discount,omitempty" binding:"required" validate:"required"`
+	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
+	// 報價產品折扣
+	Discount float64 `json:"discount,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -35,11 +34,11 @@ type Field struct {
 	// 報價產品數量
 	Quantity *int `json:"quantity,omitempty" form:"quantity"`
 	// 報價產品單價
-	UnitPrice *decimal.Decimal `json:"unit_price,omitempty" form:"unit_price"`
+	UnitPrice *float64 `json:"unit_price,omitempty" form:"unit_price"`
 	// 報價產品小計
-	SubTotal *decimal.Decimal `json:"sub_total,omitempty" form:"sub_total"`
+	SubTotal *float64 `json:"sub_total,omitempty" form:"sub_total"`
 	// 報價產品折扣
-	Discount *decimal.Decimal `json:"discount,omitempty" form:"discount"`
+	Discount *float64 `json:"discount,omitempty" form:"discount"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -65,11 +64,11 @@ type List struct {
 		// 報價產品數量
 		Quantity int `json:"quantity,omitempty"`
 		// 報價產品單價
-		UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
+		UnitPrice float64 `json:"unit_price,omitempty"`
 		// 報價產品小計
-		SubTotal decimal.Decimal `json:"sub_total,omitempty"`
+		SubTotal float64 `json:"sub_total,omitempty"`
 		// 報價產品折扣
-		Discount decimal.Decimal `json:"discount,omitempty"`
+		Discount float64 `json:"discount,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -94,11 +93,11 @@ type Single struct {
 	// 報價產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 報價產品單價
-	UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
+	UnitPrice float64 `json:"unit_price,omitempty"`
 	// 報價產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
+	SubTotal float64 `json:"sub_total,omitempty"`
 	// 報價產品折扣
-	Discount decimal.Decimal `json:"discount,omitempty"`
+	Discount float64 `json:"discount,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -114,13 +113,13 @@ type Update struct {
 	// 產品ID
 	ProductID *string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 報價產品數量
-	Quantity *int `json:"quantity,omitempty"`
+	Quantity *int `json:"quantity,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 報價產品單價
-	UnitPrice *decimal.Decimal `json:"unit_price,omitempty"`
+	UnitPrice *float64 `json:"unit_price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 報價產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
+	SubTotal float64 `json:"sub_total,omitempty"`
 	// 報價產品折扣
-	Discount *decimal.Decimal `json:"discount,omitempty"`
+	Discount *float64 `json:"discount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -132,13 +131,13 @@ type QuoteSingle struct {
 	// 產品名稱
 	ProductName string `json:"product_name,omitempty"`
 	// 產品定價
-	ProductPrice decimal.Decimal `json:"standard_price,omitempty"`
+	ProductPrice float64 `json:"standard_price,omitempty"`
 	// 報價產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 報價產品單價
-	UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
+	UnitPrice float64 `json:"unit_price,omitempty"`
 	// 報價產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty" swaggerignore:"true"`
+	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
-	Discount decimal.Decimal `json:"discount,omitempty"`
+	Discount float64 `json:"discount,omitempty"`
 }

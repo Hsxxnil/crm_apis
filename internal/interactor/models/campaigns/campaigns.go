@@ -9,7 +9,6 @@ import (
 
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
-	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -31,15 +30,15 @@ type Create struct {
 	// 行銷活動描述
 	Description string `json:"description,omitempty"`
 	// 行銷活動已傳送數量
-	Sent int `json:"sent,omitempty"`
+	Sent int `json:"sent,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動預算成本
-	BudgetCost decimal.Decimal `json:"budget_cost,omitempty"`
+	BudgetCost float64 `json:"budget_cost,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動預期回應(%)
-	ExpectedResponses int `json:"expected_responses,omitempty"`
+	ExpectedResponses float64 `json:"expected_responses,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動實際成本
-	ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
+	ActualCost float64 `json:"actual_cost,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動預期收入
-	ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+	ExpectedIncome float64 `json:"expected_income,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -67,13 +66,13 @@ type Field struct {
 	// 行銷活動已傳送數量
 	Sent *int `json:"sent,omitempty" form:"sent"`
 	// 行銷活動預算成本
-	BudgetCost *decimal.Decimal `json:"budget_cost,omitempty" form:"budget_cost"`
+	BudgetCost *float64 `json:"budget_cost,omitempty" form:"budget_cost"`
 	// 行銷活動預期回應(%)
-	ExpectedResponses *int `json:"expected_responses,omitempty" form:"expected_responses"`
+	ExpectedResponses *float64 `json:"expected_responses,omitempty" form:"expected_responses"`
 	// 行銷活動實際成本
-	ActualCost *decimal.Decimal `json:"actual_cost,omitempty" form:"actual_cost"`
+	ActualCost *float64 `json:"actual_cost,omitempty" form:"actual_cost"`
 	// 行銷活動預期收入
-	ExpectedIncome *decimal.Decimal `json:"expected_income,omitempty" form:"expected_income"`
+	ExpectedIncome *float64 `json:"expected_income,omitempty" form:"expected_income"`
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty" form:"salesperson_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
@@ -129,13 +128,13 @@ type List struct {
 		// 行銷活動已傳送數量
 		Sent int `json:"sent,omitempty"`
 		// 行銷活動預算成本
-		BudgetCost decimal.Decimal `json:"budget_cost,omitempty"`
+		BudgetCost float64 `json:"budget_cost,omitempty"`
 		// 行銷活動預期回應(%)
-		ExpectedResponses int `json:"expected_responses,omitempty"`
+		ExpectedResponses float64 `json:"expected_responses,omitempty"`
 		// 行銷活動實際成本
-		ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
+		ActualCost float64 `json:"actual_cost,omitempty"`
 		// 行銷活動預期收入
-		ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+		ExpectedIncome float64 `json:"expected_income,omitempty"`
 		// 業務員ID
 		SalespersonID string `json:"salesperson_id,omitempty"`
 		// 業務員名稱
@@ -176,13 +175,13 @@ type Single struct {
 	// 行銷活動已傳送數量
 	Sent int `json:"sent,omitempty"`
 	// 行銷活動預算成本
-	BudgetCost decimal.Decimal `json:"budget_cost,omitempty"`
+	BudgetCost float64 `json:"budget_cost,omitempty"`
 	// 行銷活動預期回應(%)
-	ExpectedResponses int `json:"expected_responses,omitempty"`
+	ExpectedResponses float64 `json:"expected_responses,omitempty"`
 	// 行銷活動實際成本
-	ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
+	ActualCost float64 `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
-	ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+	ExpectedIncome float64 `json:"expected_income,omitempty"`
 	// 業務員ID
 	SalespersonID string `json:"salesperson_id,omitempty"`
 	// 業務員名稱
@@ -220,13 +219,13 @@ type SingleOpportunities struct {
 	// 行銷活動已傳送數量
 	Sent int `json:"sent,omitempty"`
 	// 行銷活動預算成本
-	BudgetCost decimal.Decimal `json:"budget_cost,omitempty"`
+	BudgetCost float64 `json:"budget_cost,omitempty"`
 	// 行銷活動預期回應(%)
-	ExpectedResponses int `json:"expected_responses,omitempty"`
+	ExpectedResponses float64 `json:"expected_responses,omitempty"`
 	// 行銷活動實際成本
-	ActualCost decimal.Decimal `json:"actual_cost,omitempty"`
+	ActualCost float64 `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
-	ExpectedIncome decimal.Decimal `json:"expected_income,omitempty"`
+	ExpectedIncome float64 `json:"expected_income,omitempty"`
 	// 業務員ID
 	SalespersonID string `json:"salesperson_id,omitempty"`
 	// 業務員名稱
@@ -262,15 +261,15 @@ type Update struct {
 	// 行銷活動描述
 	Description *string `json:"description,omitempty"`
 	// 行銷活動已傳送數量
-	Sent *int `json:"sent,omitempty"`
+	Sent *int `json:"sent,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動預算成本
-	BudgetCost *decimal.Decimal `json:"budget_cost,omitempty"`
+	BudgetCost *float64 `json:"budget_cost,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動預期回應(%)
-	ExpectedResponses *int `json:"expected_responses,omitempty"`
+	ExpectedResponses *float64 `json:"expected_responses,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動實際成本
-	ActualCost *decimal.Decimal `json:"actual_cost,omitempty"`
+	ActualCost *float64 `json:"actual_cost,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 行銷活動預期收入
-	ExpectedIncome *decimal.Decimal `json:"expected_income,omitempty"`
+	ExpectedIncome *float64 `json:"expected_income,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者

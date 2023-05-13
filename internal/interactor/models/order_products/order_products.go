@@ -3,7 +3,6 @@ package order_products
 import (
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
-	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -13,11 +12,11 @@ type Create struct {
 	// 產品ID
 	ProductID string `json:"product_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 訂單產品數量
-	Quantity int `json:"quantity,omitempty" binding:"required" validate:"required"`
+	Quantity int `json:"quantity,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 訂單產品單價
-	UnitPrice decimal.Decimal `json:"unit_price,omitempty" binding:"required" validate:"required"`
+	UnitPrice float64 `json:"unit_price,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 訂單產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty" swaggerignore:"true"`
+	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
 	// 創建者
@@ -35,9 +34,9 @@ type Field struct {
 	// 訂單產品數量
 	Quantity *int `json:"quantity,omitempty" form:"quantity"`
 	// 訂單產品單價
-	UnitPrice *decimal.Decimal `json:"unit_price,omitempty" form:"unit_price"`
+	UnitPrice *float64 `json:"unit_price,omitempty" form:"unit_price"`
 	// 訂單產品小計
-	SubTotal *decimal.Decimal `json:"sub_total,omitempty" form:"sub_total"`
+	SubTotal *float64 `json:"sub_total,omitempty" form:"sub_total"`
 	// 訂單產品描述
 	Description *string `json:"description,omitempty" form:"description"`
 }
@@ -65,9 +64,9 @@ type List struct {
 		// 訂單產品數量
 		Quantity int `json:"quantity,omitempty"`
 		// 訂單產品單價
-		UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
+		UnitPrice float64 `json:"unit_price,omitempty"`
 		// 訂單產品小計
-		SubTotal decimal.Decimal `json:"sub_total,omitempty"`
+		SubTotal float64 `json:"sub_total,omitempty"`
 		// 訂單產品描述
 		Description string `json:"description,omitempty"`
 		// 創建者
@@ -94,9 +93,9 @@ type Single struct {
 	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
-	UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
+	UnitPrice float64 `json:"unit_price,omitempty"`
 	// 訂單產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
+	SubTotal float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
 	// 創建者
@@ -114,11 +113,11 @@ type Update struct {
 	// 產品ID
 	ProductID *string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 訂單產品數量
-	Quantity *int `json:"quantity,omitempty"`
+	Quantity *int `json:"quantity,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 訂單產品單價
-	UnitPrice *decimal.Decimal `json:"unit_price,omitempty"`
+	UnitPrice *float64 `json:"unit_price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 訂單產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty" swaggerignore:"true"`
+	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 訂單產品描述
 	Description *string `json:"description,omitempty"`
 	// 更新者
@@ -132,13 +131,13 @@ type OrderSingle struct {
 	// 產品名稱
 	ProductName string `json:"product_name,omitempty"`
 	// 產品定價
-	ProductPrice decimal.Decimal `json:"standard_price,omitempty"`
+	ProductPrice float64 `json:"standard_price,omitempty"`
 	// 訂單產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
-	UnitPrice decimal.Decimal `json:"unit_price,omitempty"`
+	UnitPrice float64 `json:"unit_price,omitempty"`
 	// 訂單產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
+	SubTotal float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
 }
