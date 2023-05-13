@@ -968,6 +968,9 @@ definitions:
             description:
               description: 契約描述
               type: string
+            end_date:
+              description: 契約結束日期
+              type: string
             salesperson_id:
               description: 業務員ID
               type: string
@@ -1035,6 +1038,9 @@ definitions:
         type: string
       description:
         description: 契約描述
+        type: string
+      end_date:
+        description: 契約結束日期
         type: string
       salesperson_id:
         description: 業務員ID
@@ -1748,9 +1754,6 @@ definitions:
       quantity:
         description: 訂單產品數量
         type: integer
-      sub_total:
-        description: 訂單產品小計
-        type: number
       unit_price:
         description: 訂單產品單價
         type: number
@@ -1759,7 +1762,6 @@ definitions:
     - order_id
     - product_id
     - quantity
-    - sub_total
     - unit_price
     type: object
   order_products.List:
@@ -1908,9 +1910,6 @@ definitions:
       quantity:
         description: 訂單產品數量
         type: integer
-      sub_total:
-        description: 訂單產品小計
-        type: number
       unit_price:
         description: 訂單產品單價
         type: number
@@ -2340,9 +2339,6 @@ definitions:
       quote_id:
         description: 報價ID
         type: string
-      sub_total:
-        description: 報價產品小計
-        type: number
       unit_price:
         description: 報價產品單價
         type: number
@@ -2352,7 +2348,6 @@ definitions:
     - product_id
     - quantity
     - quote_id
-    - sub_total
     - unit_price
     type: object
   quote_products.List:
@@ -2437,9 +2432,6 @@ definitions:
         type: integer
       standard_price:
         description: 產品定價
-        type: number
-      sub_total:
-        description: 報價產品小計
         type: number
       unit_price:
         description: 報價產品單價

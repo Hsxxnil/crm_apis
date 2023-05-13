@@ -8,8 +8,8 @@ Content-Type: application/json
     "direction": "desc"
   },
   "filter": {
-    "code": "國",
-    "account_name": "國"
+    "code": "",
+    "account_name": ""
   }
 }
 
@@ -22,7 +22,7 @@ POST {{host}}/crm/v1.0/contracts
 Content-Type: application/json
 
 {
-  "status": "Draft",
+  "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
@@ -31,11 +31,16 @@ Content-Type: application/json
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
+PATCH {{host}}/crm/v1.0/contracts/e4053d43-3b03-436d-a2b8-102a94bdd5ba
 Content-Type: application/json
 
 {
-  "account_id": "52f18d90-e4c3-43cb-b9d4-f62b409e7392",
+  "status": "草稿",
+  "start_date": "2023-04-21T00:00:00Z",
+  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
+  "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "term": 3,
+  "description": "test",
   "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 

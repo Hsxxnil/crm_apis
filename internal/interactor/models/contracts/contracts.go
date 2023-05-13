@@ -17,6 +17,8 @@ type Create struct {
 	StartDate time.Time `json:"start_date,omitempty" binding:"required" validate:"required"`
 	// 契約有效期限(月)
 	Term int `json:"term,omitempty" binding:"required" validate:"required"`
+	// 契約結束日期
+	EndDate time.Time `json:"end_date,omitempty" swaggerignore:"true"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 契約描述
@@ -35,6 +37,8 @@ type Field struct {
 	StartDate *time.Time `json:"start_date,omitempty" form:"start_date"`
 	// 契約有效期限(月)
 	Term *int `json:"term,omitempty" form:"term"`
+	// 契約結束日期
+	EndDate *time.Time `json:"end_date,omitempty" form:"end_date"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 契約描述
@@ -73,14 +77,16 @@ type List struct {
 		ContractID string `json:"contract_id,omitempty"`
 		// 契約狀態
 		Status string `json:"status,omitempty"`
-		// 契約開始日期
-		StartDate time.Time `json:"start_date,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 帳戶名稱
 		AccountName string `json:"account_name,omitempty"`
+		// 契約開始日期
+		StartDate time.Time `json:"start_date,omitempty"`
 		// 契約有效期限(月)
 		Term int `json:"term,omitempty"`
+		// 契約結束日期
+		EndDate time.Time `json:"end_date,omitempty"`
 		// 契約描述
 		Description string `json:"description,omitempty"`
 		// 契約號碼
@@ -110,6 +116,8 @@ type Single struct {
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 契約有效期限(月)
 	Term int `json:"term,omitempty"`
+	// 契約結束日期
+	EndDate time.Time `json:"end_date,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 帳戶名稱
@@ -140,6 +148,8 @@ type Update struct {
 	StartDate *time.Time `json:"start_date,omitempty"`
 	// 契約有效期限(月)
 	Term *int `json:"term,omitempty"`
+	// 契約結束日期
+	EndDate time.Time `json:"end_date,omitempty" swaggerignore:"true"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 契約描述

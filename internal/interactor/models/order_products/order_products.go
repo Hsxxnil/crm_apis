@@ -17,7 +17,7 @@ type Create struct {
 	// 訂單產品單價
 	UnitPrice decimal.Decimal `json:"unit_price,omitempty" binding:"required" validate:"required"`
 	// 訂單產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty" binding:"required" validate:"required"`
+	SubTotal decimal.Decimal `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
 	// 創建者
@@ -118,7 +118,7 @@ type Update struct {
 	// 訂單產品單價
 	UnitPrice *decimal.Decimal `json:"unit_price,omitempty"`
 	// 訂單產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty"`
+	SubTotal decimal.Decimal `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 訂單產品描述
 	Description *string `json:"description,omitempty"`
 	// 更新者
