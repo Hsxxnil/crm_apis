@@ -1,12 +1,12 @@
 package middleware
 
 import (
+	"net/http"
+
 	"app.eirc/config"
 	"app.eirc/internal/interactor/pkg/jwx"
 	"app.eirc/internal/interactor/pkg/util/code"
 	"app.eirc/internal/interactor/pkg/util/log"
-
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,14 +19,14 @@ func Verify() gin.HandlerFunc {
 		}
 
 		if len(j.Token) == 0 {
-			ctx.AbortWithStatusJSON(http.StatusOK, code.GetCodeMessage(code.JWTRejected, "AccessToken is null"))
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, code.GetCodeMessage(code.JWTRejected, "AccessToken is null"))
 			return
 		}
 
 		j, err := j.Verify()
 		if err != nil {
 			log.Error(err)
-			ctx.AbortWithStatusJSON(http.StatusOK, code.GetCodeMessage(code.JWTRejected, "AccessToken is error"))
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, code.GetCodeMessage(code.JWTRejected, "AccessToken is error"))
 			return
 		}
 

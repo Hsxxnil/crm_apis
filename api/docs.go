@@ -8052,7 +8052,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "cell_phone": {
-                    "description": "TODO 帳戶名稱\n聯絡人行動電話",
+                    "description": "Todo 帳戶名稱\n聯絡人行動電話",
                     "type": "string"
                 },
                 "email": {

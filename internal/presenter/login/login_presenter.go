@@ -45,7 +45,7 @@ func (c *control) Login(ctx *gin.Context) {
 
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 		return
 	}
 
@@ -69,7 +69,7 @@ func (c *control) Refresh(ctx *gin.Context) {
 	input := &jwxModel.Refresh{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
-		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 		return
 	}
 
