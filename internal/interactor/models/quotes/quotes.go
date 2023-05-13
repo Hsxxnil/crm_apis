@@ -9,7 +9,6 @@ import (
 
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
-	"github.com/shopspring/decimal"
 )
 
 // Create struct is used to create achieves
@@ -29,9 +28,9 @@ type Create struct {
 	// 報價描述
 	Description string `json:"description,omitempty"`
 	// 報價稅額
-	Tax decimal.Decimal `json:"tax,omitempty"`
+	Tax float64 `json:"tax,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 報價運輸和處理費
-	ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
+	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -55,9 +54,9 @@ type Field struct {
 	// 報價描述
 	Description *string `json:"description,omitempty" form:"description"`
 	// 報價稅額
-	Tax *decimal.Decimal `json:"tax,omitempty" form:"tax"`
+	Tax *float64 `json:"tax,omitempty" form:"tax"`
 	// 報價運輸和處理費
-	ShippingAndHandling *decimal.Decimal `json:"shipping_and_handling,omitempty" form:"shipping_and_handling"`
+	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" form:"shipping_and_handling"`
 	// 報價號碼
 	Code *string `json:"code,omitempty" form:"code"`
 }
@@ -105,9 +104,9 @@ type List struct {
 		// 報價描述
 		Description string `json:"description,omitempty"`
 		// 報價稅額
-		Tax decimal.Decimal `json:"tax,omitempty"`
+		Tax float64 `json:"tax,omitempty"`
 		// 報價運輸和處理費
-		ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
+		ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 		// 報價號碼
 		Code string `json:"code,omitempty"`
 		// 創建者
@@ -142,9 +141,9 @@ type Single struct {
 	// 報價描述
 	Description string `json:"description,omitempty"`
 	// 報價稅額
-	Tax decimal.Decimal `json:"tax,omitempty"`
+	Tax float64 `json:"tax,omitempty"`
 	// 報價運輸和處理費
-	ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
+	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
 	Code string `json:"code,omitempty"`
 	// 創建者
@@ -176,9 +175,9 @@ type SingleProducts struct {
 	// 報價描述
 	Description string `json:"description,omitempty"`
 	// 報價稅額
-	Tax decimal.Decimal `json:"tax,omitempty"`
+	Tax float64 `json:"tax,omitempty"`
 	// 報價運輸和處理費
-	ShippingAndHandling decimal.Decimal `json:"shipping_and_handling,omitempty"`
+	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
 	Code string `json:"code,omitempty"`
 	// 創建者
@@ -210,9 +209,9 @@ type Update struct {
 	// 報價描述
 	Description *string `json:"description,omitempty"`
 	// 報價稅額
-	Tax *decimal.Decimal `json:"tax,omitempty"`
+	Tax *float64 `json:"tax,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 報價運輸和處理費
-	ShippingAndHandling *decimal.Decimal `json:"shipping_and_handling,omitempty"`
+	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

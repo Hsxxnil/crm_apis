@@ -5,7 +5,6 @@ import (
 	model "app.eirc/internal/interactor/models/products"
 	"app.eirc/internal/interactor/models/sort"
 	"app.eirc/internal/interactor/models/special"
-	"github.com/shopspring/decimal"
 )
 
 // Table struct is products database table struct
@@ -21,7 +20,7 @@ type Table struct {
 	// 產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 產品價格
-	Price decimal.Decimal `gorm:"column:price;type:numeric;not null;" json:"price"`
+	Price float64 `gorm:"column:price;type:numeric;not null;" json:"price"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -42,7 +41,7 @@ type Base struct {
 	// 產品描述
 	Description *string `json:"description,omitempty"`
 	// 產品價格
-	Price *decimal.Decimal `json:"price,omitempty"`
+	Price *float64 `json:"price,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

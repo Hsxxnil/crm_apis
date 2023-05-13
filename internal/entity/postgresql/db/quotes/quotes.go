@@ -12,7 +12,6 @@ import (
 	"app.eirc/internal/entity/postgresql/db/users"
 
 	"app.eirc/internal/interactor/models/special"
-	"github.com/shopspring/decimal"
 )
 
 // Table struct is quotes database table struct
@@ -36,9 +35,9 @@ type Table struct {
 	// 報價描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 報價稅額
-	Tax decimal.Decimal `gorm:"column:tax;type:numeric;" json:"tax"`
+	Tax float64 `gorm:"column:tax;type:numeric;" json:"tax"`
 	// 報價運輸和處理費
-	ShippingAndHandling decimal.Decimal `gorm:"column:shipping_and_handling;type:numeric;" json:"shipping_and_handling"`
+	ShippingAndHandling float64 `gorm:"column:shipping_and_handling;type:numeric;" json:"shipping_and_handling"`
 	// 報價號碼
 	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
 	// create_users data
@@ -71,9 +70,9 @@ type Base struct {
 	// 報價描述
 	Description *string `json:"description,omitempty"`
 	// 報價稅額
-	Tax *decimal.Decimal `json:"tax,omitempty"`
+	Tax *float64 `json:"tax,omitempty"`
 	// 報價運輸和處理費
-	ShippingAndHandling *decimal.Decimal `json:"shipping_and_handling,omitempty"`
+	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
 	Code *string `json:"code,omitempty"`
 	// create_users data

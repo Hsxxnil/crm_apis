@@ -251,9 +251,11 @@ definitions:
     properties:
       actual_cost:
         description: 行銷活動實際成本
+        minimum: 0
         type: number
       budget_cost:
         description: 行銷活動預算成本
+        minimum: 0
         type: number
       created_by:
         description: 創建者
@@ -266,10 +268,12 @@ definitions:
         type: string
       expected_income:
         description: 行銷活動預期收入
+        minimum: 0
         type: number
       expected_responses:
         description: 行銷活動預期回應(%)
-        type: integer
+        minimum: 0
+        type: number
       is_enable:
         description: 行銷活動是否啟用
         type: boolean
@@ -281,6 +285,7 @@ definitions:
         type: string
       sent:
         description: 行銷活動已傳送數量
+        minimum: 0
         type: integer
       start_date:
         description: 行銷活動開始日期
@@ -350,7 +355,7 @@ definitions:
               type: number
             expected_responses:
               description: 行銷活動預期回應(%)
-              type: integer
+              type: number
             is_enable:
               description: 行銷活動是否啟用
               type: boolean
@@ -439,7 +444,7 @@ definitions:
         type: number
       expected_responses:
         description: 行銷活動預期回應(%)
-        type: integer
+        type: number
       is_enable:
         description: 行銷活動是否啟用
         type: boolean
@@ -511,7 +516,7 @@ definitions:
         type: number
       expected_responses:
         description: 行銷活動預期回應(%)
-        type: integer
+        type: number
       is_enable:
         description: 行銷活動是否啟用
         type: boolean
@@ -558,9 +563,11 @@ definitions:
     properties:
       actual_cost:
         description: 行銷活動實際成本
+        minimum: 0
         type: number
       budget_cost:
         description: 行銷活動預算成本
+        minimum: 0
         type: number
       description:
         description: 行銷活動描述
@@ -570,10 +577,12 @@ definitions:
         type: string
       expected_income:
         description: 行銷活動預期收入
+        minimum: 0
         type: number
       expected_responses:
         description: 行銷活動預期回應(%)
-        type: integer
+        minimum: 0
+        type: number
       is_enable:
         description: 行銷活動是否啟用
         type: boolean
@@ -588,6 +597,7 @@ definitions:
         type: string
       sent:
         description: 行銷活動已傳送數量
+        minimum: 0
         type: integer
       start_date:
         description: 行銷活動開始日期
@@ -1367,6 +1377,7 @@ definitions:
         type: string
       amount:
         description: 預期收入金額
+        minimum: 0
         type: number
       close_date:
         description: 商機結束日期
@@ -1586,6 +1597,7 @@ definitions:
     properties:
       amount:
         description: 預期收入金額
+        minimum: 0
         type: number
       close_date:
         description: 商機結束日期
@@ -1753,9 +1765,11 @@ definitions:
         type: string
       quantity:
         description: 訂單產品數量
+        minimum: 0
         type: integer
       unit_price:
         description: 訂單產品單價
+        minimum: 0
         type: number
     required:
     - created_by
@@ -1909,9 +1923,11 @@ definitions:
         type: string
       quantity:
         description: 訂單產品數量
+        minimum: 0
         type: integer
       unit_price:
         description: 訂單產品單價
+        minimum: 0
         type: number
       updated_by:
         description: 更新者
@@ -2182,6 +2198,7 @@ definitions:
         type: string
       price:
         description: 產品價格
+        minimum: 0
         type: number
     required:
     - created_by
@@ -2315,6 +2332,7 @@ definitions:
         type: string
       price:
         description: 產品價格
+        minimum: 0
         type: number
       updated_by:
         description: 更新者
@@ -2328,19 +2346,22 @@ definitions:
         description: 創建者
         type: string
       discount:
-        description: 報價產品5k6d.4
+        description: 報價產品折扣
+        minimum: 0
         type: number
       product_id:
         description: 產品ID
         type: string
       quantity:
         description: 報價產品數量
+        minimum: 0
         type: integer
       quote_id:
         description: 報價ID
         type: string
       unit_price:
         description: 報價產品單價
+        minimum: 0
         type: number
     required:
     - created_by
@@ -2486,18 +2507,21 @@ definitions:
     properties:
       discount:
         description: 報價產品折扣
+        minimum: 0
         type: number
       product_id:
         description: 產品ID
         type: string
       quantity:
         description: 報價產品數量
+        minimum: 0
         type: integer
       sub_total:
         description: 報價產品小計
         type: number
       unit_price:
         description: 報價產品單價
+        minimum: 0
         type: number
       updated_by:
         description: 更新者
@@ -2530,12 +2554,14 @@ definitions:
         type: string
       shipping_and_handling:
         description: 報價運輸和處理費
+        minimum: 0
         type: number
       status:
         description: 報價狀態
         type: string
       tax:
         description: 報價稅額
+        minimum: 0
         type: number
     required:
     - account_id
@@ -2772,12 +2798,14 @@ definitions:
         type: string
       shipping_and_handling:
         description: 報價運輸和處理費
+        minimum: 0
         type: number
       status:
         description: 報價狀態
         type: string
       tax:
         description: 報價稅額
+        minimum: 0
         type: number
       updated_by:
         description: 更新者

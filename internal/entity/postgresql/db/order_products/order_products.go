@@ -4,7 +4,6 @@ import (
 	"app.eirc/internal/entity/postgresql/db/products"
 	"app.eirc/internal/entity/postgresql/db/users"
 	"app.eirc/internal/interactor/models/special"
-	"github.com/shopspring/decimal"
 )
 
 // Table struct is order_products database table struct
@@ -20,9 +19,9 @@ type Table struct {
 	// 訂單產品數量
 	Quantity int `gorm:"column:quantity;type:int;not null;" json:"quantity"`
 	// 訂單產品單價
-	UnitPrice decimal.Decimal `gorm:"column:unit_price;type:numeric;not null;" json:"unit_price"`
+	UnitPrice float64 `gorm:"column:unit_price;type:numeric;not null;" json:"unit_price"`
 	// 訂單產品小計
-	SubTotal decimal.Decimal `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
+	SubTotal float64 `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
 	// 訂單產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// create_users data
@@ -45,9 +44,9 @@ type Base struct {
 	// 訂單產品數量
 	Quantity *int `json:"quantity,omitempty"`
 	// 訂單產品單價
-	UnitPrice *decimal.Decimal `json:"unit_price,omitempty"`
+	UnitPrice *float64 `json:"unit_price,omitempty"`
 	// 訂單產品小計
-	SubTotal *decimal.Decimal `json:"sub_total,omitempty"`
+	SubTotal *float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
 	Description *string `json:"description,omitempty"`
 	// create_users data

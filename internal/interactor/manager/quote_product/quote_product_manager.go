@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/shopspring/decimal"
-
 	"app.eirc/internal/interactor/pkg/util"
 
 	quoteProductModel "app.eirc/internal/interactor/models/quote_products"
@@ -37,7 +35,7 @@ func Init(db *gorm.DB) Manager {
 func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.Create) interface{} {
 	defer trx.Rollback()
 
-	input.SubTotal = input.UnitPrice.Mul(decimal.NewFromInt(int64(input.Quantity))).Mul(input.Discount.Div(decimal.NewFromInt(100)))
+	input.SubTotal = input.UnitPrice * float64(input.Quantity) * input.Discount / 100
 	quoteProductBase, err := m.QuoteProductService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
@@ -152,7 +150,7 @@ func (m *manager) Update(input *quoteProductModel.Update) interface{} {
 	if input.Discount == quoteProductBase.Discount {
 		discount = quoteProductBase.Discount
 	}
-	input.SubTotal = unitPrice.Mul(decimal.NewFromInt(int64(*quantity))).Mul(discount.Div(decimal.NewFromInt(100)))
+	input.SubTotal = *unitPrice * float64(*quantity) * *discount / 100
 
 	err = m.QuoteProductService.Update(input)
 	if err != nil {

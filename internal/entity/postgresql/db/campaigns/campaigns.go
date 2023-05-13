@@ -10,7 +10,6 @@ import (
 
 	model "app.eirc/internal/interactor/models/campaigns"
 	"app.eirc/internal/interactor/models/special"
-	"github.com/shopspring/decimal"
 )
 
 // Table struct is campaigns database table struct
@@ -36,13 +35,13 @@ type Table struct {
 	// 行銷活動已傳送數量
 	Sent int `gorm:"column:sent;type:int;" json:"sent"`
 	// 行銷活動預算成本
-	BudgetCost decimal.Decimal `gorm:"column:budget_cost;type:numeric;" json:"budget_cost"`
+	BudgetCost float64 `gorm:"column:budget_cost;type:numeric;" json:"budget_cost"`
 	// 行銷活動預期回應(%)
-	ExpectedResponses int `gorm:"column:expected_responses;type:int;" json:"expected_responses"`
+	ExpectedResponses float64 `gorm:"column:expected_responses;type:numeric;" json:"expected_responses"`
 	// 行銷活動實際成本
-	ActualCost decimal.Decimal `gorm:"column:actual_cost;type:numeric;" json:"actual_cost"`
+	ActualCost float64 `gorm:"column:actual_cost;type:numeric;" json:"actual_cost"`
 	// 行銷活動預期收入
-	ExpectedIncome decimal.Decimal `gorm:"column:expected_income;type:numeric;" json:"expected_income"`
+	ExpectedIncome float64 `gorm:"column:expected_income;type:numeric;" json:"expected_income"`
 	// 業務員ID
 	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
 	// salespeople  data
@@ -79,13 +78,13 @@ type Base struct {
 	// 行銷活動已傳送數量
 	Sent *int `json:"sent,omitempty"`
 	// 行銷活動預算成本
-	BudgetCost *decimal.Decimal `json:"budget_cost,omitempty"`
+	BudgetCost *float64 `json:"budget_cost,omitempty"`
 	// 行銷活動預期回應(%)
-	ExpectedResponses *int `json:"expected_responses,omitempty"`
+	ExpectedResponses *float64 `json:"expected_responses,omitempty"`
 	// 行銷活動實際成本
-	ActualCost *decimal.Decimal `json:"actual_cost,omitempty"`
+	ActualCost *float64 `json:"actual_cost,omitempty"`
 	// 行銷活動預期收入
-	ExpectedIncome *decimal.Decimal `json:"expected_income,omitempty"`
+	ExpectedIncome *float64 `json:"expected_income,omitempty"`
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty"`
 	// salespeople  data
