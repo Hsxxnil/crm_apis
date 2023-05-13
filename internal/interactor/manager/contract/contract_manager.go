@@ -16,11 +16,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *contractModel.Create) interface{}
-	GetByList(input *contractModel.Fields) interface{}
-	GetBySingle(input *contractModel.Field) interface{}
-	Delete(input *contractModel.Field) interface{}
-	Update(input *contractModel.Update) interface{}
+	Create(trx *gorm.DB, input *contractModel.Create) (int, interface{})
+	GetByList(input *contractModel.Fields) (int, interface{})
+	GetBySingle(input *contractModel.Field) (int, interface{})
+	Delete(input *contractModel.Field) (int, interface{})
+	Update(input *contractModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -33,41 +33,41 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	input.EndDate = input.StartDate.AddDate(0, input.Term, 0)
 	contractBase, err := m.ContractService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, contractBase.ContractID)
+	return code.Successful, code.GetCodeMessage(code.Successful, contractBase.ContractID)
 }
 
-func (m *manager) GetByList(input *contractModel.Fields) interface{} {
+func (m *manager) GetByList(input *contractModel.Fields) (int, interface{}) {
 	output := &contractModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
 	quantity, contractBase, err := m.ContractService.GetByList(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
 	output.Pages = util.Pagination(quantity, output.Limit)
 	contractByte, err := json.Marshal(contractBase)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = json.Unmarshal(contractByte, &output.Contracts)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	for i, contracts := range output.Contracts {
@@ -77,18 +77,18 @@ func (m *manager) GetByList(input *contractModel.Fields) interface{} {
 		contracts.SalespersonName = *contractBase[i].Salespeople.Name
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *contractModel.Field) interface{} {
+func (m *manager) GetBySingle(input *contractModel.Field) (int, interface{}) {
 	contractBase, err := m.ContractService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &contractModel.Single{}
@@ -96,7 +96,7 @@ func (m *manager) GetBySingle(input *contractModel.Field) interface{} {
 	err = json.Unmarshal(contractByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.AccountName = *contractBase.Accounts.Name
@@ -104,42 +104,42 @@ func (m *manager) GetBySingle(input *contractModel.Field) interface{} {
 	output.UpdatedBy = *contractBase.UpdatedByUsers.Name
 	output.SalespersonName = *contractBase.Salespeople.Name
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *contractModel.Field) interface{} {
+func (m *manager) Delete(input *contractModel.Field) (int, interface{}) {
 	_, err := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.ContractService.Delete(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, "Delete ok!")
+	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *contractModel.Update) interface{} {
+func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	contractBase, err := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	startDate := input.StartDate
@@ -156,8 +156,8 @@ func (m *manager) Update(input *contractModel.Update) interface{} {
 	err = m.ContractService.Update(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, contractBase.ContractID)
+	return code.Successful, code.GetCodeMessage(code.Successful, contractBase.ContractID)
 }

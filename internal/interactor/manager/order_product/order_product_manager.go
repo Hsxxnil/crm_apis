@@ -15,11 +15,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *orderProductModel.Create) interface{}
-	GetByList(input *orderProductModel.Fields) interface{}
-	GetBySingle(input *orderProductModel.Field) interface{}
-	Delete(input *orderProductModel.Field) interface{}
-	Update(input *orderProductModel.Update) interface{}
+	Create(trx *gorm.DB, input *orderProductModel.Create) (int, interface{})
+	GetByList(input *orderProductModel.Fields) (int, interface{})
+	GetBySingle(input *orderProductModel.Field) (int, interface{})
+	Delete(input *orderProductModel.Field) (int, interface{})
+	Update(input *orderProductModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -32,40 +32,40 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *orderProductModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *orderProductModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	input.SubTotal = input.UnitPrice * float64(input.Quantity)
 	orderProductBase, err := m.OrderProductService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, orderProductBase.OrderProductID)
+	return code.Successful, code.GetCodeMessage(code.Successful, orderProductBase.OrderProductID)
 }
 
-func (m *manager) GetByList(input *orderProductModel.Fields) interface{} {
+func (m *manager) GetByList(input *orderProductModel.Fields) (int, interface{}) {
 	output := &orderProductModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
 	quantity, orderProductBase, err := m.OrderProductService.GetByList(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
 	orderProductByte, err := json.Marshal(orderProductBase)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(orderProductByte, &output.OrderProducts)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	for i, orderProducts := range output.OrderProducts {
@@ -74,18 +74,18 @@ func (m *manager) GetByList(input *orderProductModel.Fields) interface{} {
 		orderProducts.UpdatedBy = *orderProductBase[i].UpdatedByUsers.Name
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *orderProductModel.Field) interface{} {
+func (m *manager) GetBySingle(input *orderProductModel.Field) (int, interface{}) {
 	orderProductBase, err := m.OrderProductService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &orderProductModel.Single{}
@@ -93,49 +93,49 @@ func (m *manager) GetBySingle(input *orderProductModel.Field) interface{} {
 	err = json.Unmarshal(orderProductByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.ProductName = *orderProductBase.Products.Name
 	output.CreatedBy = *orderProductBase.CreatedByUsers.Name
 	output.UpdatedBy = *orderProductBase.UpdatedByUsers.Name
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *orderProductModel.Field) interface{} {
+func (m *manager) Delete(input *orderProductModel.Field) (int, interface{}) {
 	_, err := m.OrderProductService.GetBySingle(&orderProductModel.Field{
 		OrderProductID: input.OrderProductID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.OrderProductService.Delete(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, "Delete ok!")
+	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *orderProductModel.Update) interface{} {
+func (m *manager) Update(input *orderProductModel.Update) (int, interface{}) {
 	orderProductBase, err := m.OrderProductService.GetBySingle(&orderProductModel.Field{
 		OrderProductID: input.OrderProductID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	unitPrice := input.UnitPrice
@@ -151,8 +151,8 @@ func (m *manager) Update(input *orderProductModel.Update) interface{} {
 	err = m.OrderProductService.Update(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, orderProductBase.OrderProductID)
+	return code.Successful, code.GetCodeMessage(code.Successful, orderProductBase.OrderProductID)
 }

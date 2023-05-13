@@ -49,8 +49,8 @@ func (c *control) Login(ctx *gin.Context) {
 		return
 	}
 
-	codeMessage := c.Manager.Login(input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.Login(input)
+	ctx.JSON(httpCode, codeMessage)
 }
 
 // Refresh
@@ -73,6 +73,6 @@ func (c *control) Refresh(ctx *gin.Context) {
 		return
 	}
 
-	codeMessage := c.Manager.Refresh(input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.Refresh(input)
+	ctx.JSON(httpCode, codeMessage)
 }
