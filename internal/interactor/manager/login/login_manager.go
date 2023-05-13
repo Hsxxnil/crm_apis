@@ -19,8 +19,8 @@ import (
 )
 
 type Manager interface {
-	Login(input *loginsModel.Login) interface{}
-	Refresh(input *jwxModel.Refresh) interface{}
+	Login(input *loginsModel.Login) (int, interface{})
+	Refresh(input *jwxModel.Refresh) (int, interface{})
 }
 
 type manager struct {
@@ -35,7 +35,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (r *manager) Login(input *loginsModel.Login) interface{} {
+func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 	acknowledge, fields, err := r.UserService.AcknowledgeUser(&usersModel.Field{
 		UserName:  util.PointerString(input.UserName),
 		Password:  util.PointerString(input.Password),
@@ -43,11 +43,11 @@ func (r *manager) Login(input *loginsModel.Login) interface{} {
 	})
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	if acknowledge == false {
-		return code.GetCodeMessage(code.PermissionDenied, "Incorrect username or password")
+		return code.PermissionDenied, code.GetCodeMessage(code.PermissionDenied, "Incorrect username or password")
 	}
 
 	output := &jwxModel.Token{}
@@ -59,14 +59,14 @@ func (r *manager) Login(input *loginsModel.Login) interface{} {
 
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	accessTokenByte, _ := json.Marshal(accessToken)
 	err = json.Unmarshal(accessTokenByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	refreshToken, err := r.JwxService.CreateRefreshToken(&jwxModel.JWX{
@@ -75,33 +75,33 @@ func (r *manager) Login(input *loginsModel.Login) interface{} {
 
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	refreshTokenByte, _ := json.Marshal(refreshToken)
 	err = json.Unmarshal(refreshTokenByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (r *manager) Refresh(input *jwxModel.Refresh) interface{} {
+func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 	j := &jwx.JWT{
 		PublicKey: config.RefreshPublicKey,
 		Token:     input.RefreshToken,
 	}
 
 	if len(input.RefreshToken) == 0 {
-		return code.GetCodeMessage(code.JWTRejected, "RefreshToken is null")
+		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is null")
 	}
 
 	j, err := j.Verify()
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
+		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
 	}
 
 	field, err := r.UserService.GetBySingle(&usersModel.Field{
@@ -110,11 +110,11 @@ func (r *manager) Refresh(input *jwxModel.Refresh) interface{} {
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
+			return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	token, err := r.JwxService.CreateAccessToken(&jwxModel.JWX{
@@ -124,9 +124,9 @@ func (r *manager) Refresh(input *jwxModel.Refresh) interface{} {
 	})
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	token.RefreshToken = input.RefreshToken
-	return code.GetCodeMessage(code.Successful, token)
+	return code.Successful, code.GetCodeMessage(code.Successful, token)
 }

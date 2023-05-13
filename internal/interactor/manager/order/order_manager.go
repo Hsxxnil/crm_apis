@@ -15,12 +15,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *orderModel.Create) interface{}
-	GetByList(input *orderModel.Fields) interface{}
-	GetBySingle(input *orderModel.Field) interface{}
-	GetBySingleProducts(input *orderModel.Field) interface{}
-	Delete(input *orderModel.Field) interface{}
-	Update(input *orderModel.Update) interface{}
+	Create(trx *gorm.DB, input *orderModel.Create) (int, interface{})
+	GetByList(input *orderModel.Fields) (int, interface{})
+	GetBySingle(input *orderModel.Field) (int, interface{})
+	GetBySingleProducts(input *orderModel.Field) (int, interface{})
+	Delete(input *orderModel.Field) (int, interface{})
+	Update(input *orderModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -33,39 +33,39 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	orderBase, err := m.OrderService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, orderBase.OrderID)
+	return code.Successful, code.GetCodeMessage(code.Successful, orderBase.OrderID)
 }
 
-func (m *manager) GetByList(input *orderModel.Fields) interface{} {
+func (m *manager) GetByList(input *orderModel.Fields) (int, interface{}) {
 	output := &orderModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
 	quantity, orderBase, err := m.OrderService.GetByList(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
 	orderByte, err := json.Marshal(orderBase)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(orderByte, &output.Orders)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	for i, orders := range output.Orders {
@@ -81,19 +81,19 @@ func (m *manager) GetByList(input *orderModel.Fields) interface{} {
 		}
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
+func (m *manager) GetBySingle(input *orderModel.Field) (int, interface{}) {
 	orderBase, err := m.OrderService.GetBySingle(input)
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &orderModel.Single{}
@@ -101,7 +101,7 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 	err = json.Unmarshal(orderByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.ActivatedAt = nil
@@ -115,19 +115,19 @@ func (m *manager) GetBySingle(input *orderModel.Field) interface{} {
 		output.ActivatedAt = orderBase.ActivatedAt
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleProducts(input *orderModel.Field) interface{} {
+func (m *manager) GetBySingleProducts(input *orderModel.Field) (int, interface{}) {
 	orderBase, err := m.OrderService.GetBySingle(input)
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &orderModel.SingleProducts{}
@@ -135,7 +135,7 @@ func (m *manager) GetBySingleProducts(input *orderModel.Field) interface{} {
 	err = json.Unmarshal(orderByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.ActivatedAt = nil
@@ -153,42 +153,42 @@ func (m *manager) GetBySingleProducts(input *orderModel.Field) interface{} {
 		output.OrderProducts[i].ProductPrice = *products.Products.Price
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *orderModel.Field) interface{} {
+func (m *manager) Delete(input *orderModel.Field) (int, interface{}) {
 	_, err := m.OrderService.GetBySingle(&orderModel.Field{
 		OrderID: input.OrderID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.OrderService.Delete(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, "Delete ok!")
+	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *orderModel.Update) interface{} {
+func (m *manager) Update(input *orderModel.Update) (int, interface{}) {
 	orderBase, err := m.OrderService.GetBySingle(&orderModel.Field{
 		OrderID: input.OrderID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	if *orderBase.Status != *input.Status {
@@ -200,8 +200,8 @@ func (m *manager) Update(input *orderModel.Update) interface{} {
 	err = m.OrderService.Update(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, orderBase.OrderID)
+	return code.Successful, code.GetCodeMessage(code.Successful, orderBase.OrderID)
 }

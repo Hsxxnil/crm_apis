@@ -15,11 +15,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *industryModel.Create) interface{}
-	GetByList(input *industryModel.Fields) interface{}
-	GetBySingle(input *industryModel.Field) interface{}
-	Delete(input *industryModel.Field) interface{}
-	Update(input *industryModel.Update) interface{}
+	Create(trx *gorm.DB, input *industryModel.Create) (int, interface{})
+	GetByList(input *industryModel.Fields) (int, interface{})
+	GetBySingle(input *industryModel.Field) (int, interface{})
+	Delete(input *industryModel.Field) (int, interface{})
+	Update(input *industryModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -32,53 +32,53 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *industryModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *industryModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	industryBase, err := m.IndustryService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, industryBase.IndustryID)
+	return code.Successful, code.GetCodeMessage(code.Successful, industryBase.IndustryID)
 }
 
-func (m *manager) GetByList(input *industryModel.Fields) interface{} {
+func (m *manager) GetByList(input *industryModel.Fields) (int, interface{}) {
 	output := &industryModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
 	quantity, industryBase, err := m.IndustryService.GetByList(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
 	industryByte, err := json.Marshal(industryBase)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(industryByte, &output.Industries)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *industryModel.Field) interface{} {
+func (m *manager) GetBySingle(input *industryModel.Field) (int, interface{}) {
 	industryBase, err := m.IndustryService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &industryModel.Single{}
@@ -86,52 +86,52 @@ func (m *manager) GetBySingle(input *industryModel.Field) interface{} {
 	err = json.Unmarshal(industryByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *industryModel.Field) interface{} {
+func (m *manager) Delete(input *industryModel.Field) (int, interface{}) {
 	_, err := m.IndustryService.GetBySingle(&industryModel.Field{
 		IndustryID: input.IndustryID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.IndustryService.Delete(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, "Delete ok!")
+	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *industryModel.Update) interface{} {
+func (m *manager) Update(input *industryModel.Update) (int, interface{}) {
 	industryBase, err := m.IndustryService.GetBySingle(&industryModel.Field{
 		IndustryID: input.IndustryID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.IndustryService.Update(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, industryBase.IndustryID)
+	return code.Successful, code.GetCodeMessage(code.Successful, industryBase.IndustryID)
 }

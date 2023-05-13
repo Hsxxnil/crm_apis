@@ -59,8 +59,8 @@ func (c *control) Create(ctx *gin.Context) {
 	}
 
 	//input.CreatedBy = ctx.MustGet("user_id").(string)
-	codeMessage := c.Manager.Create(trx, input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.Create(trx, input)
+	ctx.JSON(httpCode, codeMessage)
 }
 
 // GetByList
@@ -98,8 +98,8 @@ func (c *control) GetByList(ctx *gin.Context) {
 		input.Limit = constant.DefaultLimit
 	}
 
-	codeMessage := c.Manager.GetByList(input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.GetByList(input)
+	ctx.JSON(httpCode, codeMessage)
 }
 
 // GetBySingle
@@ -126,8 +126,8 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 		return
 	}
 
-	codeMessage := c.Manager.GetBySingle(input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.GetBySingle(input)
+	ctx.JSON(httpCode, codeMessage)
 }
 
 // GetBySingleProducts
@@ -154,8 +154,8 @@ func (c *control) GetBySingleProducts(ctx *gin.Context) {
 		return
 	}
 
-	codeMessage := c.Manager.GetBySingleProducts(input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.GetBySingleProducts(input)
+	ctx.JSON(httpCode, codeMessage)
 }
 
 // Delete
@@ -183,8 +183,8 @@ func (c *control) Delete(ctx *gin.Context) {
 		return
 	}
 
-	codeMessage := c.Manager.Delete(input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.Delete(input)
+	ctx.JSON(httpCode, codeMessage)
 }
 
 // Update
@@ -214,6 +214,6 @@ func (c *control) Update(ctx *gin.Context) {
 	}
 
 	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
-	codeMessage := c.Manager.Update(input)
-	ctx.JSON(http.StatusOK, codeMessage)
+	httpCode, codeMessage := c.Manager.Update(input)
+	ctx.JSON(httpCode, codeMessage)
 }

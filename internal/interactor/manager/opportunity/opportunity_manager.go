@@ -16,12 +16,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *opportunityModel.Create) interface{}
-	GetByList(input *opportunityModel.Fields) interface{}
-	GetBySingle(input *opportunityModel.Field) interface{}
-	GetBySingleCampaigns(input *opportunityModel.Field) interface{}
-	Delete(input *opportunityModel.Field) interface{}
-	Update(input *opportunityModel.Update) interface{}
+	Create(trx *gorm.DB, input *opportunityModel.Create) (int, interface{})
+	GetByList(input *opportunityModel.Fields) (int, interface{})
+	GetBySingle(input *opportunityModel.Field) (int, interface{})
+	GetBySingleCampaigns(input *opportunityModel.Field) (int, interface{})
+	Delete(input *opportunityModel.Field) (int, interface{})
+	Update(input *opportunityModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -36,39 +36,39 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	opportunityBase, err := m.OpportunityService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, opportunityBase.OpportunityID)
+	return code.Successful, code.GetCodeMessage(code.Successful, opportunityBase.OpportunityID)
 }
 
-func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
+func (m *manager) GetByList(input *opportunityModel.Fields) (int, interface{}) {
 	output := &opportunityModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
 	quantity, opportunityBase, err := m.OpportunityService.GetByList(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
 	opportunityByte, err := json.Marshal(opportunityBase)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(opportunityByte, &output.Opportunities)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	for i, opportunities := range output.Opportunities {
@@ -78,18 +78,18 @@ func (m *manager) GetByList(input *opportunityModel.Fields) interface{} {
 		opportunities.SalespersonName = *opportunityBase[i].Salespeople.Name
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
+func (m *manager) GetBySingle(input *opportunityModel.Field) (int, interface{}) {
 	opportunityBase, err := m.OpportunityService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &opportunityModel.Single{}
@@ -97,7 +97,7 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
 	err = json.Unmarshal(opportunityByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.AccountName = *opportunityBase.Accounts.Name
@@ -105,18 +105,18 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) interface{} {
 	output.UpdatedBy = *opportunityBase.UpdatedByUsers.Name
 	output.SalespersonName = *opportunityBase.Salespeople.Name
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) interface{} {
+func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) (int, interface{}) {
 	opportunityBase, err := m.OpportunityService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &opportunityModel.SingleCampaigns{}
@@ -124,7 +124,7 @@ func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) interface{
 	err = json.Unmarshal(opportunityByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.AccountName = *opportunityBase.Accounts.Name
@@ -138,49 +138,49 @@ func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) interface{
 		output.OpportunityCampaigns[i].CampaignName = *campaignBase.Name
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *opportunityModel.Field) interface{} {
+func (m *manager) Delete(input *opportunityModel.Field) (int, interface{}) {
 	_, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.OpportunityService.Delete(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, "Delete ok!")
+	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *opportunityModel.Update) interface{} {
+func (m *manager) Update(input *opportunityModel.Update) (int, interface{}) {
 	opportunityBase, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.OpportunityService.Update(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, opportunityBase.OpportunityID)
+	return code.Successful, code.GetCodeMessage(code.Successful, opportunityBase.OpportunityID)
 }

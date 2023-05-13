@@ -16,12 +16,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *quoteModel.Create) interface{}
-	GetByList(input *quoteModel.Fields) interface{}
-	GetBySingle(input *quoteModel.Field) interface{}
-	GetBySingleProducts(input *quoteModel.Field) interface{}
-	Delete(input *quoteModel.Field) interface{}
-	Update(input *quoteModel.Update) interface{}
+	Create(trx *gorm.DB, input *quoteModel.Create) (int, interface{})
+	GetByList(input *quoteModel.Fields) (int, interface{})
+	GetBySingle(input *quoteModel.Field) (int, interface{})
+	GetBySingleProducts(input *quoteModel.Field) (int, interface{})
+	Delete(input *quoteModel.Field) (int, interface{})
+	Update(input *quoteModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -34,39 +34,39 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) interface{} {
+func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	quoteBase, err := m.QuoteService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
+	return code.Successful, code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
 }
 
-func (m *manager) GetByList(input *quoteModel.Fields) interface{} {
+func (m *manager) GetByList(input *quoteModel.Fields) (int, interface{}) {
 	output := &quoteModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
 	quantity, quoteBase, err := m.QuoteService.GetByList(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
 	quoteByte, err := json.Marshal(quoteBase)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(quoteByte, &output.Quotes)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err.Error())
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	for i, quotes := range output.Quotes {
@@ -75,18 +75,18 @@ func (m *manager) GetByList(input *quoteModel.Fields) interface{} {
 		quotes.UpdatedBy = *quoteBase[i].UpdatedByUsers.Name
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *quoteModel.Field) interface{} {
+func (m *manager) GetBySingle(input *quoteModel.Field) (int, interface{}) {
 	quoteBase, err := m.QuoteService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &quoteModel.Single{}
@@ -94,26 +94,26 @@ func (m *manager) GetBySingle(input *quoteModel.Field) interface{} {
 	err = json.Unmarshal(quoteByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.OpportunityName = *quoteBase.Opportunities.Name
 	output.CreatedBy = *quoteBase.CreatedByUsers.Name
 	output.UpdatedBy = *quoteBase.UpdatedByUsers.Name
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleProducts(input *quoteModel.Field) interface{} {
+func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, interface{}) {
 	quoteBase, err := m.QuoteService.GetBySingle(input)
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output := &quoteModel.SingleProducts{}
@@ -121,7 +121,7 @@ func (m *manager) GetBySingleProducts(input *quoteModel.Field) interface{} {
 	err = json.Unmarshal(quoteByte, &output)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	output.OpportunityName = *quoteBase.Opportunities.Name
@@ -132,49 +132,49 @@ func (m *manager) GetBySingleProducts(input *quoteModel.Field) interface{} {
 		output.QuoteProducts[i].ProductPrice = *products.Products.Price
 	}
 
-	return code.GetCodeMessage(code.Successful, output)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *quoteModel.Field) interface{} {
+func (m *manager) Delete(input *quoteModel.Field) (int, interface{}) {
 	_, err := m.QuoteService.GetBySingle(&quoteModel.Field{
 		QuoteID: input.QuoteID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.QuoteService.Delete(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, "Delete ok!")
+	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *quoteModel.Update) interface{} {
+func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 	quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
 		QuoteID: input.QuoteID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.GetCodeMessage(code.DoesNotExist, err)
+			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
 		}
 
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	err = m.QuoteService.Update(input)
 	if err != nil {
 		log.Error(err)
-		return code.GetCodeMessage(code.InternalServerError, err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
+	return code.Successful, code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
 }
