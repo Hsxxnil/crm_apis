@@ -17,7 +17,7 @@ type Create struct {
 	// 報價產品單價
 	UnitPrice decimal.Decimal `json:"unit_price,omitempty" binding:"required" validate:"required"`
 	// 報價產品小計
-	SubTotal decimal.Decimal `json:"sub_total,omitempty" binding:"required" validate:"required" swaggerignore:"true"`
+	SubTotal decimal.Decimal `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 報價產品5k6d.4
 	Discount decimal.Decimal `json:"discount,omitempty" binding:"required" validate:"required"`
 	// 創建者
