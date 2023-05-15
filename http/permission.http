@@ -1,4 +1,0 @@
-GET http://localhost:8080/crm/v1.0/test
-Accept: application/json
-
-###
