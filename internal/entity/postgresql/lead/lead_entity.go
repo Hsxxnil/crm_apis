@@ -76,45 +76,45 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 	// filter
 	isFiltered := false
-	filterdb := s.db.Model(&model.Table{})
+	filter := s.db.Model(&model.Table{})
 	if input.FilterDescription != nil {
-		filterdb.Where("leads.description like ?", "%"+*input.FilterDescription+"%")
+		filter.Where("leads.description like ?", "%"+*input.FilterDescription+"%")
 		isFiltered = true
 	}
 
 	if input.FilterAccountName != nil {
 		if isFiltered {
-			filterdb.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
 		} else {
-			filterdb.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
 		}
 	}
 
 	if input.FilterRating != nil {
 		if isFiltered {
-			filterdb.Or("leads.rating like ?", "%"+*input.FilterRating+"%")
+			filter.Or("leads.rating like ?", "%"+*input.FilterRating+"%")
 		} else {
-			filterdb.Where("leads.rating like ?", "%"+*input.FilterRating+"%")
+			filter.Where("leads.rating like ?", "%"+*input.FilterRating+"%")
 		}
 	}
 
 	if input.FilterSource != nil {
 		if isFiltered {
-			filterdb.Or("leads.source like ?", "%"+*input.FilterSource+"%")
+			filter.Or("leads.source like ?", "%"+*input.FilterSource+"%")
 		} else {
-			filterdb.Where("leads.source like ?", "%"+*input.FilterSource+"%")
+			filter.Where("leads.source like ?", "%"+*input.FilterSource+"%")
 		}
 	}
 
 	if input.FilterSalespersonName != nil {
 		if isFiltered {
-			filterdb.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		} else {
-			filterdb.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		}
 	}
 
-	query.Where(filterdb)
+	query.Where(filter)
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
