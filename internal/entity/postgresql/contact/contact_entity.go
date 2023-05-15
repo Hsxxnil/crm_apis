@@ -74,37 +74,37 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 	// filter
 	isFiltered := false
-	filterdb := s.db.Model(&model.Table{})
+	filter := s.db.Model(&model.Table{})
 	if input.FilterName != nil {
-		filterdb.Where("contacts.name like ?", "%"+*input.FilterName+"%")
+		filter.Where("contacts.name like ?", "%"+*input.FilterName+"%")
 		isFiltered = true
 	}
 
 	if input.FilterEmail != nil {
 		if isFiltered {
-			filterdb.Or("contacts.email like ?", "%"+*input.FilterEmail+"%")
+			filter.Or("contacts.email like ?", "%"+*input.FilterEmail+"%")
 		} else {
-			filterdb.Where("contacts.email like ?", "%"+*input.FilterEmail+"%")
+			filter.Where("contacts.email like ?", "%"+*input.FilterEmail+"%")
 		}
 	}
 
 	if input.FilterCellPhone != nil {
 		if isFiltered {
-			filterdb.Or("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
+			filter.Or("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
 		} else {
-			filterdb.Where("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
+			filter.Where("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
 		}
 	}
 
 	if input.FilterSalespersonName != nil {
 		if isFiltered {
-			filterdb.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		} else {
-			filterdb.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
 		}
 	}
 
-	query.Where(filterdb)
+	query.Where(filter)
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error

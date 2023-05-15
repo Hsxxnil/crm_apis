@@ -70,29 +70,29 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 	// filter
 	isFiltered := false
-	filterdb := s.db.Model(&model.Table{})
+	filter := s.db.Model(&model.Table{})
 	if input.FilterName != nil {
-		filterdb.Where("name like ?", "%"+*input.FilterName+"%")
+		filter.Where("name like ?", "%"+*input.FilterName+"%")
 		isFiltered = true
 	}
 
 	if input.FilterCode != nil {
 		if isFiltered {
-			filterdb.Or("code like ?", "%"+*input.FilterCode+"%")
+			filter.Or("code like ?", "%"+*input.FilterCode+"%")
 		} else {
-			filterdb.Where("code like ?", "%"+*input.FilterCode+"%")
+			filter.Where("code like ?", "%"+*input.FilterCode+"%")
 		}
 	}
 
 	if input.FilterDescription != nil {
 		if isFiltered {
-			filterdb.Or("description like ?", "%"+*input.FilterDescription+"%")
+			filter.Or("description like ?", "%"+*input.FilterDescription+"%")
 		} else {
-			filterdb.Where("description like ?", "%"+*input.FilterDescription+"%")
+			filter.Where("description like ?", "%"+*input.FilterDescription+"%")
 		}
 	}
 
-	query.Where(filterdb)
+	query.Where(filter)
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
