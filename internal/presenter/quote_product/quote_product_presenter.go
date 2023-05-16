@@ -32,14 +32,14 @@ func Init(db *gorm.DB) Control {
 }
 
 // Create
-// @Summary 新增報價產品
-// @description 新增報價產品
+// @Summary 新增多筆報價產品
+// @description 新增多筆報價產品
 // @Tags quote-product
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param * body quote_products.Create true "新增報價產品"
+// @param * body quote_products.CreateList true "新增多筆報價產品"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"

@@ -25,7 +25,7 @@ type Create struct {
 
 // CreateList struct is used to create multiple data
 type CreateList struct {
-	QuoteProducts []*Create `json:"quote_products"`
+	QuoteProducts []*Create `json:"products"`
 }
 
 // Field is structure file for search

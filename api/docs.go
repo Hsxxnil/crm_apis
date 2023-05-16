@@ -5732,7 +5732,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "新增報價產品",
+                "description": "新增多筆報價產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -5742,7 +5742,7 @@ const docTemplate = `{
                 "tags": [
                     "quote-product"
                 ],
-                "summary": "新增報價產品",
+                "summary": "新增多筆報價產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -5752,12 +5752,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "新增報價產品",
+                        "description": "新增多筆報價產品",
                         "name": "*",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/quote_products.Create"
+                            "$ref": "#/definitions/quote_products.CreateList"
                         }
                     }
                 ],
@@ -10313,6 +10313,17 @@ const docTemplate = `{
                     "description": "報價產品單價",
                     "type": "number",
                     "minimum": 0
+                }
+            }
+        },
+        "quote_products.CreateList": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/quote_products.Create"
+                    }
                 }
             }
         },

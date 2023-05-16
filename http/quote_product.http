@@ -11,7 +11,7 @@ POST {{host}}/crm/v1.0/quotes-products
 Content-Type: application/json
 
 {
-  "quote_products": [
+  "products": [
     {
       "quote_id": "2197d141-c820-45cf-8930-c3d80dc945d6",
       "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
