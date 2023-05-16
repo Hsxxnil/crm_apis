@@ -23,6 +23,11 @@ type Create struct {
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
 
+// CreateList struct is used to create multiple data
+type CreateList struct {
+	QuoteProducts []*Create `json:"quote_products"`
+}
+
 // Field is structure file for search
 type Field struct {
 	// 報價產品ID
