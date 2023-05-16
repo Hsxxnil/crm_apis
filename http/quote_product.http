@@ -11,12 +11,24 @@ POST {{host}}/crm/v1.0/quotes-products
 Content-Type: application/json
 
 {
-  "quote_id": "2197d141-c820-45cf-8930-c3d80dc945d6",
-  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
-  "quantity": 1,
-  "unit_price": 100,
-  "discount": 50,
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
+  "quote_products": [
+    {
+      "quote_id": "2197d141-c820-45cf-8930-c3d80dc945d6",
+      "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
+      "quantity": 1,
+      "unit_price": 100,
+      "discount": 50,
+      "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
+    },
+    {
+      "quote_id": "2197d141-c820-45cf-8930-c3d80dc945d6",
+      "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
+      "quantity": 1,
+      "unit_price": 100,
+      "discount": 50,
+      "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
+    }
+  ]
 }
 
 ### Update

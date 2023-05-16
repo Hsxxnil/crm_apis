@@ -15,7 +15,7 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *quoteProductModel.Create) (int, interface{})
+	Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int, interface{})
 	GetByList(input *quoteProductModel.Fields) (int, interface{})
 	GetBySingle(input *quoteProductModel.Field) (int, interface{})
 	Delete(input *quoteProductModel.Field) (int, interface{})
@@ -32,18 +32,22 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int, interface{}) {
 	defer trx.Rollback()
 
-	input.SubTotal = input.UnitPrice * float64(input.Quantity) * input.Discount / 100
-	quoteProductBase, err := m.QuoteProductService.WithTrx(trx).Create(input)
-	if err != nil {
-		log.Error(err)
-		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	var output []*string
+	for _, inputBody := range input.QuoteProducts {
+		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity) * inputBody.Discount / 100
+		quoteProductBase, err := m.QuoteProductService.WithTrx(trx).Create(inputBody)
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
+		output = append(output, quoteProductBase.QuoteProductID)
 	}
 
 	trx.Commit()
-	return code.Successful, code.GetCodeMessage(code.Successful, quoteProductBase.QuoteProductID)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
 func (m *manager) GetByList(input *quoteProductModel.Fields) (int, interface{}) {

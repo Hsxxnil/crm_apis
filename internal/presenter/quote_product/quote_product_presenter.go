@@ -47,7 +47,7 @@ func Init(db *gorm.DB) Control {
 func (c *control) Create(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
-	input := &quoteProductModel.Create{}
+	input := &quoteProductModel.CreateList{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
