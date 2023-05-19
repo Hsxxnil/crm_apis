@@ -17,15 +17,15 @@ func init() {
 
 // CasbinBind struct is used to create or delete the policy rule from front.
 type CasbinBind struct {
-	Ptype    string `json:"ptype"`
-	RoleName string `json:"role_name"`
-	Path     string `json:"path"`
-	Method   string `json:"method"`
+	Ptype    string `json:"ptype" binding:"required" validate:"required"`
+	RoleName string `json:"role_name" binding:"required" validate:"required"`
+	Path     string `json:"path" binding:"required" validate:"required"`
+	Method   string `json:"method" binding:"required" validate:"required"`
 }
 
 // CasbinModel includes CasbinBind and an automatically generated id.
 type CasbinModel struct {
-	ID int `json:"id" swaggerignore:"true"`
+	ID int `json:"id"`
 	CasbinBind
 }
 
@@ -83,10 +83,10 @@ func Casbin() *casbin.Enforcer {
 	}
 
 	// 從db載入
-	err = e.LoadPolicy()
-	if err != nil {
-		panic(err)
-	}
+	//err = e.LoadPolicy()
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	return e
 }

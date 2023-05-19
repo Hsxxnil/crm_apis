@@ -5188,7 +5188,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/auth.CasbinModel"
+                            "$ref": "#/definitions/auth.CasbinBind"
                         }
                     }
                 ],
@@ -5275,7 +5275,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/auth.CasbinModel"
+                            "$ref": "#/definitions/auth.CasbinBind"
                         }
                     }
                 ],
@@ -7685,8 +7685,14 @@ const docTemplate = `{
                 }
             }
         },
-        "auth.CasbinModel": {
+        "auth.CasbinBind": {
             "type": "object",
+            "required": [
+                "method",
+                "path",
+                "ptype",
+                "role_name"
+            ],
             "properties": {
                 "method": {
                     "type": "string"

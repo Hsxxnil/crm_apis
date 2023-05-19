@@ -247,7 +247,7 @@ definitions:
     required:
     - updated_by
     type: object
-  auth.CasbinModel:
+  auth.CasbinBind:
     properties:
       method:
         type: string
@@ -257,6 +257,11 @@ definitions:
         type: string
       role_name:
         type: string
+    required:
+    - method
+    - path
+    - ptype
+    - role_name
     type: object
   auth.CasbinOutput:
     properties:
@@ -5916,7 +5921,7 @@ paths:
         name: '*'
         required: true
         schema:
-          $ref: '#/definitions/auth.CasbinModel'
+          $ref: '#/definitions/auth.CasbinBind'
       produces:
       - application/json
       responses:
@@ -6010,7 +6015,7 @@ paths:
         name: '*'
         required: true
         schema:
-          $ref: '#/definitions/auth.CasbinModel'
+          $ref: '#/definitions/auth.CasbinBind'
       produces:
       - application/json
       responses:

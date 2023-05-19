@@ -5184,7 +5184,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/auth.CasbinModel"
+                            "$ref": "#/definitions/auth.CasbinBind"
                         }
                     }
                 ],
@@ -5271,7 +5271,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/auth.CasbinModel"
+                            "$ref": "#/definitions/auth.CasbinBind"
                         }
                     }
                 ],
@@ -7681,8 +7681,14 @@
                 }
             }
         },
-        "auth.CasbinModel": {
+        "auth.CasbinBind": {
             "type": "object",
+            "required": [
+                "method",
+                "path",
+                "ptype",
+                "role_name"
+            ],
             "properties": {
                 "method": {
                     "type": "string"
