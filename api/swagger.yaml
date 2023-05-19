@@ -247,6 +247,31 @@ definitions:
     required:
     - updated_by
     type: object
+  auth.CasbinBind:
+    properties:
+      method:
+        type: string
+      path:
+        type: string
+      ptype:
+        type: string
+      role_name:
+        type: string
+    required:
+    - method
+    - path
+    - ptype
+    - role_name
+    type: object
+  auth.CasbinOutput:
+    properties:
+      method:
+        type: string
+      path:
+        type: string
+      role_name:
+        type: string
+    type: object
   campaigns.Create:
     properties:
       actual_cost:
@@ -5880,6 +5905,150 @@ paths:
       summary: 取得單一訂單含產品
       tags:
       - order
+  /policies:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除策略
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 刪除策略
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/auth.CasbinBind'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除策略
+      tags:
+      - policy
+    get:
+      consumes:
+      - application/json
+      description: 取得策略
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  items:
+                    $ref: '#/definitions/auth.CasbinOutput'
+                  type: array
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得策略
+      tags:
+      - policy
+    post:
+      consumes:
+      - application/json
+      description: 新增策略
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增策略
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/auth.CasbinBind'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增策略
+      tags:
+      - policy
   /products:
     post:
       consumes:

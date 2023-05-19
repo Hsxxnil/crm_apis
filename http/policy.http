@@ -1,0 +1,25 @@
+### GetAllPolicies
+GET {{host}}/crm/v1.0/policies
+Accept: application/json
+
+### AddPolicy
+POST {{host}}/crm/v1.0/policies
+Content-Type: application/json
+
+{
+  "ptype": "p",
+  "role_name": "admin",
+  "path": "/crm/v1.0/users",
+  "method": "get"
+}
+
+### DeletePolicy
+DELETE {{host}}/crm/v1.0/policies
+Content-Type: application/json
+
+{
+  "ptype": "p",
+  "role_name": "admin",
+  "path": "/crm/v1.0/users",
+  "method": "get"
+}
