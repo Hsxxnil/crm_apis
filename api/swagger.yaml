@@ -3004,6 +3004,9 @@ definitions:
       phone_number:
         description: 使用者電話
         type: string
+      role_id:
+        description: 角色ID
+        type: string
       user_name:
         description: 使用者名稱
         type: string
@@ -3012,6 +3015,7 @@ definitions:
     - created_by
     - name
     - password
+    - role_id
     - user_name
     type: object
   users.List:
@@ -3061,6 +3065,9 @@ definitions:
               type: string
             phone_number:
               description: 使用者電話
+              type: string
+            role_id:
+              description: 角色ID
               type: string
             updated_at:
               description: 更新時間
@@ -3112,6 +3119,9 @@ definitions:
       phone_number:
         description: 使用者電話
         type: string
+      role_id:
+        description: 角色ID
+        type: string
       updated_at:
         description: 更新時間
         type: string
@@ -3141,6 +3151,9 @@ definitions:
         type: string
       phone_number:
         description: 使用者電話
+        type: string
+      role_id:
+        description: 角色ID
         type: string
       updated_by:
         description: 更新者

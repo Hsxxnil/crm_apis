@@ -22,6 +22,8 @@ type Table struct {
 	PhoneNumber string `gorm:"column:phone_number;type:text;" json:"phone_number"`
 	// 使用者電子郵件
 	Email string `gorm:"column:email;type:text;" json:"email"`
+	// 角色ID
+	RoleID string `gorm:"column:role_id;type:uuid;not null;" json:"role_id"`
 	special.UseTable
 }
 
@@ -43,6 +45,8 @@ type Base struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	// 使用者電子郵件
 	Email *string `json:"email,omitempty"`
+	// 角色ID
+	RoleID *string `json:"role_id,omitempty"`
 	special.UseBase
 }
 

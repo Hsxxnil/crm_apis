@@ -164,6 +164,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["email"] = input.Email
 	}
 
+	if input.RoleID != nil {
+		data["role_id"] = input.RoleID
+	}
+
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}

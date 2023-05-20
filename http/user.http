@@ -13,6 +13,7 @@ Content-Type: application/json
 ### GetByList
 GET {{host}}/crm/v1.0/users?page=1&limit=20
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
@@ -28,7 +29,8 @@ Authorization: Bearer {{accessToken}}
   "email": "test1@test1.com",
   "name": "test1",
   "password": "12345",
-  "phone_number": "test1"
+  "phone_number": "test1",
+  "role_id": "c17fa60f-86e7-4f82-8c13-e5a91ba0bfa7"
 }
 
 ### Update

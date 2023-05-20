@@ -11873,6 +11873,7 @@ const docTemplate = `{
                 "created_by",
                 "name",
                 "password",
+                "role_id",
                 "user_name"
             ],
             "properties": {
@@ -11898,6 +11899,10 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "description": "使用者電話",
+                    "type": "string"
+                },
+                "role_id": {
+                    "description": "角色ID",
                     "type": "string"
                 },
                 "user_name": {
@@ -11975,6 +11980,10 @@ const docTemplate = `{
                                 "description": "使用者電話",
                                 "type": "string"
                             },
+                            "role_id": {
+                                "description": "角色ID",
+                                "type": "string"
+                            },
                             "updated_at": {
                                 "description": "更新時間",
                                 "type": "string"
@@ -12039,6 +12048,10 @@ const docTemplate = `{
                     "description": "使用者電話",
                     "type": "string"
                 },
+                "role_id": {
+                    "description": "角色ID",
+                    "type": "string"
+                },
                 "updated_at": {
                     "description": "更新時間",
                     "type": "string"
@@ -12081,6 +12094,10 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "description": "使用者電話",
+                    "type": "string"
+                },
+                "role_id": {
+                    "description": "角色ID",
                     "type": "string"
                 },
                 "updated_by": {

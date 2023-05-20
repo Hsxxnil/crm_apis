@@ -11869,6 +11869,7 @@
                 "created_by",
                 "name",
                 "password",
+                "role_id",
                 "user_name"
             ],
             "properties": {
@@ -11894,6 +11895,10 @@
                 },
                 "phone_number": {
                     "description": "使用者電話",
+                    "type": "string"
+                },
+                "role_id": {
+                    "description": "角色ID",
                     "type": "string"
                 },
                 "user_name": {
@@ -11971,6 +11976,10 @@
                                 "description": "使用者電話",
                                 "type": "string"
                             },
+                            "role_id": {
+                                "description": "角色ID",
+                                "type": "string"
+                            },
                             "updated_at": {
                                 "description": "更新時間",
                                 "type": "string"
@@ -12035,6 +12044,10 @@
                     "description": "使用者電話",
                     "type": "string"
                 },
+                "role_id": {
+                    "description": "角色ID",
+                    "type": "string"
+                },
                 "updated_at": {
                     "description": "更新時間",
                     "type": "string"
@@ -12077,6 +12090,10 @@
                 },
                 "phone_number": {
                     "description": "使用者電話",
+                    "type": "string"
+                },
+                "role_id": {
+                    "description": "角色ID",
                     "type": "string"
                 },
                 "updated_by": {
