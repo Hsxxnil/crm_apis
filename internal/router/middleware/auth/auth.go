@@ -109,7 +109,6 @@ func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 		log.Info("Casbin policy: %s,%s,%s", *checkRole.Name, ctx.Request.URL.Path, ctx.Request.Method)
 
 		res, err := e.Enforce(*checkRole.Name, ctx.Request.URL.Path, ctx.Request.Method)
-		log.Info(ctx.Request.URL.Path, ctx.Request.Method)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{
 				"status": -1,
@@ -118,6 +117,7 @@ func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
+
 		if res {
 			ctx.Next()
 		} else {
