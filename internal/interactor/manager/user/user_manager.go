@@ -41,7 +41,7 @@ func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, interface{
 
 	if quantity > 0 {
 		log.Info("UserName already exists. UserName: ", input.UserName, ",CompanyID:", input.CompanyID)
-		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "user already exists")
+		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "User already exists.")
 	}
 
 	userBase, err := m.UserService.WithTrx(trx).Create(input)

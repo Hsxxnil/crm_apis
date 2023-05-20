@@ -40,7 +40,7 @@ func (m *manager) Create(trx *gorm.DB, input *productModel.Create) (int, interfa
 
 	if quantity > 0 {
 		log.Info("Code already exists. Code: ", input.Code)
-		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "code already exists")
+		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "Code already exists.")
 	}
 
 	productBase, err := m.ProductService.WithTrx(trx).Create(input)
@@ -151,7 +151,7 @@ func (m *manager) Update(input *productModel.Update) (int, interface{}) {
 		})
 		if quantity > 0 {
 			log.Info("Code already exists. Code: ", input.Code)
-			return code.BadRequest, code.GetCodeMessage(code.BadRequest, "code already exists")
+			return code.BadRequest, code.GetCodeMessage(code.BadRequest, "Code already exists.")
 		}
 	}
 

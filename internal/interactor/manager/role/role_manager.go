@@ -41,7 +41,7 @@ func (m *manager) Create(trx *gorm.DB, input *roleModel.Create) (int, interface{
 
 	if quantity > 0 {
 		log.Info("Role already exists. Name: ", input.Name, ",CompanyID:", input.CompanyID)
-		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "role already exists")
+		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "Role already exists.")
 	}
 
 	roleBase, err := m.RoleService.WithTrx(trx).Create(input)
