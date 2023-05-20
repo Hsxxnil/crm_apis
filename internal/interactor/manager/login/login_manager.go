@@ -55,6 +55,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 		UserID:    fields[0].UserID,
 		CompanyID: util.PointerString(input.CompanyID),
 		Name:      fields[0].Name,
+		RoleID:    fields[0].RoleID,
 	})
 
 	if err != nil {
