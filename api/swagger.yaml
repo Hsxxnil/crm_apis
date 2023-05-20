@@ -2845,6 +2845,145 @@ definitions:
     required:
     - updated_by
     type: object
+  roles.Create:
+    properties:
+      company_id:
+        description: 公司ID
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      display_name:
+        description: 角色顯示名稱
+        type: string
+      name:
+        description: 角色名稱
+        type: string
+    required:
+    - company_id
+    - created_by
+    - display_name
+    - name
+    type: object
+  roles.List:
+    properties:
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      roles:
+        description: 多筆
+        items:
+          properties:
+            activated_at:
+              description: 啟用時間
+              type: string
+            company_id:
+              description: 公司ID
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            display_name:
+              description: 角色顯示名稱
+              type: string
+            is_deleted:
+              description: 角色是否刪除
+              type: boolean
+            is_enable:
+              description: 角色是否啟用
+              type: boolean
+            name:
+              description: 角色名稱
+              type: string
+            role_id:
+              description: 角色ID
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  roles.Single:
+    properties:
+      activated_at:
+        description: 啟用時間
+        type: string
+      company_id:
+        description: 公司ID
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      display_name:
+        description: 角色顯示名稱
+        type: string
+      is_deleted:
+        description: 角色是否刪除
+        type: boolean
+      is_enable:
+        description: 角色是否啟用
+        type: boolean
+      name:
+        description: 角色名稱
+        type: string
+      role_id:
+        description: 角色ID
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  roles.Update:
+    properties:
+      company_id:
+        description: 公司ID
+        type: string
+      display_name:
+        description: 角色顯示名稱
+        type: string
+      is_enable:
+        description: 角色是否啟用
+        type: boolean
+      name:
+        description: 角色名稱
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    required:
+    - updated_by
+    type: object
   users.Create:
     properties:
       company_id:
@@ -6933,6 +7072,266 @@ paths:
       summary: 換新的令牌
       tags:
       - login
+  /roles:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部角色
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/roles.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部角色
+      tags:
+      - role
+    post:
+      consumes:
+      - application/json
+      description: 新增角色
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增角色
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/roles.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增角色
+      tags:
+      - role
+  /roles/{roleID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一角色
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 角色ID
+        in: path
+        name: roleID
+        required: true
+        type: string
+      - description: 更新角色
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/roles.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一角色
+      tags:
+      - role
+    get:
+      consumes:
+      - application/json
+      description: 取得單一角色
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 角色ID
+        in: path
+        name: roleID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/roles.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一角色
+      tags:
+      - role
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一角色
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 角色ID
+        in: path
+        name: roleID
+        required: true
+        type: string
+      - description: 更新角色
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/roles.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一角色
+      tags:
+      - role
   /users:
     get:
       consumes:

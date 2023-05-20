@@ -1,0 +1,47 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
+### GetByList
+GET {{host}}/crm/v1.0/roles?page=1&limit=20
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### GetBySingle
+GET {{host}}/crm/v1.0/roles/9787e109-5724-4654-b8a9-324fed5326fe
+Accept: application/json
+
+### Create
+POST {{host}}/crm/v1.0/roles
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "admin",
+  "display_name": "管理員"
+}
+
+### Update
+PATCH {{host}}/crm/v1.0/roles/0c1668c9-ecd7-442c-ab94-ecefa377eec9
+Content-Type: application/json
+
+{
+  "name": "admin",
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}
+
+### Delete
+DELETE {{host}}/crm/v1.0/roles/9787e109-5724-4654-b8a9-324fed5326fe
+Content-Type: application/json
+
+{
+  "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
+}

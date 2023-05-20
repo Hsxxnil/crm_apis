@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"app.eirc/internal/router/role"
+
 	"app.eirc/internal/router/quote_product"
 
 	"app.eirc/internal/interactor/pkg/connect"
@@ -71,6 +73,7 @@ func main() {
 	opportunity_campaign.GetRouter(engine, db)
 	quote_product.GetRouter(engine, db)
 	policy.GetRouter(engine, db)
+	role.GetRouter(engine, db)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
