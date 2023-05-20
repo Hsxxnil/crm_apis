@@ -10,7 +10,7 @@ Content-Type: application/json
   "ptype": "p",
   "role_name": "admin",
   "path": "/crm/v1.0/users",
-  "method": "get"
+  "method": "POST"
 }
 
 ### DeletePolicy
@@ -21,5 +21,5 @@ Content-Type: application/json
   "ptype": "p",
   "role_name": "admin",
   "path": "/crm/v1.0/users",
-  "method": "get"
+  "method": "post"
 }

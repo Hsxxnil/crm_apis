@@ -32,6 +32,7 @@ func Verify() gin.HandlerFunc {
 
 		ctx.Set("user_id", j.Other["user_id"])
 		ctx.Set("company_id", j.Other["company_id"])
+		ctx.Set("role_id", j.Other["role_id"])
 		ctx.Next()
 	}
 }
