@@ -11,39 +11,35 @@ Content-Type: application/json
 > {% client.global.set("accessToken", response.body.body.access_token); %}
 
 ### GetByList
-GET {{host}}/crm/v1.0/users?page=1&limit=20
+GET {{host}}/crm/v1.0/roles?page=1&limit=20
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
+GET {{host}}/crm/v1.0/roles/9787e109-5724-4654-b8a9-324fed5326fe
 Accept: application/json
 
 ### Create
-POST {{host}}/crm/v1.0/users
+POST {{host}}/crm/v1.0/roles
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "user_name": "test1",
-  "email": "test1@test1.com",
-  "name": "test1",
-  "password": "12345",
-  "phone_number": "test1",
-  "role_id": "c17fa60f-86e7-4f82-8c13-e5a91ba0bfa7"
+  "name": "admin",
+  "display_name": "管理員"
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/users/0c1668c9-ecd7-442c-ab94-ecefa377eec9
+PATCH {{host}}/crm/v1.0/roles/0c1668c9-ecd7-442c-ab94-ecefa377eec9
 Content-Type: application/json
 
 {
-  "company_id": "00000000-0000-4000-a000-000000000000",
+  "name": "admin",
   "updated_by": "4bdf4c46-d7e7-4025-9872-4a28da823209"
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/users/9787e109-5724-4654-b8a9-324fed5326fe
+DELETE {{host}}/crm/v1.0/roles/9787e109-5724-4654-b8a9-324fed5326fe
 Content-Type: application/json
 
 {

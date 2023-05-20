@@ -19,6 +19,8 @@ type Create struct {
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// 使用者電子郵件
 	Email string `json:"email,omitempty"`
+	// 角色ID
+	RoleID string `json:"role_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
@@ -41,6 +43,8 @@ type Field struct {
 	PhoneNumber *string `json:"phone_number,omitempty" form:"phone_number"`
 	// 使用者電子郵件
 	Email *string `json:"email,omitempty" form:"email"`
+	// 角色ID
+	RoleID string `json:"role_id,omitempty" form:"role_id"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -71,6 +75,8 @@ type List struct {
 		PhoneNumber string `json:"phone_number,omitempty"`
 		// 使用者電子郵件
 		Email string `json:"email,omitempty"`
+		// 角色ID
+		RoleID string `json:"role_id,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -100,6 +106,8 @@ type Single struct {
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// 使用者電子郵件
 	Email string `json:"email,omitempty"`
+	// 角色ID
+	RoleID string `json:"role_id,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -113,7 +121,7 @@ type Update struct {
 	// 使用者ID
 	UserID string `json:"user_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 公司ID
-	CompanyID *string `json:"company_id,omitempty"`
+	CompanyID *string `json:"company_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 使用者名稱
 	UserName *string `json:"user_name,omitempty"`
 	// 使用者中文名稱
@@ -124,6 +132,8 @@ type Update struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	// 使用者電子郵件
 	Email *string `json:"email,omitempty"`
+	// 角色ID
+	RoleID *string `json:"role_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }

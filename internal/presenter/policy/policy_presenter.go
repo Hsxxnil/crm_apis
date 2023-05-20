@@ -46,7 +46,7 @@ func AddPolicy(ctx *gin.Context) {
 
 	if result != true {
 		log.Error(err)
-		ctx.JSON(http.StatusBadRequest, code.GetCodeMessage(code.BadRequest, "policy already exists."))
+		ctx.JSON(http.StatusBadRequest, code.GetCodeMessage(code.BadRequest, "Policy already exists."))
 		return
 	}
 
@@ -70,7 +70,7 @@ func GetAllPolicies(ctx *gin.Context) {
 	result := casbin.GetAllPolicies()
 
 	if result == nil {
-		ctx.JSON(http.StatusNotFound, code.GetCodeMessage(code.DoesNotExist, "policy does not exist."))
+		ctx.JSON(http.StatusNotFound, code.GetCodeMessage(code.DoesNotExist, "Policy does not exist."))
 		return
 	}
 
@@ -116,7 +116,7 @@ func DeletePolicy(ctx *gin.Context) {
 
 	if result != true {
 		log.Error(err)
-		ctx.JSON(http.StatusNotFound, code.GetCodeMessage(code.DoesNotExist, "policy does not exist."))
+		ctx.JSON(http.StatusNotFound, code.GetCodeMessage(code.DoesNotExist, "Policy does not exist."))
 		return
 	}
 

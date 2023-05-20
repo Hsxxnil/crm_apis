@@ -1,4 +1,4 @@
-package user
+package role
 
 import (
 	"encoding/json"
@@ -6,8 +6,8 @@ import (
 
 	"app.eirc/internal/interactor/pkg/util"
 
-	userModel "app.eirc/internal/interactor/models/users"
-	userService "app.eirc/internal/interactor/service/user"
+	roleModel "app.eirc/internal/interactor/models/roles"
+	roleService "app.eirc/internal/interactor/service/role"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -15,63 +15,63 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *userModel.Create) (int, interface{})
-	GetByList(input *userModel.Fields) (int, interface{})
-	GetBySingle(input *userModel.Field) (int, interface{})
-	Delete(input *userModel.Update) (int, interface{})
-	Update(input *userModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *roleModel.Create) (int, interface{})
+	GetByList(input *roleModel.Fields) (int, interface{})
+	GetBySingle(input *roleModel.Field) (int, interface{})
+	Delete(input *roleModel.Update) (int, interface{})
+	Update(input *roleModel.Update) (int, interface{})
 }
 
 type manager struct {
-	UserService userService.Service
+	RoleService roleService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		UserService: userService.Init(db),
+		RoleService: roleService.Init(db),
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *roleModel.Create) (int, interface{}) {
 	defer trx.Rollback()
-	quantity, _ := m.UserService.GetByQuantity(&userModel.Field{
-		UserName:  util.PointerString(input.UserName),
+	quantity, _ := m.RoleService.GetByQuantity(&roleModel.Field{
+		Name:      util.PointerString(input.Name),
 		CompanyID: util.PointerString(input.CompanyID),
 	})
 
 	if quantity > 0 {
-		log.Info("UserName already exists. UserName: ", input.UserName, ",CompanyID:", input.CompanyID)
-		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "User already exists.")
+		log.Info("Role already exists. Name: ", input.Name, ",CompanyID:", input.CompanyID)
+		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "Role already exists.")
 	}
 
-	userBase, err := m.UserService.WithTrx(trx).Create(input)
+	roleBase, err := m.RoleService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	trx.Commit()
-	return code.Successful, code.GetCodeMessage(code.Successful, userBase.UserID)
+	return code.Successful, code.GetCodeMessage(code.Successful, roleBase.RoleID)
 }
 
-func (m *manager) GetByList(input *userModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *roleModel.Fields) (int, interface{}) {
 	input.IsDeleted = util.PointerBool(false)
-	output := &userModel.List{}
+	output := &roleModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
-	quantity, userBase, err := m.UserService.GetByList(input)
+	quantity, roleBase, err := m.RoleService.GetByList(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Total.Total = quantity
-	userByte, err := json.Marshal(userBase)
+	roleByte, err := json.Marshal(roleBase)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
-	err = json.Unmarshal(userByte, &output.Users)
+	err = json.Unmarshal(roleByte, &output.Roles)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -80,9 +80,9 @@ func (m *manager) GetByList(input *userModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *userModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *roleModel.Field) (int, interface{}) {
 	input.IsDeleted = util.PointerBool(false)
-	userBase, err := m.UserService.GetBySingle(input)
+	roleBase, err := m.RoleService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
@@ -92,9 +92,9 @@ func (m *manager) GetBySingle(input *userModel.Field) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	output := &userModel.Single{}
-	userByte, _ := json.Marshal(userBase)
-	err = json.Unmarshal(userByte, &output)
+	output := &roleModel.Single{}
+	roleByte, _ := json.Marshal(roleBase)
+	err = json.Unmarshal(roleByte, &output)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -103,9 +103,9 @@ func (m *manager) GetBySingle(input *userModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *userModel.Update) (int, interface{}) {
-	_, err := m.UserService.GetBySingle(&userModel.Field{
-		UserID:    input.UserID,
+func (m *manager) Delete(input *roleModel.Update) (int, interface{}) {
+	_, err := m.RoleService.GetBySingle(&roleModel.Field{
+		RoleID:    input.RoleID,
 		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
@@ -117,7 +117,7 @@ func (m *manager) Delete(input *userModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	err = m.UserService.Delete(input)
+	err = m.RoleService.Delete(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -126,9 +126,9 @@ func (m *manager) Delete(input *userModel.Update) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *userModel.Update) (int, interface{}) {
-	userBase, err := m.UserService.GetBySingle(&userModel.Field{
-		UserID:    input.UserID,
+func (m *manager) Update(input *roleModel.Update) (int, interface{}) {
+	roleBase, err := m.RoleService.GetBySingle(&roleModel.Field{
+		RoleID:    input.RoleID,
 		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
@@ -140,11 +140,11 @@ func (m *manager) Update(input *userModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	err = m.UserService.Update(input)
+	err = m.RoleService.Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	return code.Successful, code.GetCodeMessage(code.Successful, userBase.UserID)
+	return code.Successful, code.GetCodeMessage(code.Successful, roleBase.RoleID)
 }

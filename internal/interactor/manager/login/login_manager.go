@@ -47,7 +47,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 	}
 
 	if acknowledge == false {
-		return code.PermissionDenied, code.GetCodeMessage(code.PermissionDenied, "Incorrect username or password")
+		return code.PermissionDenied, code.GetCodeMessage(code.PermissionDenied, "Incorrect username or password.")
 	}
 
 	output := &jwxModel.Token{}
@@ -55,6 +55,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 		UserID:    fields[0].UserID,
 		CompanyID: util.PointerString(input.CompanyID),
 		Name:      fields[0].Name,
+		RoleID:    fields[0].RoleID,
 	})
 
 	if err != nil {
@@ -95,13 +96,13 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 	}
 
 	if len(input.RefreshToken) == 0 {
-		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is null")
+		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is null.")
 	}
 
 	j, err := j.Verify()
 	if err != nil {
 		log.Error(err)
-		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
+		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error.")
 	}
 
 	field, err := r.UserService.GetBySingle(&usersModel.Field{
@@ -110,7 +111,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
+			return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error.")
 		}
 
 		log.Error(err)

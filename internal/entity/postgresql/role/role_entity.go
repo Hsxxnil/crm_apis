@@ -1,9 +1,9 @@
-package user
+package role
 
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/users"
+	model "app.eirc/internal/entity/postgresql/db/roles"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -60,12 +60,8 @@ func (s *storage) Create(input *model.Base) (err error) {
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
-	if input.UserID != nil {
-		query.Where("user_id = ?", input.UserID)
-	}
-
-	if input.UserName != nil {
-		query.Where("user_name = ?", input.UserName)
+	if input.RoleID != nil {
+		query.Where("role_id = ?", input.RoleID)
 	}
 
 	if input.CompanyID != nil {
@@ -92,8 +88,8 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
-	if input.UserID != nil {
-		query.Where("user_id = ?", input.UserID)
+	if input.RoleID != nil {
+		query.Where("role_id = ?", input.RoleID)
 	}
 
 	if input.IsDeleted != nil {
@@ -111,12 +107,12 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 
 func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
-	if input.UserID != nil {
-		query.Where("user_id = ?", input.UserID)
+	if input.RoleID != nil {
+		query.Where("role_id = ?", input.RoleID)
 	}
 
-	if input.UserName != nil {
-		query.Where("user_name = ?", input.UserName)
+	if input.Name != nil {
+		query.Where("name = ?", *input.Name)
 	}
 
 	if input.IsDeleted != nil {
@@ -140,40 +136,28 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["company_id"] = input.CompanyID
 	}
 
-	if input.UserName != nil {
-		data["user_name"] = input.UserName
+	if input.DisplayName != nil {
+		data["display_name"] = input.DisplayName
 	}
 
 	if input.Name != nil {
 		data["name"] = input.Name
 	}
 
-	if input.Password != nil {
-		data["password"] = input.Password
+	if input.IsEnable != nil {
+		data["is_enable"] = input.IsEnable
 	}
 
 	if input.IsDeleted != nil {
 		data["is_deleted"] = input.IsDeleted
 	}
 
-	if input.PhoneNumber != nil {
-		data["phone_number"] = input.PhoneNumber
-	}
-
-	if input.Email != nil {
-		data["email"] = input.Email
-	}
-
-	if input.RoleID != nil {
-		data["role_id"] = input.RoleID
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
 
-	if input.UserID != nil {
-		query.Where("user_id = ?", input.UserID)
+	if input.RoleID != nil {
+		query.Where("role_id = ?", input.RoleID)
 	}
 
 	err = query.Select("*").Updates(data).Error
@@ -187,8 +171,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 func (s *storage) Delete(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
-	if input.UserID != nil {
-		query.Where("user_id = ?", input.UserID)
+	if input.RoleID != nil {
+		query.Where("role_id = ?", input.RoleID)
 	}
 
 	err = query.Delete(&model.Table{}).Error
