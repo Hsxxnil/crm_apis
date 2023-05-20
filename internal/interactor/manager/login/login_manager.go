@@ -102,7 +102,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 	j, err := j.Verify()
 	if err != nil {
 		log.Error(err)
-		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
+		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error.")
 	}
 
 	field, err := r.UserService.GetBySingle(&usersModel.Field{
@@ -111,7 +111,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error")
+			return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is error.")
 		}
 
 		log.Error(err)

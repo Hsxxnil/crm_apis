@@ -19,14 +19,14 @@ func Verify() gin.HandlerFunc {
 		}
 
 		if len(j.Token) == 0 {
-			ctx.AbortWithStatusJSON(http.StatusUnauthorized, code.GetCodeMessage(code.JWTRejected, "AccessToken is null"))
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, code.GetCodeMessage(code.JWTRejected, "AccessToken is null."))
 			return
 		}
 
 		j, err := j.Verify()
 		if err != nil {
 			log.Error(err)
-			ctx.AbortWithStatusJSON(http.StatusUnauthorized, code.GetCodeMessage(code.JWTRejected, "AccessToken is error"))
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, code.GetCodeMessage(code.JWTRejected, "AccessToken is error."))
 			return
 		}
 
