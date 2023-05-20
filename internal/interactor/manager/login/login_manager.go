@@ -47,7 +47,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 	}
 
 	if acknowledge == false {
-		return code.PermissionDenied, code.GetCodeMessage(code.PermissionDenied, "Incorrect username or password")
+		return code.PermissionDenied, code.GetCodeMessage(code.PermissionDenied, "Incorrect username or password.")
 	}
 
 	output := &jwxModel.Token{}
@@ -96,7 +96,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 	}
 
 	if len(input.RefreshToken) == 0 {
-		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is null")
+		return code.JWTRejected, code.GetCodeMessage(code.JWTRejected, "RefreshToken is null.")
 	}
 
 	j, err := j.Verify()
