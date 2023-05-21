@@ -1,31 +1,46 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
 ### GetByList
 GET {{host}}/crm/v1.0/opportunities-campaigns?page=1&limit=20
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/opportunities-campaigns/8e6aca7b-beca-4def-8240-c5628aeb7951
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### Create
 POST {{host}}/crm/v1.0/opportunities-campaigns
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "opportunity_id": "373042d7-3cb4-4e17-b69f-9b294b69eb7f",
-  "campaign_id": "7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1",
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61"
+  "campaign_id": "7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1"
 }
 
 ### Update
 PATCH {{host}}/crm/v1.0/opportunities-campaigns/8e6aca7b-beca-4def-8240-c5628aeb7951
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "opportunity_id": "373042d7-3cb4-4e17-b69f-9b294b69eb7f",
-  "campaign_id": "5dec6445-7d5d-450f-afcc-ed5a16b0ec08",
-  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "campaign_id": "5dec6445-7d5d-450f-afcc-ed5a16b0ec08"
 }
 
 ### Delete
 DELETE {{host}}/crm/v1.0/opportunities-campaigns/d497a01c-2e47-4530-b4b9-821c1dde695a
 Accept: application/json
+Authorization: Bearer {{accessToken}}

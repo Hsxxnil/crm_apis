@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"app.eirc/internal/interactor/pkg/util"
+
 	constant "app.eirc/internal/interactor/constants"
 
 	"app.eirc/internal/interactor/manager/opportunity"
@@ -47,7 +49,6 @@ func Init(db *gorm.DB) Control {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /opportunities [post]
 func (c *control) Create(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	input := &opportunityModel.Create{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
@@ -171,7 +172,6 @@ func (c *control) GetBySingleCampaigns(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /opportunities/{opportunityID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	opportunityID := ctx.Param("opportunityID")
 	input := &opportunityModel.Field{}
 	input.OpportunityID = opportunityID
@@ -201,10 +201,10 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /opportunities/{opportunityID} [patch]
 func (c *control) Update(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	opportunityID := ctx.Param("opportunityID")
 	input := &opportunityModel.Update{}
 	input.OpportunityID = opportunityID
+	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -212,7 +212,6 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
-	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	httpCode, codeMessage := c.Manager.Update(input)
 	ctx.JSON(httpCode, codeMessage)
 }

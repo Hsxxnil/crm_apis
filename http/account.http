@@ -1,6 +1,21 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {%
+    client.global.set("accessToken", response.body.body.access_token);
+%}
+
 ### GetByList
 POST {{host}}/crm/v1.0/accounts/list?page=1&limit=20
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "sort": {
@@ -18,19 +33,21 @@ Content-Type: application/json
 ### GetBySingle
 GET {{host}}/crm/v1.0/accounts/cf6f654e-fb06-4740-bf03-374f32406d37
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingleContacts
 GET {{host}}/crm/v1.0/accounts/contacts/cf6f654e-fb06-4740-bf03-374f32406d37
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### Create
 POST {{host}}/crm/v1.0/accounts
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "name": "test",
   "phone_number": "0800000000",
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "type": "法人客戶",
   "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a"
@@ -39,12 +56,13 @@ Content-Type: application/json
 ### Update
 PATCH {{host}}/crm/v1.0/accounts/ab204144-44f0-4c57-935a-3a6ca06fca00
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45",
-  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
 DELETE {{host}}/crm/v1.0/accounts/9222cb5a-3f02-411d-b577-4372989a18a9
 Accept: application/json
+Authorization: Bearer {{accessToken}}

@@ -1,14 +1,29 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
 ### GetByList
 GET {{host}}/crm/v1.0/industries?page=1&limit=20
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### Create
 POST {{host}}/crm/v1.0/industries
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "name": "服務業"
@@ -17,6 +32,7 @@ Content-Type: application/json
 ### Update
 PATCH {{host}}/crm/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "name": "製造業"
@@ -25,3 +41,4 @@ Content-Type: application/json
 ### Delete
 DELETE {{host}}/crm/v1.0/industries/ce6fafd4-a07d-41b8-ada6-261ca90d89f6
 Accept: application/json
+Authorization: Bearer {{accessToken}}

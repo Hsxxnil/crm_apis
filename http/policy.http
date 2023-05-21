@@ -1,10 +1,24 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
 ### GetAllPolicies
 GET {{host}}/crm/v1.0/policies
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### AddPolicy
 POST {{host}}/crm/v1.0/policies
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "ptype": "p",
@@ -16,6 +30,7 @@ Content-Type: application/json
 ### DeletePolicy
 DELETE {{host}}/crm/v1.0/policies
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "ptype": "p",
