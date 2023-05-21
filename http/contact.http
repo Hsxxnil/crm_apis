@@ -1,6 +1,21 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {%
+    client.global.set("accessToken", response.body.body.access_token);
+%}
+
 ### GetByList
 POST {{host}}/crm/v1.0/contacts/list?page=1&limit=20
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "sort": {
@@ -18,15 +33,16 @@ Content-Type: application/json
 ### GetBySingle
 GET {{host}}/crm/v1.0/contacts/d5bfc707-0aa2-4bb8-bfc7-449d1e959bcd
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### Create
 POST {{host}}/crm/v1.0/contacts
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "name": "test",
   "title": "經理",
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "phone_number": "0800000000",
   "cell_phone": "0900000000",
   "email": "test@test.com",
@@ -39,12 +55,13 @@ Content-Type: application/json
 ### Update
 PATCH {{host}}/crm/v1.0/contacts/34869303-5956-4dda-ab6e-652631a730f9
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45",
-  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
 DELETE {{host}}/crm/v1.0/contacts/c695a31f-7b4c-4731-a8d4-96010b506498
 Accept: application/json
+Authorization: Bearer {{accessToken}}

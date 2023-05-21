@@ -3,6 +3,8 @@ package user
 import (
 	"net/http"
 
+	"app.eirc/internal/interactor/pkg/util"
+
 	constant "app.eirc/internal/interactor/constants"
 
 	"app.eirc/internal/interactor/manager/user"
@@ -76,7 +78,6 @@ func (c *control) Create(ctx *gin.Context) {
 // @Router /users [get]
 func (c *control) GetByList(ctx *gin.Context) {
 	input := &userModel.Fields{}
-
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -135,18 +136,17 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /users/{userID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	userID := ctx.Param("userID")
 	input := &userModel.Update{}
 	input.UserID = userID
-	if err := ctx.ShouldBindJSON(input); err != nil {
+	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
+	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
 	}
 
-	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	httpCode, codeMessage := c.Manager.Delete(input)
 	ctx.JSON(httpCode, codeMessage)
 }
@@ -166,10 +166,10 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /users/{userID} [patch]
 func (c *control) Update(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	userID := ctx.Param("userID")
 	input := &userModel.Update{}
 	input.UserID = userID
+	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -177,7 +177,6 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
-	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	httpCode, codeMessage := c.Manager.Update(input)
 	ctx.JSON(httpCode, codeMessage)
 }

@@ -1,6 +1,19 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
 ### GetByList
 POST {{host}}/crm/v1.0/quotes/list?page=1&limit=20
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "sort": {
@@ -16,24 +29,27 @@ Content-Type: application/json
 ### GetByListProducts
 GET {{host}}/crm/v1.0/quotes/products?page=1&limit=20
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingleProducts
 GET {{host}}/crm/v1.0/quotes/products/be75a422-62cb-4893-952d-4c9d1f504189
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### Create
 POST {{host}}/crm/v1.0/quotes
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "name": "test",
   "status": "草稿",
   "is_syncing": false,
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "opportunity_id": "00000000-0000-4000-a000-000000000000",
   "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
   "description": "test",
@@ -45,12 +61,13 @@ Content-Type: application/json
 ### Update
 PATCH {{host}}/crm/v1.0/quotes/b94e79fb-f116-4976-b243-9a8f3501ea3d
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-  "opportunity_id": "373042d7-3cb4-4e17-b69f-9b294b69eb7f",
-  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "opportunity_id": "373042d7-3cb4-4e17-b69f-9b294b69eb7f"
 }
 
 ### Delete
 DELETE {{host}}/crm/v1.0/quotes/28a8b00e-e30a-4fb2-954a-7e0bacbdc940
 Accept: application/json
+Authorization: Bearer {{accessToken}}

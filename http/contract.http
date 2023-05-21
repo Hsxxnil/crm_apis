@@ -1,6 +1,21 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {%
+    client.global.set("accessToken", response.body.body.access_token);
+%}
+
 ### GetByList
 POST {{host}}/crm/v1.0/contracts/list?page=1&limit=20
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "sort": {
@@ -16,15 +31,16 @@ Content-Type: application/json
 ### GetBySingle
 GET {{host}}/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### Create
 POST {{host}}/crm/v1.0/contracts
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "term": 6,
   "description": "test"
@@ -33,6 +49,7 @@ Content-Type: application/json
 ### Update
 PATCH {{host}}/crm/v1.0/contracts/e4053d43-3b03-436d-a2b8-102a94bdd5ba
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "status": "草稿",
@@ -40,10 +57,10 @@ Content-Type: application/json
   "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "term": 3,
-  "description": "test",
-  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "description": "test"
 }
 
 ### Delete
 DELETE {{host}}/crm/v1.0/contracts/ecb06715-854d-4720-adaf-91a2da0f59e2
 Accept: application/json
+Authorization: Bearer {{accessToken}}

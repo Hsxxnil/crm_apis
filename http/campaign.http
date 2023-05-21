@@ -1,6 +1,21 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {%
+    client.global.set("accessToken", response.body.body.access_token);
+%}
+
 ### GetByList
 POST {{host}}/crm/v1.0/campaigns/list?page=1&limit=20
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "sort": {
@@ -18,20 +33,22 @@ Content-Type: application/json
 ### GetBySingle
 GET {{host}}/crm/v1.0/campaigns/7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingleOpportunities
 GET {{host}}/crm/v1.0/campaigns/opportunities/7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### Create
 POST {{host}}/crm/v1.0/campaigns
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "name": "test",
   "status": "草稿",
   "is_enable": true,
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "parent_campaign_id": "00000000-0000-4000-a000-000000000000",
   "description": "test",
   "start_date": "2023-04-26T00:00:00Z",
@@ -46,12 +63,13 @@ Content-Type: application/json
 ### Update
 PATCH {{host}}/crm/v1.0/campaigns/10395e89-3d20-4a5a-90bb-c7cbd8a314f1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45",
-  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
 }
 
 ### Delete
 DELETE {{host}}/crm/v1.0/campaigns/8b07eb27-a6a3-4567-b073-53f858538b58
 Accept: application/json
+Authorization: Bearer {{accessToken}}

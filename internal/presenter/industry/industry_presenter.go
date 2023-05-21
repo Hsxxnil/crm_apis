@@ -45,7 +45,6 @@ func Init(db *gorm.DB) Control {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /industries [post]
 func (c *control) Create(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	input := &industryModel.Create{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
@@ -55,7 +54,6 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	//input.CreatedBy = ctx.MustGet("user_id").(string)
 	httpCode, codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }
@@ -134,7 +132,6 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /industries/{industryID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	industryID := ctx.Param("industryID")
 	input := &industryModel.Field{}
 	input.IndustryID = industryID
@@ -164,7 +161,6 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /industries/{industryID} [patch]
 func (c *control) Update(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	industryID := ctx.Param("industryID")
 	input := &industryModel.Update{}
 	input.IndustryID = industryID
@@ -175,7 +171,6 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
-	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	httpCode, codeMessage := c.Manager.Update(input)
 	ctx.JSON(httpCode, codeMessage)
 }

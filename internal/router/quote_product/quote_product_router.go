@@ -11,11 +11,11 @@ func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 	control := present.Init(db)
 	v10 := router.Group("crm").Group("v1.0").Group("quotes-products")
 	{
-		v10.POST("", middleware.Transaction(db), control.Create)
-		v10.GET("", control.GetByList)
-		v10.GET(":quoteProductID", control.GetBySingle)
-		v10.DELETE(":quoteProductID", control.Delete)
-		v10.PATCH(":quoteProductID", control.Update)
+		v10.POST("", middleware.Verify(), middleware.Transaction(db), control.Create)
+		v10.GET("", middleware.Verify(), control.GetByList)
+		v10.GET(":quoteProductID", middleware.Verify(), control.GetBySingle)
+		v10.DELETE(":quoteProductID", middleware.Verify(), control.Delete)
+		v10.PATCH(":quoteProductID", middleware.Verify(), control.Update)
 	}
 
 	return router

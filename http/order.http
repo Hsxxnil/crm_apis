@@ -1,6 +1,19 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
 ### GetByList
 POST {{host}}/crm/v1.0/orders/list?page=1&limit=20
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "sort": {
@@ -17,20 +30,22 @@ Content-Type: application/json
 ### GetBySingle
 GET {{host}}/crm/v1.0/orders/be75a422-62cb-4893-952d-4c9d1f504189
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingleProducts
 GET {{host}}/crm/v1.0/orders/products/be75a422-62cb-4893-952d-4c9d1f504189
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 
 ### Create
 POST {{host}}/crm/v1.0/orders
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
   "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
   "contract_id": "05c76ec9-070e-42a1-b54e-9f2e048e4ced",
   "description": "test"
@@ -39,12 +54,13 @@ Content-Type: application/json
 ### Update
 PATCH {{host}}/crm/v1.0/orders/0a49dd08-ddfa-4c0e-844e-bf028d928be2
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-  "status": "草稿",
-  "updated_by": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "status": "草稿"
 }
 
 ### Delete
 DELETE {{host}}/crm/v1.0/orders/f6999086-d10e-4947-8a0f-da92a8bf6127
 Accept: application/json
+Authorization: Bearer {{accessToken}}

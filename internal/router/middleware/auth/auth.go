@@ -94,38 +94,38 @@ func Casbin() *casbin.Enforcer {
 }
 
 func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		checkRole, err := role.Init(db).GetBySingle(&roleModel.Field{RoleID: ctx.MustGet("role_id").(string), IsDeleted: util.PointerBool(false)})
+	return func(c *gin.Context) {
+		checkRole, err := role.Init(db).GetBySingle(&roleModel.Field{RoleID: c.MustGet("role_id").(string), IsDeleted: util.PointerBool(false)})
 		if err != nil {
-			ctx.JSON(http.StatusInternalServerError, gin.H{
+			c.JSON(http.StatusInternalServerError, gin.H{
 				"status": -1,
 				"msg":    err.Error(),
 			})
-			ctx.Abort()
+			c.Abort()
 			return
 		}
 
 		e := Casbin()
-		log.Info("Casbin policy: %s,%s,%s", *checkRole.Name, ctx.Request.URL.Path, ctx.Request.Method)
+		log.Info("Casbin policy: %s,%s,%s", *checkRole.Name, c.Request.URL.Path, c.Request.Method)
 
-		res, err := e.Enforce(*checkRole.Name, ctx.Request.URL.Path, ctx.Request.Method)
+		res, err := e.Enforce(*checkRole.Name, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
-			ctx.JSON(http.StatusInternalServerError, gin.H{
+			c.JSON(http.StatusInternalServerError, gin.H{
 				"status": -1,
 				"msg":    err.Error(),
 			})
-			ctx.Abort()
+			c.Abort()
 			return
 		}
 
 		if res {
-			ctx.Next()
+			c.Next()
 		} else {
-			ctx.JSON(http.StatusNonAuthoritativeInfo, gin.H{
+			c.JSON(http.StatusNonAuthoritativeInfo, gin.H{
 				"status": 203,
 				"msg":    "Sorry, you don't have permission.",
 			})
-			ctx.Abort()
+			c.Abort()
 			return
 		}
 	}

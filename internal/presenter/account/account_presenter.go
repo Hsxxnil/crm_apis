@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"app.eirc/internal/interactor/pkg/util"
+
 	constant "app.eirc/internal/interactor/constants"
 
 	"app.eirc/internal/interactor/manager/account"
@@ -47,9 +49,9 @@ func Init(db *gorm.DB) Control {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /accounts [post]
 func (c *control) Create(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	input := &accountModel.Create{}
+	input.CreatedBy = ctx.MustGet("user_id").(string)
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -57,7 +59,6 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	//input.CreatedBy = ctx.MustGet("user_id").(string)
 	httpCode, codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }
@@ -171,7 +172,6 @@ func (c *control) GetBySingleContacts(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /accounts/{accountID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	accountID := ctx.Param("accountID")
 	input := &accountModel.Field{}
 	input.AccountID = accountID
@@ -201,10 +201,10 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /accounts/{accountID} [patch]
 func (c *control) Update(ctx *gin.Context) {
-	// Todo 將UUID改成登入的使用者
 	accountID := ctx.Param("accountID")
 	input := &accountModel.Update{}
 	input.AccountID = accountID
+	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -212,7 +212,6 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
-	//input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	httpCode, codeMessage := c.Manager.Update(input)
 	ctx.JSON(httpCode, codeMessage)
 }
