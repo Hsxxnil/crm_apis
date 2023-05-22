@@ -21,15 +21,10 @@ Authorization: Bearer {{accessToken}}
     "direction": "desc"
   },
   "filter": {
-    "name": "聞",
-    "opportunity_name": "聞"
+    "name": "",
+    "opportunity_name": ""
   }
 }
-
-### GetByListProducts
-GET {{host}}/crm/v1.0/quotes/products?page=1&limit=20
-Accept: application/json
-Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
@@ -37,7 +32,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingleProducts
-GET {{host}}/crm/v1.0/quotes/products/be75a422-62cb-4893-952d-4c9d1f504189
+GET {{host}}/crm/v1.0/quotes/products/47f65a39-f7fb-444d-8a85-5166b8e603fa
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 

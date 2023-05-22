@@ -11186,6 +11186,10 @@ const docTemplate = `{
                     "description": "報價產品數量",
                     "type": "integer"
                 },
+                "quote_product_id": {
+                    "description": "報價產品ID",
+                    "type": "string"
+                },
                 "standard_price": {
                     "description": "產品定價",
                     "type": "number"

@@ -131,6 +131,8 @@ type Update struct {
 
 // QuoteSingle return structure file for quotes
 type QuoteSingle struct {
+	// 報價產品ID
+	QuoteProductID string `json:"quote_product_id,omitempty"`
 	// 產品ID
 	ProductID string `json:"product_id,omitempty"`
 	// 產品名稱
