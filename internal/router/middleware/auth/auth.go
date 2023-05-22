@@ -95,7 +95,10 @@ func Casbin() *casbin.Enforcer {
 
 func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		checkRole, err := role.Init(db).GetBySingle(&roleModel.Field{RoleID: c.MustGet("role_id").(string), IsDeleted: util.PointerBool(false)})
+		checkRole, err := role.Init(db).GetBySingle(&roleModel.Field{
+			RoleID:    c.MustGet("role_id").(string),
+			IsDeleted: util.PointerBool(false),
+		})
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"status": -1,
