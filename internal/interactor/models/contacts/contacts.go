@@ -27,7 +27,7 @@ type Create struct {
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 創建者
-	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
 // Field is structure file for search
@@ -187,7 +187,7 @@ type Update struct {
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
-	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
 // AccountSingle return structure file for accounts

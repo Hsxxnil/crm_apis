@@ -19,7 +19,7 @@ type Create struct {
 	// 產品價格
 	Price float64 `json:"price,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 創建者
-	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
 // Field is structure file for search
@@ -124,5 +124,5 @@ type Update struct {
 	// 產品價格
 	Price *float64 `json:"price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
-	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }

@@ -7799,17 +7799,12 @@
         "accounts.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "industry_id",
                 "name",
                 "parent_account_id",
                 "type"
             ],
             "properties": {
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
                 "industry_id": {
                     "description": "行業ID",
                     "type": "string"
@@ -8098,9 +8093,6 @@
         },
         "accounts.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "industry_id": {
                     "description": "行業ID",
@@ -8124,10 +8116,6 @@
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 }
             }
@@ -8172,7 +8160,6 @@
         "campaigns.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "name",
                 "parent_campaign_id",
                 "status"
@@ -8187,10 +8174,6 @@
                     "description": "行銷活動預算成本",
                     "type": "number",
                     "minimum": 0
-                },
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
                 },
                 "description": {
                     "description": "行銷活動描述",
@@ -8591,9 +8574,6 @@
         },
         "campaigns.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "actual_cost": {
                     "description": "行銷活動實際成本",
@@ -8654,10 +8634,6 @@
                 },
                 "type": {
                     "description": "行銷活動類型",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 }
             }
@@ -8741,7 +8717,6 @@
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "name",
                 "phone_number",
                 "supervisor_id"
@@ -8753,10 +8728,6 @@
                 },
                 "cell_phone": {
                     "description": "聯絡人行動電話",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "department": {
@@ -9011,9 +8982,6 @@
         },
         "contacts.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -9054,10 +9022,6 @@
                 "title": {
                     "description": "聯絡人職稱",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -9065,7 +9029,6 @@
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "start_date",
                 "status",
                 "term"
@@ -9073,10 +9036,6 @@
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -9287,9 +9246,6 @@
         },
         "contracts.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -9314,10 +9270,6 @@
                 "term": {
                     "description": "契約有效期限(月)",
                     "type": "integer"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -9426,17 +9378,12 @@
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "description",
                 "status"
             ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -9643,9 +9590,6 @@
         },
         "leads.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "description": {
                     "description": "線索描述",
@@ -9665,10 +9609,6 @@
                 },
                 "status": {
                     "description": "線索狀態",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 }
             }
@@ -9700,7 +9640,6 @@
             "required": [
                 "account_id",
                 "close_date",
-                "created_by",
                 "forecast_category",
                 "name",
                 "stage"
@@ -9717,10 +9656,6 @@
                 },
                 "close_date": {
                     "description": "商機結束日期",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "forecast_category": {
@@ -9999,9 +9934,6 @@
         },
         "opportunities.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "amount": {
                     "description": "預期收入金額",
@@ -10027,10 +9959,6 @@
                 "stage": {
                     "description": "商機階段",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -10051,16 +9979,11 @@
             "type": "object",
             "required": [
                 "campaign_id",
-                "created_by",
                 "opportunity_id"
             ],
             "properties": {
                 "campaign_id": {
                     "description": "行銷活動ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "opportunity_id": {
@@ -10195,9 +10118,6 @@
         },
         "opportunity_campaigns.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "campaign_id": {
                     "description": "行銷活動ID",
@@ -10206,27 +10126,18 @@
                 "opportunity_id": {
                     "description": "商機ID",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
         "order_products.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "order_id",
                 "product_id",
                 "quantity",
                 "unit_price"
             ],
             "properties": {
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
                 "description": {
                     "description": "訂單產品描述",
                     "type": "string"
@@ -10437,9 +10348,6 @@
         },
         "order_products.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "description": {
                     "description": "訂單產品描述",
@@ -10458,10 +10366,6 @@
                     "description": "訂單產品單價",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -10470,7 +10374,6 @@
             "required": [
                 "account_id",
                 "contract_id",
-                "created_by",
                 "start_date",
                 "status"
             ],
@@ -10481,10 +10384,6 @@
                 },
                 "contract_id": {
                     "description": "契約ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -10763,9 +10662,6 @@
         },
         "orders.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -10790,27 +10686,18 @@
                 "status": {
                     "description": "訂單狀態",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
         "products.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "name",
                 "price"
             ],
             "properties": {
                 "code": {
                     "description": "產品識別碼",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -10986,9 +10873,6 @@
         },
         "products.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "code": {
                     "description": "產品識別碼",
@@ -11010,10 +10894,6 @@
                     "description": "產品價格",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -11313,7 +11193,6 @@
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "name",
                 "opportunity_id",
                 "status"
@@ -11321,10 +11200,6 @@
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -11645,9 +11520,6 @@
         },
         "quotes.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -11686,10 +11558,6 @@
                     "description": "報價稅額",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -11697,17 +11565,12 @@
             "type": "object",
             "required": [
                 "company_id",
-                "created_by",
                 "display_name",
                 "name"
             ],
             "properties": {
                 "company_id": {
                     "description": "公司ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "display_name": {
@@ -11857,9 +11720,6 @@
         },
         "roles.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "company_id": {
                     "description": "公司ID",
@@ -11876,10 +11736,6 @@
                 "name": {
                     "description": "角色名稱",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -11887,7 +11743,6 @@
             "type": "object",
             "required": [
                 "company_id",
-                "created_by",
                 "name",
                 "password",
                 "role_id",
@@ -11896,10 +11751,6 @@
             "properties": {
                 "company_id": {
                     "description": "公司ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "email": {
@@ -12089,9 +11940,6 @@
         },
         "users.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "company_id": {
                     "description": "公司ID",
@@ -12115,10 +11963,6 @@
                 },
                 "role_id": {
                     "description": "角色ID",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 },
                 "user_name": {

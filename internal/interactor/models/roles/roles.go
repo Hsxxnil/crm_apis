@@ -14,7 +14,7 @@ type Create struct {
 	// 角色名稱
 	Name string `json:"name,omitempty" binding:"required" validate:"required"`
 	// 創建者
-	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
 // Field is structure file for search
@@ -103,5 +103,5 @@ type Update struct {
 	// 角色是否啟用
 	IsEnable bool `json:"is_enable,omitempty"`
 	// 更新者
-	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
