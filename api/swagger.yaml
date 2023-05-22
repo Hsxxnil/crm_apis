@@ -6420,6 +6420,55 @@ paths:
       tags:
       - quote
   /quotes-products:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除多筆報價產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 報價產品ID
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/quote_products.DeleteList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除多筆報價產品
+      tags:
+      - quote-product
     get:
       consumes:
       - application/json
@@ -6473,6 +6522,55 @@ paths:
       summary: 取得全部報價產品
       tags:
       - quote-product
+    patch:
+      consumes:
+      - application/json
+      description: 更新多筆報價產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 更新報價產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/quote_products.UpdateList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新多筆報價產品
+      tags:
+      - quote-product
     post:
       consumes:
       - application/json
@@ -6523,55 +6621,6 @@ paths:
       tags:
       - quote-product
   /quotes-products/{quoteProductID}:
-    delete:
-      consumes:
-      - application/json
-      description: 刪除多筆報價產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 報價產品ID
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/quote_products.DeleteList'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 刪除多筆報價產品
-      tags:
-      - quote-product
     get:
       consumes:
       - application/json
@@ -6618,55 +6667,6 @@ paths:
                   type: string
               type: object
       summary: 取得單一報價產品
-      tags:
-      - quote-product
-    patch:
-      consumes:
-      - application/json
-      description: 更新多筆報價產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 更新報價產品
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/quote_products.UpdateList'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 更新多筆報價產品
       tags:
       - quote-product
   /quotes/{quoteID}:
