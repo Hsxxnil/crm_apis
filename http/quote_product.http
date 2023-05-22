@@ -74,3 +74,10 @@ Authorization: Bearer {{accessToken}}
 DELETE {{host}}/crm/v1.0/quotes-products/a0c68ba6-cc3a-4579-8c9c-c6580ef76f2b
 Accept: application/json
 Authorization: Bearer {{accessToken}}
+
+{
+  "products": [
+      "aa272c66-4ec3-4894-bb3f-131461cb8bb2",
+      "b12d204a-5324-4de2-ab63-30e4fce43987"
+  ]
+}

@@ -20,7 +20,7 @@ type Create struct {
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 創建者
-	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
 // CreateList struct is used to create multiple data
@@ -118,7 +118,7 @@ type Single struct {
 // Update struct is used to update achieves
 type Update struct {
 	// 報價產品ID
-	QuoteProductID string `json:"quote_product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
+	QuoteProductID string `json:"quote_product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 產品ID
 	ProductID *string `json:"product_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 報價產品數量
@@ -130,12 +130,17 @@ type Update struct {
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
-	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
 // UpdateList struct is used to update multiple data
 type UpdateList struct {
 	QuoteProducts []*Update `json:"products"`
+}
+
+// DeleteList struct is used to delete multiple data
+type DeleteList struct {
+	QuoteProducts []string `json:"products"`
 }
 
 // QuoteSingle return structure file for quotes

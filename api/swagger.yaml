@@ -2367,9 +2367,6 @@ definitions:
     type: object
   quote_products.Create:
     properties:
-      created_by:
-        description: 創建者
-        type: string
       discount:
         description: 報價產品折扣
         minimum: 0
@@ -2389,7 +2386,6 @@ definitions:
         minimum: 0
         type: number
     required:
-    - created_by
     - discount
     - product_id
     - quantity
@@ -2401,6 +2397,13 @@ definitions:
       products:
         items:
           $ref: '#/definitions/quote_products.Create'
+        type: array
+    type: object
+  quote_products.DeleteList:
+    properties:
+      products:
+        items:
+          type: string
         type: array
     type: object
   quote_products.List:
@@ -2557,6 +2560,9 @@ definitions:
         description: 報價產品數量
         minimum: 0
         type: integer
+      quote_product_id:
+        description: 報價產品ID
+        type: string
       sub_total:
         description: 報價產品小計
         type: number
@@ -2564,11 +2570,13 @@ definitions:
         description: 報價產品單價
         minimum: 0
         type: number
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
+    type: object
+  quote_products.UpdateList:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/quote_products.Update'
+        type: array
     type: object
   quotes.Create:
     properties:
@@ -6635,7 +6643,7 @@ paths:
     delete:
       consumes:
       - application/json
-      description: 刪除單一報價產品
+      description: 刪除多筆報價產品
       parameters:
       - description: JWE Token
         in: header
@@ -6643,10 +6651,11 @@ paths:
         required: true
         type: string
       - description: 報價產品ID
-        in: path
-        name: quoteProductID
+        in: body
+        name: '*'
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/quote_products.DeleteList'
       produces:
       - application/json
       responses:
@@ -6677,7 +6686,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 刪除單一報價產品
+      summary: 刪除多筆報價產品
       tags:
       - quote-product
     get:
@@ -6731,16 +6740,11 @@ paths:
     patch:
       consumes:
       - application/json
-      description: 更新單一報價產品
+      description: 更新多筆報價產品
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
-        required: true
-        type: string
-      - description: 報價產品ID
-        in: path
-        name: quoteProductID
         required: true
         type: string
       - description: 更新報價產品
@@ -6748,7 +6752,7 @@ paths:
         name: '*'
         required: true
         schema:
-          $ref: '#/definitions/quote_products.Update'
+          $ref: '#/definitions/quote_products.UpdateList'
       produces:
       - application/json
       responses:
@@ -6779,7 +6783,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 更新單一報價產品
+      summary: 更新多筆報價產品
       tags:
       - quote-product
   /quotes/{quoteID}:

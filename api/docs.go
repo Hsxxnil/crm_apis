@@ -6163,7 +6163,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "刪除單一報價產品",
+                "description": "刪除多筆報價產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -6173,7 +6173,7 @@ const docTemplate = `{
                 "tags": [
                     "quote-product"
                 ],
-                "summary": "刪除單一報價產品",
+                "summary": "刪除多筆報價產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -6183,11 +6183,13 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
                         "description": "報價產品ID",
-                        "name": "quoteProductID",
-                        "in": "path",
-                        "required": true
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/quote_products.DeleteList"
+                        }
                     }
                 ],
                 "responses": {
@@ -6248,7 +6250,7 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "description": "更新單一報價產品",
+                "description": "更新多筆報價產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -6258,7 +6260,7 @@ const docTemplate = `{
                 "tags": [
                     "quote-product"
                 ],
-                "summary": "更新單一報價產品",
+                "summary": "更新多筆報價產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -6268,19 +6270,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "報價產品ID",
-                        "name": "quoteProductID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
                         "description": "更新報價產品",
                         "name": "*",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/quote_products.Update"
+                            "$ref": "#/definitions/quote_products.UpdateList"
                         }
                     }
                 ],
@@ -11029,7 +11024,6 @@ const docTemplate = `{
         "quote_products.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "discount",
                 "product_id",
                 "quantity",
@@ -11037,10 +11031,6 @@ const docTemplate = `{
                 "unit_price"
             ],
             "properties": {
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
                 "discount": {
                     "description": "報價產品折扣",
                     "type": "number",
@@ -11073,6 +11063,17 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/quote_products.Create"
+                    }
+                }
+            }
+        },
+        "quote_products.DeleteList": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
                     }
                 }
             }
@@ -11271,9 +11272,6 @@ const docTemplate = `{
         },
         "quote_products.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "discount": {
                     "description": "報價產品折扣",
@@ -11289,6 +11287,10 @@ const docTemplate = `{
                     "type": "integer",
                     "minimum": 0
                 },
+                "quote_product_id": {
+                    "description": "報價產品ID",
+                    "type": "string"
+                },
                 "sub_total": {
                     "description": "報價產品小計",
                     "type": "number"
@@ -11297,10 +11299,17 @@ const docTemplate = `{
                     "description": "報價產品單價",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
+                }
+            }
+        },
+        "quote_products.UpdateList": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/quote_products.Update"
+                    }
                 }
             }
         },

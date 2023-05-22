@@ -18,7 +18,7 @@ type Manager interface {
 	Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int, interface{})
 	GetByList(input *quoteProductModel.Fields) (int, interface{})
 	GetBySingle(input *quoteProductModel.Field) (int, interface{})
-	Delete(input *quoteProductModel.Field) (int, interface{})
+	Delete(input *quoteProductModel.UpdateList) (int, interface{})
 	Update(input *quoteProductModel.UpdateList) (int, interface{})
 }
 
@@ -109,23 +109,25 @@ func (m *manager) GetBySingle(input *quoteProductModel.Field) (int, interface{})
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *quoteProductModel.Field) (int, interface{}) {
-	_, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
-		QuoteProductID: input.QuoteProductID,
-	})
-	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
+func (m *manager) Delete(input *quoteProductModel.UpdateList) (int, interface{}) {
+	for _, inputBody := range input.QuoteProducts {
+		_, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
+			QuoteProductID: inputBody.QuoteProductID,
+		})
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
+			}
+
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 		}
 
-		log.Error(err)
-		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-
-	err = m.QuoteProductService.Delete(input)
-	if err != nil {
-		log.Error(err)
-		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		err = m.QuoteProductService.Delete(inputBody)
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
