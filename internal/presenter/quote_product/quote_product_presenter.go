@@ -136,7 +136,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /quotes-products/{quoteProductID} [delete]
+// @Router /quotes-products [delete]
 func (c *control) Delete(ctx *gin.Context) {
 	inputIDList := &quoteProductModel.DeleteList{}
 	if err := ctx.ShouldBindJSON(inputIDList); err != nil {
@@ -171,7 +171,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /quotes-products/{quoteProductID} [patch]
+// @Router /quotes-products [patch]
 func (c *control) Update(ctx *gin.Context) {
 	input := &quoteProductModel.UpdateList{}
 	if err := ctx.ShouldBindJSON(input); err != nil {

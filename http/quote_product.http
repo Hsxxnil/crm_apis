@@ -71,7 +71,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/quotes-products/a0c68ba6-cc3a-4579-8c9c-c6580ef76f2b
+DELETE {{host}}/crm/v1.0/quotes-products
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
