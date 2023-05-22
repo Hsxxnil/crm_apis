@@ -133,6 +133,11 @@ type Update struct {
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 }
 
+// UpdateList struct is used to update multiple data
+type UpdateList struct {
+	QuoteProducts []*Update `json:"products"`
+}
+
 // QuoteSingle return structure file for quotes
 type QuoteSingle struct {
 	// 報價產品ID

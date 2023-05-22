@@ -166,10 +166,10 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /quotes-products/{quoteProductID} [patch]
 func (c *control) Update(ctx *gin.Context) {
-	quoteProductID := ctx.Param("quoteProductID")
-	input := &quoteProductModel.Update{}
-	input.QuoteProductID = quoteProductID
-	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
+	input := &quoteProductModel.UpdateList{}
+	for _, value := range input.QuoteProducts {
+		value.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
+	}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))

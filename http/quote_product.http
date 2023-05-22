@@ -45,16 +45,29 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/quotes-products/344a8aa7-1796-4717-b0b7-9215caed8d1f
+PATCH {{host}}/crm/v1.0/quotes-products
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "quote_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
-  "quantity": 2,
-  "unit_price": 11,
-  "discount": 20,
-  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9"
+  "products": [
+    {
+      "quote_product_id": "8342360d-2e16-4bcf-a5ee-84473ade507d",
+      "quote_id": "47f65a39-f7fb-444d-8a85-5166b8e603fa",
+      "product_id": "3e374065-bba2-4ce9-964c-38303c6f4583",
+      "quantity": 1,
+      "unit_price": 100,
+      "discount": 50
+    },
+    {
+      "quote_product_id": "58821721-20d3-4186-a9e3-d5f5ab3db836",
+      "quote_id": "47f65a39-f7fb-444d-8a85-5166b8e603fa",
+      "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
+      "quantity": 1,
+      "unit_price": 100,
+      "discount": 50
+    }
+  ]
 }
 
 ### Delete

@@ -19,7 +19,7 @@ type Manager interface {
 	GetByList(input *quoteProductModel.Fields) (int, interface{})
 	GetBySingle(input *quoteProductModel.Field) (int, interface{})
 	Delete(input *quoteProductModel.Field) (int, interface{})
-	Update(input *quoteProductModel.Update) (int, interface{})
+	Update(input *quoteProductModel.UpdateList) (int, interface{})
 }
 
 type manager struct {
@@ -131,38 +131,43 @@ func (m *manager) Delete(input *quoteProductModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *quoteProductModel.Update) (int, interface{}) {
-	quoteProductBase, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
-		QuoteProductID: input.QuoteProductID,
-	})
-	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
+func (m *manager) Update(input *quoteProductModel.UpdateList) (int, interface{}) {
+	var output []*string
+	for _, inputBody := range input.QuoteProducts {
+		quoteProductBase, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
+			QuoteProductID: inputBody.QuoteProductID,
+		})
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
+			}
+
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 		}
 
-		log.Error(err)
-		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		unitPrice := inputBody.UnitPrice
+		quantity := inputBody.Quantity
+		discount := inputBody.Discount
+		if inputBody.UnitPrice == quoteProductBase.UnitPrice {
+			unitPrice = quoteProductBase.UnitPrice
+		}
+		if inputBody.Quantity == quoteProductBase.Quantity {
+			quantity = quoteProductBase.Quantity
+		}
+		if inputBody.Discount == quoteProductBase.Discount {
+			discount = quoteProductBase.Discount
+		}
+		inputBody.SubTotal = *unitPrice * float64(*quantity) * *discount / 100
+
+		err = m.QuoteProductService.Update(inputBody)
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
+
+		output = append(output, quoteProductBase.QuoteProductID)
 	}
 
-	unitPrice := input.UnitPrice
-	quantity := input.Quantity
-	discount := input.Discount
-	if input.UnitPrice == quoteProductBase.UnitPrice {
-		unitPrice = quoteProductBase.UnitPrice
-	}
-	if input.Quantity == quoteProductBase.Quantity {
-		quantity = quoteProductBase.Quantity
-	}
-	if input.Discount == quoteProductBase.Discount {
-		discount = quoteProductBase.Discount
-	}
-	input.SubTotal = *unitPrice * float64(*quantity) * *discount / 100
-
-	err = m.QuoteProductService.Update(input)
-	if err != nil {
-		log.Error(err)
-		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
-
-	return code.Successful, code.GetCodeMessage(code.Successful, quoteProductBase.QuoteProductID)
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
