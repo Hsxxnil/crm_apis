@@ -11142,6 +11142,10 @@ const docTemplate = `{
                                 "description": "報價產品ID",
                                 "type": "string"
                             },
+                            "standard_price": {
+                                "description": "產品定價",
+                                "type": "number"
+                            },
                             "sub_total": {
                                 "description": "報價產品小計",
                                 "type": "number"
@@ -11242,6 +11246,10 @@ const docTemplate = `{
                 "quote_product_id": {
                     "description": "報價產品ID",
                     "type": "string"
+                },
+                "standard_price": {
+                    "description": "產品定價",
+                    "type": "number"
                 },
                 "sub_total": {
                     "description": "報價產品小計",

@@ -74,6 +74,7 @@ func (m *manager) GetByList(input *quoteProductModel.Fields) (int, interface{}) 
 
 	for i, quoteProducts := range output.QuoteProducts {
 		quoteProducts.ProductName = *quoteProductBase[i].Products.Name
+		quoteProducts.ProductPrice = *quoteProductBase[i].Products.Price
 		quoteProducts.CreatedBy = *quoteProductBase[i].CreatedByUsers.Name
 		quoteProducts.UpdatedBy = *quoteProductBase[i].UpdatedByUsers.Name
 	}
@@ -101,6 +102,7 @@ func (m *manager) GetBySingle(input *quoteProductModel.Field) (int, interface{})
 	}
 
 	output.ProductName = *quoteProductBase.Products.Name
+	output.ProductPrice = *quoteProductBase.Products.Price
 	output.CreatedBy = *quoteProductBase.CreatedByUsers.Name
 	output.UpdatedBy = *quoteProductBase.UpdatedByUsers.Name
 

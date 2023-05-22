@@ -66,6 +66,8 @@ type List struct {
 		ProductID string `json:"product_id,omitempty"`
 		// 產品名稱
 		ProductName string `json:"product_name,omitempty"`
+		// 產品定價
+		ProductPrice float64 `json:"standard_price,omitempty"`
 		// 報價產品數量
 		Quantity int `json:"quantity,omitempty"`
 		// 報價產品單價
@@ -95,6 +97,8 @@ type Single struct {
 	ProductID string `json:"product_id,omitempty"`
 	// 產品名稱
 	ProductName string `json:"product_name,omitempty"`
+	// 產品定價
+	ProductPrice float64 `json:"standard_price,omitempty"`
 	// 報價產品數量
 	Quantity int `json:"quantity,omitempty"`
 	// 報價產品單價

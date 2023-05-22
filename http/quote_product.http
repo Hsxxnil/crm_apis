@@ -16,7 +16,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/quotes-products/344a8aa7-1796-4717-b0b7-9215caed8d1f
+GET {{host}}/crm/v1.0/quotes-products/7806a0f7-9609-4a8c-bb38-b488ea507732
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
