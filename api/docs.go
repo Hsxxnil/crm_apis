@@ -6163,7 +6163,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "刪除單一報價產品",
+                "description": "刪除多筆報價產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -6173,7 +6173,7 @@ const docTemplate = `{
                 "tags": [
                     "quote-product"
                 ],
-                "summary": "刪除單一報價產品",
+                "summary": "刪除多筆報價產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -6183,11 +6183,13 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
                         "description": "報價產品ID",
-                        "name": "quoteProductID",
-                        "in": "path",
-                        "required": true
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/quote_products.DeleteList"
+                        }
                     }
                 ],
                 "responses": {
@@ -6248,7 +6250,7 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "description": "更新單一報價產品",
+                "description": "更新多筆報價產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -6258,7 +6260,7 @@ const docTemplate = `{
                 "tags": [
                     "quote-product"
                 ],
-                "summary": "更新單一報價產品",
+                "summary": "更新多筆報價產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -6268,19 +6270,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "報價產品ID",
-                        "name": "quoteProductID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
                         "description": "更新報價產品",
                         "name": "*",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/quote_products.Update"
+                            "$ref": "#/definitions/quote_products.UpdateList"
                         }
                     }
                 ],
@@ -7808,17 +7803,12 @@ const docTemplate = `{
         "accounts.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "industry_id",
                 "name",
                 "parent_account_id",
                 "type"
             ],
             "properties": {
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
                 "industry_id": {
                     "description": "行業ID",
                     "type": "string"
@@ -8107,9 +8097,6 @@ const docTemplate = `{
         },
         "accounts.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "industry_id": {
                     "description": "行業ID",
@@ -8133,10 +8120,6 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 }
             }
@@ -8181,7 +8164,6 @@ const docTemplate = `{
         "campaigns.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "name",
                 "parent_campaign_id",
                 "status"
@@ -8196,10 +8178,6 @@ const docTemplate = `{
                     "description": "行銷活動預算成本",
                     "type": "number",
                     "minimum": 0
-                },
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
                 },
                 "description": {
                     "description": "行銷活動描述",
@@ -8600,9 +8578,6 @@ const docTemplate = `{
         },
         "campaigns.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "actual_cost": {
                     "description": "行銷活動實際成本",
@@ -8663,10 +8638,6 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "行銷活動類型",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 }
             }
@@ -8750,7 +8721,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "name",
                 "phone_number",
                 "supervisor_id"
@@ -8762,10 +8732,6 @@ const docTemplate = `{
                 },
                 "cell_phone": {
                     "description": "聯絡人行動電話",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "department": {
@@ -9020,9 +8986,6 @@ const docTemplate = `{
         },
         "contacts.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -9063,10 +9026,6 @@ const docTemplate = `{
                 "title": {
                     "description": "聯絡人職稱",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -9074,7 +9033,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "start_date",
                 "status",
                 "term"
@@ -9082,10 +9040,6 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -9296,9 +9250,6 @@ const docTemplate = `{
         },
         "contracts.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -9323,10 +9274,6 @@ const docTemplate = `{
                 "term": {
                     "description": "契約有效期限(月)",
                     "type": "integer"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -9435,17 +9382,12 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "description",
                 "status"
             ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -9652,9 +9594,6 @@ const docTemplate = `{
         },
         "leads.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "description": {
                     "description": "線索描述",
@@ -9674,10 +9613,6 @@ const docTemplate = `{
                 },
                 "status": {
                     "description": "線索狀態",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 }
             }
@@ -9709,7 +9644,6 @@ const docTemplate = `{
             "required": [
                 "account_id",
                 "close_date",
-                "created_by",
                 "forecast_category",
                 "name",
                 "stage"
@@ -9726,10 +9660,6 @@ const docTemplate = `{
                 },
                 "close_date": {
                     "description": "商機結束日期",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "forecast_category": {
@@ -10008,9 +9938,6 @@ const docTemplate = `{
         },
         "opportunities.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "amount": {
                     "description": "預期收入金額",
@@ -10036,10 +9963,6 @@ const docTemplate = `{
                 "stage": {
                     "description": "商機階段",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -10060,16 +9983,11 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "campaign_id",
-                "created_by",
                 "opportunity_id"
             ],
             "properties": {
                 "campaign_id": {
                     "description": "行銷活動ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "opportunity_id": {
@@ -10204,9 +10122,6 @@ const docTemplate = `{
         },
         "opportunity_campaigns.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "campaign_id": {
                     "description": "行銷活動ID",
@@ -10215,27 +10130,18 @@ const docTemplate = `{
                 "opportunity_id": {
                     "description": "商機ID",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
         "order_products.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "order_id",
                 "product_id",
                 "quantity",
                 "unit_price"
             ],
             "properties": {
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
                 "description": {
                     "description": "訂單產品描述",
                     "type": "string"
@@ -10446,9 +10352,6 @@ const docTemplate = `{
         },
         "order_products.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "description": {
                     "description": "訂單產品描述",
@@ -10467,10 +10370,6 @@ const docTemplate = `{
                     "description": "訂單產品單價",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -10479,7 +10378,6 @@ const docTemplate = `{
             "required": [
                 "account_id",
                 "contract_id",
-                "created_by",
                 "start_date",
                 "status"
             ],
@@ -10490,10 +10388,6 @@ const docTemplate = `{
                 },
                 "contract_id": {
                     "description": "契約ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -10772,9 +10666,6 @@ const docTemplate = `{
         },
         "orders.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -10799,27 +10690,18 @@ const docTemplate = `{
                 "status": {
                     "description": "訂單狀態",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
         "products.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "name",
                 "price"
             ],
             "properties": {
                 "code": {
                     "description": "產品識別碼",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -10995,9 +10877,6 @@ const docTemplate = `{
         },
         "products.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "code": {
                     "description": "產品識別碼",
@@ -11019,17 +10898,12 @@ const docTemplate = `{
                     "description": "產品價格",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
         "quote_products.Create": {
             "type": "object",
             "required": [
-                "created_by",
                 "discount",
                 "product_id",
                 "quantity",
@@ -11037,10 +10911,6 @@ const docTemplate = `{
                 "unit_price"
             ],
             "properties": {
-                "created_by": {
-                    "description": "創建者",
-                    "type": "string"
-                },
                 "discount": {
                     "description": "報價產品折扣",
                     "type": "number",
@@ -11073,6 +10943,17 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/quote_products.Create"
+                    }
+                }
+            }
+        },
+        "quote_products.DeleteList": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
                     }
                 }
             }
@@ -11142,6 +11023,10 @@ const docTemplate = `{
                                 "description": "報價產品ID",
                                 "type": "string"
                             },
+                            "standard_price": {
+                                "description": "產品定價",
+                                "type": "number"
+                            },
                             "sub_total": {
                                 "description": "報價產品小計",
                                 "type": "number"
@@ -11185,6 +11070,10 @@ const docTemplate = `{
                 "quantity": {
                     "description": "報價產品數量",
                     "type": "integer"
+                },
+                "quote_product_id": {
+                    "description": "報價產品ID",
+                    "type": "string"
                 },
                 "standard_price": {
                     "description": "產品定價",
@@ -11239,6 +11128,10 @@ const docTemplate = `{
                     "description": "報價產品ID",
                     "type": "string"
                 },
+                "standard_price": {
+                    "description": "產品定價",
+                    "type": "number"
+                },
                 "sub_total": {
                     "description": "報價產品小計",
                     "type": "number"
@@ -11259,9 +11152,6 @@ const docTemplate = `{
         },
         "quote_products.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "discount": {
                     "description": "報價產品折扣",
@@ -11277,6 +11167,10 @@ const docTemplate = `{
                     "type": "integer",
                     "minimum": 0
                 },
+                "quote_product_id": {
+                    "description": "報價產品ID",
+                    "type": "string"
+                },
                 "sub_total": {
                     "description": "報價產品小計",
                     "type": "number"
@@ -11285,10 +11179,17 @@ const docTemplate = `{
                     "description": "報價產品單價",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
+                }
+            }
+        },
+        "quote_products.UpdateList": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/quote_products.Update"
+                    }
                 }
             }
         },
@@ -11296,7 +11197,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "account_id",
-                "created_by",
                 "name",
                 "opportunity_id",
                 "status"
@@ -11304,10 +11204,6 @@ const docTemplate = `{
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "description": {
@@ -11628,9 +11524,6 @@ const docTemplate = `{
         },
         "quotes.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "account_id": {
                     "description": "帳戶ID",
@@ -11669,10 +11562,6 @@ const docTemplate = `{
                     "description": "報價稅額",
                     "type": "number",
                     "minimum": 0
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -11680,17 +11569,12 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "company_id",
-                "created_by",
                 "display_name",
                 "name"
             ],
             "properties": {
                 "company_id": {
                     "description": "公司ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "display_name": {
@@ -11840,9 +11724,6 @@ const docTemplate = `{
         },
         "roles.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "company_id": {
                     "description": "公司ID",
@@ -11859,10 +11740,6 @@ const docTemplate = `{
                 "name": {
                     "description": "角色名稱",
                     "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
-                    "type": "string"
                 }
             }
         },
@@ -11870,7 +11747,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "company_id",
-                "created_by",
                 "name",
                 "password",
                 "role_id",
@@ -11879,10 +11755,6 @@ const docTemplate = `{
             "properties": {
                 "company_id": {
                     "description": "公司ID",
-                    "type": "string"
-                },
-                "created_by": {
-                    "description": "創建者",
                     "type": "string"
                 },
                 "email": {
@@ -12072,9 +11944,6 @@ const docTemplate = `{
         },
         "users.Update": {
             "type": "object",
-            "required": [
-                "updated_by"
-            ],
             "properties": {
                 "company_id": {
                     "description": "公司ID",
@@ -12098,10 +11967,6 @@ const docTemplate = `{
                 },
                 "role_id": {
                     "description": "角色ID",
-                    "type": "string"
-                },
-                "updated_by": {
-                    "description": "更新者",
                     "type": "string"
                 },
                 "user_name": {

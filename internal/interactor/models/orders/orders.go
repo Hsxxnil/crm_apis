@@ -24,7 +24,7 @@ type Create struct {
 	// 訂單描述
 	Description string `json:"description,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
 // Field is structure file for search
@@ -179,7 +179,7 @@ type Update struct {
 	// 訂單描述
 	Description *string `json:"description,omitempty"`
 	// 更新者
-	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 	// 啟用者
 	ActivatedBy *string `json:"activated_by,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }

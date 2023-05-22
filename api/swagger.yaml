@@ -2,9 +2,6 @@ basePath: /crm/v1.0
 definitions:
   accounts.Create:
     properties:
-      created_by:
-        description: 創建者
-        type: string
       industry_id:
         description: 行業ID
         type: string
@@ -21,7 +18,6 @@ definitions:
         description: 帳戶類型
         type: string
     required:
-    - created_by
     - industry_id
     - name
     - parent_account_id
@@ -241,11 +237,6 @@ definitions:
       type:
         description: 帳戶類型
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   auth.CasbinBind:
     properties:
@@ -282,9 +273,6 @@ definitions:
         description: 行銷活動預算成本
         minimum: 0
         type: number
-      created_by:
-        description: 創建者
-        type: string
       description:
         description: 行銷活動描述
         type: string
@@ -322,7 +310,6 @@ definitions:
         description: 行銷活動類型
         type: string
     required:
-    - created_by
     - name
     - parent_campaign_id
     - status
@@ -633,11 +620,6 @@ definitions:
       type:
         description: 行銷活動類型
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   code.ErrorMessage:
     properties:
@@ -701,9 +683,6 @@ definitions:
       cell_phone:
         description: 聯絡人行動電話
         type: string
-      created_by:
-        description: 創建者
-        type: string
       department:
         description: 聯絡人部門
         type: string
@@ -727,7 +706,6 @@ definitions:
         type: string
     required:
     - account_id
-    - created_by
     - name
     - phone_number
     - supervisor_id
@@ -928,19 +906,11 @@ definitions:
       title:
         description: 聯絡人職稱
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   contracts.Create:
     properties:
       account_id:
         description: 帳戶ID
-        type: string
-      created_by:
-        description: 創建者
         type: string
       description:
         description: 契約描述
@@ -956,7 +926,6 @@ definitions:
         type: integer
     required:
     - account_id
-    - created_by
     - start_date
     - status
     - term
@@ -1119,11 +1088,6 @@ definitions:
       term:
         description: 契約有效期限(月)
         type: integer
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   industries.Create:
     properties:
@@ -1200,9 +1164,6 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      created_by:
-        description: 創建者
-        type: string
       description:
         description: 線索描述
         type: string
@@ -1217,7 +1178,6 @@ definitions:
         type: string
     required:
     - account_id
-    - created_by
     - description
     - status
     type: object
@@ -1373,11 +1333,6 @@ definitions:
       status:
         description: 線索狀態
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   logins.Login:
     properties:
@@ -1407,9 +1362,6 @@ definitions:
       close_date:
         description: 商機結束日期
         type: string
-      created_by:
-        description: 創建者
-        type: string
       forecast_category:
         description: 商機預測種類
         type: string
@@ -1422,7 +1374,6 @@ definitions:
     required:
     - account_id
     - close_date
-    - created_by
     - forecast_category
     - name
     - stage
@@ -1639,11 +1590,6 @@ definitions:
       stage:
         description: 商機階段
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   opportunity_campaigns.CampaignSingle:
     properties:
@@ -1659,15 +1605,11 @@ definitions:
       campaign_id:
         description: 行銷活動ID
         type: string
-      created_by:
-        description: 創建者
-        type: string
       opportunity_id:
         description: 商機ID
         type: string
     required:
     - campaign_id
-    - created_by
     - opportunity_id
     type: object
   opportunity_campaigns.List:
@@ -1768,17 +1710,9 @@ definitions:
       opportunity_id:
         description: 商機ID
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   order_products.Create:
     properties:
-      created_by:
-        description: 創建者
-        type: string
       description:
         description: 訂單產品描述
         type: string
@@ -1797,7 +1731,6 @@ definitions:
         minimum: 0
         type: number
     required:
-    - created_by
     - order_id
     - product_id
     - quantity
@@ -1954,11 +1887,6 @@ definitions:
         description: 訂單產品單價
         minimum: 0
         type: number
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   orders.Create:
     properties:
@@ -1967,9 +1895,6 @@ definitions:
         type: string
       contract_id:
         description: 契約ID
-        type: string
-      created_by:
-        description: 創建者
         type: string
       description:
         description: 訂單描述
@@ -1983,7 +1908,6 @@ definitions:
     required:
     - account_id
     - contract_id
-    - created_by
     - start_date
     - status
     type: object
@@ -2198,19 +2122,11 @@ definitions:
       status:
         description: 訂單狀態
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   products.Create:
     properties:
       code:
         description: 產品識別碼
-        type: string
-      created_by:
-        description: 創建者
         type: string
       description:
         description: 產品描述
@@ -2226,7 +2142,6 @@ definitions:
         minimum: 0
         type: number
     required:
-    - created_by
     - name
     - price
     type: object
@@ -2359,17 +2274,9 @@ definitions:
         description: 產品價格
         minimum: 0
         type: number
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   quote_products.Create:
     properties:
-      created_by:
-        description: 創建者
-        type: string
       discount:
         description: 報價產品折扣
         minimum: 0
@@ -2389,7 +2296,6 @@ definitions:
         minimum: 0
         type: number
     required:
-    - created_by
     - discount
     - product_id
     - quantity
@@ -2401,6 +2307,13 @@ definitions:
       products:
         items:
           $ref: '#/definitions/quote_products.Create'
+        type: array
+    type: object
+  quote_products.DeleteList:
+    properties:
+      products:
+        items:
+          type: string
         type: array
     type: object
   quote_products.List:
@@ -2448,6 +2361,9 @@ definitions:
             quote_product_id:
               description: 報價產品ID
               type: string
+            standard_price:
+              description: 產品定價
+              type: number
             sub_total:
               description: 報價產品小計
               type: number
@@ -2483,6 +2399,9 @@ definitions:
       quantity:
         description: 報價產品數量
         type: integer
+      quote_product_id:
+        description: 報價產品ID
+        type: string
       standard_price:
         description: 產品定價
         type: number
@@ -2522,6 +2441,9 @@ definitions:
       quote_product_id:
         description: 報價產品ID
         type: string
+      standard_price:
+        description: 產品定價
+        type: number
       sub_total:
         description: 報價產品小計
         type: number
@@ -2548,6 +2470,9 @@ definitions:
         description: 報價產品數量
         minimum: 0
         type: integer
+      quote_product_id:
+        description: 報價產品ID
+        type: string
       sub_total:
         description: 報價產品小計
         type: number
@@ -2555,19 +2480,18 @@ definitions:
         description: 報價產品單價
         minimum: 0
         type: number
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
+    type: object
+  quote_products.UpdateList:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/quote_products.Update'
+        type: array
     type: object
   quotes.Create:
     properties:
       account_id:
         description: 帳戶ID
-        type: string
-      created_by:
-        description: 創建者
         type: string
       description:
         description: 報價描述
@@ -2597,7 +2521,6 @@ definitions:
         type: number
     required:
     - account_id
-    - created_by
     - name
     - opportunity_id
     - status
@@ -2839,19 +2762,11 @@ definitions:
         description: 報價稅額
         minimum: 0
         type: number
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   roles.Create:
     properties:
       company_id:
         description: 公司ID
-        type: string
-      created_by:
-        description: 創建者
         type: string
       display_name:
         description: 角色顯示名稱
@@ -2861,7 +2776,6 @@ definitions:
         type: string
     required:
     - company_id
-    - created_by
     - display_name
     - name
     type: object
@@ -2978,19 +2892,11 @@ definitions:
       name:
         description: 角色名稱
         type: string
-      updated_by:
-        description: 更新者
-        type: string
-    required:
-    - updated_by
     type: object
   users.Create:
     properties:
       company_id:
         description: 公司ID
-        type: string
-      created_by:
-        description: 創建者
         type: string
       email:
         description: 使用者電子郵件
@@ -3012,7 +2918,6 @@ definitions:
         type: string
     required:
     - company_id
-    - created_by
     - name
     - password
     - role_id
@@ -3155,14 +3060,9 @@ definitions:
       role_id:
         description: 角色ID
         type: string
-      updated_by:
-        description: 更新者
-        type: string
       user_name:
         description: 使用者名稱
         type: string
-    required:
-    - updated_by
     type: object
 host: api.t.d2din.com
 info:
@@ -6626,7 +6526,7 @@ paths:
     delete:
       consumes:
       - application/json
-      description: 刪除單一報價產品
+      description: 刪除多筆報價產品
       parameters:
       - description: JWE Token
         in: header
@@ -6634,10 +6534,11 @@ paths:
         required: true
         type: string
       - description: 報價產品ID
-        in: path
-        name: quoteProductID
+        in: body
+        name: '*'
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/quote_products.DeleteList'
       produces:
       - application/json
       responses:
@@ -6668,7 +6569,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 刪除單一報價產品
+      summary: 刪除多筆報價產品
       tags:
       - quote-product
     get:
@@ -6722,16 +6623,11 @@ paths:
     patch:
       consumes:
       - application/json
-      description: 更新單一報價產品
+      description: 更新多筆報價產品
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
-        required: true
-        type: string
-      - description: 報價產品ID
-        in: path
-        name: quoteProductID
         required: true
         type: string
       - description: 更新報價產品
@@ -6739,7 +6635,7 @@ paths:
         name: '*'
         required: true
         schema:
-          $ref: '#/definitions/quote_products.Update'
+          $ref: '#/definitions/quote_products.UpdateList'
       produces:
       - application/json
       responses:
@@ -6770,7 +6666,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 更新單一報價產品
+      summary: 更新多筆報價產品
       tags:
       - quote-product
   /quotes/{quoteID}:
