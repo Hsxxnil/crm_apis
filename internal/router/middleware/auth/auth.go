@@ -2,6 +2,7 @@ package auth
 
 import (
 	"net/http"
+	"strings"
 
 	roleModel "app.eirc/internal/interactor/models/roles"
 	"app.eirc/internal/interactor/pkg/util"
@@ -14,6 +15,7 @@ import (
 	"github.com/casbin/casbin/v2/model"
 	gormAdapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	_ "gorm.io/driver/postgres"
 )
 
@@ -109,9 +111,18 @@ func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 		}
 
 		e := Casbin()
-		log.Info("Casbin policy: %s,%s,%s", *checkRole.Name, c.Request.URL.Path, c.Request.Method)
 
-		res, err := e.Enforce(*checkRole.Name, c.Request.URL.Path, c.Request.Method)
+		// 去除path中的uuid
+		array := strings.Split(c.Request.URL.Path, "/")
+		var path string
+		if _, err := uuid.Parse(array[len(array)-1]); err == nil {
+			path = strings.Join(array[:len(array)-1], "/")
+		} else {
+			path = c.Request.URL.Path
+		}
+
+		log.Info("Casbin policy:", *checkRole.Name, path, c.Request.Method)
+		res, err := e.Enforce(*checkRole.Name, path, c.Request.Method)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"status": -1,
