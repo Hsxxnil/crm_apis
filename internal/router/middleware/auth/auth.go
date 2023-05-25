@@ -113,8 +113,6 @@ func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		e := Enforcer
-
 		// 去除path中的uuid
 		//array := strings.Split(c.Request.URL.Path, "/")
 		//var path string
@@ -125,7 +123,7 @@ func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 		//}
 
 		log.Info("Casbin policy:", *checkRole.Name, c.Request.URL.Path, c.Request.Method)
-		res, err := e.Enforce(*checkRole.Name, c.Request.URL.Path, c.Request.Method)
+		res, err := Enforcer.Enforce(*checkRole.Name, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"status": -1,
