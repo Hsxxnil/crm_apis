@@ -23,8 +23,8 @@ Authorization: Bearer {{accessToken}}
 {
   "ptype": "p",
   "role_name": "admin",
-  "path": "/crm/v1.0/users",
-  "method": "POST"
+  "path": "/crm/v1.0/users/*",
+  "method": "GET"
 }
 
 ### DeletePolicy
