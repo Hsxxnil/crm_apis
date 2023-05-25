@@ -1,6 +1,5 @@
 drop index idx_users_user_id;
 drop index idx_users_user_name;
-drop index uidx_users_user_name;
 drop index idx_users_name;
 drop index idx_users_phone_number;
 drop index idx_users_email;

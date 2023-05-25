@@ -21,9 +21,6 @@ create index idx_users_user_id
 create index idx_users_user_name
     on users using gin (user_name gin_trgm_ops);
 
-create unique index uidx_users_user_name
-    on users (user_name);
-
 create index idx_users_name
     on users using gin (name gin_trgm_ops);
 

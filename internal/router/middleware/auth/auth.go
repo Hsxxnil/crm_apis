@@ -2,28 +2,20 @@ package auth
 
 import (
 	"net/http"
-	"strings"
 
 	roleModel "app.eirc/internal/interactor/models/roles"
 	"app.eirc/internal/interactor/pkg/util"
-	role "app.eirc/internal/interactor/service/role"
+	"app.eirc/internal/interactor/service/role"
+	"github.com/casbin/casbin/v2/model"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/connect"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"github.com/casbin/casbin/v2"
-	"github.com/casbin/casbin/v2/model"
 	gormAdapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	_ "gorm.io/driver/postgres"
 )
-
-var Enforcer *casbin.Enforcer
-
-func init() {
-	Enforcer = Casbin()
-}
 
 // CasbinBind struct is used to create or delete the policy rule from front.
 type CasbinBind struct {
@@ -46,19 +38,7 @@ type CasbinOutput struct {
 	Method   string `json:"method"`
 }
 
-func AddPolicy(cm CasbinModel) (bool, error) {
-	return Enforcer.AddPolicy(cm.RoleName, cm.Path, cm.Method)
-}
-
-func DeletePolicy(cm CasbinModel) (bool, error) {
-	return Enforcer.RemovePolicy(cm.RoleName, cm.Path, cm.Method)
-}
-
-func GetAllPolicies() [][]string {
-	return Enforcer.GetPolicy()
-}
-
-func Casbin() *casbin.Enforcer {
+func adapter() *gormAdapter.Adapter {
 	db, err := connect.PostgresSQL()
 	if err != nil {
 		panic(err)
@@ -69,6 +49,10 @@ func Casbin() *casbin.Enforcer {
 		panic(err)
 	}
 
+	return a
+}
+
+func Casbin(a *gormAdapter.Adapter) *casbin.Enforcer {
 	m, err := model.NewModelFromString(`[request_definition]
 	r = sub, obj, act
 
@@ -95,6 +79,25 @@ func Casbin() *casbin.Enforcer {
 	return e
 }
 
+var Enforcer *casbin.Enforcer
+
+func init() {
+	a := adapter()
+	Enforcer = Casbin(a)
+}
+
+func AddPolicy(cm CasbinModel) (bool, error) {
+	return Enforcer.AddPolicy(cm.RoleName, cm.Path, cm.Method)
+}
+
+func DeletePolicy(cm CasbinModel) (bool, error) {
+	return Enforcer.RemovePolicy(cm.RoleName, cm.Path, cm.Method)
+}
+
+func GetAllPolicies() [][]string {
+	return Enforcer.GetPolicy()
+}
+
 func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		checkRole, err := role.Init(db).GetBySingle(&roleModel.Field{
@@ -110,19 +113,19 @@ func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		e := Casbin()
+		e := Enforcer
 
 		// 去除path中的uuid
-		array := strings.Split(c.Request.URL.Path, "/")
-		var path string
-		if _, err := uuid.Parse(array[len(array)-1]); err == nil {
-			path = strings.Join(array[:len(array)-1], "/")
-		} else {
-			path = c.Request.URL.Path
-		}
+		//array := strings.Split(c.Request.URL.Path, "/")
+		//var path string
+		//if _, err := uuid.Parse(array[len(array)-1]); err == nil {
+		//	path = strings.Join(array[:len(array)-1], "/")
+		//} else {
+		//	path = c.Request.URL.Path
+		//}
 
-		log.Info("Casbin policy:", *checkRole.Name, path, c.Request.Method)
-		res, err := e.Enforce(*checkRole.Name, path, c.Request.Method)
+		log.Info("Casbin policy:", *checkRole.Name, c.Request.URL.Path, c.Request.Method)
+		res, err := e.Enforce(*checkRole.Name, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"status": -1,
