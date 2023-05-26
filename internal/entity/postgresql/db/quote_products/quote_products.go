@@ -22,6 +22,8 @@ type Table struct {
 	UnitPrice float64 `gorm:"column:unit_price;type:numeric;not null;" json:"unit_price"`
 	// 報價產品小計
 	SubTotal float64 `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
+	// 報價產品總價
+	Total float64 `gorm:"column:total;type:numeric;not null;" json:"total"`
 	// 報價產品折扣
 	Discount float64 `gorm:"column:discount;type:text;not null;" json:"discount"`
 	// create_users data
@@ -47,6 +49,8 @@ type Base struct {
 	UnitPrice *float64 `json:"unit_price,omitempty"`
 	// 報價產品小計
 	SubTotal *float64 `json:"sub_total,omitempty"`
+	// 報價產品總價
+	Total *float64 `json:"total,omitempty"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty"`
 	// create_users data

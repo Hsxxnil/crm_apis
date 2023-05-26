@@ -124,6 +124,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["sub_total"] = input.SubTotal
 	}
 
+	if input.Total != nil {
+		data["total"] = input.Total
+	}
+
 	if input.Discount != nil {
 		data["discount"] = input.Discount
 	}
