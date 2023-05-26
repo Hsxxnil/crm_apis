@@ -17,6 +17,8 @@ type Create struct {
 	UnitPrice float64 `json:"unit_price,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 報價產品小計
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
+	// 報價產品總價
+	Total float64 `json:"total,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 創建者
@@ -42,6 +44,8 @@ type Field struct {
 	UnitPrice *float64 `json:"unit_price,omitempty" form:"unit_price"`
 	// 報價產品小計
 	SubTotal *float64 `json:"sub_total,omitempty" form:"sub_total"`
+	// 報價產品總價
+	Total *float64 `json:"total,omitempty" form:"total"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" form:"discount"`
 }
@@ -74,6 +78,8 @@ type List struct {
 		UnitPrice float64 `json:"unit_price,omitempty"`
 		// 報價產品小計
 		SubTotal float64 `json:"sub_total,omitempty"`
+		// 報價產品總價
+		Total float64 `json:"total,omitempty"`
 		// 報價產品折扣
 		Discount float64 `json:"discount,omitempty"`
 		// 創建者
@@ -105,6 +111,8 @@ type Single struct {
 	UnitPrice float64 `json:"unit_price,omitempty"`
 	// 報價產品小計
 	SubTotal float64 `json:"sub_total,omitempty"`
+	// 報價產品總價
+	Total float64 `json:"total,omitempty"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty"`
 	// 創建者
@@ -126,7 +134,9 @@ type Update struct {
 	// 報價產品單價
 	UnitPrice *float64 `json:"unit_price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 報價產品小計
-	SubTotal float64 `json:"sub_total,omitempty"`
+	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
+	// 報價產品總價
+	Total float64 `json:"total,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
@@ -159,6 +169,8 @@ type QuoteSingle struct {
 	UnitPrice float64 `json:"unit_price,omitempty"`
 	// 報價產品小計
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
+	// 報價產品總價
+	Total float64 `json:"total,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty"`
 }

@@ -37,7 +37,8 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 
 	var output []*string
 	for _, inputBody := range input.QuoteProducts {
-		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity) * inputBody.Discount / 100
+		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity)
+		inputBody.Total = inputBody.SubTotal * (1 - inputBody.Discount/100)
 		quoteProductBase, err := m.QuoteProductService.WithTrx(trx).Create(inputBody)
 		if err != nil {
 			log.Error(err)
@@ -160,7 +161,8 @@ func (m *manager) Update(input *quoteProductModel.UpdateList) (int, interface{})
 		if inputBody.Discount == quoteProductBase.Discount {
 			discount = quoteProductBase.Discount
 		}
-		inputBody.SubTotal = *unitPrice * float64(*quantity) * *discount / 100
+		inputBody.SubTotal = *unitPrice * float64(*quantity)
+		inputBody.Total = inputBody.SubTotal * (1 - *discount/100)
 
 		err = m.QuoteProductService.Update(inputBody)
 		if err != nil {
