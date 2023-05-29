@@ -45,7 +45,6 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 	for i, inputBody := range input.QuoteProducts {
 		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity)
 		inputBody.Total = inputBody.SubTotal * (1 - inputBody.Discount/100)
-
 		// 取得報價號碼
 		quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
 			QuoteID: inputBody.QuoteID,
@@ -70,7 +69,7 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 		}
 		output = append(output, quoteProductBase.QuoteProductID)
-		// 陣列中第二筆單號數字等於前次迴圈的單號數字+1
+		// 陣列中第二筆後單號數字等於前次迴圈的單號數字+1
 		quantity++
 	}
 
