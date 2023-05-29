@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
 
 	"app.eirc/internal/interactor/pkg/util"
 
@@ -41,7 +43,7 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 	defer trx.Rollback()
 
 	var output []*string
-	quantity := 0
+	number := 0
 	for i, inputBody := range input.QuoteProducts {
 		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity)
 		inputBody.Total = inputBody.SubTotal * (1 - inputBody.Discount/100)
@@ -55,14 +57,24 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 			}
 		}
 		quoteCode := *quoteBase.Code
-		// 陣列中第一筆單號數字等於同報價的報價產品數量+1
-		if i == 0 {
-			quantity64, _ := m.QuoteProductService.GetByQuantity(&quoteProductModel.Field{
-				QuoteID: util.PointerString(inputBody.QuoteID),
-			})
-			quantity = int(quantity64)
+		// 判斷是否已存在同報價的報價產品
+		quantity, _ := m.QuoteProductService.GetByQuantity(&quoteProductModel.Field{
+			QuoteID: util.PointerString(inputBody.QuoteID),
+		})
+		if quantity != 0 {
+			// 陣列中第一筆單號數字等於同報價的最後一筆報價產品單號數字+1
+			if i == 0 {
+				// 取得同報價的最後一筆單號
+				quoteProductBase, _ := m.QuoteProductService.GetByLastCode(&quoteProductModel.Field{
+					QuoteID: util.PointerString(inputBody.QuoteID),
+				})
+				// 將最後一筆單號的數字部分取出
+				codeParts := strings.Split(*quoteProductBase.Code, "-")
+				numericPart := codeParts[1]
+				number, _ = strconv.Atoi(numericPart)
+			}
 		}
-		inputBody.Code = fmt.Sprintf("%s-%d", quoteCode, quantity+1)
+		inputBody.Code = fmt.Sprintf("%s-%d", quoteCode, number+1)
 		quoteProductBase, err := m.QuoteProductService.WithTrx(trx).Create(inputBody)
 		if err != nil {
 			log.Error(err)
@@ -70,11 +82,10 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 		}
 		output = append(output, quoteProductBase.QuoteProductID)
 		// 陣列中第二筆後單號數字等於前次迴圈的單號數字+1
-		quantity++
+		number++
 	}
 
 	trx.Commit()
-	quantity = 0
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
