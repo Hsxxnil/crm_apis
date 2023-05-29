@@ -17,6 +17,7 @@ type Entity interface {
 	GetByQuantity(input *model.Base) (quantity int64, err error)
 	Delete(input *model.Base) (err error)
 	Update(input *model.Base) (err error)
+	GetByLastCode(input *model.Base) (output *model.Table, err error)
 }
 
 type storage struct {
@@ -166,4 +167,19 @@ func (s *storage) Delete(input *model.Base) (err error) {
 	}
 
 	return nil
+}
+
+func (s *storage) GetByLastCode(input *model.Base) (output *model.Table, err error) {
+	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	if input.QuoteID != nil {
+		query.Where("quote_id = ?", input.QuoteID)
+	}
+
+	err = query.Order("code desc").First(&output).Error
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	return output, nil
 }
