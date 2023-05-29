@@ -26,6 +26,10 @@ type Table struct {
 	Total float64 `gorm:"column:total;type:numeric;not null;" json:"total"`
 	// 報價產品折扣
 	Discount float64 `gorm:"column:discount;type:text;not null;" json:"discount"`
+	// 報價產品描述
+	Description string `gorm:"column:description;type:text;" json:"description"`
+	// 報價產品號碼
+	Code string `gorm:"column:code;type:text;not null;" json:"code"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -53,6 +57,10 @@ type Base struct {
 	Total *float64 `json:"total,omitempty"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty"`
+	// 報價產品描述
+	Description *string `json:"description,omitempty"`
+	// 報價產品號碼
+	Code *string `json:"code,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

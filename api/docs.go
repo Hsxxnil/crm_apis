@@ -11499,6 +11499,10 @@ const docTemplate = `{
                 "unit_price"
             ],
             "properties": {
+                "description": {
+                    "description": "報價產品描述",
+                    "type": "string"
+                },
                 "discount": {
                     "description": "報價產品折扣",
                     "type": "number",
@@ -11575,6 +11579,10 @@ const docTemplate = `{
                                 "description": "啟用時間",
                                 "type": "string"
                             },
+                            "code": {
+                                "description": "報價產品號碼",
+                                "type": "string"
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -11585,6 +11593,10 @@ const docTemplate = `{
                             },
                             "deleted_at": {
                                 "description": "刪除時間",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "報價產品描述",
                                 "type": "string"
                             },
                             "discount": {
@@ -11647,6 +11659,14 @@ const docTemplate = `{
         "quote_products.QuoteSingle": {
             "type": "object",
             "properties": {
+                "code": {
+                    "description": "報價產品號碼",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "報價產品描述",
+                    "type": "string"
+                },
                 "discount": {
                     "description": "報價產品折扣",
                     "type": "number"
@@ -11684,6 +11704,10 @@ const docTemplate = `{
                     "description": "啟用時間",
                     "type": "string"
                 },
+                "code": {
+                    "description": "報價產品號碼",
+                    "type": "string"
+                },
                 "created_at": {
                     "description": "創建時間",
                     "type": "string"
@@ -11694,6 +11718,10 @@ const docTemplate = `{
                 },
                 "deleted_at": {
                     "description": "刪除時間",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "報價產品描述",
                     "type": "string"
                 },
                 "discount": {
@@ -11749,6 +11777,10 @@ const docTemplate = `{
         "quote_products.Update": {
             "type": "object",
             "properties": {
+                "description": {
+                    "description": "報價產品描述",
+                    "type": "string"
+                },
                 "discount": {
                     "description": "報價產品折扣",
                     "type": "number",

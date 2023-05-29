@@ -2379,6 +2379,9 @@ definitions:
     type: object
   quote_products.Create:
     properties:
+      description:
+        description: 報價產品描述
+        type: string
       discount:
         description: 報價產品折扣
         minimum: 0
@@ -2436,6 +2439,9 @@ definitions:
             activated_at:
               description: 啟用時間
               type: string
+            code:
+              description: 報價產品號碼
+              type: string
             created_at:
               description: 創建時間
               type: string
@@ -2444,6 +2450,9 @@ definitions:
               type: string
             deleted_at:
               description: 刪除時間
+              type: string
+            description:
+              description: 報價產品描述
               type: string
             discount:
               description: 報價產品折扣
@@ -2492,6 +2501,12 @@ definitions:
     type: object
   quote_products.QuoteSingle:
     properties:
+      code:
+        description: 報價產品號碼
+        type: string
+      description:
+        description: 報價產品描述
+        type: string
       discount:
         description: 報價產品折扣
         type: number
@@ -2519,6 +2534,9 @@ definitions:
       activated_at:
         description: 啟用時間
         type: string
+      code:
+        description: 報價產品號碼
+        type: string
       created_at:
         description: 創建時間
         type: string
@@ -2527,6 +2545,9 @@ definitions:
         type: string
       deleted_at:
         description: 刪除時間
+        type: string
+      description:
+        description: 報價產品描述
         type: string
       discount:
         description: 報價產品折扣
@@ -2567,6 +2588,9 @@ definitions:
     type: object
   quote_products.Update:
     properties:
+      description:
+        description: 報價產品描述
+        type: string
       discount:
         description: 報價產品折扣
         minimum: 0

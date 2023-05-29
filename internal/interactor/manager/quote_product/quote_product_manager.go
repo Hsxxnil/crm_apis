@@ -3,10 +3,13 @@ package quote_product
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 
 	"app.eirc/internal/interactor/pkg/util"
 
 	quoteProductModel "app.eirc/internal/interactor/models/quote_products"
+	quoteModel "app.eirc/internal/interactor/models/quotes"
+	quoteService "app.eirc/internal/interactor/service/quote"
 	quoteProductService "app.eirc/internal/interactor/service/quote_product"
 	"gorm.io/gorm"
 
@@ -24,11 +27,13 @@ type Manager interface {
 
 type manager struct {
 	QuoteProductService quoteProductService.Service
+	QuoteService        quoteService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
 		QuoteProductService: quoteProductService.Init(db),
+		QuoteService:        quoteService.Init(db),
 	}
 }
 
@@ -36,18 +41,41 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 	defer trx.Rollback()
 
 	var output []*string
-	for _, inputBody := range input.QuoteProducts {
+	quantity := 0
+	for i, inputBody := range input.QuoteProducts {
 		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity)
 		inputBody.Total = inputBody.SubTotal * (1 - inputBody.Discount/100)
+
+		// 取得報價號碼
+		quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
+			QuoteID: inputBody.QuoteID,
+		})
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return code.DoesNotExist, code.GetCodeMessage(code.DoesNotExist, err.Error())
+			}
+		}
+		quoteCode := *quoteBase.Code
+		// 陣列中第一筆單號數字等於同報價的報價產品數量+1
+		if i == 0 {
+			quantity64, _ := m.QuoteProductService.GetByQuantity(&quoteProductModel.Field{
+				QuoteID: util.PointerString(inputBody.QuoteID),
+			})
+			quantity = int(quantity64)
+		}
+		inputBody.Code = fmt.Sprintf("%s-%d", quoteCode, quantity+1)
 		quoteProductBase, err := m.QuoteProductService.WithTrx(trx).Create(inputBody)
 		if err != nil {
 			log.Error(err)
 			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 		}
 		output = append(output, quoteProductBase.QuoteProductID)
+		// 陣列中第二筆單號數字等於前次迴圈的單號數字+1
+		quantity++
 	}
 
 	trx.Commit()
+	quantity = 0
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 

@@ -28,18 +28,20 @@ Authorization: Bearer {{accessToken}}
 {
   "products": [
     {
-      "quote_id": "2197d141-c820-45cf-8930-c3d80dc945d6",
+      "quote_id": "5592ae6a-925d-478d-9e73-0a2984f33507",
       "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
       "quantity": 1,
       "unit_price": 100,
-      "discount": 50
+      "discount": 50,
+      "description": "1"
     },
     {
-      "quote_id": "2197d141-c820-45cf-8930-c3d80dc945d6",
+      "quote_id": "5592ae6a-925d-478d-9e73-0a2984f33507",
       "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
       "quantity": 1,
       "unit_price": 100,
-      "discount": 50
+      "discount": 50,
+      "description": "1"
     }
   ]
 }
