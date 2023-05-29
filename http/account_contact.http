@@ -1,0 +1,46 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
+### GetByList
+GET {{host}}/crm/v1.0/accounts-contacts?page=1&limit=20
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### GetBySingle
+GET {{host}}/crm/v1.0/accounts-contacts/8e6aca7b-beca-4def-8240-c5628aeb7951
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### Create
+POST {{host}}/crm/v1.0/accounts-contacts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "account_id": "ab204144-44f0-4c57-935a-3a6ca06fca00",
+  "contact_id": "34869303-5956-4dda-ab6e-652631a730f9"
+}
+
+### Update
+PATCH {{host}}/crm/v1.0/accounts-contacts/8e6aca7b-beca-4def-8240-c5628aeb7951
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "account_id": "373042d7-3cb4-4e17-b69f-9b294b69eb7f",
+  "contact_id": "5dec6445-7d5d-450f-afcc-ed5a16b0ec08"
+}
+
+### Delete
+DELETE {{host}}/crm/v1.0/accounts-contacts/d497a01c-2e47-4530-b4b9-821c1dde695a
+Accept: application/json
+Authorization: Bearer {{accessToken}}

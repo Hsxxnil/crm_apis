@@ -21,6 +21,10 @@ type Create struct {
 	Total float64 `json:"total,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
+	// 報價產品描述
+	Description string `json:"description,omitempty"`
+	// 報價產品號碼
+	Code string `json:"code,omitempty" swaggerignore:"true"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
@@ -48,6 +52,10 @@ type Field struct {
 	Total *float64 `json:"total,omitempty" form:"total"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" form:"discount"`
+	// 報價產品描述
+	Description *string `json:"description,omitempty" form:"description"`
+	// 報價產品號碼
+	Code *string `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -82,6 +90,10 @@ type List struct {
 		Total float64 `json:"total,omitempty"`
 		// 報價產品折扣
 		Discount float64 `json:"discount,omitempty"`
+		// 報價產品描述
+		Description string `json:"description,omitempty"`
+		// 報價產品號碼
+		Code string `json:"code,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -115,6 +127,10 @@ type Single struct {
 	Total float64 `json:"total,omitempty"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty"`
+	// 報價產品描述
+	Description string `json:"description,omitempty"`
+	// 報價產品號碼
+	Code string `json:"code,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -139,6 +155,8 @@ type Update struct {
 	Total float64 `json:"total,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
+	// 報價產品描述
+	Description *string `json:"description,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
@@ -173,4 +191,8 @@ type QuoteSingle struct {
 	Total float64 `json:"total,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty"`
+	// 報價產品描述
+	Description string `json:"description,omitempty"`
+	// 報價產品號碼
+	Code string `json:"code,omitempty"`
 }

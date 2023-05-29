@@ -1,5 +1,107 @@
 basePath: /crm/v1.0
 definitions:
+  account_contacts.Create:
+    properties:
+      account_id:
+        description: 帳戶ID
+        type: string
+      contact_id:
+        description: 聯絡人ID
+        type: string
+    required:
+    - account_id
+    - contact_id
+    type: object
+  account_contacts.List:
+    properties:
+      account_contacts:
+        description: 多筆
+        items:
+          properties:
+            account_contact_id:
+              description: 帳戶聯絡人ID
+              type: string
+            account_id:
+              description: 帳戶ID
+              type: string
+            activated_at:
+              description: 啟用時間
+              type: string
+            contact_id:
+              description: 聯絡人ID
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            deleted_at:
+              description: 刪除時間
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  account_contacts.Single:
+    properties:
+      account_contact_id:
+        description: 帳戶聯絡人ID
+        type: string
+      account_id:
+        description: 帳戶ID
+        type: string
+      activated_at:
+        description: 啟用時間
+        type: string
+      contact_id:
+        description: 聯絡人ID
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      deleted_at:
+        description: 刪除時間
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  account_contacts.Update:
+    properties:
+      account_id:
+        description: 帳戶ID
+        type: string
+      contact_id:
+        description: 聯絡人ID
+        type: string
+    type: object
   accounts.Create:
     properties:
       industry_id:
@@ -2277,6 +2379,9 @@ definitions:
     type: object
   quote_products.Create:
     properties:
+      description:
+        description: 報價產品描述
+        type: string
       discount:
         description: 報價產品折扣
         minimum: 0
@@ -2334,6 +2439,9 @@ definitions:
             activated_at:
               description: 啟用時間
               type: string
+            code:
+              description: 報價產品號碼
+              type: string
             created_at:
               description: 創建時間
               type: string
@@ -2342,6 +2450,9 @@ definitions:
               type: string
             deleted_at:
               description: 刪除時間
+              type: string
+            description:
+              description: 報價產品描述
               type: string
             discount:
               description: 報價產品折扣
@@ -2390,6 +2501,12 @@ definitions:
     type: object
   quote_products.QuoteSingle:
     properties:
+      code:
+        description: 報價產品號碼
+        type: string
+      description:
+        description: 報價產品描述
+        type: string
       discount:
         description: 報價產品折扣
         type: number
@@ -2417,6 +2534,9 @@ definitions:
       activated_at:
         description: 啟用時間
         type: string
+      code:
+        description: 報價產品號碼
+        type: string
       created_at:
         description: 創建時間
         type: string
@@ -2425,6 +2545,9 @@ definitions:
         type: string
       deleted_at:
         description: 刪除時間
+        type: string
+      description:
+        description: 報價產品描述
         type: string
       discount:
         description: 報價產品折扣
@@ -2465,6 +2588,9 @@ definitions:
     type: object
   quote_products.Update:
     properties:
+      description:
+        description: 報價產品描述
+        type: string
       discount:
         description: 報價產品折扣
         minimum: 0
@@ -3127,6 +3253,260 @@ paths:
       summary: 新增帳戶
       tags:
       - account
+  /accounts-contacts:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部帳戶聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/account_contacts.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部帳戶聯絡人
+      tags:
+      - account-contact
+    post:
+      consumes:
+      - application/json
+      description: 新增帳戶聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增帳戶聯絡人
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/account_contacts.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增帳戶聯絡人
+      tags:
+      - account-contact
+  /accounts-contacts/{accountContactID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一帳戶聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳戶聯絡人ID
+        in: path
+        name: accountContactID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一帳戶聯絡人
+      tags:
+      - account-contact
+    get:
+      consumes:
+      - application/json
+      description: 取得單一帳戶聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳戶聯絡人ID
+        in: path
+        name: accountContactID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/account_contacts.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一帳戶聯絡人
+      tags:
+      - account-contact
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一帳戶聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 帳戶聯絡人ID
+        in: path
+        name: accountContactID
+        required: true
+        type: string
+      - description: 更新帳戶聯絡人
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/account_contacts.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一帳戶聯絡人
+      tags:
+      - account-contact
   /accounts/{accountID}:
     delete:
       consumes:

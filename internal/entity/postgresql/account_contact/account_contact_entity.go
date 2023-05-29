@@ -1,9 +1,9 @@
-package quote_product
+package account_contact
 
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/quote_products"
+	model "app.eirc/internal/entity/postgresql/db/account_contacts"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -60,8 +60,8 @@ func (s *storage) Create(input *model.Base) (err error) {
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
-	if input.QuoteProductID != nil {
-		query.Where("quote_product_id = ?", input.QuoteProductID)
+	if input.AccountContactID != nil {
+		query.Where("account_contact_id = ?", input.AccountContactID)
 	}
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
@@ -76,8 +76,8 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
-	if input.QuoteProductID != nil {
-		query.Where("quote_product_id = ?", input.QuoteProductID)
+	if input.AccountContactID != nil {
+		query.Where("account_contact_id = ?", input.AccountContactID)
 	}
 
 	err = query.First(&output).Error
@@ -91,12 +91,8 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 
 func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
-	if input.QuoteProductID != nil {
-		query.Where("quote_product_id = ?", input.QuoteProductID)
-	}
-
-	if input.QuoteID != nil {
-		query.Where("quote_id = ?", input.QuoteID)
+	if input.AccountContactID != nil {
+		query.Where("account_contact_id = ?", input.AccountContactID)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -112,36 +108,20 @@ func (s *storage) Update(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
 	data := map[string]any{}
 
-	if input.ProductID != nil {
-		data["product_id"] = input.ProductID
+	if input.AccountID != nil {
+		data["account_id"] = input.AccountID
 	}
 
-	if input.Quantity != nil {
-		data["quantity"] = input.Quantity
-	}
-
-	if input.UnitPrice != nil {
-		data["unit_price"] = input.UnitPrice
-	}
-
-	if input.SubTotal != nil {
-		data["sub_total"] = input.SubTotal
-	}
-
-	if input.Total != nil {
-		data["total"] = input.Total
-	}
-
-	if input.Discount != nil {
-		data["discount"] = input.Discount
+	if input.ContactID != nil {
+		data["contact_id"] = input.ContactID
 	}
 
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
 
-	if input.QuoteProductID != nil {
-		query.Where("quote_product_id = ?", input.QuoteProductID)
+	if input.AccountContactID != nil {
+		query.Where("account_contact_id = ?", input.AccountContactID)
 	}
 
 	err = query.Select("*").Updates(data).Error
@@ -155,8 +135,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 func (s *storage) Delete(input *model.Base) (err error) {
 	query := s.db.Model(&model.Table{}).Omit(clause.Associations)
-	if input.QuoteProductID != nil {
-		query.Where("quote_product_id = ?", input.QuoteProductID)
+	if input.AccountContactID != nil {
+		query.Where("account_contact_id = ?", input.AccountContactID)
 	}
 
 	err = query.Delete(&model.Table{}).Error

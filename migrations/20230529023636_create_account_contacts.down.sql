@@ -1,0 +1,8 @@
+drop index idx_account_contacts_account_contact_id;
+drop index idx_account_contacts_account_id;
+drop index idx_account_contacts_contact_id;
+drop index idx_account_contacts_created_at;
+drop index idx_account_contacts_created_by;
+drop index idx_account_contacts_updated_at;
+drop index idx_account_contacts_updated_by;
+drop table account_contacts;
