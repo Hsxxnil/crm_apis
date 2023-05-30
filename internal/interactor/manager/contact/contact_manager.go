@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	accountService "app.eirc/internal/interactor/service/account"
+	accountContactModel "app.eirc/internal/interactor/models/account_contacts"
+	accountContactService "app.eirc/internal/interactor/service/account_contact"
 
 	"app.eirc/internal/interactor/pkg/util"
 
@@ -26,14 +26,14 @@ type Manager interface {
 }
 
 type manager struct {
-	ContactService contactService.Service
-	AccountService accountService.Service
+	ContactService        contactService.Service
+	AccountContactService accountContactService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		ContactService: contactService.Init(db),
-		AccountService: accountService.Init(db),
+		ContactService:        contactService.Init(db),
+		AccountContactService: accountContactService.Init(db),
 	}
 }
 
@@ -41,6 +41,16 @@ func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, interfa
 	defer trx.Rollback()
 
 	contactBase, err := m.ContactService.WithTrx(trx).Create(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	_, err = m.AccountContactService.WithTrx(trx).Create(&accountContactModel.Create{
+		AccountID: input.AccountID,
+		ContactID: *contactBase.ContactID,
+		CreatedBy: *contactBase.CreatedBy,
+	})
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -76,19 +86,13 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
 		contacts.CreatedBy = *contactBase[i].CreatedByUsers.Name
 		contacts.UpdatedBy = *contactBase[i].UpdatedByUsers.Name
 		contacts.SalespersonName = *contactBase[i].Salespeople.Name
+		contacts.AccountName = *contactBase[i].Accounts.Name
 		if supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: contacts.SupervisorID,
 		}); err != nil {
 			contacts.SupervisorName = ""
 		} else {
 			contacts.SupervisorName = *supervisorBase.Name
-		}
-		if accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{
-			AccountID: contacts.AccountID,
-		}); err != nil {
-			contacts.AccountName = ""
-		} else {
-			contacts.AccountName = *accountBase.Name
 		}
 	}
 
@@ -117,6 +121,7 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
 	output.CreatedBy = *contactBase.CreatedByUsers.Name
 	output.UpdatedBy = *contactBase.UpdatedByUsers.Name
 	output.SalespersonName = *contactBase.Salespeople.Name
+	output.AccountName = *contactBase.Accounts.Name
 	if supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: *contactBase.SupervisorID,
 	}); err != nil {
@@ -147,6 +152,17 @@ func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	accountContactBase, _ := m.AccountContactService.GetBySingle(&accountContactModel.Field{
+		ContactID: util.PointerString(input.ContactID),
+	})
+	err = m.AccountContactService.Delete(&accountContactModel.Field{
+		AccountContactID: *accountContactBase.AccountContactID,
+	})
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
@@ -167,6 +183,21 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	if input.AccountID != nil && input.AccountID != contactBase.AccountID {
+		accountContactBase, err := m.AccountContactService.GetBySingle(&accountContactModel.Field{
+			ContactID: util.PointerString(input.ContactID),
+		})
+		err = m.AccountContactService.Update(&accountContactModel.Update{
+			AccountContactID: *accountContactBase.AccountContactID,
+			AccountID:        input.AccountID,
+			UpdatedBy:        input.UpdatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, contactBase.ContactID)

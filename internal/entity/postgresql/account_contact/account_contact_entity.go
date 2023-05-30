@@ -80,6 +80,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("account_contact_id = ?", input.AccountContactID)
 	}
 
+	if input.ContactID != nil {
+		query.Where("contact_id = ?", input.ContactID)
+	}
+
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)

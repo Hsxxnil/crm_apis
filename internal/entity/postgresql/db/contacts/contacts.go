@@ -1,6 +1,7 @@
 package contacts
 
 import (
+	"app.eirc/internal/entity/postgresql/db/accounts"
 	"app.eirc/internal/entity/postgresql/db/users"
 	model "app.eirc/internal/interactor/models/contacts"
 	"app.eirc/internal/interactor/models/sort"
@@ -29,6 +30,8 @@ type Table struct {
 	SupervisorID string `gorm:"column:supervisor_id;type:uuid;not null;" json:"supervisor_id"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
+	// accounts  data
+	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
 	// 業務員ID
 	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
 	// salespeople  data
@@ -62,6 +65,8 @@ type Base struct {
 	SupervisorID *string `json:"supervisor_id,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
+	// accounts  data
+	Accounts accounts.Base `json:"accounts,omitempty"`
 	// 業務員ID
 	SalespersonID *string `json:"salesperson_id,omitempty"`
 	// salespeople  data

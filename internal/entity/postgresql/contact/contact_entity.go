@@ -59,7 +59,7 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Salespeople").Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Salespeople").Joins("Accounts").Preload(clause.Associations)
 	if input.ContactID != nil {
 		query.Where("contact_id = ?", input.ContactID)
 	}
@@ -67,6 +67,8 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
 			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
+		} else if input.Sort.Field == "account_name" && input.Sort.Direction != "" {
+			query.Order(`"Accounts".name` + " " + input.Sort.Direction)
 		} else {
 			query.Order(input.Sort.Field + " " + input.Sort.Direction)
 		}
@@ -78,6 +80,14 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	if input.FilterName != nil {
 		filter.Where("contacts.name like ?", "%"+*input.FilterName+"%")
 		isFiltered = true
+	}
+
+	if input.FilterAccountName != nil {
+		if isFiltered {
+			filter.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+		} else {
+			filter.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+		}
 	}
 
 	if input.FilterEmail != nil {

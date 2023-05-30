@@ -72,7 +72,8 @@ type Fields struct {
 type Filter struct {
 	// 聯絡人名稱
 	FilterName *string `json:"name,omitempty"`
-	// Todo 帳戶名稱
+	// 帳戶名稱
+	FilterAccountName *string `json:"account_name,omitempty"`
 	// 聯絡人行動電話
 	FilterCellPhone *string `json:"cell_phone,omitempty"`
 	// 聯絡人電子郵件
@@ -188,24 +189,4 @@ type Update struct {
 	SalespersonID *string `json:"salesperson_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
-}
-
-// AccountSingle return structure file for accounts
-type AccountSingle struct {
-	// 聯絡人ID
-	ContactID string `json:"contact_id,omitempty"`
-	// 聯絡人名稱
-	Name string `json:"name,omitempty"`
-	// 聯絡人職稱
-	Title string `json:"title,omitempty"`
-	// 聯絡人電話
-	PhoneNumber string `json:"phone_number,omitempty"`
-	// 聯絡人行動電話
-	CellPhone string `json:"cell_phone,omitempty"`
-	// 聯絡人電子郵件
-	Email string `json:"email,omitempty"`
-	// 聯絡人稱謂
-	Salutation string `json:"salutation,omitempty"`
-	// 聯絡人部門
-	Department string `json:"department,omitempty"`
 }

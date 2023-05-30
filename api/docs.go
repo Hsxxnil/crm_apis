@@ -8247,6 +8247,43 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "account_contacts.AccountSingle": {
+            "type": "object",
+            "properties": {
+                "contact_cell_phone": {
+                    "description": "聯絡人行動電話",
+                    "type": "string"
+                },
+                "contact_department": {
+                    "description": "聯絡人部門",
+                    "type": "string"
+                },
+                "contact_email": {
+                    "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "contact_id": {
+                    "description": "聯絡人ID",
+                    "type": "string"
+                },
+                "contact_name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                },
+                "contact_phone_number": {
+                    "description": "聯絡人電話",
+                    "type": "string"
+                },
+                "contact_salutation": {
+                    "description": "聯絡人稱謂",
+                    "type": "string"
+                },
+                "contact_title": {
+                    "description": "聯絡人職稱",
+                    "type": "string"
+                }
+            }
+        },
         "account_contacts.Create": {
             "type": "object",
             "required": [
@@ -8619,10 +8656,10 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "contacts": {
-                    "description": "contacts data",
+                    "description": "account_contacts data",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/contacts.AccountSingle"
+                        "$ref": "#/definitions/account_contacts.AccountSingle"
                     }
                 },
                 "created_at": {
@@ -9268,43 +9305,6 @@ const docTemplate = `{
                 }
             }
         },
-        "contacts.AccountSingle": {
-            "type": "object",
-            "properties": {
-                "cell_phone": {
-                    "description": "聯絡人行動電話",
-                    "type": "string"
-                },
-                "contact_id": {
-                    "description": "聯絡人ID",
-                    "type": "string"
-                },
-                "department": {
-                    "description": "聯絡人部門",
-                    "type": "string"
-                },
-                "email": {
-                    "description": "聯絡人電子郵件",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "聯絡人名稱",
-                    "type": "string"
-                },
-                "phone_number": {
-                    "description": "聯絡人電話",
-                    "type": "string"
-                },
-                "salutation": {
-                    "description": "聯絡人稱謂",
-                    "type": "string"
-                },
-                "title": {
-                    "description": "聯絡人職稱",
-                    "type": "string"
-                }
-            }
-        },
         "contacts.Create": {
             "type": "object",
             "required": [
@@ -9355,8 +9355,12 @@ const docTemplate = `{
         "contacts.Filter": {
             "type": "object",
             "properties": {
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
                 "cell_phone": {
-                    "description": "Todo 帳戶名稱\n聯絡人行動電話",
+                    "description": "聯絡人行動電話",
                     "type": "string"
                 },
                 "email": {
