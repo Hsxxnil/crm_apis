@@ -187,17 +187,17 @@ func (m *manager) Update(input *quoteProductModel.UpdateList) (int, interface{})
 			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 		}
 
-		unitPrice := inputBody.UnitPrice
-		quantity := inputBody.Quantity
-		discount := inputBody.Discount
-		if inputBody.UnitPrice == quoteProductBase.UnitPrice {
-			unitPrice = quoteProductBase.UnitPrice
+		unitPrice := quoteProductBase.UnitPrice
+		quantity := quoteProductBase.Quantity
+		discount := quoteProductBase.Discount
+		if inputBody.UnitPrice != nil && inputBody.UnitPrice != quoteProductBase.UnitPrice {
+			unitPrice = inputBody.UnitPrice
 		}
-		if inputBody.Quantity == quoteProductBase.Quantity {
-			quantity = quoteProductBase.Quantity
+		if inputBody.Quantity != nil && inputBody.Quantity != quoteProductBase.Quantity {
+			quantity = inputBody.Quantity
 		}
-		if inputBody.Discount == quoteProductBase.Discount {
-			discount = quoteProductBase.Discount
+		if inputBody.Discount != nil && inputBody.Discount != quoteProductBase.Discount {
+			discount = inputBody.Discount
 		}
 		inputBody.SubTotal = *unitPrice * float64(*quantity)
 		inputBody.Total = inputBody.SubTotal * (1 - *discount/100)

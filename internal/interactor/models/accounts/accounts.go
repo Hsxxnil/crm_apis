@@ -1,7 +1,7 @@
 package accounts
 
 import (
-	"app.eirc/internal/interactor/models/contacts"
+	"app.eirc/internal/interactor/models/account_contacts"
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
 	"app.eirc/internal/interactor/models/sort"
@@ -158,8 +158,8 @@ type SingleContacts struct {
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
 	section.TimeAt
-	// contacts data
-	Contacts []contacts.AccountSingle `json:"contacts,omitempty"`
+	// account_contacts data
+	AccountContacts []account_contacts.AccountSingle `json:"contacts,omitempty"`
 }
 
 // Update struct is used to update achieves

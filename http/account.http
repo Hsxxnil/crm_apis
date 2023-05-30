@@ -23,10 +23,10 @@ Authorization: Bearer {{accessToken}}
     "direction": "desc"
   },
   "filter": {
-    "name": "管",
-    "type": "管",
-    "phone_number": "管",
-    "salesperson_name": "管"
+    "name": "",
+    "type": "",
+    "phone_number": "",
+    "salesperson_name": ""
   }
 }
 
@@ -36,7 +36,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingleContacts
-GET {{host}}/crm/v1.0/accounts/contacts/cf6f654e-fb06-4740-bf03-374f32406d37
+GET {{host}}/crm/v1.0/accounts/contacts/ab204144-44f0-4c57-935a-3a6ca06fca00
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 

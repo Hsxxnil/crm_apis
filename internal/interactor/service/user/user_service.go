@@ -201,6 +201,7 @@ func (s *service) Update(input *model.Update) (err error) {
 		log.Error(err)
 		return err
 	}
+
 	key := "423CD5C09F7DD58950F1E494099EB075"
 	if input.Password != "" {
 		input.Password = hash.HmacSha512(input.Password, key)

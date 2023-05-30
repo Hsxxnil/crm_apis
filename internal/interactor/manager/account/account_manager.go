@@ -4,10 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 
+	contactModel "app.eirc/internal/interactor/models/contacts"
+
 	"app.eirc/internal/interactor/pkg/util"
 
 	accountModel "app.eirc/internal/interactor/models/accounts"
 	accountService "app.eirc/internal/interactor/service/account"
+	contactService "app.eirc/internal/interactor/service/contact"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -25,11 +28,13 @@ type Manager interface {
 
 type manager struct {
 	AccountService accountService.Service
+	ContactService contactService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
 		AccountService: accountService.Init(db),
+		ContactService: contactService.Init(db),
 	}
 }
 
@@ -148,6 +153,18 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, interface
 		output.ParentAccountName = ""
 	} else {
 		output.ParentAccountName = *parentAccountsBase.Name
+	}
+	for i, contacts := range output.AccountContacts {
+		contactBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
+			ContactID: contacts.ContactID,
+		})
+		output.AccountContacts[i].ContactName = *contactBase.Name
+		output.AccountContacts[i].ContactTitle = *contactBase.Title
+		output.AccountContacts[i].ContactPhoneNumber = *contactBase.PhoneNumber
+		output.AccountContacts[i].ContactCellPhone = *contactBase.CellPhone
+		output.AccountContacts[i].ContactEmail = *contactBase.Email
+		output.AccountContacts[i].ContactSalutation = *contactBase.Salutation
+		output.AccountContacts[i].ContactDepartment = *contactBase.Department
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)

@@ -5,7 +5,6 @@ import (
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
 	"app.eirc/internal/router/account"
-	"app.eirc/internal/router/account_contact"
 	"app.eirc/internal/router/campaign"
 	"app.eirc/internal/router/contact"
 	"app.eirc/internal/router/contract"
@@ -49,6 +48,5 @@ func main() {
 	engine = quote_product.GetRouter(engine, db)
 	engine = policy.GetRouter(engine, db)
 	engine = role.GetRouter(engine, db)
-	engine = account_contact.GetRouter(engine, db)
 	log.Fatal(gateway.ListenAndServe(":8080", engine))
 }

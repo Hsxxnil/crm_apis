@@ -88,12 +88,16 @@ type AccountSingle struct {
 	ContactID string `json:"contact_id,omitempty"`
 	// 聯絡人名稱
 	ContactName string `json:"contact_name,omitempty"`
-}
-
-// ContactSingle return structure file for contacts
-type ContactSingle struct {
-	// 帳戶ID
-	AccountID string `json:"account_id,omitempty"`
-	// 帳戶名稱
-	AccountName string `json:"account_name,omitempty"`
+	// 聯絡人職稱
+	ContactTitle string `json:"contact_title,omitempty"`
+	// 聯絡人電話
+	ContactPhoneNumber string `json:"contact_phone_number,omitempty"`
+	// 聯絡人行動電話
+	ContactCellPhone string `json:"contact_cell_phone,omitempty"`
+	// 聯絡人電子郵件
+	ContactEmail string `json:"contact_email,omitempty"`
+	// 聯絡人稱謂
+	ContactSalutation string `json:"contact_salutation,omitempty"`
+	// 聯絡人部門
+	ContactDepartment string `json:"contact_department,omitempty"`
 }

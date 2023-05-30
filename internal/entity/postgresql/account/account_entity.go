@@ -75,7 +75,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	// filter
 	isFiltered := false
 	filter := s.db.Model(&model.Table{})
-	//filterSales := s.db.Model(&model.Table{}.Salespeople{})
 	if input.FilterName != nil {
 		filter.Where("accounts.name like ?", "%"+*input.FilterName+"%")
 		isFiltered = true

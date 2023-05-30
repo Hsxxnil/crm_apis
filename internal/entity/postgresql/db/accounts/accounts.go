@@ -1,7 +1,7 @@
 package accounts
 
 import (
-	"app.eirc/internal/entity/postgresql/db/contacts"
+	"app.eirc/internal/entity/postgresql/db/account_contacts"
 	"app.eirc/internal/entity/postgresql/db/industries"
 	"app.eirc/internal/entity/postgresql/db/users"
 	model "app.eirc/internal/interactor/models/accounts"
@@ -33,8 +33,8 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
-	// contacts data
-	Contacts []contacts.Table `gorm:"foreignKey:AccountID;" json:"contacts,omitempty"`
+	// account_contacts data
+	AccountContacts []account_contacts.Table `gorm:"foreignKey:AccountID;" json:"contacts,omitempty"`
 	special.UseTable
 }
 
@@ -62,8 +62,8 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
-	// contacts data
-	Contacts []contacts.Base `json:"contacts,omitempty"`
+	// account_contacts data
+	AccountContacts []account_contacts.Base `json:"contacts,omitempty"`
 	special.UseBase
 	// 搜尋欄位
 	model.Filter `json:"filter"`
