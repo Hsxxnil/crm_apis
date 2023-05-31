@@ -1,2 +1,2 @@
 alter table quote_products
-drop column total;
+drop column total_price;

@@ -18,7 +18,7 @@ type Create struct {
 	// 報價產品小計
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 報價產品總價
-	Total float64 `json:"total,omitempty" swaggerignore:"true"`
+	TotalPrice float64 `json:"total_price,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 報價產品描述
@@ -49,7 +49,7 @@ type Field struct {
 	// 報價產品小計
 	SubTotal *float64 `json:"sub_total,omitempty" form:"sub_total"`
 	// 報價產品總價
-	Total *float64 `json:"total,omitempty" form:"total"`
+	TotalPrice *float64 `json:"total_price,omitempty" form:"total"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" form:"discount"`
 	// 報價產品描述
@@ -87,7 +87,7 @@ type List struct {
 		// 報價產品小計
 		SubTotal float64 `json:"sub_total,omitempty"`
 		// 報價產品總價
-		Total float64 `json:"total,omitempty"`
+		TotalPrice float64 `json:"total_price,omitempty"`
 		// 報價產品折扣
 		Discount float64 `json:"discount,omitempty"`
 		// 報價產品描述
@@ -124,7 +124,7 @@ type Single struct {
 	// 報價產品小計
 	SubTotal float64 `json:"sub_total,omitempty"`
 	// 報價產品總價
-	Total float64 `json:"total,omitempty"`
+	TotalPrice float64 `json:"total_price,omitempty"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty"`
 	// 報價產品描述
@@ -152,7 +152,7 @@ type Update struct {
 	// 報價產品小計
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 報價產品總價
-	Total float64 `json:"total,omitempty" swaggerignore:"true"`
+	TotalPrice float64 `json:"total_price,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 報價產品描述
@@ -188,7 +188,7 @@ type QuoteSingle struct {
 	// 報價產品小計
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 報價產品總價
-	Total float64 `json:"total,omitempty" swaggerignore:"true"`
+	TotalPrice float64 `json:"total_price,omitempty" swaggerignore:"true"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty"`
 	// 報價產品描述

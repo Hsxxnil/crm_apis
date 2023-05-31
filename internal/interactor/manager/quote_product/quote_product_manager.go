@@ -46,7 +46,7 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 	number := 0
 	for i, inputBody := range input.QuoteProducts {
 		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity)
-		inputBody.Total = inputBody.SubTotal * (1 - inputBody.Discount/100)
+		inputBody.TotalPrice = inputBody.SubTotal * (1 - inputBody.Discount/100)
 		// 取得報價號碼
 		quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
 			QuoteID: inputBody.QuoteID,
@@ -200,7 +200,7 @@ func (m *manager) Update(input *quoteProductModel.UpdateList) (int, interface{})
 			discount = inputBody.Discount
 		}
 		inputBody.SubTotal = *unitPrice * float64(*quantity)
-		inputBody.Total = inputBody.SubTotal * (1 - *discount/100)
+		inputBody.TotalPrice = inputBody.SubTotal * (1 - *discount/100)
 
 		err = m.QuoteProductService.Update(inputBody)
 		if err != nil {
