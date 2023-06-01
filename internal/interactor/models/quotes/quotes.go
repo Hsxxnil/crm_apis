@@ -107,6 +107,14 @@ type List struct {
 		Tax float64 `json:"tax,omitempty"`
 		// 報價運輸和處理費
 		ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
+		// 報價小計
+		SubTotal float64 `json:"sub_total"`
+		// 報價總價
+		TotalPrice float64 `json:"total_price"`
+		// 報價折扣
+		Discount float64 `json:"discount"`
+		// 報價總計
+		GrandTotal float64 `json:"grand_total"`
 		// 報價號碼
 		Code string `json:"code,omitempty"`
 		// 創建者
@@ -144,6 +152,14 @@ type Single struct {
 	Tax float64 `json:"tax,omitempty"`
 	// 報價運輸和處理費
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
+	// 報價小計
+	SubTotal float64 `json:"sub_total"`
+	// 報價總價
+	TotalPrice float64 `json:"total_price"`
+	// 報價折扣
+	Discount float64 `json:"discount"`
+	// 報價總計
+	GrandTotal float64 `json:"grand_total"`
 	// 報價號碼
 	Code string `json:"code,omitempty"`
 	// 創建者
@@ -178,6 +194,14 @@ type SingleProducts struct {
 	Tax float64 `json:"tax,omitempty"`
 	// 報價運輸和處理費
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
+	// 報價小計
+	SubTotal float64 `json:"sub_total"`
+	// 報價總價
+	TotalPrice float64 `json:"total_price"`
+	// 報價折扣
+	Discount float64 `json:"discount"`
+	// 報價總計
+	GrandTotal float64 `json:"grand_total"`
 	// 報價號碼
 	Code string `json:"code,omitempty"`
 	// 創建者
