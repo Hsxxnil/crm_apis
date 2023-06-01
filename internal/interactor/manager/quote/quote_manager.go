@@ -3,6 +3,7 @@ package quote
 import (
 	"encoding/json"
 	"errors"
+	"math"
 
 	quoteModel "app.eirc/internal/interactor/models/quotes"
 
@@ -73,6 +74,15 @@ func (m *manager) GetByList(input *quoteModel.Fields) (int, interface{}) {
 		quotes.OpportunityName = *quoteBase[i].Opportunities.Name
 		quotes.CreatedBy = *quoteBase[i].CreatedByUsers.Name
 		quotes.UpdatedBy = *quoteBase[i].UpdatedByUsers.Name
+		for _, products := range quoteBase[i].QuoteProducts {
+			quotes.SubTotal += *products.SubTotal
+			quotes.TotalPrice += *products.TotalPrice
+		}
+		if quotes.SubTotal != 0 {
+			// 四捨五入至小數點後第二位
+			quotes.Discount = math.Round((1-quotes.TotalPrice/quotes.SubTotal)*100*100) / 100
+		}
+		quotes.GrandTotal = quotes.TotalPrice + *quoteBase[i].ShippingAndHandling + *quoteBase[i].Tax
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
@@ -100,6 +110,15 @@ func (m *manager) GetBySingle(input *quoteModel.Field) (int, interface{}) {
 	output.OpportunityName = *quoteBase.Opportunities.Name
 	output.CreatedBy = *quoteBase.CreatedByUsers.Name
 	output.UpdatedBy = *quoteBase.UpdatedByUsers.Name
+	for _, products := range quoteBase.QuoteProducts {
+		output.SubTotal += *products.SubTotal
+		output.TotalPrice += *products.TotalPrice
+	}
+	if output.SubTotal != 0 {
+		// 四捨五入至小數點後第二位
+		output.Discount = math.Round((1-output.TotalPrice/output.SubTotal)*100*100) / 100
+	}
+	output.GrandTotal = output.TotalPrice + *quoteBase.ShippingAndHandling + *quoteBase.Tax
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
@@ -130,7 +149,14 @@ func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, interface{}
 	for i, products := range quoteBase.QuoteProducts {
 		output.QuoteProducts[i].ProductName = *products.Products.Name
 		output.QuoteProducts[i].ProductPrice = *products.Products.Price
+		output.SubTotal += *products.SubTotal
+		output.TotalPrice += *products.TotalPrice
 	}
+	if output.SubTotal != 0 {
+		// 四捨五入至小數點後第二位
+		output.Discount = math.Round((1-output.TotalPrice/output.SubTotal)*100*100) / 100
+	}
+	output.GrandTotal = output.TotalPrice + *quoteBase.ShippingAndHandling + *quoteBase.Tax
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }

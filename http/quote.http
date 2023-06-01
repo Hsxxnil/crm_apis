@@ -27,12 +27,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/quotes/810a5111-5815-4a2f-ba51-ee34dac2a794
+GET {{host}}/crm/v1.0/quotes/5592ae6a-925d-478d-9e73-0a2984f33507
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingleProducts
-GET {{host}}/crm/v1.0/quotes/products/47f65a39-f7fb-444d-8a85-5166b8e603fa
+GET {{host}}/crm/v1.0/quotes/products/5592ae6a-925d-478d-9e73-0a2984f33507
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 

@@ -11047,7 +11047,7 @@ const docTemplate = `{
                                 "description": "報價產品小計",
                                 "type": "number"
                             },
-                            "total": {
+                            "total_price": {
                                 "description": "報價產品總價",
                                 "type": "number"
                             },
@@ -11172,7 +11172,7 @@ const docTemplate = `{
                     "description": "報價產品小計",
                     "type": "number"
                 },
-                "total": {
+                "total_price": {
                     "description": "報價產品總價",
                     "type": "number"
                 },
@@ -11348,9 +11348,17 @@ const docTemplate = `{
                                 "description": "報價描述",
                                 "type": "string"
                             },
+                            "discount": {
+                                "description": "報價折扣",
+                                "type": "number"
+                            },
                             "expiration_date": {
                                 "description": "報價到期日期",
                                 "type": "string"
+                            },
+                            "grand_total": {
+                                "description": "報價總計",
+                                "type": "number"
                             },
                             "is_syncing": {
                                 "description": "報價與商機是否同步化",
@@ -11380,8 +11388,16 @@ const docTemplate = `{
                                 "description": "報價狀態",
                                 "type": "string"
                             },
+                            "sub_total": {
+                                "description": "報價小計",
+                                "type": "number"
+                            },
                             "tax": {
                                 "description": "報價稅額",
+                                "type": "number"
+                            },
+                            "total_price": {
+                                "description": "報價總價",
                                 "type": "number"
                             },
                             "updated_at": {
@@ -11432,9 +11448,17 @@ const docTemplate = `{
                     "description": "報價描述",
                     "type": "string"
                 },
+                "discount": {
+                    "description": "報價折扣",
+                    "type": "number"
+                },
                 "expiration_date": {
                     "description": "報價到期日期",
                     "type": "string"
+                },
+                "grand_total": {
+                    "description": "報價總計",
+                    "type": "number"
                 },
                 "is_syncing": {
                     "description": "報價與商機是否同步化",
@@ -11464,8 +11488,16 @@ const docTemplate = `{
                     "description": "報價狀態",
                     "type": "string"
                 },
+                "sub_total": {
+                    "description": "報價小計",
+                    "type": "number"
+                },
                 "tax": {
                     "description": "報價稅額",
+                    "type": "number"
+                },
+                "total_price": {
+                    "description": "報價總價",
                     "type": "number"
                 },
                 "updated_at": {
@@ -11509,9 +11541,17 @@ const docTemplate = `{
                     "description": "報價描述",
                     "type": "string"
                 },
+                "discount": {
+                    "description": "報價折扣",
+                    "type": "number"
+                },
                 "expiration_date": {
                     "description": "報價到期日期",
                     "type": "string"
+                },
+                "grand_total": {
+                    "description": "報價總計",
+                    "type": "number"
                 },
                 "is_syncing": {
                     "description": "報價與商機是否同步化",
@@ -11548,8 +11588,16 @@ const docTemplate = `{
                     "description": "報價狀態",
                     "type": "string"
                 },
+                "sub_total": {
+                    "description": "報價小計",
+                    "type": "number"
+                },
                 "tax": {
                     "description": "報價稅額",
+                    "type": "number"
+                },
+                "total_price": {
+                    "description": "報價總價",
                     "type": "number"
                 },
                 "updated_at": {
