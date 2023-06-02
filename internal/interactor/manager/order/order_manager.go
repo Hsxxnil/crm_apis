@@ -6,7 +6,9 @@ import (
 
 	"app.eirc/internal/interactor/pkg/util"
 
+	contractModel "app.eirc/internal/interactor/models/contracts"
 	orderModel "app.eirc/internal/interactor/models/orders"
+	contractService "app.eirc/internal/interactor/service/contract"
 	orderService "app.eirc/internal/interactor/service/order"
 	"gorm.io/gorm"
 
@@ -24,18 +26,24 @@ type Manager interface {
 }
 
 type manager struct {
-	OrderService orderService.Service
+	OrderService    orderService.Service
+	ContractService contractService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		OrderService: orderService.Init(db),
+		OrderService:    orderService.Init(db),
+		ContractService: contractService.Init(db),
 	}
 }
 
 func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
+	contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
+		ContractID: input.ContractID,
+	})
+	input.AccountID = *contractBase.AccountID
 	orderBase, err := m.OrderService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
@@ -198,6 +206,13 @@ func (m *manager) Update(input *orderModel.Update) (int, interface{}) {
 		if *input.Status == "啟動中" {
 			input.ActivatedBy = input.UpdatedBy
 		}
+	}
+
+	if input.ContractID != nil && input.ContractID != orderBase.ContractID {
+		contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
+			ContractID: *input.ContractID,
+		})
+		input.AccountID = contractBase.AccountID
 	}
 
 	err = m.OrderService.Update(input)

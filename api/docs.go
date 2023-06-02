@@ -10380,7 +10380,6 @@ const docTemplate = `{
         "orders.Create": {
             "type": "object",
             "required": [
-                "account_id",
                 "contract_id",
                 "start_date",
                 "status"

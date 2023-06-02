@@ -21,9 +21,9 @@ Authorization: Bearer {{accessToken}}
     "direction": "asc"
   },
   "filter": {
-    "code": "008",
-    "account_name": "008",
-    "contract_code": "008"
+    "code": "",
+    "account_name": "",
+    "contract_code": ""
   }
 }
 
@@ -46,9 +46,8 @@ Authorization: Bearer {{accessToken}}
 {
   "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
-  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
-  "contract_id": "05c76ec9-070e-42a1-b54e-9f2e048e4ced",
-  "description": "test"
+  "contract_id": "9f544bae-8a4c-42e6-8ec6-f7f77123fc3b",
+  "description": "ABC"
 }
 
 ### Update

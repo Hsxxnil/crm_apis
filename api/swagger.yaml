@@ -1907,7 +1907,6 @@ definitions:
         description: 訂單狀態
         type: string
     required:
-    - account_id
     - contract_id
     - start_date
     - status
