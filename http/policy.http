@@ -23,8 +23,8 @@ Authorization: Bearer {{accessToken}}
 {
   "ptype": "p",
   "role_name": "admin",
-  "path": "/crm/v1.0/users/*",
-  "method": "GET"
+  "path": "/crm/v1.0/roles/*",
+  "method": "DELETE"
 }
 
 ### DeletePolicy
@@ -35,6 +35,6 @@ Authorization: Bearer {{accessToken}}
 {
   "ptype": "p",
   "role_name": "admin",
-  "path": "/crm/v1.0/users",
-  "method": "post"
+  "path": "/crm/v1.0/opportunities/campaigns",
+  "method": "GET"
 }

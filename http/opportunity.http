@@ -27,11 +27,6 @@ Authorization: Bearer {{accessToken}}
   }
 }
 
-### GetByListCampaigns
-GET {{host}}/crm/v1.0/opportunities/campaigns?page=1&limit=20
-Accept: application/json
-Authorization: Bearer {{accessToken}}
-
 ### GetBySingle
 GET {{host}}/crm/v1.0/opportunities/373042d7-3cb4-4e17-b69f-9b294b69eb7f
 Accept: application/json

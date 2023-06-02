@@ -18,7 +18,7 @@ type Create struct {
 	// 訂單開始日期
 	StartDate time.Time `json:"start_date,omitempty" binding:"required" validate:"required"`
 	// 帳戶ID
-	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 訂單描述
@@ -175,7 +175,7 @@ type Update struct {
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 契約ID
-	ContractID string `json:"contract_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	ContractID *string `json:"contract_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 訂單描述
 	Description *string `json:"description,omitempty"`
 	// 更新者
