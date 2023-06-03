@@ -10385,10 +10385,6 @@ const docTemplate = `{
                 "status"
             ],
             "properties": {
-                "account_id": {
-                    "description": "帳戶ID",
-                    "type": "string"
-                },
                 "contract_id": {
                     "description": "契約ID",
                     "type": "string"
@@ -10670,14 +10666,6 @@ const docTemplate = `{
         "orders.Update": {
             "type": "object",
             "properties": {
-                "account_id": {
-                    "description": "帳戶ID",
-                    "type": "string"
-                },
-                "activated_by": {
-                    "description": "啟用者",
-                    "type": "string"
-                },
                 "contract_id": {
                     "description": "契約ID",
                     "type": "string"
