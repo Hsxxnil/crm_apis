@@ -18,7 +18,7 @@ type Create struct {
 	// 訂單開始日期
 	StartDate time.Time `json:"start_date,omitempty" binding:"required" validate:"required"`
 	// 帳戶ID
-	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 契約ID
 	ContractID string `json:"contract_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 訂單描述
@@ -173,7 +173,7 @@ type Update struct {
 	// 訂單開始日期
 	StartDate *time.Time `json:"start_date,omitempty"`
 	// 帳戶ID
-	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 契約ID
 	ContractID *string `json:"contract_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 訂單描述
@@ -181,5 +181,5 @@ type Update struct {
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 	// 啟用者
-	ActivatedBy *string `json:"activated_by,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	ActivatedBy *string `json:"activated_by,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 }
