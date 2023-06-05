@@ -50,7 +50,7 @@ type Base struct {
 	// 契約狀態
 	Status *string `json:"status,omitempty"`
 	// 契約開始日期
-	StartDate *string `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"start_date,omitempty"`
 	// 契約有效期限(月)
 	Term *int `json:"term,omitempty"`
 	// 契約結束日期

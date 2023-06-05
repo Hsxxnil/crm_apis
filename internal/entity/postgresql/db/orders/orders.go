@@ -58,7 +58,7 @@ type Base struct {
 	// 訂單狀態
 	Status *string `json:"status,omitempty"`
 	// 訂單開始日期
-	StartDate *string `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"start_date,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
 	// accounts data
