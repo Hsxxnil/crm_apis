@@ -3,7 +3,6 @@ package contract
 import (
 	"encoding/json"
 	"errors"
-	"time"
 
 	"app.eirc/internal/interactor/models/page"
 
@@ -148,14 +147,13 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	startDate := input.StartDate
-	term := input.Term
-	baseStartDate, _ := time.Parse("2006-01-02", *contractBase.StartDate)
-	if input.StartDate == &baseStartDate {
-		startDate = &baseStartDate
+	startDate := contractBase.StartDate
+	term := contractBase.Term
+	if input.StartDate != nil && input.StartDate != contractBase.StartDate {
+		startDate = input.StartDate
 	}
-	if input.Term == contractBase.Term {
-		term = contractBase.Term
+	if input.Term != nil && input.Term != contractBase.Term {
+		term = input.Term
 	}
 	input.EndDate = startDate.AddDate(0, *term, 0)
 
