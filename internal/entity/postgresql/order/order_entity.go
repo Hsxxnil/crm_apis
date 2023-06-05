@@ -64,6 +64,10 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("order_id = ?", input.OrderID)
 	}
 
+	if input.ContractID != nil {
+		query.Where("orders.contract_id = ?", input.ContractID)
+	}
+
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		if input.Sort.Field == "account_name" && input.Sort.Direction != "" {
 			query.Order(`"Accounts".name` + " " + input.Sort.Direction)
@@ -114,6 +118,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 	query := s.db.Model(&model.Table{}).Preload("OrderProducts.Products").Preload(clause.Associations)
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
+	}
+
+	if input.ContractID != nil {
+		query.Where("orders.contract_id = ?", input.ContractID)
 	}
 
 	err = query.First(&output).Error

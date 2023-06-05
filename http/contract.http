@@ -47,15 +47,14 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contracts/e4053d43-3b03-436d-a2b8-102a94bdd5ba
+PATCH {{host}}/crm/v1.0/contracts/31f86ce7-90ad-460a-a6d6-6836d8d6f8b9
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
   "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
-  "created_by": "7f5443f8-e607-4793-8370-560b8b688a61",
-  "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "account_id": "ab204144-44f0-4c57-935a-3a6ca06fca00",
   "term": 3,
   "description": "test"
 }
