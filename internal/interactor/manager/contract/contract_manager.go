@@ -175,7 +175,11 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 				Limit: 20,
 			},
 		})
-		log.Debug(orders)
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
+
 		for _, orderBase := range orders {
 			err = m.OrderService.Update(&orderModel.Update{
 				OrderID:   *orderBase.OrderID,
