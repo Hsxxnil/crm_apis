@@ -122,6 +122,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 		UserID:    field.UserID,
 		CompanyID: field.CompanyID,
 		Name:      field.Name,
+		RoleID:    field.RoleID,
 	})
 	if err != nil {
 		log.Error(err)
