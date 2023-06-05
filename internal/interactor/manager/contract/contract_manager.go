@@ -5,10 +5,14 @@ import (
 	"errors"
 	"time"
 
+	"app.eirc/internal/interactor/models/page"
+
 	"app.eirc/internal/interactor/pkg/util"
 
 	contractModel "app.eirc/internal/interactor/models/contracts"
+	orderModel "app.eirc/internal/interactor/models/orders"
 	contractService "app.eirc/internal/interactor/service/contract"
+	orderService "app.eirc/internal/interactor/service/order"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -25,11 +29,13 @@ type Manager interface {
 
 type manager struct {
 	ContractService contractService.Service
+	OrderService    orderService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
 		ContractService: contractService.Init(db),
+		OrderService:    orderService.Init(db),
 	}
 }
 
@@ -157,6 +163,30 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	if input.AccountID != nil && input.AccountID != contractBase.AccountID {
+		_, orders, err := m.OrderService.GetByList(&orderModel.Fields{
+			Field: orderModel.Field{
+				ContractID: util.PointerString(input.ContractID),
+			},
+			Pagination: page.Pagination{
+				Page:  1,
+				Limit: 20,
+			},
+		})
+		log.Debug(orders)
+		for _, orderBase := range orders {
+			err = m.OrderService.Update(&orderModel.Update{
+				OrderID:   *orderBase.OrderID,
+				AccountID: input.AccountID,
+				UpdatedBy: input.UpdatedBy,
+			})
+			if err != nil {
+				log.Error(err)
+				return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+			}
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, contractBase.ContractID)
