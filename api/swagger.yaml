@@ -43,7 +43,9 @@ definitions:
         type: string
       type:
         description: 帳戶類型
-        type: string
+        items:
+          type: string
+        type: array
     required:
     - industry_id
     - name
@@ -112,7 +114,9 @@ definitions:
               type: string
             type:
               description: 帳戶類型
-              type: string
+              items:
+                type: string
+              type: array
             updated_at:
               description: 更新時間
               type: string
@@ -180,7 +184,9 @@ definitions:
         type: string
       type:
         description: 帳戶類型
-        type: string
+        items:
+          type: string
+        type: array
       updated_at:
         description: 更新時間
         type: string
@@ -236,7 +242,9 @@ definitions:
         type: string
       type:
         description: 帳戶類型
-        type: string
+        items:
+          type: string
+        type: array
       updated_at:
         description: 更新時間
         type: string
@@ -263,7 +271,9 @@ definitions:
         type: string
       type:
         description: 帳戶類型
-        type: string
+        items:
+          type: string
+        type: array
     type: object
   auth.CasbinBind:
     properties:

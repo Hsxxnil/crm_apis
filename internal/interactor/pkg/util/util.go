@@ -22,7 +22,7 @@ func Round(x float64) int64 {
 	return int64(math.Floor(x + 0.5))
 }
 
-func interfaceArrayToStringArray(arr []interface{}) []string {
+func InterfaceArrayToStringArray(arr []interface{}) []string {
 	strArr := make([]string, len(arr))
 	for i, v := range arr {
 		switch s := v.(type) {

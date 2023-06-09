@@ -48,18 +48,25 @@ Authorization: Bearer {{accessToken}}
 {
   "name": "test",
   "phone_number": "0800000000",
-  "type": "法人客戶",
   "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a"
+  "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "type": [
+    "business_customer",
+    "partner",
+    "competitor"
+  ]
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/accounts/ab204144-44f0-4c57-935a-3a6ca06fca00
+PATCH {{host}}/crm/v1.0/accounts/d7a9b96d-132a-4aec-b871-c9453f72a697
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "type": [
+    "business_customer",
+    "partner"
+  ]
 }
 
 ### Delete
