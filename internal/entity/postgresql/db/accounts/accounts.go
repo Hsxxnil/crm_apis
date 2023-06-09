@@ -7,6 +7,7 @@ import (
 	model "app.eirc/internal/interactor/models/accounts"
 	"app.eirc/internal/interactor/models/sort"
 	"app.eirc/internal/interactor/models/special"
+	"github.com/lib/pq"
 )
 
 // Table struct is accounts database table struct
@@ -22,7 +23,7 @@ type Table struct {
 	// industries data
 	Industries industries.Table `gorm:"foreignKey:IndustryID;references:IndustryID" json:"industries,omitempty"`
 	// 帳戶類型
-	Type string `gorm:"column:type;type:text;not null;" json:"type"`
+	Type pq.StringArray `gorm:"column:type;type:text[];not null;" json:"type"`
 	// 父系帳戶ID
 	ParentAccountID string `gorm:"column:parent_account_id;type:uuid;not null;" json:"parent_account_id"`
 	// 業務員ID
@@ -51,7 +52,7 @@ type Base struct {
 	// industries data
 	Industries industries.Base `json:"industries,omitempty"`
 	// 帳戶類型
-	Type *string `json:"type,omitempty"`
+	Type *[]string `json:"type,omitempty"`
 	// 父系帳戶ID
 	ParentAccountID *string `json:"parent_account_id,omitempty"`
 	// 業務員ID

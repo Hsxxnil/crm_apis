@@ -7860,7 +7860,10 @@
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -7952,7 +7955,10 @@
                             },
                             "type": {
                                 "description": "帳戶類型",
-                                "type": "string"
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
                             },
                             "updated_at": {
                                 "description": "更新時間",
@@ -8040,7 +8046,10 @@
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "updated_at": {
                     "description": "更新時間",
@@ -8116,7 +8125,10 @@
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "updated_at": {
                     "description": "更新時間",
@@ -8153,7 +8165,10 @@
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

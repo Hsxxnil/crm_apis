@@ -7864,7 +7864,10 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -7956,7 +7959,10 @@ const docTemplate = `{
                             },
                             "type": {
                                 "description": "帳戶類型",
-                                "type": "string"
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
                             },
                             "updated_at": {
                                 "description": "更新時間",
@@ -8044,7 +8050,10 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "updated_at": {
                     "description": "更新時間",
@@ -8120,7 +8129,10 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "updated_at": {
                     "description": "更新時間",
@@ -8157,7 +8169,10 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
