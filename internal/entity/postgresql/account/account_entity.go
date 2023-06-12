@@ -82,9 +82,9 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 	if input.FilterType != nil {
 		if isFiltered {
-			filter.Or("? like any (accounts.type)", "%"+*input.FilterType+"%")
+			filter.Or("? = any(accounts.type)", *input.FilterType)
 		} else {
-			filter.Where("? like any (accounts.type)", "%"+*input.FilterType+"%")
+			filter.Where("? = any(accounts.type)", *input.FilterType)
 		}
 	}
 

@@ -19,14 +19,14 @@ Authorization: Bearer {{accessToken}}
 
 {
   "sort": {
-    "field": "name",
+    "field": "type",
     "direction": "desc"
   },
   "filter": {
-    "name": "",
-    "type": "",
-    "phone_number": "",
-    "salesperson_name": ""
+    "name": "夥伴",
+    "type": "夥伴",
+    "phone_number": "夥伴",
+    "salesperson_name": "夥伴"
   }
 }
 
