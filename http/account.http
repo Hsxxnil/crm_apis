@@ -23,10 +23,10 @@ Authorization: Bearer {{accessToken}}
     "direction": "desc"
   },
   "filter": {
-    "name": "夥伴",
-    "type": "夥伴",
-    "phone_number": "夥伴",
-    "salesperson_name": "夥伴"
+    "name": "個人",
+    "type": "個人",
+    "phone_number": "個人",
+    "salesperson_name": "個人"
   }
 }
 
