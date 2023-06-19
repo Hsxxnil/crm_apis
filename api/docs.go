@@ -2076,6 +2076,187 @@ const docTemplate = `{
                 }
             }
         },
+        "/historical-records/list": {
+            "get": {
+                "description": "取得全部歷程記錄",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "historical_record"
+                ],
+                "summary": "取得全部歷程記錄",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/historical_records.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/historical-records/{historicalRecordID}": {
+            "get": {
+                "description": "取得單一歷程記錄",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "historical_record"
+                ],
+                "summary": "取得單一歷程記錄",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "歷程記錄ID",
+                        "name": "historicalRecordID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/historical_records.Single"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/industries": {
             "get": {
                 "description": "取得全部行業",
@@ -7933,6 +8114,10 @@ const docTemplate = `{
                                 "description": "行業名稱",
                                 "type": "string"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "帳戶名稱",
                                 "type": "string"
@@ -8024,6 +8209,10 @@ const docTemplate = `{
                     "description": "行業名稱",
                     "type": "string"
                 },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
                 "name": {
                     "description": "帳戶名稱",
                     "type": "string"
@@ -8101,6 +8290,10 @@ const docTemplate = `{
                 },
                 "industry_name": {
                     "description": "行業名稱",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
                     "type": "string"
                 },
                 "name": {
@@ -8362,6 +8555,10 @@ const docTemplate = `{
                                 "description": "行銷活動是否啟用",
                                 "type": "boolean"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "行銷活動名稱",
                                 "type": "string"
@@ -8478,6 +8675,10 @@ const docTemplate = `{
                     "description": "行銷活動是否啟用",
                     "type": "boolean"
                 },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
                 "name": {
                     "description": "行銷活動名稱",
                     "type": "string"
@@ -8574,6 +8775,10 @@ const docTemplate = `{
                 "is_enable": {
                     "description": "行銷活動是否啟用",
                     "type": "boolean"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
                 },
                 "name": {
                     "description": "行銷活動名稱",
@@ -8857,6 +9062,10 @@ const docTemplate = `{
                                 "description": "聯絡人電子郵件",
                                 "type": "string"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "聯絡人名稱",
                                 "type": "string"
@@ -8959,6 +9168,10 @@ const docTemplate = `{
                 },
                 "email": {
                     "description": "聯絡人電子郵件",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
                     "type": "string"
                 },
                 "name": {
@@ -9145,6 +9358,10 @@ const docTemplate = `{
                                 "description": "契約結束日期",
                                 "type": "string"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "salesperson_id": {
                                 "description": "業務員ID",
                                 "type": "string"
@@ -9237,6 +9454,10 @@ const docTemplate = `{
                     "description": "契約結束日期",
                     "type": "string"
                 },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
                 "salesperson_id": {
                     "description": "業務員ID",
                     "type": "string"
@@ -9293,6 +9514,117 @@ const docTemplate = `{
                 "term": {
                     "description": "契約有效期限(月)",
                     "type": "integer"
+                }
+            }
+        },
+        "historical_records.List": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
+            "properties": {
+                "historical_records": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "activated_at": {
+                                "description": "啟用時間",
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "description": "創建時間",
+                                "type": "string"
+                            },
+                            "deleted_at": {
+                                "description": "刪除時間",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "歷程記錄描述",
+                                "type": "string"
+                            },
+                            "historical_record_id": {
+                                "description": "歷程記錄ID",
+                                "type": "string"
+                            },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
+                            "modified_by": {
+                                "description": "異動者",
+                                "type": "string"
+                            },
+                            "source_id": {
+                                "description": "來源ID",
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "description": "更新時間",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "pages": {
+                    "description": "總頁數",
+                    "type": "integer"
+                },
+                "total": {
+                    "description": "總筆數",
+                    "type": "integer"
+                }
+            }
+        },
+        "historical_records.Single": {
+            "type": "object",
+            "properties": {
+                "activated_at": {
+                    "description": "啟用時間",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "description": "刪除時間",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "歷程記錄描述",
+                    "type": "string"
+                },
+                "historical_record_id": {
+                    "description": "歷程記錄ID",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
+                "modified_by": {
+                    "description": "異動者",
+                    "type": "string"
+                },
+                "source_id": {
+                    "description": "來源ID",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
                 }
             }
         },
@@ -9497,6 +9829,10 @@ const docTemplate = `{
                                 "description": "線索ID",
                                 "type": "string"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "rating": {
                                 "description": "線索分級",
                                 "type": "string"
@@ -9579,6 +9915,10 @@ const docTemplate = `{
                 },
                 "lead_id": {
                     "description": "線索ID",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
                     "type": "string"
                 },
                 "rating": {
@@ -9765,6 +10105,10 @@ const docTemplate = `{
                                 "description": "商機預測種類",
                                 "type": "string"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "商機名稱",
                                 "type": "string"
@@ -9849,6 +10193,10 @@ const docTemplate = `{
                     "description": "商機預測種類",
                     "type": "string"
                 },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
                 "name": {
                     "description": "商機名稱",
                     "type": "string"
@@ -9923,6 +10271,10 @@ const docTemplate = `{
                 },
                 "forecast_category": {
                     "description": "商機預測種類",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
                     "type": "string"
                 },
                 "name": {
@@ -10052,6 +10404,10 @@ const docTemplate = `{
                                 "description": "刪除時間",
                                 "type": "string"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "opportunity_campaign_id": {
                                 "description": "商機行銷活動ID",
                                 "type": "string"
@@ -10119,6 +10475,10 @@ const docTemplate = `{
                 },
                 "deleted_at": {
                     "description": "刪除時間",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
                     "type": "string"
                 },
                 "opportunity_campaign_id": {
@@ -10220,6 +10580,10 @@ const docTemplate = `{
                             },
                             "description": {
                                 "description": "訂單產品描述",
+                                "type": "string"
+                            },
+                            "modified_at": {
+                                "description": "異動時間",
                                 "type": "string"
                             },
                             "order_id": {
@@ -10329,6 +10693,10 @@ const docTemplate = `{
                 },
                 "description": {
                     "description": "訂單產品描述",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
                     "type": "string"
                 },
                 "order_id": {
@@ -10496,6 +10864,10 @@ const docTemplate = `{
                                 "description": "訂單描述",
                                 "type": "string"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "order_id": {
                                 "description": "訂單ID",
                                 "type": "string"
@@ -10580,6 +10952,10 @@ const docTemplate = `{
                     "description": "訂單描述",
                     "type": "string"
                 },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
                 "order_id": {
                     "description": "訂單ID",
                     "type": "string"
@@ -10647,6 +11023,10 @@ const docTemplate = `{
                 },
                 "description": {
                     "description": "訂單描述",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
                     "type": "string"
                 },
                 "order_id": {
@@ -10799,6 +11179,10 @@ const docTemplate = `{
                                 "description": "產品是否啟用",
                                 "type": "boolean"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "產品名稱",
                                 "type": "string"
@@ -10858,6 +11242,10 @@ const docTemplate = `{
                 "is_enable": {
                     "description": "產品是否啟用",
                     "type": "boolean"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
                 },
                 "name": {
                     "description": "產品名稱",
@@ -11021,6 +11409,10 @@ const docTemplate = `{
                                 "description": "報價產品折扣",
                                 "type": "number"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "product_id": {
                                 "description": "產品ID",
                                 "type": "string"
@@ -11145,6 +11537,10 @@ const docTemplate = `{
                 "discount": {
                     "description": "報價產品折扣",
                     "type": "number"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
                 },
                 "product_id": {
                     "description": "產品ID",
@@ -11366,6 +11762,10 @@ const docTemplate = `{
                                 "description": "報價與商機是否同步化",
                                 "type": "boolean"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "報價名稱",
                                 "type": "string"
@@ -11466,6 +11866,10 @@ const docTemplate = `{
                     "description": "報價與商機是否同步化",
                     "type": "boolean"
                 },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
                 "name": {
                     "description": "報價名稱",
                     "type": "string"
@@ -11558,6 +11962,10 @@ const docTemplate = `{
                 "is_syncing": {
                     "description": "報價與商機是否同步化",
                     "type": "boolean"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
                 },
                 "name": {
                     "description": "報價名稱",
@@ -11734,6 +12142,10 @@ const docTemplate = `{
                                 "description": "角色是否啟用",
                                 "type": "boolean"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "角色名稱",
                                 "type": "string"
@@ -11793,6 +12205,10 @@ const docTemplate = `{
                 "is_enable": {
                     "description": "角色是否啟用",
                     "type": "boolean"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
                 },
                 "name": {
                     "description": "角色名稱",
@@ -11930,6 +12346,10 @@ const docTemplate = `{
                                 "description": "使用者是否刪除",
                                 "type": "boolean"
                             },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
                             "name": {
                                 "description": "使用者中文名稱",
                                 "type": "string"
@@ -11997,6 +12417,10 @@ const docTemplate = `{
                 "is_deleted": {
                     "description": "使用者是否刪除",
                     "type": "boolean"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
                 },
                 "name": {
                     "description": "使用者中文名稱",

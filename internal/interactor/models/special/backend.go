@@ -66,4 +66,6 @@ type UseBase struct {
 	UpdatedBy *string `json:"updated_by,omitempty"`
 	// 啟用者
 	ActivatedBy *string `json:"activated_by,omitempty"`
+	// 異動者
+	ModifiedBy *string `json:"modified_by,omitempty"`
 }

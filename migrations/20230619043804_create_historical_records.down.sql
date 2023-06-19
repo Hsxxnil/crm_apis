@@ -1,0 +1,6 @@
+drop index idx_historical_records_historical_record_id;
+drop index idx_historical_records_content;
+drop index idx_historical_records_action;
+drop index idx_historical_records_modified_at;
+drop index idx_historical_records_modified_by;
+drop table historical_records;

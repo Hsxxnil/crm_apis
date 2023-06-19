@@ -13,13 +13,15 @@ type StartEnd struct {
 
 type TimeAt struct {
 	// 創建時間
-	CreatedAt *time.Time `json:"created_at"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// 更新時間
-	UpdatedAt *time.Time `json:"updated_at"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// 刪除時間
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 	// 啟用時間
 	ActivatedAt *time.Time `json:"activated_at,omitempty"`
+	// 異動時間
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 }
 
 type ManagementExclusive struct {
