@@ -3,7 +3,7 @@ package historical_record
 import (
 	"net/http"
 
-	constant "app.eirc/internal/interactor/constants"
+	"app.eirc/internal/interactor/pkg/util"
 
 	"app.eirc/internal/interactor/manager/historical_record"
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
@@ -29,31 +29,27 @@ func Init(db *gorm.DB) Control {
 }
 
 // GetByList
-// @Summary 取得全部歷程記錄
-// @description 取得全部歷程記錄
+// @Summary 透過來源ID取得全部歷程記錄
+// @description 透過來源ID取得全部歷程記錄
 // @Tags historical_record
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param page query int true "目前頁數,請從1開始帶入"
-// @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
+// @param sourceID path string true "來源ID"
 // @success 200 object code.SuccessfulMessage{body=historical_records.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /historical-records/list [get]
+// @Router /historical-records/list/{sourceID} [get]
 func (c *control) GetByList(ctx *gin.Context) {
-	input := &historicalRecordModel.Fields{}
-
+	sourceID := ctx.Param("sourceID")
+	input := &historicalRecordModel.Field{}
+	input.SourceID = util.PointerString(sourceID)
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
-	}
-
-	if input.Limit >= constant.DefaultLimit {
-		input.Limit = constant.DefaultLimit
 	}
 
 	httpCode, codeMessage := c.Manager.GetByList(input)

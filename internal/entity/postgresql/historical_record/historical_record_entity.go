@@ -62,8 +62,11 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("historical_record_id = ?", input.HistoricalRecordID)
 	}
 
-	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
-		Limit(int(input.Limit)).Order("modified_at desc").Find(&output).Error
+	if input.SourceID != nil {
+		query.Where("source_id = ?", input.SourceID)
+	}
+
+	err = query.Count(&quantity).Order("modified_at desc").Find(&output).Error
 	if err != nil {
 		log.Error(err)
 		return 0, nil, err
@@ -76,6 +79,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
 	if input.HistoricalRecordID != nil {
 		query.Where("historical_record_id = ?", input.HistoricalRecordID)
+	}
+
+	if input.SourceID != nil {
+		query.Where("source_id = ?", input.SourceID)
 	}
 
 	err = query.First(&output).Error

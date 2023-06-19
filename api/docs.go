@@ -2076,9 +2076,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/historical-records/list": {
+        "/historical-records/list/{sourceID}": {
             "get": {
-                "description": "取得全部歷程記錄",
+                "description": "透過來源ID取得全部歷程記錄",
                 "consumes": [
                     "application/json"
                 ],
@@ -2088,7 +2088,7 @@ const docTemplate = `{
                 "tags": [
                     "historical_record"
                 ],
-                "summary": "取得全部歷程記錄",
+                "summary": "透過來源ID取得全部歷程記錄",
                 "parameters": [
                     {
                         "type": "string",
@@ -2098,17 +2098,10 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
+                        "type": "string",
+                        "description": "來源ID",
+                        "name": "sourceID",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -9519,10 +9512,6 @@ const docTemplate = `{
         },
         "historical_records.List": {
             "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
             "properties": {
                 "historical_records": {
                     "description": "多筆",
@@ -9530,18 +9519,6 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
-                            "created_at": {
-                                "description": "創建時間",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
                             "description": {
                                 "description": "歷程記錄描述",
                                 "type": "string"
@@ -9561,25 +9538,9 @@ const docTemplate = `{
                             "source_id": {
                                 "description": "來源ID",
                                 "type": "string"
-                            },
-                            "updated_at": {
-                                "description": "更新時間",
-                                "type": "string"
                             }
                         }
                     }
-                },
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
                 },
                 "total": {
                     "description": "總筆數",
@@ -9590,18 +9551,6 @@ const docTemplate = `{
         "historical_records.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
-                "created_at": {
-                    "description": "創建時間",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
-                    "type": "string"
-                },
                 "description": {
                     "description": "歷程記錄描述",
                     "type": "string"
@@ -9620,10 +9569,6 @@ const docTemplate = `{
                 },
                 "source_id": {
                     "description": "來源ID",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "description": "更新時間",
                     "type": "string"
                 }
             }

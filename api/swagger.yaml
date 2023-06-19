@@ -1136,15 +1136,6 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
-            created_at:
-              description: 創建時間
-              type: string
-            deleted_at:
-              description: 刪除時間
-              type: string
             description:
               description: 歷程記錄描述
               type: string
@@ -1160,38 +1151,14 @@ definitions:
             source_id:
               description: 來源ID
               type: string
-            updated_at:
-              description: 更新時間
-              type: string
           type: object
         type: array
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
       total:
         description: 總筆數
         type: integer
-    required:
-    - limit
-    - page
     type: object
   historical_records.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
-      created_at:
-        description: 創建時間
-        type: string
-      deleted_at:
-        description: 刪除時間
-        type: string
       description:
         description: 歷程記錄描述
         type: string
@@ -1206,9 +1173,6 @@ definitions:
         type: string
       source_id:
         description: 來源ID
-        type: string
-      updated_at:
-        description: 更新時間
         type: string
     type: object
   industries.Create:
@@ -4541,27 +4505,22 @@ paths:
       summary: 取得單一歷程記錄
       tags:
       - historical_record
-  /historical-records/list:
+  /historical-records/list/{sourceID}:
     get:
       consumes:
       - application/json
-      description: 取得全部歷程記錄
+      description: 透過來源ID取得全部歷程記錄
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
+      - description: 來源ID
+        in: path
+        name: sourceID
         required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -4592,7 +4551,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部歷程記錄
+      summary: 透過來源ID取得全部歷程記錄
       tags:
       - historical_record
   /industries:
