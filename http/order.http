@@ -37,7 +37,6 @@ GET {{host}}/crm/v1.0/orders/products/be75a422-62cb-4893-952d-4c9d1f504189
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
-
 ### Create
 POST {{host}}/crm/v1.0/orders
 Content-Type: application/json
@@ -51,7 +50,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/orders/0a49dd08-ddfa-4c0e-844e-bf028d928be2
+PATCH {{host}}/crm/v1.0/orders/c17c5479-4e79-44f4-a4c7-0a86d7f2d21b
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 

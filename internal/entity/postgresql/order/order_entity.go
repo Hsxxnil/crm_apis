@@ -178,10 +178,14 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.ActivatedBy != nil {
 		data["activated_by"] = input.ActivatedBy
+	} else {
+		data["activated_by"] = nil
 	}
 
 	if input.ActivatedAt != nil {
 		data["activated_at"] = input.ActivatedAt
+	} else {
+		data["activated_at"] = nil
 	}
 
 	if input.OrderID != nil {

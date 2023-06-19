@@ -81,13 +81,8 @@ func (m *manager) GetByList(input *orderModel.Fields) (int, interface{}) {
 		orders.ContractCode = *orderBase[i].Contracts.Code
 		orders.CreatedBy = *orderBase[i].CreatedByUsers.Name
 		orders.UpdatedBy = *orderBase[i].UpdatedByUsers.Name
-		if *orderBase[i].Status == "啟動中" {
-			orders.ActivatedBy = *orderBase[i].ActivatedByUsers.Name
-			orders.ActivatedAt = orderBase[i].ActivatedAt
-		} else {
-			orders.ActivatedAt = nil
-			orders.ActivatedBy = ""
-		}
+		orders.ActivatedBy = *orderBase[i].ActivatedByUsers.Name
+		orders.ActivatedAt = orderBase[i].ActivatedAt
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
@@ -117,13 +112,8 @@ func (m *manager) GetBySingle(input *orderModel.Field) (int, interface{}) {
 	output.ContractCode = *orderBase.Contracts.Code
 	output.CreatedBy = *orderBase.CreatedByUsers.Name
 	output.UpdatedBy = *orderBase.UpdatedByUsers.Name
-	if *orderBase.Status == "啟動中" {
-		output.ActivatedBy = *orderBase.ActivatedByUsers.Name
-		output.ActivatedAt = orderBase.ActivatedAt
-	} else {
-		output.ActivatedAt = nil
-		output.ActivatedBy = ""
-	}
+	output.ActivatedBy = *orderBase.ActivatedByUsers.Name
+	output.ActivatedAt = orderBase.ActivatedAt
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
@@ -152,13 +142,8 @@ func (m *manager) GetBySingleProducts(input *orderModel.Field) (int, interface{}
 	output.ContractCode = *orderBase.Contracts.Code
 	output.CreatedBy = *orderBase.CreatedByUsers.Name
 	output.UpdatedBy = *orderBase.UpdatedByUsers.Name
-	if *orderBase.Status == "啟動中" {
-		output.ActivatedBy = *orderBase.ActivatedByUsers.Name
-		output.ActivatedAt = orderBase.ActivatedAt
-	} else {
-		output.ActivatedAt = nil
-		output.ActivatedBy = ""
-	}
+	output.ActivatedBy = *orderBase.ActivatedByUsers.Name
+	output.ActivatedAt = orderBase.ActivatedAt
 	for i, products := range orderBase.OrderProducts {
 		output.OrderProducts[i].ProductName = *products.Products.Name
 		output.OrderProducts[i].ProductPrice = *products.Products.Price
@@ -205,6 +190,8 @@ func (m *manager) Update(input *orderModel.Update) (int, interface{}) {
 	if *orderBase.Status != *input.Status {
 		if *input.Status == "啟動中" {
 			input.ActivatedBy = input.UpdatedBy
+		} else {
+			input.ActivatedBy = nil
 		}
 	}
 
