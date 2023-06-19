@@ -95,6 +95,8 @@ type List struct {
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
 		UpdatedBy string `json:"updated_by,omitempty"`
+		// 啟用時間
+		ActivatedAt *time.Time `json:"activated_at,omitempty"`
 		// 時間戳記
 		section.TimeAt
 	} `json:"orders"`
@@ -128,6 +130,8 @@ type Single struct {
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy string `json:"updated_by,omitempty"`
+	// 啟用時間
+	ActivatedAt *time.Time `json:"activated_at,omitempty"`
 	// 時間戳記
 	section.TimeAt
 }
