@@ -78,9 +78,10 @@ func (m *manager) GetByList(input *accountModel.Fields) (int, interface{}) {
 		accounts.CreatedBy = *accountBase[i].CreatedByUsers.Name
 		accounts.UpdatedBy = *accountBase[i].UpdatedByUsers.Name
 		accounts.SalespersonName = *accountBase[i].Salespeople.Name
-		if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+		parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: accounts.ParentAccountID,
-		}); err != nil {
+		})
+		if err != nil {
 			accounts.ParentAccountName = ""
 		} else {
 			accounts.ParentAccountName = *parentAccountsBase.Name
@@ -113,9 +114,10 @@ func (m *manager) GetBySingle(input *accountModel.Field) (int, interface{}) {
 	output.CreatedBy = *accountBase.CreatedByUsers.Name
 	output.UpdatedBy = *accountBase.UpdatedByUsers.Name
 	output.SalespersonName = *accountBase.Salespeople.Name
-	if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+	parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 		AccountID: *accountBase.ParentAccountID,
-	}); err != nil {
+	})
+	if err != nil {
 		output.ParentAccountName = ""
 	} else {
 		output.ParentAccountName = *parentAccountsBase.Name

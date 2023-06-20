@@ -87,9 +87,10 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
 		contacts.UpdatedBy = *contactBase[i].UpdatedByUsers.Name
 		contacts.SalespersonName = *contactBase[i].Salespeople.Name
 		contacts.AccountName = *contactBase[i].Accounts.Name
-		if supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
+		supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: contacts.SupervisorID,
-		}); err != nil {
+		})
+		if err != nil {
 			contacts.SupervisorName = ""
 		} else {
 			contacts.SupervisorName = *supervisorBase.Name

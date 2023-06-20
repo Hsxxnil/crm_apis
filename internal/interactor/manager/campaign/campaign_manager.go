@@ -77,9 +77,10 @@ func (m *manager) GetByList(input *campaignModel.Fields) (int, interface{}) {
 		campaigns.CreatedBy = *campaignBase[i].CreatedByUsers.Name
 		campaigns.UpdatedBy = *campaignBase[i].UpdatedByUsers.Name
 		campaigns.SalespersonName = *campaignBase[i].Salespeople.Name
-		if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+		parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 			CampaignID: campaigns.ParentCampaignID,
-		}); err != nil {
+		})
+		if err != nil {
 			campaigns.ParentCampaignName = ""
 		} else {
 			campaigns.ParentCampaignName = *parentCampaignsBase.Name
