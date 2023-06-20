@@ -2076,6 +2076,180 @@ const docTemplate = `{
                 }
             }
         },
+        "/historical-records/list/{sourceID}": {
+            "get": {
+                "description": "透過來源ID取得全部歷程記錄",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "historical_record"
+                ],
+                "summary": "透過來源ID取得全部歷程記錄",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "來源ID",
+                        "name": "sourceID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/historical_records.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/historical-records/{historicalRecordID}": {
+            "get": {
+                "description": "取得單一歷程記錄",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "historical_record"
+                ],
+                "summary": "取得單一歷程記錄",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "歷程記錄ID",
+                        "name": "historicalRecordID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/historical_records.Single"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/industries": {
             "get": {
                 "description": "取得全部行業",
@@ -7909,20 +8083,12 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "industry_id": {
@@ -8000,20 +8166,12 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "created_at": {
                     "description": "創建時間",
                     "type": "string"
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "industry_id": {
@@ -8072,10 +8230,6 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "contacts": {
                     "description": "account_contacts data",
                     "type": "array",
@@ -8089,10 +8243,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "industry_id": {
@@ -8314,10 +8464,6 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "actual_cost": {
                                 "description": "行銷活動實際成本",
                                 "type": "number"
@@ -8336,10 +8482,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "description": {
@@ -8430,10 +8572,6 @@ const docTemplate = `{
         "campaigns.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "actual_cost": {
                     "description": "行銷活動實際成本",
                     "type": "number"
@@ -8452,10 +8590,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -8527,10 +8661,6 @@ const docTemplate = `{
         "campaigns.SingleOpportunities": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "actual_cost": {
                     "description": "行銷活動實際成本",
                     "type": "number"
@@ -8549,10 +8679,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -8825,10 +8951,6 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "cell_phone": {
                                 "description": "聯絡人行動電話",
                                 "type": "string"
@@ -8843,10 +8965,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "department": {
@@ -8929,10 +9047,6 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "cell_phone": {
                     "description": "聯絡人行動電話",
                     "type": "string"
@@ -8947,10 +9061,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "department": {
@@ -9113,10 +9223,6 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "code": {
                                 "description": "契約號碼",
                                 "type": "string"
@@ -9131,10 +9237,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "description": {
@@ -9205,10 +9307,6 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "code": {
                     "description": "契約號碼",
                     "type": "string"
@@ -9223,10 +9321,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -9293,6 +9387,69 @@ const docTemplate = `{
                 "term": {
                     "description": "契約有效期限(月)",
                     "type": "integer"
+                }
+            }
+        },
+        "historical_records.List": {
+            "type": "object",
+            "properties": {
+                "historical_records": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "description": {
+                                "description": "歷程記錄描述",
+                                "type": "string"
+                            },
+                            "historical_record_id": {
+                                "description": "歷程記錄ID",
+                                "type": "string"
+                            },
+                            "modified_at": {
+                                "description": "異動時間",
+                                "type": "string"
+                            },
+                            "modified_by": {
+                                "description": "異動者",
+                                "type": "string"
+                            },
+                            "source_id": {
+                                "description": "來源ID",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "total": {
+                    "description": "總筆數",
+                    "type": "integer"
+                }
+            }
+        },
+        "historical_records.Single": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "歷程記錄描述",
+                    "type": "string"
+                },
+                "historical_record_id": {
+                    "description": "歷程記錄ID",
+                    "type": "string"
+                },
+                "modified_at": {
+                    "description": "異動時間",
+                    "type": "string"
+                },
+                "modified_by": {
+                    "description": "異動者",
+                    "type": "string"
+                },
+                "source_id": {
+                    "description": "來源ID",
+                    "type": "string"
                 }
             }
         },
@@ -9473,20 +9630,12 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "description": {
@@ -9557,20 +9706,12 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "created_at": {
                     "description": "創建時間",
                     "type": "string"
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -9737,10 +9878,6 @@ const docTemplate = `{
                                 "description": "帳戶名稱",
                                 "type": "string"
                             },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "amount": {
                                 "description": "預期收入金額",
                                 "type": "number"
@@ -9755,10 +9892,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "forecast_category": {
@@ -9821,10 +9954,6 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "amount": {
                     "description": "預期收入金額",
                     "type": "number"
@@ -9839,10 +9968,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "forecast_category": {
@@ -9890,10 +10015,6 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "amount": {
                     "description": "預期收入金額",
                     "type": "number"
@@ -9915,10 +10036,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "forecast_category": {
@@ -10032,10 +10149,6 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "campaign_id": {
                                 "description": "行銷活動ID",
                                 "type": "string"
@@ -10046,10 +10159,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "opportunity_campaign_id": {
@@ -10101,10 +10210,6 @@ const docTemplate = `{
         "opportunity_campaigns.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "campaign_id": {
                     "description": "行銷活動ID",
                     "type": "string"
@@ -10115,10 +10220,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "opportunity_campaign_id": {
@@ -10202,20 +10303,12 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "description": {
@@ -10311,20 +10404,12 @@ const docTemplate = `{
         "order_products.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "created_at": {
                     "description": "創建時間",
                     "type": "string"
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -10488,10 +10573,6 @@ const docTemplate = `{
                                 "description": "創建者",
                                 "type": "string"
                             },
-                            "deleted_at": {
-                                "description": "刪除時間",
-                                "type": "string"
-                            },
                             "description": {
                                 "description": "訂單描述",
                                 "type": "string"
@@ -10572,10 +10653,6 @@ const docTemplate = `{
                     "description": "創建者",
                     "type": "string"
                 },
-                "deleted_at": {
-                    "description": "刪除時間",
-                    "type": "string"
-                },
                 "description": {
                     "description": "訂單描述",
                     "type": "string"
@@ -10613,10 +10690,6 @@ const docTemplate = `{
                     "description": "帳戶名稱",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "activated_by": {
                     "description": "啟用者",
                     "type": "string"
@@ -10639,10 +10712,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -10771,10 +10840,6 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "code": {
                                 "description": "產品識別碼",
                                 "type": "string"
@@ -10785,10 +10850,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "description": {
@@ -10831,10 +10892,6 @@ const docTemplate = `{
         "products.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "code": {
                     "description": "產品識別碼",
                     "type": "string"
@@ -10845,10 +10902,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -10993,10 +11046,6 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "code": {
                                 "description": "報價產品號碼",
                                 "type": "string"
@@ -11007,10 +11056,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "description": {
@@ -11118,10 +11163,6 @@ const docTemplate = `{
         "quote_products.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "code": {
                     "description": "報價產品號碼",
                     "type": "string"
@@ -11132,10 +11173,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -11326,10 +11363,6 @@ const docTemplate = `{
                                 "description": "帳戶ID",
                                 "type": "string"
                             },
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "code": {
                                 "description": "報價號碼",
                                 "type": "string"
@@ -11340,10 +11373,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "description": {
@@ -11426,10 +11455,6 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "code": {
                     "description": "報價號碼",
                     "type": "string"
@@ -11440,10 +11465,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -11519,10 +11540,6 @@ const docTemplate = `{
                     "description": "帳戶ID",
                     "type": "string"
                 },
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "code": {
                     "description": "報價號碼",
                     "type": "string"
@@ -11533,10 +11550,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "description": {
@@ -11702,10 +11715,6 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "company_id": {
                                 "description": "公司ID",
                                 "type": "string"
@@ -11716,10 +11725,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "display_name": {
@@ -11762,10 +11767,6 @@ const docTemplate = `{
         "roles.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "company_id": {
                     "description": "公司ID",
                     "type": "string"
@@ -11776,10 +11777,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "display_name": {
@@ -11902,10 +11899,6 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "activated_at": {
-                                "description": "啟用時間",
-                                "type": "string"
-                            },
                             "company_id": {
                                 "description": "公司ID",
                                 "type": "string"
@@ -11916,10 +11909,6 @@ const docTemplate = `{
                             },
                             "created_by": {
                                 "description": "創建者",
-                                "type": "string"
-                            },
-                            "deleted_at": {
-                                "description": "刪除時間",
                                 "type": "string"
                             },
                             "email": {
@@ -11970,10 +11959,6 @@ const docTemplate = `{
         "users.Single": {
             "type": "object",
             "properties": {
-                "activated_at": {
-                    "description": "啟用時間",
-                    "type": "string"
-                },
                 "company_id": {
                     "description": "公司ID",
                     "type": "string"
@@ -11984,10 +11969,6 @@ const docTemplate = `{
                 },
                 "created_by": {
                     "description": "創建者",
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "description": "刪除時間",
                     "type": "string"
                 },
                 "email": {

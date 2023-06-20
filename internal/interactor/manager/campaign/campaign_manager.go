@@ -77,9 +77,10 @@ func (m *manager) GetByList(input *campaignModel.Fields) (int, interface{}) {
 		campaigns.CreatedBy = *campaignBase[i].CreatedByUsers.Name
 		campaigns.UpdatedBy = *campaignBase[i].UpdatedByUsers.Name
 		campaigns.SalespersonName = *campaignBase[i].Salespeople.Name
-		if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+		parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 			CampaignID: campaigns.ParentCampaignID,
-		}); err != nil {
+		})
+		if err != nil {
 			campaigns.ParentCampaignName = ""
 		} else {
 			campaigns.ParentCampaignName = *parentCampaignsBase.Name
@@ -111,9 +112,10 @@ func (m *manager) GetBySingle(input *campaignModel.Field) (int, interface{}) {
 	output.CreatedBy = *campaignBase.CreatedByUsers.Name
 	output.UpdatedBy = *campaignBase.UpdatedByUsers.Name
 	output.SalespersonName = *campaignBase.Salespeople.Name
-	if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+	parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 		CampaignID: *campaignBase.ParentCampaignID,
-	}); err != nil {
+	})
+	if err != nil {
 		output.ParentCampaignName = ""
 	} else {
 		output.ParentCampaignName = *parentCampaignsBase.Name
@@ -144,9 +146,10 @@ func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, int
 	output.CreatedBy = *campaignBase.CreatedByUsers.Name
 	output.UpdatedBy = *campaignBase.UpdatedByUsers.Name
 	output.SalespersonName = *campaignBase.Salespeople.Name
-	if parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+	parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 		CampaignID: *campaignBase.ParentCampaignID,
-	}); err != nil {
+	})
+	if err != nil {
 		output.ParentCampaignName = ""
 	} else {
 		output.ParentCampaignName = *parentCampaignsBase.Name

@@ -34,6 +34,8 @@ func Init(db *gorm.DB) Manager {
 
 func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, interface{}) {
 	defer trx.Rollback()
+
+	// 判斷使用者名稱是否重複
 	quantity, _ := m.UserService.GetByQuantity(&userModel.Field{
 		UserName:  util.PointerString(input.UserName),
 		CompanyID: util.PointerString(input.CompanyID),

@@ -35,6 +35,7 @@ func Init(db *gorm.DB) Manager {
 func (m *manager) Create(trx *gorm.DB, input *orderProductModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
+	// 計算小計
 	input.SubTotal = input.UnitPrice * float64(input.Quantity)
 	orderProductBase, err := m.OrderProductService.WithTrx(trx).Create(input)
 	if err != nil {
@@ -138,6 +139,7 @@ func (m *manager) Update(input *orderProductModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 同步更新小計
 	unitPrice := input.UnitPrice
 	quantity := input.Quantity
 	if input.UnitPrice == orderProductBase.UnitPrice {

@@ -34,6 +34,8 @@ func Init(db *gorm.DB) Manager {
 
 func (m *manager) Create(trx *gorm.DB, input *productModel.Create) (int, interface{}) {
 	defer trx.Rollback()
+
+	// 判斷產品識別碼是否重複
 	quantity, _ := m.ProductService.GetByQuantity(&productModel.Field{
 		Code: util.PointerString(input.Code),
 	})
@@ -145,6 +147,7 @@ func (m *manager) Update(input *productModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 判斷產品識別碼是否重複
 	if *productBase.Code != input.Code {
 		quantity, _ := m.ProductService.GetByQuantity(&productModel.Field{
 			Code: util.PointerString(input.Code),

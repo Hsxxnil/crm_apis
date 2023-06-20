@@ -1,11 +1,11 @@
-package order
+package historical_record
 
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/orders"
-	store "app.eirc/internal/entity/postgresql/order"
-	model "app.eirc/internal/interactor/models/orders"
+	db "app.eirc/internal/entity/postgresql/db/historical_records"
+	store "app.eirc/internal/entity/postgresql/historical_record"
+	model "app.eirc/internal/interactor/models/historical_records"
 	"app.eirc/internal/interactor/pkg/util"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/interactor/pkg/util/uuid"
@@ -15,11 +15,9 @@ import (
 type Service interface {
 	WithTrx(tx *gorm.DB) Service
 	Create(input *model.Create) (output *db.Base, err error)
-	GetByList(input *model.Fields) (quantity int64, output []*db.Base, err error)
+	GetByList(input *model.Field) (quantity int64, output []*db.Base, err error)
 	GetBySingle(input *model.Field) (output *db.Base, err error)
 	GetByQuantity(input *model.Field) (quantity int64, err error)
-	Update(input *model.Update) (err error)
-	Delete(input *model.Field) (err error)
 }
 
 type service struct {
@@ -52,10 +50,8 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 		return nil, err
 	}
 
-	base.OrderID = util.PointerString(uuid.CreatedUUIDString())
-	base.CreatedAt = util.PointerTime(util.NowToUTC())
-	base.UpdatedAt = util.PointerTime(util.NowToUTC())
-	base.UpdatedBy = util.PointerString(input.CreatedBy)
+	base.HistoricalRecordID = util.PointerString(uuid.CreatedUUIDString())
+	base.ModifiedAt = util.PointerTime(util.NowToUTC())
 	err = s.Repository.Create(base)
 	if err != nil {
 		log.Error(err)
@@ -79,7 +75,7 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 	return output, nil
 }
 
-func (s *service) GetByList(input *model.Fields) (quantity int64, output []*db.Base, err error) {
+func (s *service) GetByList(input *model.Field) (quantity int64, output []*db.Base, err error) {
 	field := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
@@ -147,60 +143,6 @@ func (s *service) GetBySingle(input *model.Field) (output *db.Base, err error) {
 	}
 
 	return output, nil
-}
-
-func (s *service) Delete(input *model.Field) (err error) {
-	field := &db.Base{}
-	marshal, err := json.Marshal(input)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	err = json.Unmarshal(marshal, &field)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	field.UpdatedAt = util.PointerTime(util.NowToUTC())
-	err = s.Repository.Delete(field)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	return nil
-}
-
-func (s *service) Update(input *model.Update) (err error) {
-	field := &db.Base{}
-	marshal, err := json.Marshal(input)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	err = json.Unmarshal(marshal, &field)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	field.UpdatedAt = util.PointerTime(util.NowToUTC())
-	if field.ActivatedBy != nil {
-		field.ActivatedAt = util.PointerTime(util.NowToUTC())
-	} else {
-		field.ActivatedAt = nil
-	}
-
-	err = s.Repository.Update(field)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	return nil
 }
 
 func (s *service) GetByQuantity(input *model.Field) (quantity int64, err error) {

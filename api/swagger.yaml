@@ -76,17 +76,11 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
-            activated_at:
-              description: 啟用時間
-              type: string
             created_at:
               description: 創建時間
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             industry_id:
               description: 行業ID
@@ -146,17 +140,11 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       created_at:
         description: 創建時間
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       industry_id:
         description: 行業ID
@@ -199,9 +187,6 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       contacts:
         description: account_contacts data
         items:
@@ -212,9 +197,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       industry_id:
         description: 行業ID
@@ -372,9 +354,6 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
             actual_cost:
               description: 行銷活動實際成本
               type: number
@@ -389,9 +368,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             description:
               description: 行銷活動描述
@@ -461,9 +437,6 @@ definitions:
     type: object
   campaigns.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       actual_cost:
         description: 行銷活動實際成本
         type: number
@@ -478,9 +451,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 行銷活動描述
@@ -533,9 +503,6 @@ definitions:
     type: object
   campaigns.SingleOpportunities:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       actual_cost:
         description: 行銷活動實際成本
         type: number
@@ -550,9 +517,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 行銷活動描述
@@ -750,9 +714,6 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
-            activated_at:
-              description: 啟用時間
-              type: string
             cell_phone:
               description: 聯絡人行動電話
               type: string
@@ -764,9 +725,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             department:
               description: 聯絡人部門
@@ -830,9 +788,6 @@ definitions:
       account_name:
         description: 帳戶名稱
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       cell_phone:
         description: 聯絡人行動電話
         type: string
@@ -844,9 +799,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       department:
         description: 聯絡人部門
@@ -962,9 +914,6 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
-            activated_at:
-              description: 啟用時間
-              type: string
             code:
               description: 契約號碼
               type: string
@@ -976,9 +925,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             description:
               description: 契約描述
@@ -1033,9 +979,6 @@ definitions:
       account_name:
         description: 帳戶名稱
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       code:
         description: 契約號碼
         type: string
@@ -1047,9 +990,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 契約描述
@@ -1099,6 +1039,51 @@ definitions:
       term:
         description: 契約有效期限(月)
         type: integer
+    type: object
+  historical_records.List:
+    properties:
+      historical_records:
+        description: 多筆
+        items:
+          properties:
+            description:
+              description: 歷程記錄描述
+              type: string
+            historical_record_id:
+              description: 歷程記錄ID
+              type: string
+            modified_at:
+              description: 異動時間
+              type: string
+            modified_by:
+              description: 異動者
+              type: string
+            source_id:
+              description: 來源ID
+              type: string
+          type: object
+        type: array
+      total:
+        description: 總筆數
+        type: integer
+    type: object
+  historical_records.Single:
+    properties:
+      description:
+        description: 歷程記錄描述
+        type: string
+      historical_record_id:
+        description: 歷程記錄ID
+        type: string
+      modified_at:
+        description: 異動時間
+        type: string
+      modified_by:
+        description: 異動者
+        type: string
+      source_id:
+        description: 來源ID
+        type: string
     type: object
   industries.Create:
     properties:
@@ -1222,17 +1207,11 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
-            activated_at:
-              description: 啟用時間
-              type: string
             created_at:
               description: 創建時間
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             description:
               description: 線索描述
@@ -1287,17 +1266,11 @@ definitions:
       account_name:
         description: 帳戶名稱
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       created_at:
         description: 創建時間
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 線索描述
@@ -1416,9 +1389,6 @@ definitions:
             account_name:
               description: 帳戶名稱
               type: string
-            activated_at:
-              description: 啟用時間
-              type: string
             amount:
               description: 預期收入金額
               type: number
@@ -1430,9 +1400,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             forecast_category:
               description: 商機預測種類
@@ -1481,9 +1448,6 @@ definitions:
       account_name:
         description: 帳戶名稱
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       amount:
         description: 預期收入金額
         type: number
@@ -1495,9 +1459,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       forecast_category:
         description: 商機預測種類
@@ -1532,9 +1493,6 @@ definitions:
       account_name:
         description: 帳戶名稱
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       amount:
         description: 預期收入金額
         type: number
@@ -1551,9 +1509,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       forecast_category:
         description: 商機預測種類
@@ -1632,9 +1587,6 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
             campaign_id:
               description: 行銷活動ID
               type: string
@@ -1643,9 +1595,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             opportunity_campaign_id:
               description: 商機行銷活動ID
@@ -1685,9 +1634,6 @@ definitions:
     type: object
   opportunity_campaigns.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       campaign_id:
         description: 行銷活動ID
         type: string
@@ -1696,9 +1642,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       opportunity_campaign_id:
         description: 商機行銷活動ID
@@ -1756,17 +1699,11 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
             created_at:
               description: 創建時間
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             description:
               description: 訂單產品描述
@@ -1839,17 +1776,11 @@ definitions:
     type: object
   order_products.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       created_at:
         description: 創建時間
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 訂單產品描述
@@ -1966,9 +1897,6 @@ definitions:
             created_by:
               description: 創建者
               type: string
-            deleted_at:
-              description: 刪除時間
-              type: string
             description:
               description: 訂單描述
               type: string
@@ -2031,9 +1959,6 @@ definitions:
       created_by:
         description: 創建者
         type: string
-      deleted_at:
-        description: 刪除時間
-        type: string
       description:
         description: 訂單描述
         type: string
@@ -2061,9 +1986,6 @@ definitions:
       account_name:
         description: 帳戶名稱
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       activated_by:
         description: 啟用者
         type: string
@@ -2081,9 +2003,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 訂單描述
@@ -2173,9 +2092,6 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
             code:
               description: 產品識別碼
               type: string
@@ -2184,9 +2100,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             description:
               description: 產品描述
@@ -2220,9 +2133,6 @@ definitions:
     type: object
   products.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       code:
         description: 產品識別碼
         type: string
@@ -2231,9 +2141,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 產品描述
@@ -2335,9 +2242,6 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
             code:
               description: 報價產品號碼
               type: string
@@ -2346,9 +2250,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             description:
               description: 報價產品描述
@@ -2430,9 +2331,6 @@ definitions:
     type: object
   quote_products.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       code:
         description: 報價產品號碼
         type: string
@@ -2441,9 +2339,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 報價產品描述
@@ -2580,9 +2475,6 @@ definitions:
             account_id:
               description: 帳戶ID
               type: string
-            activated_at:
-              description: 啟用時間
-              type: string
             code:
               description: 報價號碼
               type: string
@@ -2591,9 +2483,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             description:
               description: 報價描述
@@ -2657,9 +2546,6 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       code:
         description: 報價號碼
         type: string
@@ -2668,9 +2554,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 報價描述
@@ -2726,9 +2609,6 @@ definitions:
       account_id:
         description: 帳戶ID
         type: string
-      activated_at:
-        description: 啟用時間
-        type: string
       code:
         description: 報價號碼
         type: string
@@ -2737,9 +2617,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       description:
         description: 報價描述
@@ -2858,9 +2735,6 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
             company_id:
               description: 公司ID
               type: string
@@ -2869,9 +2743,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             display_name:
               description: 角色顯示名稱
@@ -2905,9 +2776,6 @@ definitions:
     type: object
   roles.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       company_id:
         description: 公司ID
         type: string
@@ -2916,9 +2784,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       display_name:
         description: 角色顯示名稱
@@ -3005,9 +2870,6 @@ definitions:
         description: 多筆
         items:
           properties:
-            activated_at:
-              description: 啟用時間
-              type: string
             company_id:
               description: 公司ID
               type: string
@@ -3016,9 +2878,6 @@ definitions:
               type: string
             created_by:
               description: 創建者
-              type: string
-            deleted_at:
-              description: 刪除時間
               type: string
             email:
               description: 使用者電子郵件
@@ -3058,9 +2917,6 @@ definitions:
     type: object
   users.Single:
     properties:
-      activated_at:
-        description: 啟用時間
-        type: string
       company_id:
         description: 公司ID
         type: string
@@ -3069,9 +2925,6 @@ definitions:
         type: string
       created_by:
         description: 創建者
-        type: string
-      deleted_at:
-        description: 刪除時間
         type: string
       email:
         description: 使用者電子郵件
@@ -4312,6 +4165,104 @@ paths:
       summary: 取得全部契約
       tags:
       - contract
+  /historical-records/{historicalRecordID}:
+    get:
+      consumes:
+      - application/json
+      description: 取得單一歷程記錄
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 歷程記錄ID
+        in: path
+        name: historicalRecordID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/historical_records.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一歷程記錄
+      tags:
+      - historical_record
+  /historical-records/list/{sourceID}:
+    get:
+      consumes:
+      - application/json
+      description: 透過來源ID取得全部歷程記錄
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 來源ID
+        in: path
+        name: sourceID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/historical_records.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 透過來源ID取得全部歷程記錄
+      tags:
+      - historical_record
   /industries:
     get:
       consumes:

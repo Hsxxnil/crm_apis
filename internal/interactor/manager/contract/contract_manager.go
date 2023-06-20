@@ -3,14 +3,20 @@ package contract
 import (
 	"encoding/json"
 	"errors"
+	"strconv"
+
+	accountModel "app.eirc/internal/interactor/models/accounts"
 
 	"app.eirc/internal/interactor/models/page"
 
 	"app.eirc/internal/interactor/pkg/util"
 
 	contractModel "app.eirc/internal/interactor/models/contracts"
+	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	orderModel "app.eirc/internal/interactor/models/orders"
+	accountService "app.eirc/internal/interactor/service/account"
 	contractService "app.eirc/internal/interactor/service/contract"
+	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
 	orderService "app.eirc/internal/interactor/service/order"
 	"gorm.io/gorm"
 
@@ -27,22 +33,40 @@ type Manager interface {
 }
 
 type manager struct {
-	ContractService contractService.Service
-	OrderService    orderService.Service
+	ContractService         contractService.Service
+	OrderService            orderService.Service
+	HistoricalRecordService historicalRecordService.Service
+	AccountService          accountService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		ContractService: contractService.Init(db),
-		OrderService:    orderService.Init(db),
+		ContractService:         contractService.Init(db),
+		OrderService:            orderService.Init(db),
+		HistoricalRecordService: historicalRecordService.Init(db),
+		AccountService:          accountService.Init(db),
 	}
 }
+
+const sourceType = "契約"
 
 func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	input.EndDate = input.StartDate.AddDate(0, input.Term, 0)
 	contractBase, err := m.ContractService.WithTrx(trx).Create(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步新增契約歷程記錄
+	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
+		SourceID:   *contractBase.ContractID,
+		Action:     "建立",
+		Content:    sourceType,
+		ModifiedBy: *contractBase.CreatedBy,
+	})
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -147,6 +171,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 計算契約結束日期
 	startDate := contractBase.StartDate
 	term := contractBase.Term
 	if input.StartDate != nil && input.StartDate != contractBase.StartDate {
@@ -163,7 +188,8 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	if input.AccountID != nil && input.AccountID != contractBase.AccountID {
+	// 同步修改帳戶至orders
+	if input.AccountID != nil && *input.AccountID != *contractBase.AccountID {
 		_, orders, err := m.OrderService.GetByList(&orderModel.Fields{
 			Field: orderModel.Field{
 				ContractID: util.PointerString(input.ContractID),
@@ -188,6 +214,45 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 				log.Error(err)
 				return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 			}
+		}
+	}
+
+	// 同步新增契約歷程記錄
+	var (
+		colum string
+		value string
+	)
+
+	switch {
+	case *input.AccountID != *contractBase.AccountID:
+		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
+			AccountID: *input.AccountID,
+		})
+		value = "為" + *accountBase.Name
+		colum = "帳戶"
+	case *input.Status != *contractBase.Status:
+		value = "為" + *input.Status
+		colum = "狀態"
+	case *input.StartDate != *contractBase.StartDate:
+		value = "為" + input.StartDate.Format("2006-01-02")
+		colum = "開始日期"
+	case *input.Term != *contractBase.Term:
+		value = "為" + strconv.Itoa(*input.Term) + "個月"
+		colum = "有效期限"
+	case *input.Description != *contractBase.Description:
+		colum = "描述"
+	}
+
+	if colum != "" {
+		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+			SourceID:   *contractBase.ContractID,
+			Action:     "修改",
+			Content:    sourceType + colum + value,
+			ModifiedBy: *input.UpdatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 		}
 	}
 

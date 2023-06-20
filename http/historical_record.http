@@ -1,0 +1,21 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {% client.global.set("accessToken", response.body.body.access_token); %}
+
+### GetByList
+GET {{host}}/crm/v1.0/historical-records/list/9b0ed491-11a4-45bf-8588-4867fb0c049d
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### GetBySingle
+GET {{host}}/crm/v1.0/historical-records/34374261-1578-4db6-87d2-ce6729ef346b
+Accept: application/json
+Authorization: Bearer {{accessToken}}

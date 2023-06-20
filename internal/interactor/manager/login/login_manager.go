@@ -36,6 +36,7 @@ func Init(db *gorm.DB) Manager {
 }
 
 func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
+	// 驗證帳密
 	acknowledge, fields, err := r.UserService.AcknowledgeUser(&usersModel.Field{
 		UserName:  util.PointerString(input.UserName),
 		Password:  util.PointerString(input.Password),
@@ -50,6 +51,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 		return code.PermissionDenied, code.GetCodeMessage(code.PermissionDenied, "Incorrect username or password.")
 	}
 
+	// 產生accessToken
 	output := &jwxModel.Token{}
 	accessToken, err := r.JwxService.CreateAccessToken(&jwxModel.JWX{
 		UserID:    fields[0].UserID,
@@ -70,6 +72,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 產生refreshToken
 	refreshToken, err := r.JwxService.CreateRefreshToken(&jwxModel.JWX{
 		UserID: fields[0].UserID,
 	})
@@ -90,6 +93,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 }
 
 func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
+	// 驗證refreshToken
 	j := &jwx.JWT{
 		PublicKey: config.RefreshPublicKey,
 		Token:     input.RefreshToken,
@@ -118,6 +122,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 產生accessToken
 	token, err := r.JwxService.CreateAccessToken(&jwxModel.JWX{
 		UserID:    field.UserID,
 		CompanyID: field.CompanyID,
