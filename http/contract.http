@@ -41,22 +41,22 @@ Authorization: Bearer {{accessToken}}
 {
   "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
-  "account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "account_id": "23d2d5ce-bd09-45a3-959d-dd270594fb53",
   "term": 6,
   "description": "test"
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contracts/31f86ce7-90ad-460a-a6d6-6836d8d6f8b9
+PATCH {{host}}/crm/v1.0/contracts/9b0ed491-11a4-45bf-8588-4867fb0c049d
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "status": "草稿",
-  "start_date": "2023-04-21T00:00:00Z",
-  "account_id": "ab204144-44f0-4c57-935a-3a6ca06fca00",
-  "term": 3,
-  "description": "test"
+  "status": "已簽署",
+  "start_date": "2023-06-20T00:00:00Z",
+  "account_id": "72fc18b1-2e50-400a-8045-17fe869da6ee",
+  "term": 6,
+  "description": "aaa"
 }
 
 ### Delete
