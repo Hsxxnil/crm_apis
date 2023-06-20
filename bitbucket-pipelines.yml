@@ -11,7 +11,7 @@ pipelines:
                 - git clone git@bitbucket.org:wisdomfish/crm_config.git ./config
                 - ls ./config
                 - apt-get update && apt-get install -y zip
-                - GOOS=linux GOARCH=amd64 go build -tags debug -ldflags="-w -s" -o deploy/crm cmd/crm/crm.go
+                - GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags debug -ldflags="-w -s" -o deploy/crm cmd/crm/crm.go
                 - zip -D -j -r deploy/crm.zip deploy/crm
                 - rm -rf  /opt/atlassian/pipelines/agent/build/.bitbucket/pipelines/generated/pipeline/pipes
                 - pipe: atlassian/aws-lambda-deploy:1.8.2
