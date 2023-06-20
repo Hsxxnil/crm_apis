@@ -47,16 +47,16 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contracts/9b0ed491-11a4-45bf-8588-4867fb0c049d
+PATCH {{host}}/crm/v1.0/contracts/d3d9e7fa-743a-4c22-9881-d0bb03371b8d
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
   "status": "已簽署",
-  "start_date": "2023-06-20T00:00:00Z",
-  "account_id": "72fc18b1-2e50-400a-8045-17fe869da6ee",
-  "term": 6,
-  "description": "aaa"
+  "start_date": "2023-06-10T00:00:00Z",
+  "account_id": "2e278a76-0155-4c8d-83e9-294146ab7396",
+  "term": 3,
+  "description": "123"
 }
 
 ### Delete
