@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	accountModel "app.eirc/internal/interactor/models/accounts"
-
 	"app.eirc/internal/interactor/models/page"
 
 	"app.eirc/internal/interactor/pkg/util"
@@ -218,36 +217,51 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	}
 
 	// 同步新增契約歷程記錄
-	var (
-		colum string
-		value string
-	)
+	var records []historicalRecordModel.AddHistoricalRecord
 
-	switch {
-	case *input.AccountID != *contractBase.AccountID:
+	if *input.AccountID != *contractBase.AccountID {
 		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: *input.AccountID,
 		})
-		value = "為" + *accountBase.Name
-		colum = "帳戶"
-	case *input.Status != *contractBase.Status:
-		value = "為" + *input.Status
-		colum = "狀態"
-	case *input.StartDate != *contractBase.StartDate:
-		value = "為" + input.StartDate.Format("2006-01-02")
-		colum = "開始日期"
-	case *input.Term != *contractBase.Term:
-		value = "為" + strconv.Itoa(*input.Term) + "個月"
-		colum = "有效期限"
-	case *input.Description != *contractBase.Description:
-		colum = "描述"
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "帳戶",
+			Values: "為" + *accountBase.Name,
+		})
 	}
 
-	if colum != "" {
+	if *input.Status != *contractBase.Status {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "狀態",
+			Values: "為" + *input.Status,
+		})
+	}
+
+	if *input.StartDate != *contractBase.StartDate {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "開始日期",
+			Values: "為" + input.StartDate.Format("2006-01-02"),
+		})
+	}
+
+	if *input.Term != *contractBase.Term {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "有效期限",
+			Values: "為" + strconv.Itoa(*input.Term) + "個月",
+		})
+	}
+
+	if *input.Description != *contractBase.Description {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "描述",
+			Values: "為" + *input.Description,
+		})
+	}
+
+	for _, record := range records {
 		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
 			SourceID:   *contractBase.ContractID,
 			Action:     "修改",
-			Content:    sourceType + colum + value,
+			Content:    sourceType + record.Fields + record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {

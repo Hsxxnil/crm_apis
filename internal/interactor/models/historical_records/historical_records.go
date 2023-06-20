@@ -60,3 +60,9 @@ type Single struct {
 	// 異動時間
 	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 }
+
+// AddHistoricalRecord struct is used for synchronizing the addition of historical records
+type AddHistoricalRecord struct {
+	Fields string
+	Values string
+}
