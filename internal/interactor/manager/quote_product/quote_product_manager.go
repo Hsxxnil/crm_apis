@@ -187,6 +187,7 @@ func (m *manager) Update(input *quoteProductModel.UpdateList) (int, interface{})
 			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 		}
 
+		// 同步更新小計、總價
 		unitPrice := quoteProductBase.UnitPrice
 		quantity := quoteProductBase.Quantity
 		discount := quoteProductBase.Discount

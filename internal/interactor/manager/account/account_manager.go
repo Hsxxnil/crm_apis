@@ -149,9 +149,10 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, interface
 	output.CreatedBy = *accountBase.CreatedByUsers.Name
 	output.UpdatedBy = *accountBase.UpdatedByUsers.Name
 	output.SalespersonName = *accountBase.Salespeople.Name
-	if parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+	parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 		AccountID: *accountBase.ParentAccountID,
-	}); err != nil {
+	})
+	if err != nil {
 		output.ParentAccountName = ""
 	} else {
 		output.ParentAccountName = *parentAccountsBase.Name

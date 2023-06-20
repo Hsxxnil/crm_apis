@@ -60,7 +60,7 @@ func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interf
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	// 新增契約歷程記錄
+	// 同步新增契約歷程記錄
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *contractBase.ContractID,
 		Action:     "建立",
@@ -171,6 +171,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 計算契約結束日期
 	startDate := contractBase.StartDate
 	term := contractBase.Term
 	if input.StartDate != nil && input.StartDate != contractBase.StartDate {
@@ -187,7 +188,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	// 同步帳戶至orders
+	// 同步修改帳戶至orders
 	if input.AccountID != nil && *input.AccountID != *contractBase.AccountID {
 		_, orders, err := m.OrderService.GetByList(&orderModel.Fields{
 			Field: orderModel.Field{
@@ -216,7 +217,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		}
 	}
 
-	// 新增契約歷程記錄
+	// 同步新增契約歷程記錄
 	var (
 		colum string
 		value string

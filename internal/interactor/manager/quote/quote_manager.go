@@ -75,13 +75,17 @@ func (m *manager) GetByList(input *quoteModel.Fields) (int, interface{}) {
 		quotes.CreatedBy = *quoteBase[i].CreatedByUsers.Name
 		quotes.UpdatedBy = *quoteBase[i].UpdatedByUsers.Name
 		for _, products := range quoteBase[i].QuoteProducts {
+			// 計算報價小計
 			quotes.SubTotal += *products.SubTotal
+			// 計算報價總價
 			quotes.TotalPrice += *products.TotalPrice
 		}
+		// 計算報價折扣
 		if quotes.SubTotal != 0 {
 			// 四捨五入至小數點後第二位
 			quotes.Discount = math.Round((1-quotes.TotalPrice/quotes.SubTotal)*100*100) / 100
 		}
+		// 計算報價總計
 		quotes.GrandTotal = quotes.TotalPrice + *quoteBase[i].ShippingAndHandling + *quoteBase[i].Tax
 	}
 

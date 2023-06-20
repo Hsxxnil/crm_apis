@@ -40,6 +40,7 @@ func Init(db *gorm.DB) Manager {
 func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
+	// 同步契約的account_id
 	contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
 	})
@@ -187,6 +188,7 @@ func (m *manager) Update(input *orderModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 判斷該訂單是否啟用
 	if *orderBase.Status != *input.Status {
 		if *input.Status == "啟動中" {
 			input.ActivatedBy = input.UpdatedBy
@@ -195,7 +197,8 @@ func (m *manager) Update(input *orderModel.Update) (int, interface{}) {
 		}
 	}
 
-	if input.ContractID != nil && input.ContractID != orderBase.ContractID {
+	// 同步更新契約的account_id至該訂單
+	if input.ContractID != nil && *input.ContractID != *orderBase.ContractID {
 		contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
 			ContractID: *input.ContractID,
 		})

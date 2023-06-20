@@ -46,6 +46,7 @@ func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, interfa
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 同步新增帳戶聯絡人關聯
 	_, err = m.AccountContactService.WithTrx(trx).Create(&accountContactModel.Create{
 		AccountID: input.AccountID,
 		ContactID: *contactBase.ContactID,
@@ -123,9 +124,10 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
 	output.UpdatedBy = *contactBase.UpdatedByUsers.Name
 	output.SalespersonName = *contactBase.Salespeople.Name
 	output.AccountName = *contactBase.Accounts.Name
-	if supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
+	supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: *contactBase.SupervisorID,
-	}); err != nil {
+	})
+	if err != nil {
 		output.SupervisorName = ""
 	} else {
 		output.SupervisorName = *supervisorBase.Name
@@ -153,6 +155,7 @@ func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 同步刪除帳戶聯絡人關聯
 	accountContactBase, _ := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 		ContactID: util.PointerString(input.ContactID),
 	})
@@ -186,7 +189,8 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	if input.AccountID != nil && input.AccountID != contactBase.AccountID {
+	// 同步修改帳戶聯絡人關聯
+	if input.AccountID != nil && *input.AccountID != *contactBase.AccountID {
 		accountContactBase, err := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 			ContactID: util.PointerString(input.ContactID),
 		})
