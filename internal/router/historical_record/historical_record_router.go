@@ -12,7 +12,7 @@ func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 	v10 := router.Group("crm").Group("v1.0").Group("historical-records")
 	{
 		// Todo:加上auth.AuthCheckRole(db)
-		v10.GET("/list/:sourceID", middleware.Verify(), control.GetByList)
+		v10.POST("list/:sourceID", middleware.Verify(), control.GetByList)
 		v10.GET(":historicalRecordID", middleware.Verify(), control.GetBySingle)
 	}
 

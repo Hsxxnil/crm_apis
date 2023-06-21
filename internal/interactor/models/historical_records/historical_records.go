@@ -2,6 +2,8 @@ package historical_records
 
 import (
 	"time"
+
+	"app.eirc/internal/interactor/models/page"
 )
 
 // Create struct is used to create achieves
@@ -28,6 +30,14 @@ type Field struct {
 	SourceID *string `json:"source_id,omitempty" form:"source_id"`
 }
 
+// Fields is the searched structure file (including pagination)
+type Fields struct {
+	// 搜尋結構檔
+	Field
+	// 分頁搜尋結構檔
+	page.Pagination
+}
+
 // List is multiple return structure files
 type List struct {
 	// 多筆
@@ -43,8 +53,8 @@ type List struct {
 		// 異動時間
 		ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	} `json:"historical_records"`
-	// 總筆數
-	Total int64 `json:"total"`
+	// 分頁返回結構檔
+	page.Total
 }
 
 // Single return structure file

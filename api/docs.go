@@ -2077,7 +2077,7 @@ const docTemplate = `{
             }
         },
         "/historical-records/list/{sourceID}": {
-            "get": {
+            "post": {
                 "description": "透過來源ID取得全部歷程記錄",
                 "consumes": [
                     "application/json"
@@ -2095,6 +2095,20 @@ const docTemplate = `{
                         "description": "JWE Token",
                         "name": "Authorization",
                         "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
                         "required": true
                     },
                     {
@@ -9392,6 +9406,10 @@ const docTemplate = `{
         },
         "historical_records.List": {
             "type": "object",
+            "required": [
+                "limit",
+                "page"
+            ],
             "properties": {
                 "historical_records": {
                     "description": "多筆",
@@ -9421,6 +9439,18 @@ const docTemplate = `{
                             }
                         }
                     }
+                },
+                "limit": {
+                    "description": "筆數(請從1開始帶入,最高上限20)",
+                    "type": "integer"
+                },
+                "page": {
+                    "description": "頁數(請從1開始帶入)",
+                    "type": "integer"
+                },
+                "pages": {
+                    "description": "總頁數",
+                    "type": "integer"
                 },
                 "total": {
                     "description": "總筆數",
