@@ -1063,9 +1063,21 @@ definitions:
               type: string
           type: object
         type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
       total:
         description: 總筆數
         type: integer
+    required:
+    - limit
+    - page
     type: object
   historical_records.Single:
     properties:
@@ -4215,7 +4227,7 @@ paths:
       tags:
       - historical_record
   /historical-records/list/{sourceID}:
-    get:
+    post:
       consumes:
       - application/json
       description: 透過來源ID取得全部歷程記錄
@@ -4225,6 +4237,16 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
       - description: 來源ID
         in: path
         name: sourceID

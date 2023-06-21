@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
+	"app.eirc/internal/interactor/pkg/util"
+
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
 	"gorm.io/gorm"
@@ -13,7 +15,7 @@ import (
 )
 
 type Manager interface {
-	GetByList(input *historicalRecordModel.Field) (int, interface{})
+	GetByList(input *historicalRecordModel.Fields) (int, interface{})
 	GetBySingle(input *historicalRecordModel.Field) (int, interface{})
 }
 
@@ -27,19 +29,22 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) GetByList(input *historicalRecordModel.Field) (int, interface{}) {
+func (m *manager) GetByList(input *historicalRecordModel.Fields) (int, interface{}) {
 	output := &historicalRecordModel.List{}
+	output.Limit = input.Limit
+	output.Page = input.Page
 	quantity, historicalRecordBase, err := m.HistoricalRecordService.GetByList(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
-	output.Total = quantity
+	output.Total.Total = quantity
 	historicalRecordByte, err := json.Marshal(historicalRecordBase)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
+	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(historicalRecordByte, &output.HistoricalRecords)
 	if err != nil {
 		log.Error(err)
