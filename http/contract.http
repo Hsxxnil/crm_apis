@@ -41,20 +41,20 @@ Authorization: Bearer {{accessToken}}
 {
   "status": "草稿",
   "start_date": "2023-04-21T00:00:00Z",
-  "account_id": "23d2d5ce-bd09-45a3-959d-dd270594fb53",
+  "opportunity_id": "6980e433-5d4d-4eb4-ba88-84a35cbf1c86",
   "term": 6,
   "description": "test"
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contracts/d3d9e7fa-743a-4c22-9881-d0bb03371b8d
+PATCH {{host}}/crm/v1.0/contracts/2cbc0aea-b004-48a9-8073-dbf9c934b447
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
   "status": "已簽署",
   "start_date": "2023-06-10T00:00:00Z",
-  "account_id": "2e278a76-0155-4c8d-83e9-294146ab7396",
+  "opportunity_id": "14ebad74-c52e-4ce1-8699-a355efcf6087",
   "term": 3,
   "description": "123"
 }

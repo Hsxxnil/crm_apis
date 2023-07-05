@@ -31,7 +31,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/accounts/cf6f654e-fb06-4740-bf03-374f32406d37
+GET {{host}}/crm/v1.0/accounts/d6cb3bc4-474d-4932-8804-9c04ed380e1e
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
