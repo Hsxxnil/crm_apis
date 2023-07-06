@@ -106,6 +106,14 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("quote_id = ?", input.QuoteID)
 	}
 
+	if input.OpportunityID != nil {
+		query.Where("opportunity_id = ?", input.OpportunityID)
+	}
+
+	if input.IsFinal != nil {
+		query.Where("is_final = ?", input.IsFinal)
+	}
+
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -144,6 +152,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.IsSyncing != nil {
 		data["is_syncing"] = input.IsSyncing
+	}
+
+	if input.IsFinal != nil {
+		data["is_final"] = input.IsFinal
 	}
 
 	if input.OpportunityID != nil {

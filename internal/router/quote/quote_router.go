@@ -16,6 +16,7 @@ func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 		v10.POST("list", middleware.Verify(), auth.AuthCheckRole(db), control.GetByList)
 		v10.GET(":quoteID", middleware.Verify(), auth.AuthCheckRole(db), control.GetBySingle)
 		v10.GET("products/:quoteID", middleware.Verify(), auth.AuthCheckRole(db), control.GetBySingleProducts)
+		v10.GET("get-by-opportunity/:opportunityID", middleware.Verify(), auth.AuthCheckRole(db), control.GetByOpportunityIDSingle)
 		v10.DELETE(":quoteID", middleware.Verify(), auth.AuthCheckRole(db), control.Delete)
 		v10.PATCH(":quoteID", middleware.Verify(), auth.AuthCheckRole(db), control.Update)
 	}

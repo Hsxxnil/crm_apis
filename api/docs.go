@@ -6525,6 +6525,93 @@ const docTemplate = `{
                 }
             }
         },
+        "/quotes/get-by-opportunity/{opportunityID}": {
+            "get": {
+                "description": "透過商機ID取得最終單一報價",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "quote"
+                ],
+                "summary": "透過商機ID取得最終單一報價",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "商機ID",
+                        "name": "OpportunityID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/quotes.Single"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/quotes/list": {
             "post": {
                 "description": "取得全部報價",
@@ -11383,7 +11470,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "shipping_and_handling": {
-                    "description": "報價運輸和處理費",
+                    "description": "報價運費及其他費用",
                     "type": "number",
                     "minimum": 0
                 },
@@ -11468,6 +11555,10 @@ const docTemplate = `{
                                 "description": "報價總計",
                                 "type": "number"
                             },
+                            "is_final": {
+                                "description": "報價是否為最終版",
+                                "type": "boolean"
+                            },
                             "is_syncing": {
                                 "description": "報價與商機是否同步化",
                                 "type": "boolean"
@@ -11489,7 +11580,7 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "shipping_and_handling": {
-                                "description": "報價運輸和處理費",
+                                "description": "報價運費及其他費用",
                                 "type": "number"
                             },
                             "status": {
@@ -11560,6 +11651,10 @@ const docTemplate = `{
                     "description": "報價總計",
                     "type": "number"
                 },
+                "is_final": {
+                    "description": "報價是否為最終版",
+                    "type": "boolean"
+                },
                 "is_syncing": {
                     "description": "報價與商機是否同步化",
                     "type": "boolean"
@@ -11581,7 +11676,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "shipping_and_handling": {
-                    "description": "報價運輸和處理費",
+                    "description": "報價運費及其他費用",
                     "type": "number"
                 },
                 "status": {
@@ -11645,6 +11740,10 @@ const docTemplate = `{
                     "description": "報價總計",
                     "type": "number"
                 },
+                "is_final": {
+                    "description": "報價是否為最終版",
+                    "type": "boolean"
+                },
                 "is_syncing": {
                     "description": "報價與商機是否同步化",
                     "type": "boolean"
@@ -11673,7 +11772,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "shipping_and_handling": {
-                    "description": "報價運輸和處理費",
+                    "description": "報價運費及其他費用",
                     "type": "number"
                 },
                 "status": {
@@ -11717,6 +11816,10 @@ const docTemplate = `{
                     "description": "報價到期日期",
                     "type": "string"
                 },
+                "is_final": {
+                    "description": "報價是否為最終版",
+                    "type": "boolean"
+                },
                 "is_syncing": {
                     "description": "報價與商機是否同步化",
                     "type": "boolean"
@@ -11730,7 +11833,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "shipping_and_handling": {
-                    "description": "報價運輸和處理費",
+                    "description": "報價運費及其他費用",
                     "type": "number",
                     "minimum": 0
                 },

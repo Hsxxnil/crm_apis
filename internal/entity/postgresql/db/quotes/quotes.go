@@ -24,6 +24,8 @@ type Table struct {
 	Status string `gorm:"column:status;type:text;not null;" json:"status"`
 	// 報價與商機是否同步化
 	IsSyncing bool `gorm:"column:is_syncing;type:bool;not null;" json:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal bool `gorm:"column:is_final;type:bool;not null;" json:"is_final"`
 	// 商機ID
 	OpportunityID string `gorm:"column:opportunity_id;type:uuid;not null;" json:"opportunity_id"`
 	// opportunities data
@@ -36,7 +38,7 @@ type Table struct {
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 報價稅額
 	Tax float64 `gorm:"column:tax;type:numeric;" json:"tax"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `gorm:"column:shipping_and_handling;type:numeric;" json:"shipping_and_handling"`
 	// 報價號碼
 	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
@@ -59,6 +61,8 @@ type Base struct {
 	Status *string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing *bool `json:"is_syncing,omitempty"`
+	// 報價是否為最終版
+	IsFinal *bool `json:"is_final,omitempty"`
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty"`
 	// opportunities data
@@ -71,7 +75,7 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 報價稅額
 	Tax *float64 `json:"tax,omitempty"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
 	Code *string `json:"code,omitempty"`

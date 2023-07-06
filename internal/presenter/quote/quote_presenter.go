@@ -22,6 +22,7 @@ type Control interface {
 	GetByList(ctx *gin.Context)
 	GetBySingle(ctx *gin.Context)
 	GetBySingleProducts(ctx *gin.Context)
+	GetByOpportunityIDSingle(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 	Update(ctx *gin.Context)
 }
@@ -156,6 +157,35 @@ func (c *control) GetBySingleProducts(ctx *gin.Context) {
 	}
 
 	httpCode, codeMessage := c.Manager.GetBySingleProducts(input)
+	ctx.JSON(httpCode, codeMessage)
+}
+
+// GetByOpportunityIDSingle
+// @Summary 透過商機ID取得最終單一報價
+// @description 透過商機ID取得最終單一報價
+// @Tags quote
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param OpportunityID path string true "商機ID"
+// @success 200 object code.SuccessfulMessage{body=quotes.Single} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /quotes/get-by-opportunity/{opportunityID} [get]
+func (c *control) GetByOpportunityIDSingle(ctx *gin.Context) {
+	opportunityID := ctx.Param("opportunityID")
+	input := &quoteModel.Field{}
+	input.OpportunityID = util.PointerString(opportunityID)
+	input.IsFinal = util.PointerBool(true)
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	httpCode, codeMessage := c.Manager.GetBySingle(input)
 	ctx.JSON(httpCode, codeMessage)
 }
 

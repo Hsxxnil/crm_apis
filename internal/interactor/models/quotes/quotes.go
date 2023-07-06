@@ -29,7 +29,7 @@ type Create struct {
 	Description string `json:"description,omitempty"`
 	// 報價稅額
 	Tax float64 `json:"tax,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
@@ -45,6 +45,8 @@ type Field struct {
 	Status *string `json:"status,omitempty" form:"status"`
 	// 報價與商機是否同步化
 	IsSyncing *bool `json:"is_syncing,omitempty" form:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal *bool `json:"is_final,omitempty" form:"is_final"`
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty" form:"opportunity_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
@@ -55,7 +57,7 @@ type Field struct {
 	Description *string `json:"description,omitempty" form:"description"`
 	// 報價稅額
 	Tax *float64 `json:"tax,omitempty" form:"tax"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" form:"shipping_and_handling"`
 	// 報價號碼
 	Code *string `json:"code,omitempty" form:"code"`
@@ -93,6 +95,8 @@ type List struct {
 		Status string `json:"status,omitempty"`
 		// 報價與商機是否同步化
 		IsSyncing bool `json:"is_syncing"`
+		// 報價是否為最終版
+		IsFinal bool `json:"is_final"`
 		// 商機ID
 		OpportunityID string `json:"opportunity_id,omitempty"`
 		// 商機名稱
@@ -105,7 +109,7 @@ type List struct {
 		Description string `json:"description,omitempty"`
 		// 報價稅額
 		Tax float64 `json:"tax,omitempty"`
-		// 報價運輸和處理費
+		// 報價運費及其他費用
 		ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 		// 報價小計
 		SubTotal float64 `json:"sub_total"`
@@ -138,6 +142,8 @@ type Single struct {
 	Status string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing bool `json:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal bool `json:"is_final"`
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty"`
 	// 商機名稱
@@ -150,7 +156,7 @@ type Single struct {
 	Description string `json:"description,omitempty"`
 	// 報價稅額
 	Tax float64 `json:"tax,omitempty"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 	// 報價小計
 	SubTotal float64 `json:"sub_total"`
@@ -180,6 +186,8 @@ type SingleProducts struct {
 	Status string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing bool `json:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal bool `json:"is_final"`
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty"`
 	// 商機名稱
@@ -192,7 +200,7 @@ type SingleProducts struct {
 	Description string `json:"description,omitempty"`
 	// 報價稅額
 	Tax float64 `json:"tax,omitempty"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 	// 報價小計
 	SubTotal float64 `json:"sub_total"`
@@ -224,6 +232,8 @@ type Update struct {
 	Status *string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing *bool `json:"is_syncing,omitempty"`
+	// 報價是否為最終版
+	IsFinal *bool `json:"is_final,omitempty"`
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
@@ -234,7 +244,7 @@ type Update struct {
 	Description *string `json:"description,omitempty"`
 	// 報價稅額
 	Tax *float64 `json:"tax,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
