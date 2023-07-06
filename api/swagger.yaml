@@ -6904,6 +6904,55 @@ paths:
       summary: 更新單一報價
       tags:
       - quote
+  /quotes/get-by-opportunity/{opportunityID}:
+    get:
+      consumes:
+      - application/json
+      description: 透過商機ID取得最終單一報價
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商機ID
+        in: path
+        name: OpportunityID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/quotes.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 透過商機ID取得最終單一報價
+      tags:
+      - quote
   /quotes/list:
     post:
       consumes:

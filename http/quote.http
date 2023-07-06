@@ -36,13 +36,18 @@ GET {{host}}/crm/v1.0/quotes/products/f37d7364-cf96-47f1-a267-e0725e8295c6
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
+### GetByOpportunityIDSingle
+GET {{host}}/crm/v1.0/quotes/get-by-opportunity/00000000-0000-4000-a000-000000000000
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
 ### Create
 POST {{host}}/crm/v1.0/quotes
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "name": "test",
+  "name": "555",
   "status": "草稿",
   "is_syncing": false,
   "opportunity_id": "00000000-0000-4000-a000-000000000000",
