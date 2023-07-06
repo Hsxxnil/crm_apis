@@ -101,7 +101,7 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload("QuoteProducts.Products").Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("QuoteProducts.Products.CreatedByUsers").Preload("QuoteProducts.Products.UpdatedByUsers").Preload(clause.Associations)
 	if input.QuoteID != nil {
 		query.Where("quote_id = ?", input.QuoteID)
 	}

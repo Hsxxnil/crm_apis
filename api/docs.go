@@ -11290,6 +11290,14 @@ const docTemplate = `{
                     "description": "報價產品號碼",
                     "type": "string"
                 },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
                 "description": {
                     "description": "報價產品描述",
                     "type": "string"
@@ -11321,6 +11329,14 @@ const docTemplate = `{
                 "unit_price": {
                     "description": "報價產品單價",
                     "type": "number"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
                 }
             }
         },
