@@ -161,8 +161,8 @@ func (c *control) GetBySingleProducts(ctx *gin.Context) {
 }
 
 // GetByOpportunityIDSingle
-// @Summary 透過商機ID取得最終單一報價
-// @description 透過商機ID取得最終單一報價
+// @Summary 透過商機ID取得最終單一報價含產品
+// @description 透過商機ID取得最終單一報價含產品
 // @Tags quote
 // @version 1.0
 // @Accept json
@@ -185,7 +185,7 @@ func (c *control) GetByOpportunityIDSingle(ctx *gin.Context) {
 		return
 	}
 
-	httpCode, codeMessage := c.Manager.GetBySingle(input)
+	httpCode, codeMessage := c.Manager.GetBySingleProducts(input)
 	ctx.JSON(httpCode, codeMessage)
 }
 

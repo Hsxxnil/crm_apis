@@ -6527,7 +6527,7 @@ const docTemplate = `{
         },
         "/quotes/get-by-opportunity/{opportunityID}": {
             "get": {
-                "description": "透過商機ID取得最終單一報價",
+                "description": "透過商機ID取得最終單一報價含產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -6537,7 +6537,7 @@ const docTemplate = `{
                 "tags": [
                     "quote"
                 ],
-                "summary": "透過商機ID取得最終單一報價",
+                "summary": "透過商機ID取得最終單一報價含產品",
                 "parameters": [
                     {
                         "type": "string",
