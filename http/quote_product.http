@@ -16,7 +16,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/quotes-products/7806a0f7-9609-4a8c-bb38-b488ea507732
+GET {{host}}/crm/v1.0/quotes-products/d465cfe9-0b92-4528-8602-9c05ec6c5847
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -54,20 +54,13 @@ Authorization: Bearer {{accessToken}}
 {
   "products": [
     {
-      "quote_product_id": "934641bd-e849-41f3-8e2b-e748bac1a245",
+      "quote_product_id": "d465cfe9-0b92-4528-8602-9c05ec6c5847",
       "quote_id": "47f65a39-f7fb-444d-8a85-5166b8e603fa",
       "product_id": "3e374065-bba2-4ce9-964c-38303c6f4583",
       "quantity": 20,
       "unit_price": 350,
-      "discount": 5
-    },
-    {
-      "quote_product_id": "61588f6f-f4fe-4611-968d-7c81d1d817d8",
-      "quote_id": "47f65a39-f7fb-444d-8a85-5166b8e603fa",
-      "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
-      "quantity": 20,
-      "unit_price": 2300,
-      "discount": 50
+      "discount": 5,
+      "description": "1"
     }
   ]
 }

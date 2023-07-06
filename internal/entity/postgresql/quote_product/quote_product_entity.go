@@ -137,6 +137,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["discount"] = input.Discount
 	}
 
+	if input.Description != nil {
+		data["description"] = input.Description
+	}
+
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
