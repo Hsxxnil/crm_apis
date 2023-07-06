@@ -153,6 +153,8 @@ func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, interface{}
 	for i, products := range quoteBase.QuoteProducts {
 		output.QuoteProducts[i].ProductName = *products.Products.Name
 		output.QuoteProducts[i].ProductPrice = *products.Products.Price
+		output.QuoteProducts[i].CreatedBy = *products.Products.CreatedByUsers.Name
+		output.QuoteProducts[i].UpdatedBy = *products.Products.UpdatedByUsers.Name
 		output.SubTotal += *products.SubTotal
 		output.TotalPrice += *products.TotalPrice
 	}
