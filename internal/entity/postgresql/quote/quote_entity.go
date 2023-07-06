@@ -146,6 +146,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["is_syncing"] = input.IsSyncing
 	}
 
+	if input.IsFinal != nil {
+		data["is_final"] = input.IsFinal
+	}
+
 	if input.OpportunityID != nil {
 		data["opportunity_id"] = input.OpportunityID
 	}

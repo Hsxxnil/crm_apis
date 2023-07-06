@@ -24,6 +24,8 @@ type Table struct {
 	Status string `gorm:"column:status;type:text;not null;" json:"status"`
 	// 報價與商機是否同步化
 	IsSyncing bool `gorm:"column:is_syncing;type:bool;not null;" json:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal bool `gorm:"column:is_final;type:bool;not null;" json:"is_final"`
 	// 商機ID
 	OpportunityID string `gorm:"column:opportunity_id;type:uuid;not null;" json:"opportunity_id"`
 	// opportunities data
@@ -59,6 +61,8 @@ type Base struct {
 	Status *string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing *bool `json:"is_syncing,omitempty"`
+	// 報價是否為最終版
+	IsFinal *bool `json:"is_final,omitempty"`
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty"`
 	// opportunities data

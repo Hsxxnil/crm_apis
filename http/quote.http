@@ -27,12 +27,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/quotes/5592ae6a-925d-478d-9e73-0a2984f33507
+GET {{host}}/crm/v1.0/quotes/f37d7364-cf96-47f1-a267-e0725e8295c6
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingleProducts
-GET {{host}}/crm/v1.0/quotes/products/5592ae6a-925d-478d-9e73-0a2984f33507
+GET {{host}}/crm/v1.0/quotes/products/f37d7364-cf96-47f1-a267-e0725e8295c6
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -54,12 +54,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/quotes/b94e79fb-f116-4976-b243-9a8f3501ea3d
+PATCH {{host}}/crm/v1.0/quotes/f37d7364-cf96-47f1-a267-e0725e8295c6
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "opportunity_id": "373042d7-3cb4-4e17-b69f-9b294b69eb7f"
+  "is_final": true
 }
 
 ### Delete

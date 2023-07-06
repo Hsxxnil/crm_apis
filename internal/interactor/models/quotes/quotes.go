@@ -45,6 +45,8 @@ type Field struct {
 	Status *string `json:"status,omitempty" form:"status"`
 	// 報價與商機是否同步化
 	IsSyncing *bool `json:"is_syncing,omitempty" form:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal *bool `json:"is_final,omitempty" form:"is_final"`
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty" form:"opportunity_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
@@ -93,6 +95,8 @@ type List struct {
 		Status string `json:"status,omitempty"`
 		// 報價與商機是否同步化
 		IsSyncing bool `json:"is_syncing"`
+		// 報價是否為最終版
+		IsFinal bool `json:"is_final"`
 		// 商機ID
 		OpportunityID string `json:"opportunity_id,omitempty"`
 		// 商機名稱
@@ -138,6 +142,8 @@ type Single struct {
 	Status string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing bool `json:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal bool `json:"is_final"`
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty"`
 	// 商機名稱
@@ -180,6 +186,8 @@ type SingleProducts struct {
 	Status string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing bool `json:"is_syncing"`
+	// 報價是否為最終版
+	IsFinal bool `json:"is_final"`
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty"`
 	// 商機名稱
@@ -224,6 +232,8 @@ type Update struct {
 	Status *string `json:"status,omitempty"`
 	// 報價與商機是否同步化
 	IsSyncing *bool `json:"is_syncing,omitempty"`
+	// 報價是否為最終版
+	IsFinal *bool `json:"is_final,omitempty"`
 	// 商機ID
 	OpportunityID *string `json:"opportunity_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
