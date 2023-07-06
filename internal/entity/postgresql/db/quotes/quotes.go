@@ -36,7 +36,7 @@ type Table struct {
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 報價稅額
 	Tax float64 `gorm:"column:tax;type:numeric;" json:"tax"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `gorm:"column:shipping_and_handling;type:numeric;" json:"shipping_and_handling"`
 	// 報價號碼
 	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
@@ -71,7 +71,7 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 報價稅額
 	Tax *float64 `json:"tax,omitempty"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
 	Code *string `json:"code,omitempty"`

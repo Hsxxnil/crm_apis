@@ -29,7 +29,7 @@ type Create struct {
 	Description string `json:"description,omitempty"`
 	// 報價稅額
 	Tax float64 `json:"tax,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
@@ -55,7 +55,7 @@ type Field struct {
 	Description *string `json:"description,omitempty" form:"description"`
 	// 報價稅額
 	Tax *float64 `json:"tax,omitempty" form:"tax"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" form:"shipping_and_handling"`
 	// 報價號碼
 	Code *string `json:"code,omitempty" form:"code"`
@@ -105,7 +105,7 @@ type List struct {
 		Description string `json:"description,omitempty"`
 		// 報價稅額
 		Tax float64 `json:"tax,omitempty"`
-		// 報價運輸和處理費
+		// 報價運費及其他費用
 		ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 		// 報價小計
 		SubTotal float64 `json:"sub_total"`
@@ -150,7 +150,7 @@ type Single struct {
 	Description string `json:"description,omitempty"`
 	// 報價稅額
 	Tax float64 `json:"tax,omitempty"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 	// 報價小計
 	SubTotal float64 `json:"sub_total"`
@@ -192,7 +192,7 @@ type SingleProducts struct {
 	Description string `json:"description,omitempty"`
 	// 報價稅額
 	Tax float64 `json:"tax,omitempty"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling float64 `json:"shipping_and_handling,omitempty"`
 	// 報價小計
 	SubTotal float64 `json:"sub_total"`
@@ -234,7 +234,7 @@ type Update struct {
 	Description *string `json:"description,omitempty"`
 	// 報價稅額
 	Tax *float64 `json:"tax,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
-	// 報價運輸和處理費
+	// 報價運費及其他費用
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
