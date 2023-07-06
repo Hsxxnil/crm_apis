@@ -49,6 +49,10 @@ func (s *storage) Create(input *model.Base) (err error) {
 		return err
 	}
 
+	if input.LeadID == nil {
+		data.LeadID = nil
+	}
+
 	err = s.db.Model(&model.Table{}).Omit(clause.Associations).Create(&data).Error
 	if err != nil {
 		log.Error(err)

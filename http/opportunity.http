@@ -43,11 +43,11 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "name": "555",
+  "name": "222",
   "stage": "資格評估",
   "forecast_category": "結案",
   "close_date": "2023-04-27T00:00:00Z",
-  "account_id": "d6cb3bc4-474d-4932-8804-9c04ed380e1e",
+  "account_id": "6ffec699-fdf9-4753-833f-79604bf3b796",
   "amount": 500
 }
 
@@ -57,7 +57,7 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "name": "A"
+  "account_id": "d6cb3bc4-474d-4932-8804-9c04ed380e1e"
 }
 
 ### Delete

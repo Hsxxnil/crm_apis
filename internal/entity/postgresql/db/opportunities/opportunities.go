@@ -3,6 +3,8 @@ package opportunities
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/leads"
+
 	"app.eirc/internal/entity/postgresql/db/opportunity_campaigns"
 	model "app.eirc/internal/interactor/models/opportunities"
 	"app.eirc/internal/interactor/models/sort"
@@ -26,6 +28,10 @@ type Table struct {
 	ForecastCategory string `gorm:"column:forecast_category;type:text;not null;" json:"forecast_category"`
 	// 商機結束日期
 	CloseDate time.Time `gorm:"column:close_date;type:date;not null;" json:"close_date"`
+	// 線索ID
+	LeadID *string `gorm:"column:lead_id;type:uuid;" json:"lead_id"`
+	// leads data
+	Leads leads.Table `gorm:"foreignKey:LeadID;references:LeadID" json:"leads,omitempty"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// accounts data
@@ -57,6 +63,10 @@ type Base struct {
 	ForecastCategory *string `json:"forecast_category,omitempty"`
 	// 商機結束日期
 	CloseDate *time.Time `json:"close_date,omitempty"`
+	// 線索ID
+	LeadID *string `json:"lead_id,omitempty"`
+	// leads data
+	Leads leads.Base `json:"leads,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
 	// accounts data
