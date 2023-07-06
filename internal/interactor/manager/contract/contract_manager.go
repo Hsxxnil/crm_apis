@@ -236,14 +236,20 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	// 同步新增契約歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
 
-	if *input.AccountID != *contractBase.AccountID {
-		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
-			AccountID: *input.AccountID,
+	if *input.OpportunityID != *contractBase.OpportunityID {
+		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
+			OpportunityID: *input.OpportunityID,
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "帳戶",
-			Values: "為" + *accountBase.Name,
-		})
+
+		if opportunityBase.AccountID != contractBase.AccountID {
+			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
+				AccountID: *opportunityBase.AccountID,
+			})
+			records = append(records, historicalRecordModel.AddHistoricalRecord{
+				Fields: "帳戶",
+				Values: "為" + *accountBase.Name,
+			})
+		}
 	}
 
 	if *input.Status != *contractBase.Status {

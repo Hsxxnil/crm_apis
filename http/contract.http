@@ -29,7 +29,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/contracts/ea6c109b-2721-470d-8e59-f2fd53440b18
+GET {{host}}/crm/v1.0/contracts/e9dee473-2851-4983-84e9-1e5981f67655
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -47,15 +47,17 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contracts/2cbc0aea-b004-48a9-8073-dbf9c934b447
+PATCH {{host}}/crm/v1.0/contracts/e9dee473-2851-4983-84e9-1e5981f67655
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
+  "opportunity_id": "9b2c8fef-7575-430a-92fb-109cfba5324a",
+  "contract_id": "e9dee473-2851-4983-84e9-1e5981f67655",
   "status": "已簽署",
-  "start_date": "2023-06-10T00:00:00Z",
-  "opportunity_id": "14ebad74-c52e-4ce1-8699-a355efcf6087",
-  "term": 3,
+  "start_date": "2023-06-14T00:00:00Z",
+  "term": 5,
+  "end_date": "2024-01-14T00:00:00Z",
   "description": "123"
 }
 
