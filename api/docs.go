@@ -9175,18 +9175,18 @@ const docTemplate = `{
         "contracts.Create": {
             "type": "object",
             "required": [
-                "account_id",
+                "opportunity_id",
                 "start_date",
                 "status",
                 "term"
             ],
             "properties": {
-                "account_id": {
-                    "description": "帳戶ID",
-                    "type": "string"
-                },
                 "description": {
                     "description": "契約描述",
+                    "type": "string"
+                },
+                "opportunity_id": {
+                    "description": "商機ID",
                     "type": "string"
                 },
                 "start_date": {
@@ -9259,6 +9259,14 @@ const docTemplate = `{
                             },
                             "end_date": {
                                 "description": "契約結束日期",
+                                "type": "string"
+                            },
+                            "opportunity_id": {
+                                "description": "商機ID",
+                                "type": "string"
+                            },
+                            "opportunity_name": {
+                                "description": "商機名稱",
                                 "type": "string"
                             },
                             "salesperson_id": {
@@ -9345,6 +9353,14 @@ const docTemplate = `{
                     "description": "契約結束日期",
                     "type": "string"
                 },
+                "opportunity_id": {
+                    "description": "商機ID",
+                    "type": "string"
+                },
+                "opportunity_name": {
+                    "description": "商機名稱",
+                    "type": "string"
+                },
                 "salesperson_id": {
                     "description": "業務員ID",
                     "type": "string"
@@ -9384,6 +9400,10 @@ const docTemplate = `{
                 },
                 "description": {
                     "description": "契約描述",
+                    "type": "string"
+                },
+                "opportunity_id": {
+                    "description": "商機ID",
                     "type": "string"
                 },
                 "salesperson_id": {

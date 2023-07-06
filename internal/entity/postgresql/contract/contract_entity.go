@@ -142,6 +142,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["start_date"] = input.StartDate
 	}
 
+	if input.OpportunityID != nil {
+		data["opportunity_id"] = input.OpportunityID
+	}
+
 	if input.AccountID != nil {
 		data["account_id"] = input.AccountID
 	}

@@ -51,6 +51,7 @@ func Init(db *gorm.DB) Control {
 func (c *control) Create(ctx *gin.Context) {
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	input := &opportunityModel.Create{}
+	input.CreatedBy = ctx.MustGet("user_id").(string)
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -58,7 +59,6 @@ func (c *control) Create(ctx *gin.Context) {
 		return
 	}
 
-	//input.CreatedBy = ctx.MustGet("user_id").(string)
 	httpCode, codeMessage := c.Manager.Create(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }

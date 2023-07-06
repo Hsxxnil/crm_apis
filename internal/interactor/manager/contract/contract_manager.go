@@ -5,17 +5,19 @@ import (
 	"errors"
 	"strconv"
 
-	accountModel "app.eirc/internal/interactor/models/accounts"
+	orderModel "app.eirc/internal/interactor/models/orders"
 	"app.eirc/internal/interactor/models/page"
 
 	"app.eirc/internal/interactor/pkg/util"
 
+	accountModel "app.eirc/internal/interactor/models/accounts"
 	contractModel "app.eirc/internal/interactor/models/contracts"
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	orderModel "app.eirc/internal/interactor/models/orders"
+	opportunityModel "app.eirc/internal/interactor/models/opportunities"
 	accountService "app.eirc/internal/interactor/service/account"
 	contractService "app.eirc/internal/interactor/service/contract"
 	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
+	opportunityService "app.eirc/internal/interactor/service/opportunity"
 	orderService "app.eirc/internal/interactor/service/order"
 	"gorm.io/gorm"
 
@@ -36,6 +38,7 @@ type manager struct {
 	OrderService            orderService.Service
 	HistoricalRecordService historicalRecordService.Service
 	AccountService          accountService.Service
+	OpportunityService      opportunityService.Service
 }
 
 func Init(db *gorm.DB) Manager {
@@ -44,6 +47,7 @@ func Init(db *gorm.DB) Manager {
 		OrderService:            orderService.Init(db),
 		HistoricalRecordService: historicalRecordService.Init(db),
 		AccountService:          accountService.Init(db),
+		OpportunityService:      opportunityService.Init(db),
 	}
 }
 
@@ -52,6 +56,11 @@ const sourceType = "契約"
 func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
+	// 同步商機的account_id
+	opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
+		OpportunityID: input.OpportunityID,
+	})
+	input.AccountID = *opportunityBase.AccountID
 	input.EndDate = input.StartDate.AddDate(0, input.Term, 0)
 	contractBase, err := m.ContractService.WithTrx(trx).Create(input)
 	if err != nil {
@@ -103,6 +112,7 @@ func (m *manager) GetByList(input *contractModel.Fields) (int, interface{}) {
 		contracts.CreatedBy = *contractBase[i].CreatedByUsers.Name
 		contracts.UpdatedBy = *contractBase[i].UpdatedByUsers.Name
 		contracts.SalespersonName = *contractBase[i].Salespeople.Name
+		contracts.OpportunityName = *contractBase[i].Opportunities.Name
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
@@ -131,6 +141,7 @@ func (m *manager) GetBySingle(input *contractModel.Field) (int, interface{}) {
 	output.CreatedBy = *contractBase.CreatedByUsers.Name
 	output.UpdatedBy = *contractBase.UpdatedByUsers.Name
 	output.SalespersonName = *contractBase.Salespeople.Name
+	output.OpportunityName = *contractBase.Opportunities.Name
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
@@ -181,14 +192,14 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	}
 	input.EndDate = startDate.AddDate(0, *term, 0)
 
-	err = m.ContractService.Update(input)
-	if err != nil {
-		log.Error(err)
-		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
-	}
+	// 同步更新商機的account_id至該契約
+	if input.OpportunityID != nil && *input.OpportunityID != *contractBase.OpportunityID {
+		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
+			OpportunityID: *input.OpportunityID,
+		})
+		input.AccountID = opportunityBase.AccountID
 
-	// 同步修改帳戶至orders
-	if input.AccountID != nil && *input.AccountID != *contractBase.AccountID {
+		// 同步修改帳戶至orders
 		_, orders, err := m.OrderService.GetByList(&orderModel.Fields{
 			Field: orderModel.Field{
 				ContractID: util.PointerString(input.ContractID),
@@ -214,6 +225,12 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 				return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 			}
 		}
+	}
+
+	err = m.ContractService.Update(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	// 同步新增契約歷程記錄

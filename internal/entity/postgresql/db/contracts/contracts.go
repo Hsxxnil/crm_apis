@@ -3,6 +3,8 @@ package contracts
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/opportunities"
+
 	"app.eirc/internal/interactor/models/sort"
 
 	"app.eirc/internal/entity/postgresql/db/accounts"
@@ -24,6 +26,10 @@ type Table struct {
 	Term int `gorm:"column:term;type:int;not null;" json:"term"`
 	// 契約結束日期
 	EndDate time.Time `gorm:"column:end_date;type:date;not null;" json:"end_date"`
+	// 商機ID
+	OpportunityID string `gorm:"column:opportunity_id;type:uuid;not null;" json:"opportunity_id"`
+	// opportunities  data
+	Opportunities opportunities.Table `gorm:"foreignKey:OpportunityID;references:OpportunityID" json:"opportunities,omitempty"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// accounts data
@@ -55,6 +61,10 @@ type Base struct {
 	Term *int `json:"term,omitempty"`
 	// 契約結束日期
 	EndDate *time.Time `json:"end_date,omitempty"`
+	// 商機ID
+	OpportunityID *string `json:"opportunity_id,omitempty"`
+	// opportunities  data
+	Opportunities opportunities.Base `json:"opportunities,omitempty"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty"`
 	// accounts data

@@ -21,9 +21,9 @@ Authorization: Bearer {{accessToken}}
     "direction": "desc"
   },
   "filter": {
-    "name": "虛",
-    "account_name": "虛",
-    "salesperson_name": "虛"
+    "name": "",
+    "account_name": "",
+    "salesperson_name": ""
   }
 }
 
@@ -43,11 +43,11 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "name": "test",
+  "name": "555",
   "stage": "資格評估",
   "forecast_category": "結案",
   "close_date": "2023-04-27T00:00:00Z",
-  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
+  "account_id": "d6cb3bc4-474d-4932-8804-9c04ed380e1e",
   "amount": 500
 }
 
