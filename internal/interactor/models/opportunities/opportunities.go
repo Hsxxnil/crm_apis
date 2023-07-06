@@ -21,8 +21,10 @@ type Create struct {
 	ForecastCategory string `json:"forecast_category,omitempty" binding:"required" validate:"required"`
 	// 商機結束日期
 	CloseDate time.Time `json:"close_date,omitempty" binding:"required" validate:"required"`
+	// 線索ID
+	LeadID string `json:"lead_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
-	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 預期收入金額
 	Amount float64 `json:"amount,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 創建者
@@ -41,6 +43,8 @@ type Field struct {
 	ForecastCategory *string `json:"forecast_category,omitempty" form:"forecast_category"`
 	// 商機結束日期
 	CloseDate *time.Time `json:"close_date,omitempty" form:"close_date"`
+	// 線索ID
+	LeadID *string `json:"lead_id,omitempty" form:"lead_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 預期收入金額
@@ -85,6 +89,10 @@ type List struct {
 		ForecastCategory string `json:"forecast_category,omitempty"`
 		// 商機結束日期
 		CloseDate time.Time `json:"close_date,omitempty"`
+		// 線索ID
+		LeadID string `json:"lead_id,omitempty"`
+		// 線索描述
+		LeadDescription string `json:"lead_description,omitempty"`
 		// 帳戶ID
 		AccountID string `json:"account_id,omitempty"`
 		// 帳戶名稱
@@ -118,6 +126,10 @@ type Single struct {
 	ForecastCategory string `json:"forecast_category,omitempty"`
 	// 商機結束日期
 	CloseDate time.Time `json:"close_date,omitempty"`
+	// 線索ID
+	LeadID string `json:"lead_id,omitempty"`
+	// 線索描述
+	LeadDescription string `json:"lead_description,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 帳戶名稱
@@ -148,6 +160,10 @@ type SingleCampaigns struct {
 	ForecastCategory string `json:"forecast_category,omitempty"`
 	// 商機結束日期
 	CloseDate time.Time `json:"close_date,omitempty"`
+	// 線索ID
+	LeadID string `json:"lead_id,omitempty"`
+	// 線索描述
+	LeadDescription string `json:"lead_description,omitempty"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty"`
 	// 帳戶名稱

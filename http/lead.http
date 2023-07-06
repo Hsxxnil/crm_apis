@@ -41,10 +41,10 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "status": "New",
+  "status": "1",
   "description": "Test",
   "source": "展演",
-  "account_id": "cf6f654e-fb06-4740-bf03-374f32406d37",
+  "account_id": "609efef9-d88a-4b5b-a402-f27ad0424da2",
   "rating": "Hot"
 }
 

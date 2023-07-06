@@ -57,6 +57,7 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 	base.UpdatedAt = util.PointerTime(util.NowToUTC())
 	base.UpdatedBy = util.PointerString(input.CreatedBy)
 	base.SalespersonID = util.PointerString(input.CreatedBy)
+
 	err = s.Repository.Create(base)
 	if err != nil {
 		log.Error(err)

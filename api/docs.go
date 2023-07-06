@@ -9852,7 +9852,6 @@ const docTemplate = `{
         "opportunities.Create": {
             "type": "object",
             "required": [
-                "account_id",
                 "close_date",
                 "forecast_category",
                 "name",
@@ -9874,6 +9873,10 @@ const docTemplate = `{
                 },
                 "forecast_category": {
                     "description": "商機預測種類",
+                    "type": "string"
+                },
+                "lead_id": {
+                    "description": "線索ID",
                     "type": "string"
                 },
                 "name": {
@@ -9946,6 +9949,14 @@ const docTemplate = `{
                             },
                             "forecast_category": {
                                 "description": "商機預測種類",
+                                "type": "string"
+                            },
+                            "lead_description": {
+                                "description": "線索描述",
+                                "type": "string"
+                            },
+                            "lead_id": {
+                                "description": "線索ID",
                                 "type": "string"
                             },
                             "name": {
@@ -10024,6 +10035,14 @@ const docTemplate = `{
                     "description": "商機預測種類",
                     "type": "string"
                 },
+                "lead_description": {
+                    "description": "線索描述",
+                    "type": "string"
+                },
+                "lead_id": {
+                    "description": "線索ID",
+                    "type": "string"
+                },
                 "name": {
                     "description": "商機名稱",
                     "type": "string"
@@ -10090,6 +10109,14 @@ const docTemplate = `{
                 },
                 "forecast_category": {
                     "description": "商機預測種類",
+                    "type": "string"
+                },
+                "lead_description": {
+                    "description": "線索描述",
+                    "type": "string"
+                },
+                "lead_id": {
+                    "description": "線索ID",
                     "type": "string"
                 },
                 "name": {
