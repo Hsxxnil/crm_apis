@@ -120,6 +120,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["unit_price"] = input.UnitPrice
 	}
 
+	if input.QuotePrice != nil {
+		data["quote_price"] = input.QuotePrice
+	}
+
 	if input.SubTotal != nil {
 		data["sub_total"] = input.SubTotal
 	}

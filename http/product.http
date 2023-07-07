@@ -22,10 +22,15 @@ Authorization: Bearer {{accessToken}}
   },
   "filter": {
     "description": "",
-    "name": "g",
+    "name": "",
     "code": ""
   }
 }
+
+### GetByOrderIDList
+POST {{host}}/crm/v1.0/products/get-by-quote/889efc88-6c06-4fbf-a479-34eecb68720a?page=1&limit=20
+Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/products/67506062-59ea-449f-afba-f85ae2cbfaa5

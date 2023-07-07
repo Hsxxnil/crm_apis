@@ -13,6 +13,7 @@ type Entity interface {
 	WithTrx(trx *gorm.DB) Entity
 	Create(input *model.Base) (err error)
 	GetByList(input *model.Base) (quantity int64, output []*model.Table, err error)
+	GetByListNoQuantity(input *model.Base) (output []*model.Table, err error)
 	GetBySingle(input *model.Base) (output *model.Table, err error)
 	GetByQuantity(input *model.Base) (quantity int64, err error)
 	Delete(input *model.Base) (err error)
@@ -65,6 +66,10 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("quote_product_id = ?", input.QuoteProductID)
 	}
 
+	if input.QuoteID != nil {
+		query.Where("quote_id = ?", input.QuoteID)
+	}
+
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
 	if err != nil {
@@ -75,10 +80,33 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	return quantity, output, nil
 }
 
+func (s *storage) GetByListNoQuantity(input *model.Base) (output []*model.Table, err error) {
+	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	if input.QuoteProductID != nil {
+		query.Where("quote_product_id = ?", input.QuoteProductID)
+	}
+
+	if input.QuoteID != nil {
+		query.Where("quote_id = ?", input.QuoteID)
+	}
+
+	err = query.Order("created_at desc").Find(&output).Error
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	return output, nil
+}
+
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
 	if input.QuoteProductID != nil {
 		query.Where("quote_product_id = ?", input.QuoteProductID)
+	}
+
+	if input.ProductID != nil {
+		query.Where("product_id = ?", input.ProductID)
 	}
 
 	err = query.First(&output).Error

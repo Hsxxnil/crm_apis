@@ -5614,6 +5614,127 @@ const docTemplate = `{
                 }
             }
         },
+        "/products/get-by-quote/{orderID}": {
+            "post": {
+                "description": "透過訂單ID取得全部產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "透過訂單ID取得全部產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "訂單ID",
+                        "name": "orderID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序方式",
+                        "name": "direction",
+                        "in": "query"
+                    },
+                    {
+                        "description": "搜尋",
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/products.Filter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/products.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/products/list": {
             "post": {
                 "description": "取得全部產品",
@@ -10443,6 +10564,11 @@ const docTemplate = `{
                     "type": "integer",
                     "minimum": 0
                 },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number",
+                    "minimum": 0
+                },
                 "unit_price": {
                     "description": "訂單產品單價",
                     "type": "number",
@@ -10499,6 +10625,10 @@ const docTemplate = `{
                                 "description": "訂單產品數量",
                                 "type": "integer"
                             },
+                            "quote_price": {
+                                "description": "訂單產品報價",
+                                "type": "number"
+                            },
                             "sub_total": {
                                 "description": "訂單產品小計",
                                 "type": "number"
@@ -10551,6 +10681,10 @@ const docTemplate = `{
                     "description": "訂單產品數量",
                     "type": "integer"
                 },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number"
+                },
                 "standard_price": {
                     "description": "產品定價",
                     "type": "number"
@@ -10600,6 +10734,10 @@ const docTemplate = `{
                     "description": "訂單產品數量",
                     "type": "integer"
                 },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number"
+                },
                 "sub_total": {
                     "description": "訂單產品小計",
                     "type": "number"
@@ -10632,6 +10770,11 @@ const docTemplate = `{
                 "quantity": {
                     "description": "訂單產品數量",
                     "type": "integer",
+                    "minimum": 0
+                },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number",
                     "minimum": 0
                 },
                 "unit_price": {
@@ -11035,6 +11178,10 @@ const docTemplate = `{
                             "product_id": {
                                 "description": "產品ID",
                                 "type": "string"
+                            },
+                            "quote_price": {
+                                "description": "產品報價金額",
+                                "type": "number"
                             },
                             "updated_at": {
                                 "description": "更新時間",

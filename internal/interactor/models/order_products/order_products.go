@@ -15,6 +15,8 @@ type Create struct {
 	Quantity int `json:"quantity,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
 	// 訂單產品單價
 	UnitPrice float64 `json:"unit_price,omitempty" binding:"required,gte=0" validate:"required,gte=0"`
+	// 訂單產品報價
+	QuotePrice float64 `json:"quote_price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 訂單產品小計
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 訂單產品描述
@@ -35,6 +37,8 @@ type Field struct {
 	Quantity *int `json:"quantity,omitempty" form:"quantity"`
 	// 訂單產品單價
 	UnitPrice *float64 `json:"unit_price,omitempty" form:"unit_price"`
+	// 訂單產品報價
+	QuotePrice *float64 `json:"quote_price,omitempty" form:"quote_price"`
 	// 訂單產品小計
 	SubTotal *float64 `json:"sub_total,omitempty" form:"sub_total"`
 	// 訂單產品描述
@@ -65,6 +69,8 @@ type List struct {
 		Quantity int `json:"quantity,omitempty"`
 		// 訂單產品單價
 		UnitPrice float64 `json:"unit_price,omitempty"`
+		// 訂單產品報價
+		QuotePrice float64 `json:"quote_price,omitempty"`
 		// 訂單產品小計
 		SubTotal float64 `json:"sub_total,omitempty"`
 		// 訂單產品描述
@@ -94,6 +100,8 @@ type Single struct {
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
 	UnitPrice float64 `json:"unit_price,omitempty"`
+	// 訂單產品報價
+	QuotePrice float64 `json:"quote_price,omitempty"`
 	// 訂單產品小計
 	SubTotal float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
@@ -116,6 +124,8 @@ type Update struct {
 	Quantity *int `json:"quantity,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 訂單產品單價
 	UnitPrice *float64 `json:"unit_price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
+	// 訂單產品報價
+	QuotePrice *float64 `json:"quote_price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 訂單產品小計
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 訂單產品描述
@@ -136,6 +146,8 @@ type OrderSingle struct {
 	Quantity int `json:"quantity,omitempty"`
 	// 訂單產品單價
 	UnitPrice float64 `json:"unit_price,omitempty"`
+	// 訂單產品報價
+	QuotePrice float64 `json:"quote_price,omitempty"`
 	// 訂單產品小計
 	SubTotal float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述

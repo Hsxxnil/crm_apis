@@ -6,8 +6,6 @@ import (
 	"strconv"
 
 	orderModel "app.eirc/internal/interactor/models/orders"
-	"app.eirc/internal/interactor/models/page"
-
 	"app.eirc/internal/interactor/pkg/util"
 
 	accountModel "app.eirc/internal/interactor/models/accounts"
@@ -200,14 +198,8 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		input.AccountID = opportunityBase.AccountID
 
 		// 同步修改帳戶至orders
-		_, orders, err := m.OrderService.GetByList(&orderModel.Fields{
-			Field: orderModel.Field{
-				ContractID: util.PointerString(input.ContractID),
-			},
-			Pagination: page.Pagination{
-				Page:  1,
-				Limit: 20,
-			},
+		orders, err := m.OrderService.GetByListNoQuantity(&orderModel.Field{
+			ContractID: util.PointerString(input.ContractID),
 		})
 		if err != nil {
 			log.Error(err)
