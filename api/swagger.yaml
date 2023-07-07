@@ -6418,11 +6418,11 @@ paths:
       summary: 更新單一產品
       tags:
       - product
-  /products/get-by-quote/{orderID}:
+  /products/get-by-order/{orderID}:
     post:
       consumes:
       - application/json
-      description: 透過訂單ID取得全部產品
+      description: 透過訂單ID取得全部產品含報價金額
       parameters:
       - description: JWE Token
         in: header
@@ -6487,7 +6487,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 透過訂單ID取得全部產品
+      summary: 透過訂單ID取得全部產品含報價金額
       tags:
       - product
   /products/list:

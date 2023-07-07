@@ -103,8 +103,8 @@ func (c *control) GetByList(ctx *gin.Context) {
 }
 
 // GetByOrderIDList
-// @Summary 透過訂單ID取得全部產品
-// @description 透過訂單ID取得全部產品
+// @Summary 透過訂單ID取得全部產品含報價金額
+// @description 透過訂單ID取得全部產品含報價金額
 // @Tags product
 // @version 1.0
 // @Accept json
@@ -119,7 +119,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=products.List} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /products/get-by-quote/{orderID} [post]
+// @Router /products/get-by-order/{orderID} [post]
 func (c *control) GetByOrderIDList(ctx *gin.Context) {
 	input := &productModel.Fields{}
 	orderID := ctx.Param("orderID")
