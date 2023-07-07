@@ -19,6 +19,7 @@ import (
 type Control interface {
 	Create(ctx *gin.Context)
 	GetByList(ctx *gin.Context)
+	GetByQuoteIDList(ctx *gin.Context)
 	GetBySingle(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 	Update(ctx *gin.Context)
@@ -98,6 +99,48 @@ func (c *control) GetByList(ctx *gin.Context) {
 	}
 
 	httpCode, codeMessage := c.Manager.GetByList(input)
+	ctx.JSON(httpCode, codeMessage)
+}
+
+// GetByQuoteIDList
+// @Summary 透過訂單ID取得全部產品
+// @description 透過訂單ID取得全部產品
+// @Tags product
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @param orderID path string true "訂單ID"
+// @param page query int true "目前頁數,請從1開始帶入"
+// @param limit query int true "一次回傳比數,請從1開始帶入,最高上限20"
+// @param sort query string false "排序"
+// @param direction query string false "排序方式"
+// @param * body products.Filter false "搜尋"
+// @success 200 object code.SuccessfulMessage{body=products.List} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /products/get-by-quote/{orderID} [post]
+func (c *control) GetByQuoteIDList(ctx *gin.Context) {
+	input := &productModel.Fields{}
+	orderID := ctx.Param("orderID")
+	limit := ctx.Query("limit")
+	page := ctx.Query("page")
+	input.Limit, _ = strconv.ParseInt(limit, 10, 64)
+	input.Page, _ = strconv.ParseInt(page, 10, 64)
+	input.OrderID = orderID
+
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	if input.Limit >= constant.DefaultLimit {
+		input.Limit = constant.DefaultLimit
+	}
+
+	httpCode, codeMessage := c.Manager.GetByQuoteIDList(input)
 	ctx.JSON(httpCode, codeMessage)
 }
 

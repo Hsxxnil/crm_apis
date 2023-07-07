@@ -38,7 +38,9 @@ type Field struct {
 	Price *float64 `json:"price,omitempty" form:"price"`
 
 	// 報價ID
-	QuoteID *string `json:"quote_id,omitempty" form:"quote_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	QuoteID string `json:"quote_id,omitempty" form:"quote_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 訂單ID
+	OrderID string `json:"order_id,omitempty" form:"order_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
 
 // Fields is the searched structure file (including pagination)

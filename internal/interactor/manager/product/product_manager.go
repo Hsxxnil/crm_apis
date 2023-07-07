@@ -4,10 +4,19 @@ import (
 	"encoding/json"
 	"errors"
 
+	quoteModel "app.eirc/internal/interactor/models/quotes"
+	opportunityService "app.eirc/internal/interactor/service/opportunity"
+	quoteService "app.eirc/internal/interactor/service/quote"
+
+	contractModel "app.eirc/internal/interactor/models/contracts"
+	orderModel "app.eirc/internal/interactor/models/orders"
+	contractService "app.eirc/internal/interactor/service/contract"
+
 	quoteProductDB "app.eirc/internal/entity/postgresql/db/quote_products"
 	productModel "app.eirc/internal/interactor/models/products"
 	quoteProductModel "app.eirc/internal/interactor/models/quote_products"
 	"app.eirc/internal/interactor/pkg/util"
+	orderService "app.eirc/internal/interactor/service/order"
 	productService "app.eirc/internal/interactor/service/product"
 	quoteProductService "app.eirc/internal/interactor/service/quote_product"
 	"gorm.io/gorm"
@@ -19,6 +28,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *productModel.Create) (int, interface{})
 	GetByList(input *productModel.Fields) (int, interface{})
+	GetByQuoteIDList(input *productModel.Fields) (int, interface{})
 	GetBySingle(input *productModel.Field) (int, interface{})
 	Delete(input *productModel.Field) (int, interface{})
 	Update(input *productModel.Update) (int, interface{})
@@ -27,12 +37,20 @@ type Manager interface {
 type manager struct {
 	ProductService      productService.Service
 	QuoteProductService quoteProductService.Service
+	OrderService        orderService.Service
+	ContractService     contractService.Service
+	OpportunityService  opportunityService.Service
+	QuoteService        quoteService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
 		ProductService:      productService.Init(db),
 		QuoteProductService: quoteProductService.Init(db),
+		OrderService:        orderService.Init(db),
+		ContractService:     contractService.Init(db),
+		OpportunityService:  opportunityService.Init(db),
+		QuoteService:        quoteService.Init(db),
 	}
 }
 
@@ -83,6 +101,53 @@ func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for i, products := range output.Products {
+		products.CreatedBy = *productBase[i].CreatedByUsers.Name
+		products.UpdatedBy = *productBase[i].UpdatedByUsers.Name
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByQuoteIDList(input *productModel.Fields) (int, interface{}) {
+	output := &productModel.List{}
+	output.Limit = input.Limit
+	output.Page = input.Page
+	quantity, productBase, err := m.ProductService.GetByList(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	output.Total.Total = quantity
+	productByte, err := json.Marshal(productBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	output.Pages = util.Pagination(quantity, output.Limit)
+	err = json.Unmarshal(productByte, &output.Products)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 透過訂單ID取得契約ID
+	orderBase, _ := m.OrderService.GetBySingle(&orderModel.Field{
+		OrderID: input.OrderID,
+	})
+
+	// 透過契約ID取得商機ID
+	contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
+		ContractID: *orderBase.ContractID,
+	})
+
+	// 透過商機ID取得報價ID
+	quoteBase, _ := m.QuoteService.GetBySingle(&quoteModel.Field{
+		OpportunityID: contractBase.OpportunityID,
+	})
+
 	// 收集所有產品ID
 	productIDs := make([]string, len(productBase))
 	for i, product := range productBase {
@@ -91,7 +156,7 @@ func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
 
 	// 透過報價ID取得所有與該報價有關的產品ID
 	quoteProductBase, _ := m.QuoteProductService.GetByListNoQuantity(&quoteProductModel.Field{
-		QuoteID: input.QuoteID,
+		QuoteID: quoteBase.QuoteID,
 	})
 
 	// 建立產品ID的映射表
