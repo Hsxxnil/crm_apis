@@ -10564,6 +10564,11 @@ const docTemplate = `{
                     "type": "integer",
                     "minimum": 0
                 },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number",
+                    "minimum": 0
+                },
                 "unit_price": {
                     "description": "訂單產品單價",
                     "type": "number",
@@ -10620,6 +10625,10 @@ const docTemplate = `{
                                 "description": "訂單產品數量",
                                 "type": "integer"
                             },
+                            "quote_price": {
+                                "description": "訂單產品報價",
+                                "type": "number"
+                            },
                             "sub_total": {
                                 "description": "訂單產品小計",
                                 "type": "number"
@@ -10672,6 +10681,10 @@ const docTemplate = `{
                     "description": "訂單產品數量",
                     "type": "integer"
                 },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number"
+                },
                 "standard_price": {
                     "description": "產品定價",
                     "type": "number"
@@ -10721,6 +10734,10 @@ const docTemplate = `{
                     "description": "訂單產品數量",
                     "type": "integer"
                 },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number"
+                },
                 "sub_total": {
                     "description": "訂單產品小計",
                     "type": "number"
@@ -10753,6 +10770,11 @@ const docTemplate = `{
                 "quantity": {
                     "description": "訂單產品數量",
                     "type": "integer",
+                    "minimum": 0
+                },
+                "quote_price": {
+                    "description": "訂單產品報價",
+                    "type": "number",
                     "minimum": 0
                 },
                 "unit_price": {

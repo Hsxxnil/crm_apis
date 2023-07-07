@@ -1727,6 +1727,10 @@ definitions:
         description: 訂單產品數量
         minimum: 0
         type: integer
+      quote_price:
+        description: 訂單產品報價
+        minimum: 0
+        type: number
       unit_price:
         description: 訂單產品單價
         minimum: 0
@@ -1770,6 +1774,9 @@ definitions:
             quantity:
               description: 訂單產品數量
               type: integer
+            quote_price:
+              description: 訂單產品報價
+              type: number
             sub_total:
               description: 訂單產品小計
               type: number
@@ -1811,6 +1818,9 @@ definitions:
       quantity:
         description: 訂單產品數量
         type: integer
+      quote_price:
+        description: 訂單產品報價
+        type: number
       standard_price:
         description: 產品定價
         type: number
@@ -1847,6 +1857,9 @@ definitions:
       quantity:
         description: 訂單產品數量
         type: integer
+      quote_price:
+        description: 訂單產品報價
+        type: number
       sub_total:
         description: 訂單產品小計
         type: number
@@ -1872,6 +1885,10 @@ definitions:
         description: 訂單產品數量
         minimum: 0
         type: integer
+      quote_price:
+        description: 訂單產品報價
+        minimum: 0
+        type: number
       unit_price:
         description: 訂單產品單價
         minimum: 0

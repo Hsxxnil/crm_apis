@@ -30,6 +30,7 @@ Authorization: Bearer {{accessToken}}
   "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
   "quantity": 1,
   "unit_price": 100,
+  "quote_price": 200,
   "description": "test"
 }
 

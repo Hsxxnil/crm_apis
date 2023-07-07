@@ -20,6 +20,8 @@ type Table struct {
 	Quantity int `gorm:"column:quantity;type:int;not null;" json:"quantity"`
 	// 訂單產品單價
 	UnitPrice float64 `gorm:"column:unit_price;type:numeric;not null;" json:"unit_price"`
+	// 訂單產品報價
+	QuotePrice float64 `gorm:"column:quote_price;type:numeric;not null;" json:"quote_price"`
 	// 訂單產品小計
 	SubTotal float64 `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
 	// 訂單產品描述
@@ -45,6 +47,8 @@ type Base struct {
 	Quantity *int `json:"quantity,omitempty"`
 	// 訂單產品單價
 	UnitPrice *float64 `json:"unit_price,omitempty"`
+	// 訂單產品報價
+	QuotePrice *float64 `json:"quote_price,omitempty"`
 	// 訂單產品小計
 	SubTotal *float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
