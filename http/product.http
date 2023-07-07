@@ -22,7 +22,7 @@ Authorization: Bearer {{accessToken}}
   },
   "filter": {
     "description": "",
-    "name": "g",
+    "name": "",
     "code": ""
   }
 }

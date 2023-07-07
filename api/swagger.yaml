@@ -2163,6 +2163,9 @@ definitions:
             product_id:
               description: 產品ID
               type: string
+            quote_price:
+              description: 產品報價金額
+              type: number
             updated_at:
               description: 更新時間
               type: string

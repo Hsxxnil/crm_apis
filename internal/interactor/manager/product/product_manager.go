@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/internal/interactor/pkg/util"
-
+	quoteProductDB "app.eirc/internal/entity/postgresql/db/quote_products"
 	productModel "app.eirc/internal/interactor/models/products"
+	quoteProductModel "app.eirc/internal/interactor/models/quote_products"
+	"app.eirc/internal/interactor/pkg/util"
 	productService "app.eirc/internal/interactor/service/product"
+	quoteProductService "app.eirc/internal/interactor/service/quote_product"
 	"gorm.io/gorm"
 
 	"app.eirc/internal/interactor/pkg/util/code"
@@ -23,12 +25,14 @@ type Manager interface {
 }
 
 type manager struct {
-	ProductService productService.Service
+	ProductService      productService.Service
+	QuoteProductService quoteProductService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		ProductService: productService.Init(db),
+		ProductService:      productService.Init(db),
+		QuoteProductService: quoteProductService.Init(db),
 	}
 }
 
@@ -79,9 +83,39 @@ func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 收集所有產品ID
+	productIDs := make([]string, len(productBase))
+	for i, product := range productBase {
+		productIDs[i] = *product.ProductID
+	}
+
+	// 透過報價ID取得所有與該報價有關的產品ID
+	quoteProductBase, _ := m.QuoteProductService.GetByListNoQuantity(&quoteProductModel.Field{
+		QuoteID: input.QuoteID,
+	})
+
+	// 建立產品ID的映射表
+	productIDMap := make(map[string]bool)
+	for _, productID := range productIDs {
+		productIDMap[productID] = true
+	}
+
+	// 將相同產品ID的報價產品與產品對應
+	var matchingQuoteProductBase []*quoteProductDB.Base
+	for _, quoteProduct := range quoteProductBase {
+		if productIDMap[*quoteProduct.ProductID] {
+			matchingQuoteProductBase = append(matchingQuoteProductBase, quoteProduct)
+		}
+	}
+
 	for i, products := range output.Products {
 		products.CreatedBy = *productBase[i].CreatedByUsers.Name
 		products.UpdatedBy = *productBase[i].UpdatedByUsers.Name
+		for _, quoteProduct := range matchingQuoteProductBase {
+			if *quoteProduct.ProductID == products.ProductID {
+				products.QuotePrice = *quoteProduct.UnitPrice
+			}
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
