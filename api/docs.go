@@ -5614,9 +5614,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/get-by-quote/{orderID}": {
+        "/products/get-by-order/{orderID}": {
             "post": {
-                "description": "透過訂單ID取得全部產品",
+                "description": "透過訂單ID取得全部產品含報價金額",
                 "consumes": [
                     "application/json"
                 ],
@@ -5626,7 +5626,7 @@ const docTemplate = `{
                 "tags": [
                     "product"
                 ],
-                "summary": "透過訂單ID取得全部產品",
+                "summary": "透過訂單ID取得全部產品含報價金額",
                 "parameters": [
                     {
                         "type": "string",
