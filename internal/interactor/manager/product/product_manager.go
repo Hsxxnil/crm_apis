@@ -28,7 +28,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *productModel.Create) (int, interface{})
 	GetByList(input *productModel.Fields) (int, interface{})
-	GetByQuoteIDList(input *productModel.Fields) (int, interface{})
+	GetByOrderIDList(input *productModel.Fields) (int, interface{})
 	GetBySingle(input *productModel.Field) (int, interface{})
 	Delete(input *productModel.Field) (int, interface{})
 	Update(input *productModel.Update) (int, interface{})
@@ -109,7 +109,7 @@ func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByQuoteIDList(input *productModel.Fields) (int, interface{}) {
+func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}) {
 	output := &productModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page

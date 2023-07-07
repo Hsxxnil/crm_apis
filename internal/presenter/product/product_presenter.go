@@ -19,7 +19,7 @@ import (
 type Control interface {
 	Create(ctx *gin.Context)
 	GetByList(ctx *gin.Context)
-	GetByQuoteIDList(ctx *gin.Context)
+	GetByOrderIDList(ctx *gin.Context)
 	GetBySingle(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 	Update(ctx *gin.Context)
@@ -102,7 +102,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 	ctx.JSON(httpCode, codeMessage)
 }
 
-// GetByQuoteIDList
+// GetByOrderIDList
 // @Summary 透過訂單ID取得全部產品
 // @description 透過訂單ID取得全部產品
 // @Tags product
@@ -120,7 +120,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /products/get-by-quote/{orderID} [post]
-func (c *control) GetByQuoteIDList(ctx *gin.Context) {
+func (c *control) GetByOrderIDList(ctx *gin.Context) {
 	input := &productModel.Fields{}
 	orderID := ctx.Param("orderID")
 	limit := ctx.Query("limit")
@@ -140,7 +140,7 @@ func (c *control) GetByQuoteIDList(ctx *gin.Context) {
 		input.Limit = constant.DefaultLimit
 	}
 
-	httpCode, codeMessage := c.Manager.GetByQuoteIDList(input)
+	httpCode, codeMessage := c.Manager.GetByOrderIDList(input)
 	ctx.JSON(httpCode, codeMessage)
 }
 
