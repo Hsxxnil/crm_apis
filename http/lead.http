@@ -21,11 +21,11 @@ Authorization: Bearer {{accessToken}}
     "direction": "asc"
   },
   "filter": {
-    "description": "T",
-    "account_name": "T",
-    "rating": "T",
-    "source": "T",
-    "salesperson_name": "T"
+    "description": "",
+    "account_name": "",
+    "rating": "",
+    "source": "",
+    "salesperson_name": ""
   }
 }
 
@@ -49,12 +49,15 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/leads/0a43d01f-9091-4b89-bc4b-fde8859826c1
+PATCH {{host}}/crm/v1.0/leads/7c0dd994-3501-4660-8f30-638384136382
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "status": "新線索",
+  "description": "5",
+  "account_id": "d6cb3bc4-474d-4932-8804-9c04ed380e1e",
+  "salesperson_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07"
 }
 
 ### Delete
