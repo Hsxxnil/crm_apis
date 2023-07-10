@@ -53,6 +53,12 @@ const sourceType = "報價"
 func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
+	// 同步商機的account_id
+	opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
+		OpportunityID: input.OpportunityID,
+	})
+	input.AccountID = *opportunityBase.AccountID
+
 	quoteBase, err := m.QuoteService.WithTrx(trx).Create(input)
 	if err != nil {
 		log.Error(err)
@@ -227,6 +233,14 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步更新商機的account_id至該報價
+	if input.OpportunityID != nil && *input.OpportunityID != *quoteBase.OpportunityID {
+		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
+			OpportunityID: *input.OpportunityID,
+		})
+		input.AccountID = opportunityBase.AccountID
 	}
 
 	err = m.QuoteService.Update(input)
