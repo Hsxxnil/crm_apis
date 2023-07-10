@@ -5,6 +5,9 @@ import (
 	"errors"
 	"strconv"
 
+	userModel "app.eirc/internal/interactor/models/users"
+	userService "app.eirc/internal/interactor/service/user"
+
 	orderModel "app.eirc/internal/interactor/models/orders"
 	"app.eirc/internal/interactor/pkg/util"
 
@@ -37,6 +40,7 @@ type manager struct {
 	HistoricalRecordService historicalRecordService.Service
 	AccountService          accountService.Service
 	OpportunityService      opportunityService.Service
+	UserService             userService.Service
 }
 
 func Init(db *gorm.DB) Manager {
@@ -46,6 +50,7 @@ func Init(db *gorm.DB) Manager {
 		HistoricalRecordService: historicalRecordService.Init(db),
 		AccountService:          accountService.Init(db),
 		OpportunityService:      opportunityService.Init(db),
+		UserService:             userService.Init(db),
 	}
 }
 
@@ -269,6 +274,16 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "描述",
 			Values: "為" + *input.Description,
+		})
+	}
+
+	if *input.SalespersonID != *contractBase.SalespersonID {
+		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
+			UserID: *input.SalespersonID,
+		})
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "業務員",
+			Values: "為" + *salespersonBase.Name,
 		})
 	}
 
