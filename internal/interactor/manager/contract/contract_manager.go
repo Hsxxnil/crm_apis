@@ -237,6 +237,10 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
 		})
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "商機",
+			Values: "為" + *opportunityBase.Name,
+		})
 
 		if opportunityBase.AccountID != contractBase.AccountID {
 			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
