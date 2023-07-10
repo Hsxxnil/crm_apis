@@ -4,8 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"math"
+	"strconv"
 
+	accountModel "app.eirc/internal/interactor/models/accounts"
+	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
+	opportunityModel "app.eirc/internal/interactor/models/opportunities"
 	quoteModel "app.eirc/internal/interactor/models/quotes"
+	accountService "app.eirc/internal/interactor/service/account"
+	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
+	opportunityService "app.eirc/internal/interactor/service/opportunity"
 
 	"app.eirc/internal/interactor/pkg/util"
 
@@ -26,19 +33,39 @@ type Manager interface {
 }
 
 type manager struct {
-	QuoteService quoteService.Service
+	QuoteService            quoteService.Service
+	HistoricalRecordService historicalRecordService.Service
+	OpportunityService      opportunityService.Service
+	AccountService          accountService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		QuoteService: quoteService.Init(db),
+		QuoteService:            quoteService.Init(db),
+		HistoricalRecordService: historicalRecordService.Init(db),
+		OpportunityService:      opportunityService.Init(db),
+		AccountService:          accountService.Init(db),
 	}
 }
+
+const sourceType = "報價"
 
 func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, interface{}) {
 	defer trx.Rollback()
 
 	quoteBase, err := m.QuoteService.WithTrx(trx).Create(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步新增報價歷程記錄
+	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
+		SourceID:   *quoteBase.QuoteID,
+		Action:     "建立",
+		Content:    sourceType,
+		ModifiedBy: *quoteBase.CreatedBy,
+	})
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -206,6 +233,110 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步新增商機歷程記錄
+	var records []historicalRecordModel.AddHistoricalRecord
+	action := "修改"
+
+	if *input.Name != *quoteBase.Name {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "名稱",
+			Values: "為" + *input.Name,
+		})
+	}
+
+	if *input.Status != *quoteBase.Status {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "狀態",
+			Values: "為" + *input.Status,
+		})
+	}
+
+	if *input.IsSyncing != *quoteBase.IsSyncing {
+		if *input.IsSyncing == true {
+			action = "確認"
+
+		} else {
+			action = "取消"
+		}
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "同步化",
+			Values: "此報價至商機",
+		})
+	}
+
+	if *input.IsFinal != *quoteBase.IsFinal {
+		if *input.IsFinal == true {
+			action = "確認"
+
+		} else {
+			action = "取消"
+		}
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Values: "此報價為最終版",
+		})
+	}
+
+	if *input.OpportunityID != *quoteBase.OpportunityID {
+		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
+			OpportunityID: *input.OpportunityID,
+		})
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "商機",
+			Values: "為" + *opportunityBase.Name,
+		})
+	}
+
+	if *input.AccountID != *quoteBase.AccountID {
+		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
+			AccountID: *input.AccountID,
+		})
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "帳戶",
+			Values: "為" + *accountBase.Name,
+		})
+	}
+
+	if *input.ExpirationDate != *quoteBase.ExpirationDate {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "到期日期",
+			Values: "為" + input.ExpirationDate.Format("2006-01-02"),
+		})
+	}
+
+	if *input.Description != *quoteBase.Description {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "描述",
+			Values: "為" + *input.Description,
+		})
+	}
+
+	if *input.Tax != *quoteBase.Tax {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "稅額",
+			Values: "為" + strconv.FormatFloat(*input.Tax, 'f', -1, 64),
+		})
+	}
+
+	if *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "運費及其他費用",
+			Values: "為" + strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64),
+		})
+	}
+
+	for _, record := range records {
+		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+			SourceID:   *quoteBase.QuoteID,
+			Action:     action,
+			Content:    sourceType + record.Fields + record.Values,
+			ModifiedBy: *input.UpdatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
