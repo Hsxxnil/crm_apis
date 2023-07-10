@@ -31,7 +31,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/accounts/d6cb3bc4-474d-4932-8804-9c04ed380e1e
+GET {{host}}/crm/v1.0/accounts/131aab76-a90e-4d69-9239-6e5ec885753e
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -46,27 +46,33 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "name": "test",
+  "name": "2",
   "phone_number": "0800000000",
   "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "type": [
-    "business_customer",
-    "partner",
-    "competitor"
+    "夥伴",
+    "個人客戶",
+    "競爭對手",
+    "法人客戶"
   ]
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/accounts/d7a9b96d-132a-4aec-b871-c9453f72a697
+PATCH {{host}}/crm/v1.0/accounts/1cf4c7e5-43ce-420a-aa04-0242ae67d4fa
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
+  "name": "3",
+  "phone_number": "0911111111",
   "type": [
-    "business_customer",
-    "partner"
-  ]
+    "法人客戶",
+    "競爭對手"
+  ],
+  "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "salesperson_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07"
 }
 
 ### Delete

@@ -1,6 +1,10 @@
 package order
 
 import (
+	accountModel "app.eirc/internal/interactor/models/accounts"
+	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
+	accountService "app.eirc/internal/interactor/service/account"
+	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
 	"encoding/json"
 	"errors"
 
@@ -26,16 +30,22 @@ type Manager interface {
 }
 
 type manager struct {
-	OrderService    orderService.Service
-	ContractService contractService.Service
+	OrderService            orderService.Service
+	ContractService         contractService.Service
+	HistoricalRecordService historicalRecordService.Service
+	AccountService          accountService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		OrderService:    orderService.Init(db),
-		ContractService: contractService.Init(db),
+		OrderService:            orderService.Init(db),
+		ContractService:         contractService.Init(db),
+		HistoricalRecordService: historicalRecordService.Init(db),
+		AccountService:          accountService.Init(db),
 	}
 }
+
+const sourceType = "訂單"
 
 func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface{}) {
 	defer trx.Rollback()
@@ -45,7 +55,20 @@ func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface
 		ContractID: input.ContractID,
 	})
 	input.AccountID = *contractBase.AccountID
+
 	orderBase, err := m.OrderService.WithTrx(trx).Create(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步新增訂單歷程記錄
+	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
+		SourceID:   *orderBase.OrderID,
+		Action:     "建立",
+		Content:    sourceType,
+		ModifiedBy: *orderBase.CreatedBy,
+	})
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -209,6 +232,63 @@ func (m *manager) Update(input *orderModel.Update) (int, interface{}) {
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步新增契約歷程記錄
+	var records []historicalRecordModel.AddHistoricalRecord
+
+	if *input.Status != *orderBase.Status {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "狀態",
+			Values: "為" + *input.Status,
+		})
+	}
+
+	if *input.StartDate != *orderBase.StartDate {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "開始日期",
+			Values: "為" + input.StartDate.Format("2006-01-02"),
+		})
+	}
+
+	if *input.ContractID != *orderBase.ContractID {
+		contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
+			ContractID: *input.ContractID,
+		})
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "契約號碼",
+			Values: "為" + *contractBase.Code,
+		})
+
+		if contractBase.AccountID != orderBase.AccountID {
+			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
+				AccountID: *contractBase.AccountID,
+			})
+			records = append(records, historicalRecordModel.AddHistoricalRecord{
+				Fields: "帳戶",
+				Values: "為" + *accountBase.Name,
+			})
+		}
+	}
+
+	if *input.Description != *orderBase.Description {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "描述",
+			Values: "為" + *input.Description,
+		})
+	}
+
+	for _, record := range records {
+		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+			SourceID:   *orderBase.ContractID,
+			Action:     "修改",
+			Content:    sourceType + record.Fields + record.Values,
+			ModifiedBy: *input.UpdatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, orderBase.OrderID)

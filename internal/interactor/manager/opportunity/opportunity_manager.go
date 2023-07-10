@@ -3,6 +3,12 @@ package opportunity
 import (
 	"encoding/json"
 	"errors"
+	"strconv"
+
+	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
+	userModel "app.eirc/internal/interactor/models/users"
+	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
+	userService "app.eirc/internal/interactor/service/user"
 
 	campaignModel "app.eirc/internal/interactor/models/campaigns"
 	leadModel "app.eirc/internal/interactor/models/leads"
@@ -27,18 +33,24 @@ type Manager interface {
 }
 
 type manager struct {
-	OpportunityService opportunityService.Service
-	CampaignService    campaignService.Service
-	LeadService        leadService.Service
+	OpportunityService      opportunityService.Service
+	CampaignService         campaignService.Service
+	LeadService             leadService.Service
+	HistoricalRecordService historicalRecordService.Service
+	UserService             userService.Service
 }
 
 func Init(db *gorm.DB) Manager {
 	return &manager{
-		OpportunityService: opportunityService.Init(db),
-		CampaignService:    campaignService.Init(db),
-		LeadService:        leadService.Init(db),
+		OpportunityService:      opportunityService.Init(db),
+		CampaignService:         campaignService.Init(db),
+		LeadService:             leadService.Init(db),
+		HistoricalRecordService: historicalRecordService.Init(db),
+		UserService:             userService.Init(db),
 	}
 }
+
+const sourceType = "商機"
 
 func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, interface{}) {
 	defer trx.Rollback()
@@ -52,6 +64,18 @@ func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, int
 	}
 
 	opportunityBase, err := m.OpportunityService.WithTrx(trx).Create(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步新增商機歷程記錄
+	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
+		SourceID:   *opportunityBase.OpportunityID,
+		Action:     "建立",
+		Content:    sourceType,
+		ModifiedBy: *opportunityBase.CreatedBy,
+	})
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -195,6 +219,67 @@ func (m *manager) Update(input *opportunityModel.Update) (int, interface{}) {
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	// 同步新增商機歷程記錄
+	var records []historicalRecordModel.AddHistoricalRecord
+
+	if *input.Name != *opportunityBase.Name {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "名稱",
+			Values: "為" + *input.Name,
+		})
+	}
+
+	if *input.Stage != *opportunityBase.Stage {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "階段",
+			Values: "為" + *input.Stage,
+		})
+	}
+
+	if *input.ForecastCategory != *opportunityBase.ForecastCategory {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "預測種類",
+			Values: "為" + *input.ForecastCategory,
+		})
+	}
+
+	if *input.CloseDate != *opportunityBase.CloseDate {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "結束日期",
+			Values: "為" + input.CloseDate.Format("2006-01-02"),
+		})
+	}
+
+	if *input.Amount != *opportunityBase.Amount {
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "金額",
+			Values: "為" + strconv.FormatFloat(*input.Amount, 'f', -1, 64),
+		})
+	}
+
+	if *input.SalespersonID != *opportunityBase.SalespersonID {
+		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
+			UserID: *input.SalespersonID,
+		})
+		records = append(records, historicalRecordModel.AddHistoricalRecord{
+			Fields: "業務員",
+			Values: "為" + *salespersonBase.Name,
+		})
+	}
+
+	for _, record := range records {
+		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+			SourceID:   *opportunityBase.OpportunityID,
+			Action:     "修改",
+			Content:    sourceType + record.Fields + record.Values,
+			ModifiedBy: *input.UpdatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, opportunityBase.OpportunityID)
