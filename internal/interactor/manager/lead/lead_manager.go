@@ -185,14 +185,14 @@ func (m *manager) Update(input *leadModel.Update) (int, interface{}) {
 		})
 	}
 
-	if *input.Source != *leadBase.Source {
+	if input.Source != nil && *input.Source != *leadBase.Source {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "來源",
 			Values: "為" + *input.Source,
 		})
 	}
 
-	if *input.Rating != *leadBase.Rating {
+	if input.Rating != nil && *input.Rating != *leadBase.Rating {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "分級",
 			Values: "為" + *input.Rating,
