@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	accountModel "app.eirc/internal/interactor/models/accounts"
+
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	opportunityModel "app.eirc/internal/interactor/models/opportunities"
 	quoteModel "app.eirc/internal/interactor/models/quotes"
@@ -300,16 +301,16 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 			Fields: "商機",
 			Values: "為" + *opportunityBase.Name,
 		})
-	}
 
-	if *input.AccountID != *quoteBase.AccountID {
-		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
-			AccountID: *input.AccountID,
-		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "帳戶",
-			Values: "為" + *accountBase.Name,
-		})
+		if opportunityBase.AccountID != quoteBase.AccountID {
+			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
+				AccountID: *opportunityBase.AccountID,
+			})
+			records = append(records, historicalRecordModel.AddHistoricalRecord{
+				Fields: "帳戶",
+				Values: "為" + *accountBase.Name,
+			})
+		}
 	}
 
 	if *input.ExpirationDate != *quoteBase.ExpirationDate {
