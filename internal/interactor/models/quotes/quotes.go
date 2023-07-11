@@ -78,9 +78,9 @@ type Fields struct {
 // Filter struct is used to store the search field
 type Filter struct {
 	// 報價名稱
-	FilterName *string `json:"name,omitempty"`
+	FilterName string `json:"name,omitempty"`
 	// 商機名稱
-	FilterOpportunityName *string `json:"opportunity_name,omitempty"`
+	FilterOpportunityName string `json:"opportunity_name,omitempty"`
 }
 
 // List is multiple return structure files

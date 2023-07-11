@@ -77,40 +77,40 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	// filter
 	isFiltered := false
 	filter := s.db.Model(&model.Table{})
-	if input.FilterDescription != nil {
-		filter.Where("leads.description like ?", "%"+*input.FilterDescription+"%")
+	if input.FilterDescription != "" {
+		filter.Where("leads.description like ?", "%"+input.FilterDescription+"%")
 		isFiltered = true
 	}
 
-	if input.FilterAccountName != nil {
+	if input.FilterAccountName != "" {
 		if isFiltered {
-			filter.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Or(`"Accounts".name like ?`, "%"+input.FilterAccountName+"%")
 		} else {
-			filter.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Where(`"Accounts".name like ?`, "%"+input.FilterAccountName+"%")
 		}
 	}
 
-	if input.FilterRating != nil {
+	if input.FilterRating != "" {
 		if isFiltered {
-			filter.Or("leads.rating like ?", "%"+*input.FilterRating+"%")
+			filter.Or("leads.rating like ?", "%"+input.FilterRating+"%")
 		} else {
-			filter.Where("leads.rating like ?", "%"+*input.FilterRating+"%")
+			filter.Where("leads.rating like ?", "%"+input.FilterRating+"%")
 		}
 	}
 
-	if input.FilterSource != nil {
+	if input.FilterSource != "" {
 		if isFiltered {
-			filter.Or("leads.source like ?", "%"+*input.FilterSource+"%")
+			filter.Or("leads.source like ?", "%"+input.FilterSource+"%")
 		} else {
-			filter.Where("leads.source like ?", "%"+*input.FilterSource+"%")
+			filter.Where("leads.source like ?", "%"+input.FilterSource+"%")
 		}
 	}
 
-	if input.FilterSalespersonName != nil {
+	if input.FilterSalespersonName != "" {
 		if isFiltered {
-			filter.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Or(`"Salespeople".name like ?`, "%"+input.FilterSalespersonName+"%")
 		} else {
-			filter.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Where(`"Salespeople".name like ?`, "%"+input.FilterSalespersonName+"%")
 		}
 	}
 

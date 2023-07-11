@@ -55,15 +55,15 @@ type Fields struct {
 // Filter struct is used to store the search field
 type Filter struct {
 	// 線索描述
-	FilterDescription *string `json:"description,omitempty"`
+	FilterDescription string `json:"description,omitempty"`
 	// 帳戶名稱
-	FilterAccountName *string `json:"account_name,omitempty"`
+	FilterAccountName string `json:"account_name,omitempty"`
 	// 線索分級
-	FilterRating *string `json:"rating,omitempty"`
+	FilterRating string `json:"rating,omitempty"`
 	// 線索來源
-	FilterSource *string `json:"source,omitempty"`
+	FilterSource string `json:"source,omitempty"`
 	// 業務員名稱
-	FilterSalespersonName *string `json:"salesperson_name,omitempty"`
+	FilterSalespersonName string `json:"salesperson_name,omitempty"`
 }
 
 // List is multiple return structure files

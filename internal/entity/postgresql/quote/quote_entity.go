@@ -75,16 +75,16 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	// filter
 	isFiltered := false
 	filter := s.db.Model(&model.Table{})
-	if input.FilterName != nil {
-		filter.Where("quotes.name like ?", "%"+*input.FilterName+"%")
+	if input.FilterName != "" {
+		filter.Where("quotes.name like ?", "%"+input.FilterName+"%")
 		isFiltered = true
 	}
 
-	if input.FilterOpportunityName != nil {
+	if input.FilterOpportunityName != "" {
 		if isFiltered {
-			filter.Or(`"Opportunities".name like ?`, "%"+*input.FilterOpportunityName+"%")
+			filter.Or(`"Opportunities".name like ?`, "%"+input.FilterOpportunityName+"%")
 		} else {
-			filter.Where(`"Opportunities".name like ?`, "%"+*input.FilterOpportunityName+"%")
+			filter.Where(`"Opportunities".name like ?`, "%"+input.FilterOpportunityName+"%")
 		}
 	}
 
