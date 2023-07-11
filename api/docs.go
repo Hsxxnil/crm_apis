@@ -10596,6 +10596,10 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
+                            "code": {
+                                "description": "訂單產品號碼",
+                                "type": "string"
+                            },
                             "created_at": {
                                 "description": "創建時間",
                                 "type": "string"
@@ -10668,6 +10672,10 @@ const docTemplate = `{
         "order_products.OrderSingle": {
             "type": "object",
             "properties": {
+                "code": {
+                    "description": "訂單產品號碼",
+                    "type": "string"
+                },
                 "description": {
                     "description": "訂單產品描述",
                     "type": "string"
@@ -10705,6 +10713,10 @@ const docTemplate = `{
         "order_products.Single": {
             "type": "object",
             "properties": {
+                "code": {
+                    "description": "訂單產品號碼",
+                    "type": "string"
+                },
                 "created_at": {
                     "description": "創建時間",
                     "type": "string"

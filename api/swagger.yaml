@@ -1752,6 +1752,9 @@ definitions:
         description: 多筆
         items:
           properties:
+            code:
+              description: 訂單產品號碼
+              type: string
             created_at:
               description: 創建時間
               type: string
@@ -1808,6 +1811,9 @@ definitions:
     type: object
   order_products.OrderSingle:
     properties:
+      code:
+        description: 訂單產品號碼
+        type: string
       description:
         description: 訂單產品描述
         type: string
@@ -1835,6 +1841,9 @@ definitions:
     type: object
   order_products.Single:
     properties:
+      code:
+        description: 訂單產品號碼
+        type: string
       created_at:
         description: 創建時間
         type: string

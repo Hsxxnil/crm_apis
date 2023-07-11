@@ -26,6 +26,8 @@ type Table struct {
 	SubTotal float64 `gorm:"column:sub_total;type:numeric;not null;" json:"sub_total"`
 	// 訂單產品描述
 	Description string `gorm:"column:description;type:text;" json:"description"`
+	// 訂單產品號碼
+	Code string `gorm:"column:code;type:text;not null;" json:"code"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -53,6 +55,8 @@ type Base struct {
 	SubTotal *float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
 	Description *string `json:"description,omitempty"`
+	// 訂單產品號碼
+	Code *string `json:"code,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
