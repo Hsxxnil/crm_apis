@@ -8284,7 +8284,10 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "帳戶類型",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

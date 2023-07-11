@@ -65,7 +65,9 @@ definitions:
         type: string
       type:
         description: 帳戶類型
-        type: string
+        items:
+          type: string
+        type: array
     type: object
   accounts.List:
     properties:

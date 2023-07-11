@@ -60,7 +60,7 @@ type Filter struct {
 	// 帳戶電話
 	FilterPhoneNumber *string `json:"phone_number,omitempty"`
 	// 帳戶類型
-	FilterType *string `json:"type,omitempty"`
+	FilterType *[]string `json:"type,omitempty"`
 	// 業務員名稱
 	FilterSalespersonName *string `json:"salesperson_name,omitempty"`
 }
