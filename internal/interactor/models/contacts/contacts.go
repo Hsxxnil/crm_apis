@@ -71,15 +71,15 @@ type Fields struct {
 // Filter struct is used to store the search field
 type Filter struct {
 	// 聯絡人名稱
-	FilterName *string `json:"name,omitempty"`
+	FilterName string `json:"name,omitempty"`
 	// 帳戶名稱
-	FilterAccountName *string `json:"account_name,omitempty"`
+	FilterAccountName string `json:"account_name,omitempty"`
 	// 聯絡人行動電話
-	FilterCellPhone *string `json:"cell_phone,omitempty"`
+	FilterCellPhone string `json:"cell_phone,omitempty"`
 	// 聯絡人電子郵件
-	FilterEmail *string `json:"email,omitempty"`
+	FilterEmail string `json:"email,omitempty"`
 	// 業務員名稱
-	FilterSalespersonName *string `json:"salesperson_name,omitempty"`
+	FilterSalespersonName string `json:"salesperson_name,omitempty"`
 }
 
 // List is multiple return structure files

@@ -77,40 +77,40 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	// filter
 	isFiltered := false
 	filter := s.db.Model(&model.Table{})
-	if input.FilterName != nil {
-		filter.Where("contacts.name like ?", "%"+*input.FilterName+"%")
+	if input.FilterName != "" {
+		filter.Where("contacts.name like ?", "%"+input.FilterName+"%")
 		isFiltered = true
 	}
 
-	if input.FilterAccountName != nil {
+	if input.FilterAccountName != "" {
 		if isFiltered {
-			filter.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Or(`"Accounts".name like ?`, "%"+input.FilterAccountName+"%")
 		} else {
-			filter.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Where(`"Accounts".name like ?`, "%"+input.FilterAccountName+"%")
 		}
 	}
 
-	if input.FilterEmail != nil {
+	if input.FilterEmail != "" {
 		if isFiltered {
-			filter.Or("contacts.email like ?", "%"+*input.FilterEmail+"%")
+			filter.Or("contacts.email like ?", "%"+input.FilterEmail+"%")
 		} else {
-			filter.Where("contacts.email like ?", "%"+*input.FilterEmail+"%")
+			filter.Where("contacts.email like ?", "%"+input.FilterEmail+"%")
 		}
 	}
 
-	if input.FilterCellPhone != nil {
+	if input.FilterCellPhone != "" {
 		if isFiltered {
-			filter.Or("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
+			filter.Or("contacts.cell_phone like ?", "%"+input.FilterCellPhone+"%")
 		} else {
-			filter.Where("contacts.cell_phone like ?", "%"+*input.FilterCellPhone+"%")
+			filter.Where("contacts.cell_phone like ?", "%"+input.FilterCellPhone+"%")
 		}
 	}
 
-	if input.FilterSalespersonName != nil {
+	if input.FilterSalespersonName != "" {
 		if isFiltered {
-			filter.Or(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Or(`"Salespeople".name like ?`, "%"+input.FilterSalespersonName+"%")
 		} else {
-			filter.Where(`"Salespeople".name like ?`, "%"+*input.FilterSalespersonName+"%")
+			filter.Where(`"Salespeople".name like ?`, "%"+input.FilterSalespersonName+"%")
 		}
 	}
 
