@@ -35,7 +35,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/accounts/131aab76-a90e-4d69-9239-6e5ec885753e
+GET {{host}}/crm/v1.0/accounts/a9992b5f-396a-4fa9-a00c-fd0d73f74b28
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -63,19 +63,19 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/accounts/1cf4c7e5-43ce-420a-aa04-0242ae67d4fa
+PATCH {{host}}/crm/v1.0/accounts/a9992b5f-396a-4fa9-a00c-fd0d73f74b28
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "name": "3",
-  "phone_number": "0911111111",
+  "name": "scsc",
   "type": [
-    "法人客戶",
-    "競爭對手"
+    "夥伴",
+    "競爭對手",
+    "個人客戶"
   ],
-  "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "industry_id": "00000000-0000-4000-a000-000000000000",
+  "parent_account_id": "00000000-0000-4000-a000-000000000000",
   "salesperson_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07"
 }
 
