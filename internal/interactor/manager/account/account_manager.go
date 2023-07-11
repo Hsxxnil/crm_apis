@@ -253,7 +253,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 	// 同步新增帳戶歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
 
-	if *input.Name != *accountBase.Name {
+	if input.Name != nil && *input.Name != *accountBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "名稱",
 			Values: "為" + *input.Name,
@@ -276,14 +276,14 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 		})
 	}
 
-	if *input.PhoneNumber != *accountBase.PhoneNumber {
+	if input.PhoneNumber != nil && *input.PhoneNumber != *accountBase.PhoneNumber {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "電話號碼",
 			Values: "為" + *input.PhoneNumber,
 		})
 	}
 
-	if *input.IndustryID != *accountBase.IndustryID {
+	if input.IndustryID != nil && *input.IndustryID != *accountBase.IndustryID {
 		industryBase, _ := m.IndustryService.GetBySingle(&industryModel.Field{
 			IndustryID: *input.IndustryID,
 		})
@@ -293,7 +293,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 		})
 	}
 
-	if *input.ParentAccountID != *accountBase.ParentAccountID {
+	if input.ParentAccountID != nil && *input.ParentAccountID != *accountBase.ParentAccountID {
 		parentAccountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: input.AccountID,
 		})
@@ -303,7 +303,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 		})
 	}
 
-	if *input.SalespersonID != *accountBase.SalespersonID {
+	if input.SalespersonID != nil && *input.SalespersonID != *accountBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
 			UserID: *input.SalespersonID,
 		})
