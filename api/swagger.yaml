@@ -5574,16 +5574,11 @@ paths:
     delete:
       consumes:
       - application/json
-      description: 刪除單一訂單產品
+      description: 刪除多筆訂單產品
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
-        required: true
-        type: string
-      - description: 訂單產品ID
-        in: path
-        name: orderProductID
         required: true
         type: string
       produces:
@@ -5616,7 +5611,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 刪除單一訂單產品
+      summary: 刪除多筆訂單產品
       tags:
       - order-product
     get:
@@ -5675,16 +5670,11 @@ paths:
     patch:
       consumes:
       - application/json
-      description: 更新單一訂單產品
+      description: 更新多筆訂單產品
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
-        required: true
-        type: string
-      - description: 訂單產品ID
-        in: path
-        name: orderProductID
         required: true
         type: string
       - description: 更新訂單產品
@@ -5723,7 +5713,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 更新單一訂單產品
+      summary: 更新多筆訂單產品
       tags:
       - order-product
     post:
