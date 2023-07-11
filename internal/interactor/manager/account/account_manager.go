@@ -242,8 +242,25 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	// 陣列排序
-	sort.Strings(*input.Type)
+	//// 比對帳戶類型是否變更
+	//for i, value := range *input.Type {
+	//	if value != (*accountBase.Type)[i] {
+	//		// 陣列排序
+	//		sort.Strings(*input.Type)
+	//	}
+	//}
+
+	// 比對帳戶類型是否變更
+	if len(*input.Type) != len(*accountBase.Type) {
+		sort.Strings(*input.Type)
+	} else {
+		for i, value := range *input.Type {
+			if value != (*accountBase.Type)[i] {
+				sort.Strings(*input.Type)
+			}
+		}
+	}
+
 	err = m.AccountService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
@@ -262,10 +279,14 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 
 	// 比對帳戶類型是否變更
 	var inputType string
-	for i, value := range *input.Type {
-		if value != (*accountBase.Type)[i] {
-			inputType = strings.Join(*input.Type, "、")
-			break
+	if len(*input.Type) != len(*accountBase.Type) {
+		inputType = strings.Join(*input.Type, "、")
+	} else {
+		for i, value := range *input.Type {
+			if value != (*accountBase.Type)[i] {
+				inputType = strings.Join(*input.Type, "、")
+				break
+			}
 		}
 	}
 
