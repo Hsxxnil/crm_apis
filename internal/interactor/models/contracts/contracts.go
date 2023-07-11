@@ -68,9 +68,9 @@ type Fields struct {
 // Filter struct is used to store the search field
 type Filter struct {
 	// 契約號碼
-	FilterCode *string `json:"code,omitempty"`
+	FilterCode string `json:"code,omitempty"`
 	// 帳戶名稱
-	FilterAccountName *string `json:"account_name,omitempty"`
+	FilterAccountName string `json:"account_name,omitempty"`
 }
 
 // List is multiple return structure files
