@@ -201,6 +201,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /orders/{orderID} [patch]
 func (c *control) Update(ctx *gin.Context) {
+	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	orderID := ctx.Param("orderID")
 	input := &orderModel.Update{}
 	input.OrderID = orderID
@@ -212,6 +213,6 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
-	httpCode, codeMessage := c.Manager.Update(input)
+	httpCode, codeMessage := c.Manager.Update(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }
