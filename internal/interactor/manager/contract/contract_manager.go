@@ -31,7 +31,7 @@ type Manager interface {
 	GetByList(input *contractModel.Fields) (int, interface{})
 	GetBySingle(input *contractModel.Field) (int, interface{})
 	Delete(input *contractModel.Field) (int, interface{})
-	Update(input *contractModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *contractModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -171,7 +171,9 @@ func (m *manager) Delete(input *contractModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	contractBase, err := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
 	})
@@ -212,7 +214,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		}
 
 		for _, orderBase := range orders {
-			err = m.OrderService.Update(&orderModel.Update{
+			err = m.OrderService.WithTrx(trx).Update(&orderModel.Update{
 				OrderID:   *orderBase.OrderID,
 				AccountID: input.AccountID,
 				UpdatedBy: input.UpdatedBy,
@@ -292,7 +294,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *contractBase.ContractID,
 			Action:     "修改",
 			Content:    sourceType + record.Fields + record.Values,
@@ -304,5 +306,6 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, contractBase.ContractID)
 }
