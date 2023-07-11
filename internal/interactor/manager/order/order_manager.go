@@ -240,21 +240,21 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, interface
 	// 同步新增契約歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
 
-	if *input.Status != *orderBase.Status {
+	if input.Status != nil && *input.Status != *orderBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "狀態",
 			Values: "為" + *input.Status,
 		})
 	}
 
-	if *input.StartDate != *orderBase.StartDate {
+	if input.StartDate != nil && *input.StartDate != *orderBase.StartDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "開始日期",
 			Values: "為" + input.StartDate.Format("2006-01-02"),
 		})
 	}
 
-	if *input.ContractID != *orderBase.ContractID {
+	if input.ContractID != nil && *input.ContractID != *orderBase.ContractID {
 		contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
 			ContractID: *input.ContractID,
 		})
@@ -274,7 +274,7 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, interface
 		}
 	}
 
-	if *input.Description != *orderBase.Description {
+	if input.Description != nil && *input.Description != *orderBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "描述",
 			Values: "為" + *input.Description,
