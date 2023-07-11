@@ -256,21 +256,21 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 	var records []historicalRecordModel.AddHistoricalRecord
 	action := "修改"
 
-	if *input.Name != *quoteBase.Name {
+	if input.Name != nil && *input.Name != *quoteBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "名稱",
 			Values: "為" + *input.Name,
 		})
 	}
 
-	if *input.Status != *quoteBase.Status {
+	if input.Status != nil && *input.Status != *quoteBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "狀態",
 			Values: "為" + *input.Status,
 		})
 	}
 
-	if *input.IsSyncing != *quoteBase.IsSyncing {
+	if input.IsSyncing != nil && *input.IsSyncing != *quoteBase.IsSyncing {
 		if *input.IsSyncing == true {
 			action = "確認"
 
@@ -283,7 +283,7 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 		})
 	}
 
-	if *input.IsFinal != *quoteBase.IsFinal {
+	if input.IsFinal != nil && *input.IsFinal != *quoteBase.IsFinal {
 		if *input.IsFinal == true {
 			action = "確認"
 
@@ -295,7 +295,7 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 		})
 	}
 
-	if *input.OpportunityID != *quoteBase.OpportunityID {
+	if input.OpportunityID != nil && *input.OpportunityID != *quoteBase.OpportunityID {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
 		})
@@ -315,28 +315,28 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 		}
 	}
 
-	if *input.ExpirationDate != *quoteBase.ExpirationDate {
+	if input.ExpirationDate != nil && *input.ExpirationDate != *quoteBase.ExpirationDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "到期日期",
 			Values: "為" + input.ExpirationDate.Format("2006-01-02"),
 		})
 	}
 
-	if *input.Description != *quoteBase.Description {
+	if input.Description != nil && *input.Description != *quoteBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "描述",
 			Values: "為" + *input.Description,
 		})
 	}
 
-	if *input.Tax != *quoteBase.Tax {
+	if input.Tax != nil && *input.Tax != *quoteBase.Tax {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "稅額",
 			Values: "為" + strconv.FormatFloat(*input.Tax, 'f', -1, 64),
 		})
 	}
 
-	if *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
+	if input.ShippingAndHandling != nil && *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "運費及其他費用",
 			Values: "為" + strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64),
