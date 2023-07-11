@@ -23,10 +23,14 @@ Authorization: Bearer {{accessToken}}
     "direction": "desc"
   },
   "filter": {
-    "name": "個人",
-    "type": "個人",
-    "phone_number": "個人",
-    "salesperson_name": "個人"
+    "name": "",
+    "type": [
+      "個人客戶",
+      "法人客戶",
+      "夥伴"
+    ],
+    "phone_number": "",
+    "salesperson_name": ""
   }
 }
 

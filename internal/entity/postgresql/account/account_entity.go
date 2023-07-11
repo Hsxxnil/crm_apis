@@ -3,6 +3,8 @@ package account
 import (
 	"encoding/json"
 
+	"github.com/lib/pq"
+
 	model "app.eirc/internal/entity/postgresql/db/accounts"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"gorm.io/gorm"
@@ -82,9 +84,9 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 	if input.FilterType != nil {
 		if isFiltered {
-			filter.Or("split_array(accounts.type) @> split_array(array[?])", *input.FilterType)
+			filter.Or("split_array(accounts.type) @> split_array(?)", pq.StringArray(*input.FilterType))
 		} else {
-			filter.Where("split_array(accounts.type) @> split_array(array[?])", *input.FilterType)
+			filter.Where("split_array(accounts.type) @> split_array(?)", pq.StringArray(*input.FilterType))
 		}
 	}
 
