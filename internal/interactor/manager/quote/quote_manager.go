@@ -30,7 +30,7 @@ type Manager interface {
 	GetBySingle(input *quoteModel.Field) (int, interface{})
 	GetBySingleProducts(input *quoteModel.Field) (int, interface{})
 	Delete(input *quoteModel.Field) (int, interface{})
-	Update(input *quoteModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *quoteModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -223,7 +223,9 @@ func (m *manager) Delete(input *quoteModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
 		QuoteID: input.QuoteID,
 	})
@@ -244,7 +246,7 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 		input.AccountID = opportunityBase.AccountID
 	}
 
-	err = m.QuoteService.Update(input)
+	err = m.QuoteService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -342,7 +344,7 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *quoteBase.QuoteID,
 			Action:     action,
 			Content:    sourceType + record.Fields + record.Values,
@@ -354,5 +356,6 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
 }

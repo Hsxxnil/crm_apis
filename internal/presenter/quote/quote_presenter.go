@@ -232,6 +232,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /quotes/{quoteID} [patch]
 func (c *control) Update(ctx *gin.Context) {
+	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	quoteID := ctx.Param("quoteID")
 	input := &quoteModel.Update{}
 	input.QuoteID = quoteID
@@ -243,6 +244,6 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
-	httpCode, codeMessage := c.Manager.Update(input)
+	httpCode, codeMessage := c.Manager.Update(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }
