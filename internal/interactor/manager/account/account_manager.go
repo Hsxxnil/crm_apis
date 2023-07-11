@@ -33,7 +33,7 @@ type Manager interface {
 	GetBySingle(input *accountModel.Field) (int, interface{})
 	GetBySingleContacts(input *accountModel.Field) (int, interface{})
 	Delete(input *accountModel.Field) (int, interface{})
-	Update(input *accountModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *accountModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -227,7 +227,9 @@ func (m *manager) Delete(input *accountModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *accountModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 		AccountID: input.AccountID,
 	})
@@ -242,7 +244,7 @@ func (m *manager) Update(input *accountModel.Update) (int, interface{}) {
 
 	// 陣列排序
 	sort.Strings(*input.Type)
-	err = m.AccountService.Update(input)
+	err = m.AccountService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -312,7 +314,7 @@ func (m *manager) Update(input *accountModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *accountBase.AccountID,
 			Action:     "修改",
 			Content:    sourceType + record.Fields + record.Values,
@@ -324,5 +326,6 @@ func (m *manager) Update(input *accountModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }
