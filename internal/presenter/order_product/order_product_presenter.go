@@ -34,27 +34,30 @@ func Init(db *gorm.DB) Control {
 }
 
 // Create
-// @Summary 新增訂單產品
-// @description 新增訂單產品
+// @Summary 新增多筆訂單產品
+// @description 新增多筆訂單產品
 // @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param * body order_products.Create true "新增訂單產品"
+// @param * body order_products.CreateList true "新增多筆訂單產品"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /orders-products [post]
 func (c *control) Create(ctx *gin.Context) {
 	trx := ctx.MustGet("db_trx").(*gorm.DB)
-	input := &orderProductModel.Create{}
-	input.CreatedBy = ctx.MustGet("user_id").(string)
+	input := &orderProductModel.CreateList{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
+	}
+
+	for _, value := range input.OrderProducts {
+		value.CreatedBy = ctx.MustGet("user_id").(string)
 	}
 
 	httpCode, codeMessage := c.Manager.Create(trx, input)
@@ -133,16 +136,23 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /orders-products/{orderProductID} [delete]
+// @Router /orders-products [delete]
 func (c *control) Delete(ctx *gin.Context) {
-	orderProductID := ctx.Param("orderProductID")
-	input := &orderProductModel.Field{}
-	input.OrderProductID = orderProductID
-	if err := ctx.ShouldBindQuery(input); err != nil {
+	inputIDList := &orderProductModel.DeleteList{}
+	if err := ctx.ShouldBindQuery(inputIDList); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
+	}
+
+	input := &orderProductModel.UpdateList{
+		OrderProducts: make([]*orderProductModel.Update, len(inputIDList.OrderProducts)),
+	}
+	for i, OrderProductID := range inputIDList.OrderProducts {
+		input.OrderProducts[i] = &orderProductModel.Update{
+			OrderProductID: OrderProductID,
+		}
 	}
 
 	httpCode, codeMessage := c.Manager.Delete(input)
@@ -162,17 +172,18 @@ func (c *control) Delete(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /orders-products/{orderProductID} [patch]
+// @Router /orders-products [patch]
 func (c *control) Update(ctx *gin.Context) {
-	orderProductID := ctx.Param("orderProductID")
-	input := &orderProductModel.Update{}
-	input.OrderProductID = orderProductID
-	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
+	input := &orderProductModel.UpdateList{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
 		return
+	}
+
+	for _, value := range input.OrderProducts {
+		value.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	}
 
 	httpCode, codeMessage := c.Manager.Update(input)

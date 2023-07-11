@@ -242,14 +242,6 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	//// 比對帳戶類型是否變更
-	//for i, value := range *input.Type {
-	//	if value != (*accountBase.Type)[i] {
-	//		// 陣列排序
-	//		sort.Strings(*input.Type)
-	//	}
-	//}
-
 	// 比對帳戶類型是否變更
 	if len(*input.Type) != len(*accountBase.Type) {
 		sort.Strings(*input.Type)

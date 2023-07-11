@@ -19,7 +19,8 @@ type Service interface {
 	GetBySingle(input *model.Field) (output *db.Base, err error)
 	GetByQuantity(input *model.Field) (quantity int64, err error)
 	Update(input *model.Update) (err error)
-	Delete(input *model.Field) (err error)
+	Delete(input *model.Update) (err error)
+	GetByLastCode(input *model.Field) (output *db.Base, err error)
 }
 
 type service struct {
@@ -149,7 +150,7 @@ func (s *service) GetBySingle(input *model.Field) (output *db.Base, err error) {
 	return output, nil
 }
 
-func (s *service) Delete(input *model.Field) (err error) {
+func (s *service) Delete(input *model.Update) (err error) {
 	field := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
@@ -218,4 +219,39 @@ func (s *service) GetByQuantity(input *model.Field) (quantity int64, err error) 
 	}
 
 	return quantity, nil
+}
+
+func (s *service) GetByLastCode(input *model.Field) (output *db.Base, err error) {
+	field := &db.Base{}
+	marshal, err := json.Marshal(input)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	err = json.Unmarshal(marshal, &field)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	single, err := s.Repository.GetByLastCode(field)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	marshal, err = json.Marshal(single)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	err = json.Unmarshal(marshal, &output)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	return output, nil
 }

@@ -21,8 +21,15 @@ type Create struct {
 	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
+	// 訂單產品號碼
+	Code string `json:"code,omitempty" swaggerignore:"true"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
+}
+
+// CreateList struct is used to create multiple data
+type CreateList struct {
+	OrderProducts []*Create `json:"products"`
 }
 
 // Field is structure file for search
@@ -43,6 +50,8 @@ type Field struct {
 	SubTotal *float64 `json:"sub_total,omitempty" form:"sub_total"`
 	// 訂單產品描述
 	Description *string `json:"description,omitempty" form:"description"`
+	// 訂單產品號碼
+	Code *string `json:"code,omitempty" form:"code"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -75,6 +84,8 @@ type List struct {
 		SubTotal float64 `json:"sub_total,omitempty"`
 		// 訂單產品描述
 		Description string `json:"description,omitempty"`
+		// 訂單產品號碼
+		Code string `json:"code,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -106,6 +117,8 @@ type Single struct {
 	SubTotal float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
+	// 訂單產品號碼
+	Code string `json:"code,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者
@@ -134,6 +147,16 @@ type Update struct {
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
 
+// UpdateList struct is used to update multiple data
+type UpdateList struct {
+	OrderProducts []*Update `json:"products"`
+}
+
+// DeleteList struct is used to delete multiple data
+type DeleteList struct {
+	OrderProducts []string `json:"products"`
+}
+
 // OrderSingle return structure file for orders
 type OrderSingle struct {
 	// 產品ID
@@ -152,4 +175,6 @@ type OrderSingle struct {
 	SubTotal float64 `json:"sub_total,omitempty"`
 	// 訂單產品描述
 	Description string `json:"description,omitempty"`
+	// 訂單產品號碼
+	Code string `json:"code,omitempty"`
 }
