@@ -55,7 +55,7 @@ Authorization: Bearer {{accessToken}}
 
 {
   "status": "新線索",
-  "description": "5",
+  "description": "50",
   "account_id": "d6cb3bc4-474d-4932-8804-9c04ed380e1e",
   "salesperson_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07"
 }

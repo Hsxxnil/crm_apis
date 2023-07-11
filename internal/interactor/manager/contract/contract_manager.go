@@ -31,7 +31,7 @@ type Manager interface {
 	GetByList(input *contractModel.Fields) (int, interface{})
 	GetBySingle(input *contractModel.Field) (int, interface{})
 	Delete(input *contractModel.Field) (int, interface{})
-	Update(input *contractModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *contractModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -171,7 +171,9 @@ func (m *manager) Delete(input *contractModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	contractBase, err := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
 	})
@@ -212,7 +214,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		}
 
 		for _, orderBase := range orders {
-			err = m.OrderService.Update(&orderModel.Update{
+			err = m.OrderService.WithTrx(trx).Update(&orderModel.Update{
 				OrderID:   *orderBase.OrderID,
 				AccountID: input.AccountID,
 				UpdatedBy: input.UpdatedBy,
@@ -233,7 +235,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	// 同步新增契約歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
 
-	if *input.OpportunityID != *contractBase.OpportunityID {
+	if input.OpportunityID != nil && *input.OpportunityID != *contractBase.OpportunityID {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
 		})
@@ -253,35 +255,35 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		}
 	}
 
-	if *input.Status != *contractBase.Status {
+	if input.Status != nil && *input.Status != *contractBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "狀態",
 			Values: "為" + *input.Status,
 		})
 	}
 
-	if *input.StartDate != *contractBase.StartDate {
+	if input.StartDate != nil && *input.StartDate != *contractBase.StartDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "開始日期",
 			Values: "為" + input.StartDate.Format("2006-01-02"),
 		})
 	}
 
-	if *input.Term != *contractBase.Term {
+	if input.Term != nil && *input.Term != *contractBase.Term {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "有效期限",
 			Values: "為" + strconv.Itoa(*input.Term) + "個月",
 		})
 	}
 
-	if *input.Description != *contractBase.Description {
+	if input.Description != nil && *input.Description != *contractBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "描述",
 			Values: "為" + *input.Description,
 		})
 	}
 
-	if *input.SalespersonID != *contractBase.SalespersonID {
+	if input.SalespersonID != nil && *input.SalespersonID != *contractBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
 			UserID: *input.SalespersonID,
 		})
@@ -292,7 +294,7 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *contractBase.ContractID,
 			Action:     "修改",
 			Content:    sourceType + record.Fields + record.Values,
@@ -304,5 +306,6 @@ func (m *manager) Update(input *contractModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, contractBase.ContractID)
 }

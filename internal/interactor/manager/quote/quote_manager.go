@@ -30,7 +30,7 @@ type Manager interface {
 	GetBySingle(input *quoteModel.Field) (int, interface{})
 	GetBySingleProducts(input *quoteModel.Field) (int, interface{})
 	Delete(input *quoteModel.Field) (int, interface{})
-	Update(input *quoteModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *quoteModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -223,7 +223,9 @@ func (m *manager) Delete(input *quoteModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
 		QuoteID: input.QuoteID,
 	})
@@ -244,7 +246,7 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 		input.AccountID = opportunityBase.AccountID
 	}
 
-	err = m.QuoteService.Update(input)
+	err = m.QuoteService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -254,21 +256,21 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 	var records []historicalRecordModel.AddHistoricalRecord
 	action := "修改"
 
-	if *input.Name != *quoteBase.Name {
+	if input.Name != nil && *input.Name != *quoteBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "名稱",
 			Values: "為" + *input.Name,
 		})
 	}
 
-	if *input.Status != *quoteBase.Status {
+	if input.Status != nil && *input.Status != *quoteBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "狀態",
 			Values: "為" + *input.Status,
 		})
 	}
 
-	if *input.IsSyncing != *quoteBase.IsSyncing {
+	if input.IsSyncing != nil && *input.IsSyncing != *quoteBase.IsSyncing {
 		if *input.IsSyncing == true {
 			action = "確認"
 
@@ -281,7 +283,7 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 		})
 	}
 
-	if *input.IsFinal != *quoteBase.IsFinal {
+	if input.IsFinal != nil && *input.IsFinal != *quoteBase.IsFinal {
 		if *input.IsFinal == true {
 			action = "確認"
 
@@ -293,7 +295,7 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 		})
 	}
 
-	if *input.OpportunityID != *quoteBase.OpportunityID {
+	if input.OpportunityID != nil && *input.OpportunityID != *quoteBase.OpportunityID {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
 		})
@@ -313,28 +315,28 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 		}
 	}
 
-	if *input.ExpirationDate != *quoteBase.ExpirationDate {
+	if input.ExpirationDate != nil && *input.ExpirationDate != *quoteBase.ExpirationDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "到期日期",
 			Values: "為" + input.ExpirationDate.Format("2006-01-02"),
 		})
 	}
 
-	if *input.Description != *quoteBase.Description {
+	if input.Description != nil && *input.Description != *quoteBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "描述",
 			Values: "為" + *input.Description,
 		})
 	}
 
-	if *input.Tax != *quoteBase.Tax {
+	if input.Tax != nil && *input.Tax != *quoteBase.Tax {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "稅額",
 			Values: "為" + strconv.FormatFloat(*input.Tax, 'f', -1, 64),
 		})
 	}
 
-	if *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
+	if input.ShippingAndHandling != nil && *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "運費及其他費用",
 			Values: "為" + strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64),
@@ -342,7 +344,7 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *quoteBase.QuoteID,
 			Action:     action,
 			Content:    sourceType + record.Fields + record.Values,
@@ -354,5 +356,6 @@ func (m *manager) Update(input *quoteModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
 }

@@ -24,7 +24,7 @@ type Manager interface {
 	GetByList(input *leadModel.Fields) (int, interface{})
 	GetBySingle(input *leadModel.Field) (int, interface{})
 	Delete(input *leadModel.Field) (int, interface{})
-	Update(input *leadModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *leadModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -149,7 +149,9 @@ func (m *manager) Delete(input *leadModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *leadModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	leadBase, err := m.LeadService.GetBySingle(&leadModel.Field{
 		LeadID: input.LeadID,
 	})
@@ -162,7 +164,7 @@ func (m *manager) Update(input *leadModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	err = m.LeadService.Update(input)
+	err = m.LeadService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -171,14 +173,14 @@ func (m *manager) Update(input *leadModel.Update) (int, interface{}) {
 	// 同步新增線索歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
 
-	if *input.Status != *leadBase.Status {
+	if input.Status != nil && *input.Status != *leadBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "狀態",
 			Values: "為" + *input.Status,
 		})
 	}
 
-	if *input.Description != *leadBase.Description {
+	if input.Description != nil && *input.Description != *leadBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "描述",
 			Values: "為" + *input.Description,
@@ -199,7 +201,7 @@ func (m *manager) Update(input *leadModel.Update) (int, interface{}) {
 		})
 	}
 
-	if *input.SalespersonID != *leadBase.SalespersonID {
+	if input.SalespersonID != nil && *input.SalespersonID != *leadBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
 			UserID: *input.SalespersonID,
 		})
@@ -210,7 +212,7 @@ func (m *manager) Update(input *leadModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *leadBase.LeadID,
 			Action:     "修改",
 			Content:    sourceType + record.Fields + record.Values,
@@ -222,5 +224,6 @@ func (m *manager) Update(input *leadModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, leadBase.LeadID)
 }

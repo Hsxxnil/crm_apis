@@ -28,7 +28,7 @@ type Manager interface {
 	GetByList(input *contactModel.Fields) (int, interface{})
 	GetBySingle(input *contactModel.Field) (int, interface{})
 	Delete(input *contactModel.Field) (int, interface{})
-	Update(input *contactModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *contactModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -196,7 +196,9 @@ func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	contactBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: input.ContactID,
 	})
@@ -209,7 +211,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	err = m.ContactService.Update(input)
+	err = m.ContactService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -220,7 +222,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		accountContactBase, err := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 			ContactID: util.PointerString(input.ContactID),
 		})
-		err = m.AccountContactService.Update(&accountContactModel.Update{
+		err = m.AccountContactService.WithTrx(trx).Update(&accountContactModel.Update{
 			AccountContactID: *accountContactBase.AccountContactID,
 			AccountID:        input.AccountID,
 			UpdatedBy:        input.UpdatedBy,
@@ -234,56 +236,56 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 	// 同步新增聯絡人歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
 
-	if *input.Name != *contactBase.Name {
+	if input.Name != nil && *input.Name != *contactBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "名稱",
 			Values: "為" + *input.Name,
 		})
 	}
 
-	if *input.Title != *contactBase.Title {
+	if input.Title != nil && *input.Title != *contactBase.Title {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "職稱",
 			Values: "為" + *input.Title,
 		})
 	}
 
-	if *input.PhoneNumber != *contactBase.PhoneNumber {
+	if input.PhoneNumber != nil && *input.PhoneNumber != *contactBase.PhoneNumber {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "電話",
 			Values: "為" + *input.PhoneNumber,
 		})
 	}
 
-	if *input.CellPhone != *contactBase.CellPhone {
+	if input.CellPhone != nil && *input.CellPhone != *contactBase.CellPhone {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "行動電話",
 			Values: "為" + *input.CellPhone,
 		})
 	}
 
-	if *input.Email != *contactBase.Email {
+	if input.Email != nil && *input.Email != *contactBase.Email {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "電子郵件",
 			Values: "為" + *input.Email,
 		})
 	}
 
-	if *input.Salutation != *contactBase.Salutation {
+	if input.Salutation != nil && *input.Salutation != *contactBase.Salutation {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "稱謂",
 			Values: "為" + *input.Salutation,
 		})
 	}
 
-	if *input.Department != *contactBase.Department {
+	if input.Department != nil && *input.Department != *contactBase.Department {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "部門",
 			Values: "為" + *input.Department,
 		})
 	}
 
-	if *input.SupervisorID != *contactBase.SupervisorID {
+	if input.SupervisorID != nil && *input.SupervisorID != *contactBase.SupervisorID {
 		supervisorBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: *input.SupervisorID,
 		})
@@ -293,7 +295,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		})
 	}
 
-	if *input.AccountID != *contactBase.AccountID {
+	if input.AccountID != nil && *input.AccountID != *contactBase.AccountID {
 		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: *input.AccountID,
 		})
@@ -303,7 +305,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		})
 	}
 
-	if *input.SalespersonID != *contactBase.SalespersonID {
+	if input.SalespersonID != nil && *input.SalespersonID != *contactBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
 			UserID: *input.SalespersonID,
 		})
@@ -314,7 +316,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *contactBase.ContactID,
 			Action:     "修改",
 			Content:    sourceType + record.Fields + record.Values,
@@ -326,5 +328,6 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, contactBase.ContactID)
 }
