@@ -29,7 +29,7 @@ type Manager interface {
 	GetBySingle(input *opportunityModel.Field) (int, interface{})
 	GetBySingleCampaigns(input *opportunityModel.Field) (int, interface{})
 	Delete(input *opportunityModel.Field) (int, interface{})
-	Update(input *opportunityModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *opportunityModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -202,7 +202,9 @@ func (m *manager) Delete(input *opportunityModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *opportunityModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	opportunityBase, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
 	})
@@ -215,7 +217,7 @@ func (m *manager) Update(input *opportunityModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	err = m.OpportunityService.Update(input)
+	err = m.OpportunityService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -270,7 +272,7 @@ func (m *manager) Update(input *opportunityModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *opportunityBase.OpportunityID,
 			Action:     "修改",
 			Content:    sourceType + record.Fields + record.Values,
@@ -282,5 +284,6 @@ func (m *manager) Update(input *opportunityModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, opportunityBase.OpportunityID)
 }
