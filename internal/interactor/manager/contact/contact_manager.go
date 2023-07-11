@@ -28,7 +28,7 @@ type Manager interface {
 	GetByList(input *contactModel.Fields) (int, interface{})
 	GetBySingle(input *contactModel.Field) (int, interface{})
 	Delete(input *contactModel.Field) (int, interface{})
-	Update(input *contactModel.Update) (int, interface{})
+	Update(trx *gorm.DB, input *contactModel.Update) (int, interface{})
 }
 
 type manager struct {
@@ -196,7 +196,9 @@ func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interface{}) {
+	defer trx.Rollback()
+
 	contactBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: input.ContactID,
 	})
@@ -209,7 +211,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	err = m.ContactService.Update(input)
+	err = m.ContactService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
@@ -220,7 +222,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		accountContactBase, err := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 			ContactID: util.PointerString(input.ContactID),
 		})
-		err = m.AccountContactService.Update(&accountContactModel.Update{
+		err = m.AccountContactService.WithTrx(trx).Update(&accountContactModel.Update{
 			AccountContactID: *accountContactBase.AccountContactID,
 			AccountID:        input.AccountID,
 			UpdatedBy:        input.UpdatedBy,
@@ -314,7 +316,7 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 	}
 
 	for _, record := range records {
-		_, err = m.HistoricalRecordService.Create(&historicalRecordModel.Create{
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *contactBase.ContactID,
 			Action:     "修改",
 			Content:    sourceType + record.Fields + record.Values,
@@ -326,5 +328,6 @@ func (m *manager) Update(input *contactModel.Update) (int, interface{}) {
 		}
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, contactBase.ContactID)
 }
