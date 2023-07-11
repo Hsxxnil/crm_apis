@@ -4535,7 +4535,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "刪除單一訂單產品",
+                "description": "刪除多筆訂單產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -4545,20 +4545,13 @@ const docTemplate = `{
                 "tags": [
                     "order-product"
                 ],
-                "summary": "刪除單一訂單產品",
+                "summary": "刪除多筆訂單產品",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "JWE Token",
                         "name": "Authorization",
                         "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "訂單產品ID",
-                        "name": "orderProductID",
-                        "in": "path",
                         "required": true
                     }
                 ],
@@ -4620,7 +4613,7 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "description": "更新單一訂單產品",
+                "description": "更新多筆訂單產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -4630,20 +4623,13 @@ const docTemplate = `{
                 "tags": [
                     "order-product"
                 ],
-                "summary": "更新單一訂單產品",
+                "summary": "更新多筆訂單產品",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "JWE Token",
                         "name": "Authorization",
                         "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "訂單產品ID",
-                        "name": "orderProductID",
-                        "in": "path",
                         "required": true
                     },
                     {
