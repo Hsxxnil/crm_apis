@@ -226,42 +226,42 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, int
 	// 同步新增商機歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
 
-	if *input.Name != *opportunityBase.Name {
+	if input.Name != nil && *input.Name != *opportunityBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "名稱",
 			Values: "為" + *input.Name,
 		})
 	}
 
-	if *input.Stage != *opportunityBase.Stage {
+	if input.Stage != nil && *input.Stage != *opportunityBase.Stage {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "階段",
 			Values: "為" + *input.Stage,
 		})
 	}
 
-	if *input.ForecastCategory != *opportunityBase.ForecastCategory {
+	if input.ForecastCategory != nil && *input.ForecastCategory != *opportunityBase.ForecastCategory {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "預測種類",
 			Values: "為" + *input.ForecastCategory,
 		})
 	}
 
-	if *input.CloseDate != *opportunityBase.CloseDate {
+	if input.CloseDate != nil && *input.CloseDate != *opportunityBase.CloseDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "結束日期",
 			Values: "為" + input.CloseDate.Format("2006-01-02"),
 		})
 	}
 
-	if *input.Amount != *opportunityBase.Amount {
+	if input.Amount != nil && *input.Amount != *opportunityBase.Amount {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "金額",
 			Values: "為" + strconv.FormatFloat(*input.Amount, 'f', -1, 64),
 		})
 	}
 
-	if *input.SalespersonID != *opportunityBase.SalespersonID {
+	if input.SalespersonID != nil && *input.SalespersonID != *opportunityBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
 			UserID: *input.SalespersonID,
 		})
