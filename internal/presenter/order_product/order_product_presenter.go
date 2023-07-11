@@ -125,14 +125,13 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 }
 
 // Delete
-// @Summary 刪除單一訂單產品
-// @description 刪除單一訂單產品
+// @Summary 刪除多筆訂單產品
+// @description 刪除多筆訂單產品
 // @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param orderProductID path string true "訂單產品ID"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
@@ -160,14 +159,13 @@ func (c *control) Delete(ctx *gin.Context) {
 }
 
 // Update
-// @Summary 更新單一訂單產品
-// @description 更新單一訂單產品
+// @Summary 更新多筆訂單產品
+// @description 更新多筆訂單產品
 // @Tags order-product
 // @version 1.0
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param orderProductID path string true "訂單產品ID"
 // @param * body order_products.Update true "更新訂單產品"
 // @success 200 object code.SuccessfulMessage{body=string} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
