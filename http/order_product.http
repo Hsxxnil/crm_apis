@@ -26,28 +26,43 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "order_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
-  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
-  "quantity": 1,
-  "unit_price": 100,
-  "quote_price": 200,
-  "description": "test"
+  "products": [
+    {
+      "order_id": "889efc88-6c06-4fbf-a479-34eecb68720a",
+      "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9",
+      "quantity": 1,
+      "unit_price": 100,
+      "quote_price": 200,
+      "description": "test"
+    }
+  ]
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/orders-products/ca473b1c-a33b-48e3-b386-b569719f3d01
+PATCH {{host}}/crm/v1.0/orders-products
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "order_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
-  "quantity": 2,
-  "unit_price": 50,
-  "description": "test",
-  "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9"
+  "products": [
+    {
+      "order_product_id": "a86f6133-b34f-4486-86a8-99084dabe744",
+      "order_id": "3234b981-dcd5-42dc-b589-f35d0138f84b",
+      "quantity": 2,
+      "unit_price": 50,
+      "description": "test",
+      "product_id": "2a795d43-6a8a-4824-8d1a-0707f6eb75e9"
+    }
+  ]
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/orders-products/cd594a2a-ab19-42b2-9751-81b11505f189
+DELETE {{host}}/crm/v1.0/orders-products
 Accept: application/json
 Authorization: Bearer {{accessToken}}
+
+{
+  "products": [
+      "a86f6133-b34f-4486-86a8-99084dabe744"
+  ]
+}

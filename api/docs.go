@@ -4448,7 +4448,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "新增訂單產品",
+                "description": "新增多筆訂單產品",
                 "consumes": [
                     "application/json"
                 ],
@@ -4458,7 +4458,7 @@ const docTemplate = `{
                 "tags": [
                     "order-product"
                 ],
-                "summary": "新增訂單產品",
+                "summary": "新增多筆訂單產品",
                 "parameters": [
                     {
                         "type": "string",
@@ -4468,12 +4468,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "新增訂單產品",
+                        "description": "新增多筆訂單產品",
                         "name": "*",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/order_products.Create"
+                            "$ref": "#/definitions/order_products.CreateList"
                         }
                     }
                 ],
@@ -4490,93 +4490,6 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/orders-products/{orderProductID}": {
-            "get": {
-                "description": "取得單一訂單產品",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "order-product"
-                ],
-                "summary": "取得單一訂單產品",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "訂單產品ID",
-                        "name": "orderProductID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/order_products.Single"
                                         }
                                     }
                                 }
@@ -4756,6 +4669,93 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/orders-products/{orderProductID}": {
+            "get": {
+                "description": "取得單一訂單產品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "order-product"
+                ],
+                "summary": "取得單一訂單產品",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "訂單產品ID",
+                        "name": "orderProductID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/order_products.Single"
                                         }
                                     }
                                 }
@@ -10576,6 +10576,17 @@ const docTemplate = `{
                     "description": "訂單產品單價",
                     "type": "number",
                     "minimum": 0
+                }
+            }
+        },
+        "order_products.CreateList": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order_products.Create"
+                    }
                 }
             }
         },

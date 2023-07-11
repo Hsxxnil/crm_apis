@@ -1743,6 +1743,13 @@ definitions:
     - quantity
     - unit_price
     type: object
+  order_products.CreateList:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/order_products.Create'
+        type: array
+    type: object
   order_products.List:
     properties:
       limit:
@@ -5564,109 +5571,6 @@ paths:
       tags:
       - order
   /orders-products:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部訂單產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/order_products.List'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部訂單產品
-      tags:
-      - order-product
-    post:
-      consumes:
-      - application/json
-      description: 新增訂單產品
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 新增訂單產品
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/order_products.Create'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 新增訂單產品
-      tags:
-      - order-product
-  /orders-products/{orderProductID}:
     delete:
       consumes:
       - application/json
@@ -5718,18 +5622,23 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得單一訂單產品
+      description: 取得全部訂單產品
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 訂單產品ID
-        in: path
-        name: orderProductID
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
         required: true
-        type: string
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
       produces:
       - application/json
       responses:
@@ -5740,7 +5649,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/order_products.Single'
+                  $ref: '#/definitions/order_products.List'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -5760,7 +5669,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得單一訂單產品
+      summary: 取得全部訂單產品
       tags:
       - order-product
     patch:
@@ -5815,6 +5724,104 @@ paths:
                   type: string
               type: object
       summary: 更新單一訂單產品
+      tags:
+      - order-product
+    post:
+      consumes:
+      - application/json
+      description: 新增多筆訂單產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增多筆訂單產品
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/order_products.CreateList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增多筆訂單產品
+      tags:
+      - order-product
+  /orders-products/{orderProductID}:
+    get:
+      consumes:
+      - application/json
+      description: 取得單一訂單產品
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 訂單產品ID
+        in: path
+        name: orderProductID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/order_products.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一訂單產品
       tags:
       - order-product
   /orders/{orderID}:
