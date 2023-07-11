@@ -82,24 +82,24 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	// filter
 	isFiltered := false
 	filter := s.db.Model(&model.Table{})
-	if input.FilterCode != nil {
-		filter.Where("orders.code like ?", "%"+*input.FilterCode+"%")
+	if input.FilterCode != "" {
+		filter.Where("orders.code like ?", "%"+input.FilterCode+"%")
 		isFiltered = true
 	}
 
-	if input.FilterAccountName != nil {
+	if input.FilterAccountName != "" {
 		if isFiltered {
-			filter.Or(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Or(`"Accounts".name like ?`, "%"+input.FilterAccountName+"%")
 		} else {
-			filter.Where(`"Accounts".name like ?`, "%"+*input.FilterAccountName+"%")
+			filter.Where(`"Accounts".name like ?`, "%"+input.FilterAccountName+"%")
 		}
 	}
 
-	if input.FilterContractCode != nil {
+	if input.FilterContractCode != "" {
 		if isFiltered {
-			filter.Or(`"Contracts".code like ?`, "%"+*input.FilterContractCode+"%")
+			filter.Or(`"Contracts".code like ?`, "%"+input.FilterContractCode+"%")
 		} else {
-			filter.Where(`"Contracts".code like ?`, "%"+*input.FilterContractCode+"%")
+			filter.Where(`"Contracts".code like ?`, "%"+input.FilterContractCode+"%")
 		}
 	}
 
