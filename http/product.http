@@ -28,7 +28,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetByOrderIDList
-POST {{host}}/crm/v1.0/products/get-by-order/889efc88-6c06-4fbf-a479-34eecb68720a?page=1&limit=20
+POST {{host}}/crm/v1.0/products/get-by-order/8e59bb2b-d7b3-4815-9e99-f71fabd6f949?page=1&limit=20
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 

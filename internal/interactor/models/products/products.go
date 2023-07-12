@@ -36,9 +36,6 @@ type Field struct {
 	Description *string `json:"description,omitempty" form:"description"`
 	// 產品價格
 	Price *float64 `json:"price,omitempty" form:"price"`
-
-	// 報價ID
-	QuoteID string `json:"quote_id,omitempty" form:"quote_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 訂單ID
 	OrderID string `json:"order_id,omitempty" form:"order_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 }
@@ -82,7 +79,7 @@ type List struct {
 		// 產品價格
 		Price float64 `json:"price,omitempty"`
 		// 產品報價金額
-		QuotePrice float64 `json:"quote_price,omitempty"`
+		QuotePrice float64 `json:"quote_price"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
