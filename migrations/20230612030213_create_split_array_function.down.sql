@@ -1,1 +1,0 @@
-drop function split_array(arr text[])
