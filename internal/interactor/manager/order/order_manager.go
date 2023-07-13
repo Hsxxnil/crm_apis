@@ -108,6 +108,10 @@ func (m *manager) GetByList(input *orderModel.Fields) (int, interface{}) {
 		orders.UpdatedBy = *orderBase[i].UpdatedByUsers.Name
 		orders.ActivatedBy = *orderBase[i].ActivatedByUsers.Name
 		orders.ActivatedAt = orderBase[i].ActivatedAt
+		for _, products := range orderBase[i].OrderProducts {
+			// 計算訂單總計
+			orders.GrandTotal += *products.SubTotal
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
@@ -139,6 +143,9 @@ func (m *manager) GetBySingle(input *orderModel.Field) (int, interface{}) {
 	output.UpdatedBy = *orderBase.UpdatedByUsers.Name
 	output.ActivatedBy = *orderBase.ActivatedByUsers.Name
 	output.ActivatedAt = orderBase.ActivatedAt
+	for _, products := range orderBase.OrderProducts {
+		output.GrandTotal += *products.SubTotal
+	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
@@ -174,7 +181,7 @@ func (m *manager) GetBySingleProducts(input *orderModel.Field) (int, interface{}
 		output.OrderProducts[i].ProductPrice = *products.Products.Price
 		output.OrderProducts[i].CreatedBy = *products.Products.CreatedByUsers.Name
 		output.OrderProducts[i].UpdatedBy = *products.Products.UpdatedByUsers.Name
-
+		output.GrandTotal += *products.SubTotal
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
