@@ -4553,6 +4553,15 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "description": "訂單產品ID",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/quote_products.DeleteList"
+                        }
                     }
                 ],
                 "responses": {
@@ -4638,7 +4647,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/order_products.Update"
+                            "$ref": "#/definitions/order_products.UpdateList"
                         }
                     }
                 ],
@@ -10813,6 +10822,17 @@ const docTemplate = `{
                     "description": "訂單產品單價",
                     "type": "number",
                     "minimum": 0
+                }
+            }
+        },
+        "order_products.UpdateList": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order_products.Update"
+                    }
                 }
             }
         },

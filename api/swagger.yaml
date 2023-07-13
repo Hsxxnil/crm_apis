@@ -1927,6 +1927,13 @@ definitions:
         minimum: 0
         type: number
     type: object
+  order_products.UpdateList:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/order_products.Update'
+        type: array
+    type: object
   orders.Create:
     properties:
       contract_id:
@@ -5602,6 +5609,12 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: 訂單產品ID
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/quote_products.DeleteList'
       produces:
       - application/json
       responses:
@@ -5703,7 +5716,7 @@ paths:
         name: '*'
         required: true
         schema:
-          $ref: '#/definitions/order_products.Update'
+          $ref: '#/definitions/order_products.UpdateList'
       produces:
       - application/json
       responses:
