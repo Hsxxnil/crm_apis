@@ -33,7 +33,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingleProducts
-GET {{host}}/crm/v1.0/orders/products/be75a422-62cb-4893-952d-4c9d1f504189
+GET {{host}}/crm/v1.0/orders/products/e4470b2d-b3c2-4f64-a62a-c4a7b3776d44
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 

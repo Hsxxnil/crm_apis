@@ -172,6 +172,9 @@ func (m *manager) GetBySingleProducts(input *orderModel.Field) (int, interface{}
 	for i, products := range orderBase.OrderProducts {
 		output.OrderProducts[i].ProductName = *products.Products.Name
 		output.OrderProducts[i].ProductPrice = *products.Products.Price
+		output.OrderProducts[i].CreatedBy = *products.Products.CreatedByUsers.Name
+		output.OrderProducts[i].UpdatedBy = *products.Products.UpdatedByUsers.Name
+
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
