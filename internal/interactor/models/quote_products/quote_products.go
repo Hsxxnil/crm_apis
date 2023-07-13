@@ -186,9 +186,9 @@ type QuoteSingle struct {
 	// 報價產品單價
 	UnitPrice float64 `json:"unit_price,omitempty"`
 	// 報價產品小計
-	SubTotal float64 `json:"sub_total,omitempty" swaggerignore:"true"`
+	SubTotal float64 `json:"sub_total,omitempty"`
 	// 報價產品總價
-	TotalPrice float64 `json:"total_price,omitempty" swaggerignore:"true"`
+	TotalPrice float64 `json:"total_price,omitempty"`
 	// 報價產品折扣
 	Discount float64 `json:"discount,omitempty"`
 	// 報價產品描述
