@@ -10936,6 +10936,10 @@ const docTemplate = `{
                                 "description": "訂單描述",
                                 "type": "string"
                             },
+                            "grand_total": {
+                                "description": "訂單總計",
+                                "type": "number"
+                            },
                             "order_id": {
                                 "description": "訂單ID",
                                 "type": "string"
@@ -11016,6 +11020,10 @@ const docTemplate = `{
                     "description": "訂單描述",
                     "type": "string"
                 },
+                "grand_total": {
+                    "description": "訂單總計",
+                    "type": "number"
+                },
                 "order_id": {
                     "description": "訂單ID",
                     "type": "string"
@@ -11076,6 +11084,10 @@ const docTemplate = `{
                 "description": {
                     "description": "訂單描述",
                     "type": "string"
+                },
+                "grand_total": {
+                    "description": "訂單總計",
+                    "type": "number"
                 },
                 "order_id": {
                     "description": "訂單ID",

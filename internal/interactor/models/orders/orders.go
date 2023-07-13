@@ -87,6 +87,8 @@ type List struct {
 		ContractCode string `json:"contract_code,omitempty"`
 		// 訂單描述
 		Description string `json:"description,omitempty"`
+		// 訂單總計
+		GrandTotal float64 `json:"grand_total"`
 		// 訂單號碼
 		Code string `json:"code,omitempty"`
 		// 啟用者
@@ -122,6 +124,8 @@ type Single struct {
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述
 	Description string `json:"description,omitempty"`
+	// 訂單總計
+	GrandTotal float64 `json:"grand_total"`
 	// 訂單號碼
 	Code string `json:"code,omitempty"`
 	// 啟用者
@@ -154,6 +158,8 @@ type SingleProducts struct {
 	ContractID string `json:"contract_id,omitempty"`
 	// 訂單描述
 	Description string `json:"description,omitempty"`
+	// 訂單總計
+	GrandTotal float64 `json:"grand_total"`
 	// 訂單號碼
 	Code string `json:"code,omitempty"`
 	// 啟用者
