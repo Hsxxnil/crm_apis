@@ -10673,8 +10673,20 @@ const docTemplate = `{
                     "description": "訂單產品號碼",
                     "type": "string"
                 },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
                 "description": {
                     "description": "訂單產品描述",
+                    "type": "string"
+                },
+                "order_product_id": {
+                    "description": "訂單產品ID",
                     "type": "string"
                 },
                 "product_id": {
@@ -10704,6 +10716,14 @@ const docTemplate = `{
                 "unit_price": {
                     "description": "訂單產品單價",
                     "type": "number"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
                 }
             }
         },
@@ -11483,6 +11503,14 @@ const docTemplate = `{
                 },
                 "standard_price": {
                     "description": "產品定價",
+                    "type": "number"
+                },
+                "sub_total": {
+                    "description": "報價產品小計",
+                    "type": "number"
+                },
+                "total_price": {
+                    "description": "報價產品總價",
                     "type": "number"
                 },
                 "unit_price": {

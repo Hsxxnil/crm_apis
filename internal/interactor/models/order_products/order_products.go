@@ -159,6 +159,8 @@ type DeleteList struct {
 
 // OrderSingle return structure file for orders
 type OrderSingle struct {
+	// 訂單產品ID
+	OrderProductID string `json:"order_product_id,omitempty"`
 	// 產品ID
 	ProductID string `json:"product_id,omitempty"`
 	// 產品名稱
@@ -177,4 +179,10 @@ type OrderSingle struct {
 	Description string `json:"description,omitempty"`
 	// 訂單產品號碼
 	Code string `json:"code,omitempty"`
+	// 創建者
+	CreatedBy string `json:"created_by,omitempty"`
+	// 更新者
+	UpdatedBy string `json:"updated_by,omitempty"`
+	// 時間戳記
+	section.TimeAt
 }

@@ -135,7 +135,7 @@ func (s *storage) GetByListNoQuantity(input *model.Base) (output []*model.Table,
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload("OrderProducts.Products").Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("OrderProducts.Products.CreatedByUsers").Preload("OrderProducts.Products.UpdatedByUsers").Preload(clause.Associations)
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
 	}
