@@ -49,7 +49,7 @@ type Field struct {
 	// 報價產品小計
 	SubTotal *float64 `json:"sub_total,omitempty" form:"sub_total"`
 	// 報價產品總價
-	TotalPrice *float64 `json:"total_price,omitempty" form:"total"`
+	TotalPrice *float64 `json:"total_price,omitempty" form:"total_price"`
 	// 報價產品折扣
 	Discount *float64 `json:"discount,omitempty" form:"discount"`
 	// 報價產品描述
