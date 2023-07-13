@@ -9,10 +9,10 @@ import (
 	"github.com/casbin/casbin/v2/model"
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/connect"
+	_ "app.eirc/internal/interactor/pkg/connect"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"github.com/casbin/casbin/v2"
-	gormAdapter "github.com/casbin/gorm-adapter/v3"
+	jsonAdapter "github.com/casbin/json-adapter/v2"
 	"github.com/gin-gonic/gin"
 	_ "gorm.io/driver/postgres"
 )
@@ -38,21 +38,25 @@ type CasbinOutput struct {
 	Method   string `json:"method"`
 }
 
-func adapter() *gormAdapter.Adapter {
-	db, err := connect.PostgresSQL()
-	if err != nil {
-		panic(err)
-	}
+func adapter() *jsonAdapter.Adapter {
+	//db, err := connect.PostgresSQL()
+	//if err != nil {
+	//	panic(err)
+	//}
 
-	a, err := gormAdapter.NewAdapterByDB(db)
-	if err != nil {
-		panic(err)
-	}
+	//a, err := gormAdapter.NewAdapterByDB(db)
+	//if err != nil {
+	//	panic(err)
+	//}
+
+	cb := []byte(_CASBIN_RULES)
+
+	a := jsonAdapter.NewAdapter(&cb)
 
 	return a
 }
 
-func Casbin(a *gormAdapter.Adapter) *casbin.Enforcer {
+func Casbin(a *jsonAdapter.Adapter) *casbin.Enforcer {
 	m, err := model.NewModelFromString(`[request_definition]
 	r = sub, obj, act
 
