@@ -139,7 +139,7 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @Router /orders-products [delete]
 func (c *control) Delete(ctx *gin.Context) {
 	inputIDList := &orderProductModel.DeleteList{}
-	if err := ctx.ShouldBindQuery(inputIDList); err != nil {
+	if err := ctx.ShouldBindJSON(inputIDList); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
 
@@ -155,6 +155,7 @@ func (c *control) Delete(ctx *gin.Context) {
 		}
 	}
 
+	log.Debug(input)
 	httpCode, codeMessage := c.Manager.Delete(input)
 	ctx.JSON(httpCode, codeMessage)
 }

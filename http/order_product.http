@@ -63,6 +63,6 @@ Authorization: Bearer {{accessToken}}
 
 {
   "products": [
-      "a86f6133-b34f-4486-86a8-99084dabe744"
+      "b0c5c790-a19d-4371-a968-fa02f69d2a13"
   ]
 }
