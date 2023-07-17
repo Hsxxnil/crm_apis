@@ -22,7 +22,8 @@ Authorization: Bearer {{accessToken}}
   },
   "filter": {
     "name": "",
-    "opportunity_name": ""
+    "opportunity_name": "",
+    "status": "客戶簽回"
   }
 }
 

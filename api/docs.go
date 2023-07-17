@@ -11738,6 +11738,10 @@ const docTemplate = `{
                 "opportunity_name": {
                     "description": "商機名稱",
                     "type": "string"
+                },
+                "status": {
+                    "description": "報價狀態",
+                    "type": "string"
                 }
             }
         },
