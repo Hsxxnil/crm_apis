@@ -71,6 +71,8 @@ type Filter struct {
 	FilterCode string `json:"code,omitempty"`
 	// 帳戶名稱
 	FilterAccountName string `json:"account_name,omitempty"`
+	// 契約狀態
+	FilterStatus string `json:"status,omitempty"`
 }
 
 // List is multiple return structure files

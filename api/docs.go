@@ -9419,6 +9419,10 @@ const docTemplate = `{
                 "code": {
                     "description": "契約號碼",
                     "type": "string"
+                },
+                "status": {
+                    "description": "契約狀態",
+                    "type": "string"
                 }
             }
         },

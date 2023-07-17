@@ -903,6 +903,9 @@ definitions:
       code:
         description: 契約號碼
         type: string
+      status:
+        description: 契約狀態
+        type: string
     type: object
   contracts.List:
     properties:
