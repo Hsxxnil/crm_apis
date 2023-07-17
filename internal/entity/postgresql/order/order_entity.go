@@ -103,6 +103,14 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		}
 	}
 
+	if input.FilterStatus != "" {
+		if isFiltered {
+			filter.Or("orders.status = ?", input.FilterStatus)
+		} else {
+			filter.Where("orders.status = ?", input.FilterStatus)
+		}
+	}
+
 	query.Where(filter)
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).

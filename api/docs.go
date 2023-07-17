@@ -10888,6 +10888,10 @@ const docTemplate = `{
                 "contract_code": {
                     "description": "契約號碼",
                     "type": "string"
+                },
+                "status": {
+                    "description": "訂單狀態",
+                    "type": "string"
                 }
             }
         },
