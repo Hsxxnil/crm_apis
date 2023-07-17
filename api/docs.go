@@ -8665,6 +8665,10 @@ const docTemplate = `{
                     "description": "業務員名稱",
                     "type": "string"
                 },
+                "status": {
+                    "description": "行銷活動狀態",
+                    "type": "string"
+                },
                 "type": {
                     "description": "行銷活動類型",
                     "type": "string"

@@ -97,6 +97,8 @@ type Filter struct {
 	FilterParentCampaignName string `json:"parent_campaign_name,omitempty"`
 	// 行銷活動類型
 	FilterType string `json:"type,omitempty"`
+	// 行銷活動狀態
+	FilterStatus string `json:"status,omitempty"`
 	// 業務員名稱
 	FilterSalespersonName string `json:"salesperson_name,omitempty"`
 }
