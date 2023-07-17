@@ -10113,6 +10113,10 @@ const docTemplate = `{
                 "salesperson_name": {
                     "description": "業務員名稱",
                     "type": "string"
+                },
+                "stage": {
+                    "description": "商機階段",
+                    "type": "string"
                 }
             }
         },

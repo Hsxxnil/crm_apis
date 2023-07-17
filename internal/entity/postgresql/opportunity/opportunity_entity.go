@@ -94,6 +94,14 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		}
 	}
 
+	if input.FilterStage != "" {
+		if isFiltered {
+			filter.Or("opportunities.stage = ?", input.FilterStage)
+		} else {
+			filter.Where("opportunities.stage = ?", input.FilterStage)
+		}
+	}
+
 	if input.FilterSalespersonName != "" {
 		if isFiltered {
 			filter.Or(`"Salespeople".name like ?`, "%"+input.FilterSalespersonName+"%")

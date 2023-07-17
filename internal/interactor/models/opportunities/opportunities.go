@@ -71,6 +71,8 @@ type Filter struct {
 	FilterName string `json:"name,omitempty"`
 	// 帳戶名稱
 	FilterAccountName string `json:"account_name,omitempty"`
+	// 商機階段
+	FilterStage string `json:"stage,omitempty"`
 	// 業務員名稱
 	FilterSalespersonName string `json:"salesperson_name,omitempty"`
 }

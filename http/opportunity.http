@@ -23,6 +23,7 @@ Authorization: Bearer {{accessToken}}
   "filter": {
     "name": "",
     "account_name": "",
+    "stage": "提案",
     "salesperson_name": ""
   }
 }
