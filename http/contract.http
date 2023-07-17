@@ -24,7 +24,8 @@ Authorization: Bearer {{accessToken}}
   },
   "filter": {
     "code": "",
-    "account_name": ""
+    "account_name": "",
+    "status": "草稿"
   }
 }
 

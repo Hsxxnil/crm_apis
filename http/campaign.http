@@ -26,6 +26,7 @@ Authorization: Bearer {{accessToken}}
     "name": "",
     "parent_campaign_name": "",
     "type": "",
+    "status": "",
     "salesperson_name": ""
   }
 }

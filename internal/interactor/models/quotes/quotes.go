@@ -81,6 +81,8 @@ type Filter struct {
 	FilterName string `json:"name,omitempty"`
 	// 商機名稱
 	FilterOpportunityName string `json:"opportunity_name,omitempty"`
+	// 報價狀態
+	FilterStatus string `json:"status,omitempty"`
 }
 
 // List is multiple return structure files

@@ -8661,6 +8661,10 @@
                     "description": "業務員名稱",
                     "type": "string"
                 },
+                "status": {
+                    "description": "行銷活動狀態",
+                    "type": "string"
+                },
                 "type": {
                     "description": "行銷活動類型",
                     "type": "string"
@@ -9415,6 +9419,10 @@
                 "code": {
                     "description": "契約號碼",
                     "type": "string"
+                },
+                "status": {
+                    "description": "契約狀態",
+                    "type": "string"
                 }
             }
         },
@@ -9858,6 +9866,10 @@
                 "source": {
                     "description": "線索來源",
                     "type": "string"
+                },
+                "status": {
+                    "description": "線索狀態",
+                    "type": "string"
                 }
             }
         },
@@ -10104,6 +10116,10 @@
                 },
                 "salesperson_name": {
                     "description": "業務員名稱",
+                    "type": "string"
+                },
+                "stage": {
+                    "description": "商機階段",
                     "type": "string"
                 }
             }
@@ -10871,6 +10887,10 @@
                 },
                 "contract_code": {
                     "description": "契約號碼",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "訂單狀態",
                     "type": "string"
                 }
             }
@@ -11725,6 +11745,10 @@
                 },
                 "opportunity_name": {
                     "description": "商機名稱",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "報價狀態",
                     "type": "string"
                 }
             }

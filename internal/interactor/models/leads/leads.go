@@ -62,6 +62,8 @@ type Filter struct {
 	FilterRating string `json:"rating,omitempty"`
 	// 線索來源
 	FilterSource string `json:"source,omitempty"`
+	// 線索狀態
+	FilterStatus string `json:"status,omitempty"`
 	// 業務員名稱
 	FilterSalespersonName string `json:"salesperson_name,omitempty"`
 }

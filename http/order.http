@@ -23,7 +23,8 @@ Authorization: Bearer {{accessToken}}
   "filter": {
     "code": "",
     "account_name": "",
-    "contract_code": ""
+    "contract_code": "",
+    "status": ""
   }
 }
 

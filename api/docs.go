@@ -8665,6 +8665,10 @@ const docTemplate = `{
                     "description": "業務員名稱",
                     "type": "string"
                 },
+                "status": {
+                    "description": "行銷活動狀態",
+                    "type": "string"
+                },
                 "type": {
                     "description": "行銷活動類型",
                     "type": "string"
@@ -9419,6 +9423,10 @@ const docTemplate = `{
                 "code": {
                     "description": "契約號碼",
                     "type": "string"
+                },
+                "status": {
+                    "description": "契約狀態",
+                    "type": "string"
                 }
             }
         },
@@ -9862,6 +9870,10 @@ const docTemplate = `{
                 "source": {
                     "description": "線索來源",
                     "type": "string"
+                },
+                "status": {
+                    "description": "線索狀態",
+                    "type": "string"
                 }
             }
         },
@@ -10108,6 +10120,10 @@ const docTemplate = `{
                 },
                 "salesperson_name": {
                     "description": "業務員名稱",
+                    "type": "string"
+                },
+                "stage": {
+                    "description": "商機階段",
                     "type": "string"
                 }
             }
@@ -10875,6 +10891,10 @@ const docTemplate = `{
                 },
                 "contract_code": {
                     "description": "契約號碼",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "訂單狀態",
                     "type": "string"
                 }
             }
@@ -11729,6 +11749,10 @@ const docTemplate = `{
                 },
                 "opportunity_name": {
                     "description": "商機名稱",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "報價狀態",
                     "type": "string"
                 }
             }
