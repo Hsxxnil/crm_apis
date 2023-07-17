@@ -25,6 +25,7 @@ Authorization: Bearer {{accessToken}}
     "account_name": "",
     "rating": "",
     "source": "",
+    "status": "新線索",
     "salesperson_name": ""
   }
 }

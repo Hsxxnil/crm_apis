@@ -9862,6 +9862,10 @@ const docTemplate = `{
                 "source": {
                     "description": "線索來源",
                     "type": "string"
+                },
+                "status": {
+                    "description": "線索狀態",
+                    "type": "string"
                 }
             }
         },
