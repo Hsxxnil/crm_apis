@@ -84,9 +84,9 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 	if input.FilterType != nil {
 		if isFiltered {
-			filter.Or("? <@ array[accounts.type]", pq.StringArray(input.FilterType))
+			filter.Or("array[accounts.type] && ?", pq.Array(input.FilterType))
 		} else {
-			filter.Where("? <@ array[accounts.type]", pq.StringArray(input.FilterType))
+			filter.Where("array[accounts.type] && ?", pq.Array(input.FilterType))
 		}
 	}
 
