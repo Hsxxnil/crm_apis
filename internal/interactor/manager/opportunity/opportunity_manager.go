@@ -73,7 +73,7 @@ func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, int
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *opportunityBase.OpportunityID,
 		Action:     "建立",
-		Content:    sourceType,
+		SourceType: sourceType,
 		ModifiedBy: *opportunityBase.CreatedBy,
 	})
 	if err != nil {
@@ -228,36 +228,36 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, int
 
 	if input.Name != nil && *input.Name != *opportunityBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "名稱",
-			Values: "為" + *input.Name,
+			Fields: "名稱為",
+			Values: *input.Name,
 		})
 	}
 
 	if input.Stage != nil && *input.Stage != *opportunityBase.Stage {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "階段",
-			Values: "為" + *input.Stage,
+			Fields: "階段為",
+			Values: *input.Stage,
 		})
 	}
 
 	if input.ForecastCategory != nil && *input.ForecastCategory != *opportunityBase.ForecastCategory {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "預測種類",
-			Values: "為" + *input.ForecastCategory,
+			Fields: "預測種類為",
+			Values: *input.ForecastCategory,
 		})
 	}
 
 	if input.CloseDate != nil && *input.CloseDate != *opportunityBase.CloseDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "結束日期",
-			Values: "為" + input.CloseDate.Format("2006-01-02"),
+			Fields: "結束日期為",
+			Values: input.CloseDate.UTC().Format("2006-01-02T15:04:05.999999Z"),
 		})
 	}
 
 	if input.Amount != nil && *input.Amount != *opportunityBase.Amount {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "金額",
-			Values: "為" + strconv.FormatFloat(*input.Amount, 'f', -1, 64),
+			Fields: "金額為",
+			Values: strconv.FormatFloat(*input.Amount, 'f', -1, 64),
 		})
 	}
 
@@ -266,8 +266,8 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, int
 			UserID: *input.SalespersonID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員",
-			Values: "為" + *salespersonBase.Name,
+			Fields: "業務員為",
+			Values: *salespersonBase.Name,
 		})
 	}
 
@@ -275,7 +275,9 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, int
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *opportunityBase.OpportunityID,
 			Action:     "修改",
-			Content:    sourceType + record.Fields + record.Values,
+			SourceType: sourceType,
+			Field:      record.Fields,
+			Value:      record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {

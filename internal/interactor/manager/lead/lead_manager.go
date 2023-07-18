@@ -56,7 +56,7 @@ func (m *manager) Create(trx *gorm.DB, input *leadModel.Create) (int, interface{
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *leadBase.LeadID,
 		Action:     "建立",
-		Content:    sourceType,
+		SourceType: sourceType,
 		ModifiedBy: *leadBase.CreatedBy,
 	})
 	if err != nil {
@@ -175,29 +175,29 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, interface{
 
 	if input.Status != nil && *input.Status != *leadBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "狀態",
-			Values: "為" + *input.Status,
+			Fields: "狀態為",
+			Values: *input.Status,
 		})
 	}
 
 	if input.Description != nil && *input.Description != *leadBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "描述",
-			Values: "為" + *input.Description,
+			Fields: "描述為",
+			Values: *input.Description,
 		})
 	}
 
 	if input.Source != nil && *input.Source != *leadBase.Source {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "來源",
-			Values: "為" + *input.Source,
+			Fields: "來源為",
+			Values: *input.Source,
 		})
 	}
 
 	if input.Rating != nil && *input.Rating != *leadBase.Rating {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "分級",
-			Values: "為" + *input.Rating,
+			Fields: "分級為",
+			Values: *input.Rating,
 		})
 	}
 
@@ -206,8 +206,8 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, interface{
 			UserID: *input.SalespersonID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員",
-			Values: "為" + *salespersonBase.Name,
+			Fields: "業務員為",
+			Values: *salespersonBase.Name,
 		})
 	}
 
@@ -215,7 +215,9 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, interface{
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *leadBase.LeadID,
 			Action:     "修改",
-			Content:    sourceType + record.Fields + record.Values,
+			SourceType: sourceType,
+			Field:      record.Fields,
+			Value:      record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {

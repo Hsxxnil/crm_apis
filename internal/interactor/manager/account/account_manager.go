@@ -71,7 +71,7 @@ func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) (int, interfa
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *accountBase.AccountID,
 		Action:     "建立",
-		Content:    sourceType,
+		SourceType: sourceType,
 		ModifiedBy: *accountBase.CreatedBy,
 	})
 	if err != nil {
@@ -264,8 +264,8 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 
 	if input.Name != nil && *input.Name != *accountBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "名稱",
-			Values: "為" + *input.Name,
+			Fields: "名稱為",
+			Values: *input.Name,
 		})
 	}
 
@@ -284,15 +284,15 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 
 	if inputType != "" {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "類型",
-			Values: "為" + inputType,
+			Fields: "類型為",
+			Values: inputType,
 		})
 	}
 
 	if input.PhoneNumber != nil && *input.PhoneNumber != *accountBase.PhoneNumber {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "電話號碼",
-			Values: "為" + *input.PhoneNumber,
+			Fields: "電話號碼為",
+			Values: *input.PhoneNumber,
 		})
 	}
 
@@ -301,8 +301,8 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 			IndustryID: *input.IndustryID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "行業",
-			Values: "為" + *industryBase.Name,
+			Fields: "行業為",
+			Values: *industryBase.Name,
 		})
 	}
 
@@ -311,8 +311,8 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 			AccountID: input.AccountID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "父系帳戶",
-			Values: "為" + *parentAccountBase.Name,
+			Fields: "父系帳戶為",
+			Values: *parentAccountBase.Name,
 		})
 	}
 
@@ -321,8 +321,8 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 			UserID: *input.SalespersonID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員",
-			Values: "為" + *salespersonBase.Name,
+			Fields: "業務員為",
+			Values: *salespersonBase.Name,
 		})
 	}
 
@@ -330,7 +330,8 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *accountBase.AccountID,
 			Action:     "修改",
-			Content:    sourceType + record.Fields + record.Values,
+			SourceType: sourceType,
+			Field:      record.Fields,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {

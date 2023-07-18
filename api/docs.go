@@ -9651,8 +9651,8 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
-                            "description": {
-                                "description": "歷程記錄描述",
+                            "content": {
+                                "description": "歷程記錄內容",
                                 "type": "string"
                             },
                             "historical_record_id": {
@@ -9669,6 +9669,10 @@ const docTemplate = `{
                             },
                             "source_id": {
                                 "description": "來源ID",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "歷程記錄異動值",
                                 "type": "string"
                             }
                         }

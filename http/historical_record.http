@@ -11,7 +11,7 @@ Content-Type: application/json
 > {% client.global.set("accessToken", response.body.body.access_token); %}
 
 ### GetByList
-POST {{host}}/crm/v1.0/historical-records/list/1cf4c7e5-43ce-420a-aa04-0242ae67d4fa?page=1&limit=5
+POST {{host}}/crm/v1.0/historical-records/list/ed582e8c-d65f-4b19-a839-1efe2c428f6b?page=1&limit=5
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 

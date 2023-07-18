@@ -70,7 +70,7 @@ func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, interface
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *quoteBase.QuoteID,
 		Action:     "建立",
-		Content:    sourceType,
+		SourceType: sourceType,
 		ModifiedBy: *quoteBase.CreatedBy,
 	})
 	if err != nil {
@@ -258,15 +258,15 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 
 	if input.Name != nil && *input.Name != *quoteBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "名稱",
-			Values: "為" + *input.Name,
+			Fields: "名稱為",
+			Values: *input.Name,
 		})
 	}
 
 	if input.Status != nil && *input.Status != *quoteBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "狀態",
-			Values: "為" + *input.Status,
+			Fields: "狀態為",
+			Values: *input.Status,
 		})
 	}
 
@@ -300,8 +300,8 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 			OpportunityID: *input.OpportunityID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "商機",
-			Values: "為" + *opportunityBase.Name,
+			Fields: "商機為",
+			Values: *opportunityBase.Name,
 		})
 
 		if opportunityBase.AccountID != quoteBase.AccountID {
@@ -309,37 +309,37 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 				AccountID: *opportunityBase.AccountID,
 			})
 			records = append(records, historicalRecordModel.AddHistoricalRecord{
-				Fields: "帳戶",
-				Values: "為" + *accountBase.Name,
+				Fields: "帳戶為",
+				Values: *accountBase.Name,
 			})
 		}
 	}
 
 	if input.ExpirationDate != nil && *input.ExpirationDate != *quoteBase.ExpirationDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "到期日期",
-			Values: "為" + input.ExpirationDate.Format("2006-01-02"),
+			Fields: "到期日期為",
+			Values: input.ExpirationDate.UTC().Format("2006-01-02T15:04:05.999999Z"),
 		})
 	}
 
 	if input.Description != nil && *input.Description != *quoteBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "描述",
-			Values: "為" + *input.Description,
+			Fields: "描述為",
+			Values: *input.Description,
 		})
 	}
 
 	if input.Tax != nil && *input.Tax != *quoteBase.Tax {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "稅額",
-			Values: "為" + strconv.FormatFloat(*input.Tax, 'f', -1, 64),
+			Fields: "稅額為",
+			Values: strconv.FormatFloat(*input.Tax, 'f', -1, 64),
 		})
 	}
 
 	if input.ShippingAndHandling != nil && *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "運費及其他費用",
-			Values: "為" + strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64),
+			Fields: "運費及其他費用為",
+			Values: strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64),
 		})
 	}
 
@@ -347,7 +347,9 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *quoteBase.QuoteID,
 			Action:     action,
-			Content:    sourceType + record.Fields + record.Values,
+			SourceType: sourceType,
+			Field:      record.Fields,
+			Value:      record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {

@@ -75,7 +75,7 @@ func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interf
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *contractBase.ContractID,
 		Action:     "建立",
-		Content:    sourceType,
+		SourceType: sourceType,
 		ModifiedBy: *contractBase.CreatedBy,
 	})
 	if err != nil {
@@ -240,8 +240,8 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 			OpportunityID: *input.OpportunityID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "商機",
-			Values: "為" + *opportunityBase.Name,
+			Fields: "商機為",
+			Values: *opportunityBase.Name,
 		})
 
 		if opportunityBase.AccountID != contractBase.AccountID {
@@ -249,37 +249,37 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 				AccountID: *opportunityBase.AccountID,
 			})
 			records = append(records, historicalRecordModel.AddHistoricalRecord{
-				Fields: "帳戶",
-				Values: "為" + *accountBase.Name,
+				Fields: "帳戶為",
+				Values: *accountBase.Name,
 			})
 		}
 	}
 
 	if input.Status != nil && *input.Status != *contractBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "狀態",
-			Values: "為" + *input.Status,
+			Fields: "狀態為",
+			Values: *input.Status,
 		})
 	}
 
 	if input.StartDate != nil && *input.StartDate != *contractBase.StartDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "開始日期",
-			Values: "為" + input.StartDate.Format("2006-01-02"),
+			Fields: "開始日期為",
+			Values: input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"),
 		})
 	}
 
 	if input.Term != nil && *input.Term != *contractBase.Term {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "有效期限",
-			Values: "為" + strconv.Itoa(*input.Term) + "個月",
+			Fields: "有效期限為",
+			Values: strconv.Itoa(*input.Term) + "個月",
 		})
 	}
 
 	if input.Description != nil && *input.Description != *contractBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "描述",
-			Values: "為" + *input.Description,
+			Fields: "描述為",
+			Values: *input.Description,
 		})
 	}
 
@@ -288,8 +288,8 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 			UserID: *input.SalespersonID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員",
-			Values: "為" + *salespersonBase.Name,
+			Fields: "業務員為",
+			Values: *salespersonBase.Name,
 		})
 	}
 
@@ -297,7 +297,9 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *contractBase.ContractID,
 			Action:     "修改",
-			Content:    sourceType + record.Fields + record.Values,
+			SourceType: sourceType,
+			Field:      record.Fields,
+			Value:      record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {
