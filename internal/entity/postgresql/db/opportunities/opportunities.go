@@ -27,7 +27,7 @@ type Table struct {
 	// 商機預測種類
 	ForecastCategory string `gorm:"column:forecast_category;type:text;not null;" json:"forecast_category"`
 	// 商機結束日期
-	CloseDate time.Time `gorm:"column:close_date;type:date;not null;" json:"close_date"`
+	CloseDate time.Time `gorm:"column:close_date;type:timestamp;not null;" json:"close_date"`
 	// 線索ID
 	LeadID *string `gorm:"column:lead_id;type:uuid;" json:"lead_id"`
 	// leads data

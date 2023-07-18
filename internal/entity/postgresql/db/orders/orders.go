@@ -23,7 +23,7 @@ type Table struct {
 	// 訂單狀態
 	Status string `gorm:"column:status;type:text;not null;" json:"status"`
 	// 訂單開始日期
-	StartDate time.Time `gorm:"column:start_date;type:date;not null;" json:"start_date"`
+	StartDate time.Time `gorm:"column:start_date;type:timestamp;not null;" json:"start_date"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// accounts data
@@ -37,7 +37,7 @@ type Table struct {
 	// 訂單號碼
 	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
 	// 啟用時間
-	ActivatedAt *time.Time `gorm:"column:activated_at;type:TIMESTAMP;" json:"activated_at,omitempty"`
+	ActivatedAt *time.Time `gorm:"column:activated_at;type:timestamp;" json:"activated_at,omitempty"`
 	// 啟用者
 	ActivatedBy *string `gorm:"column:activated_by;type:uuid;" json:"activated_by,omitempty"`
 	// create_users data
