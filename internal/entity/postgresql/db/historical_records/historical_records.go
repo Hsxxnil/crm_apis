@@ -13,8 +13,12 @@ type Table struct {
 	HistoricalRecordID string `gorm:"<-:create;column:historical_record_id;type:uuid;not null;primaryKey;" json:"historical_record_id"`
 	// 來源ID
 	SourceID string `gorm:"column:source_id;type:uuid;not null;" json:"source_id"`
-	// 歷程記錄內容
-	Content string `gorm:"column:content;type:text;not null;" json:"content"`
+	// 歷程記錄來源類型
+	SourceType string `gorm:"column:source_type;type:text;not null;" json:"source_type"`
+	// 歷程記錄欄位
+	Field string `gorm:"column:field;type:text;not null;" json:"field"`
+	// 歷程記錄異動值
+	Value string `gorm:"column:value;type:text;not null;" json:"value"`
 	// 歷程記錄動作
 	Action string `gorm:"column:action;type:text;not null;" json:"action"`
 	// 異動時間
@@ -31,8 +35,12 @@ type Base struct {
 	HistoricalRecordID *string `json:"historical_record_id,omitempty"`
 	// 來源ID
 	SourceID *string `json:"source_id,omitempty"`
-	// 歷程記錄內容
-	Content *string `json:"content,omitempty"`
+	// 歷程記錄來源類型
+	SourceType *string `json:"source_type,omitempty"`
+	// 歷程記錄欄位
+	Field *string `json:"field,omitempty"`
+	// 歷程記錄異動值
+	Value *string `json:"value,omitempty"`
 	// 歷程記錄動作
 	Action *string `json:"action,omitempty"`
 	// modify_users data

@@ -67,7 +67,7 @@ func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *orderBase.OrderID,
 		Action:     "建立",
-		Content:    sourceType,
+		SourceType: sourceType,
 		ModifiedBy: *orderBase.CreatedBy,
 	})
 	if err != nil {
@@ -252,15 +252,15 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, interface
 
 	if input.Status != nil && *input.Status != *orderBase.Status {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "狀態",
-			Values: "為" + *input.Status,
+			Fields: "狀態為",
+			Values: *input.Status,
 		})
 	}
 
 	if input.StartDate != nil && *input.StartDate != *orderBase.StartDate {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "開始日期",
-			Values: "為" + input.StartDate.Format("2006-01-02"),
+			Fields: "開始日期為",
+			Values: input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"),
 		})
 	}
 
@@ -269,8 +269,8 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, interface
 			ContractID: *input.ContractID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "契約號碼",
-			Values: "為" + *contractBase.Code,
+			Fields: "契約號碼為",
+			Values: *contractBase.Code,
 		})
 
 		if contractBase.AccountID != orderBase.AccountID {
@@ -278,16 +278,16 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, interface
 				AccountID: *contractBase.AccountID,
 			})
 			records = append(records, historicalRecordModel.AddHistoricalRecord{
-				Fields: "帳戶",
-				Values: "為" + *accountBase.Name,
+				Fields: "帳戶為",
+				Values: *accountBase.Name,
 			})
 		}
 	}
 
 	if input.Description != nil && *input.Description != *orderBase.Description {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "描述",
-			Values: "為" + *input.Description,
+			Fields: "描述為",
+			Values: *input.Description,
 		})
 	}
 
@@ -295,7 +295,9 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, interface
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *orderBase.ContractID,
 			Action:     "修改",
-			Content:    sourceType + record.Fields + record.Values,
+			SourceType: sourceType,
+			Field:      record.Fields,
+			Value:      record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {

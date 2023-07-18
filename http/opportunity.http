@@ -23,7 +23,7 @@ Authorization: Bearer {{accessToken}}
   "filter": {
     "name": "",
     "account_name": "",
-    "stage": "提案",
+    "stage": "",
     "salesperson_name": ""
   }
 }
@@ -53,12 +53,17 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/opportunities/373042d7-3cb4-4e17-b69f-9b294b69eb7f
+PATCH {{host}}/crm/v1.0/opportunities/ed582e8c-d65f-4b19-a839-1efe2c428f6b
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "account_id": "d6cb3bc4-474d-4932-8804-9c04ed380e1e"
+  "name": "222",
+  "stage": "資格評估",
+  "forecast_category": "結案",
+  "close_date": "2023-07-11T08:15:22.216474Z",
+  "account_id": "6ffec699-fdf9-4753-833f-79604bf3b796",
+  "amount": 500
 }
 
 ### Delete

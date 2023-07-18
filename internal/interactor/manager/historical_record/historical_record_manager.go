@@ -53,7 +53,7 @@ func (m *manager) GetByList(input *historicalRecordModel.Fields) (int, interface
 
 	for i, historicalRecords := range output.HistoricalRecords {
 		historicalRecords.ModifiedBy = *historicalRecordBase[i].ModifiedByUsers.Name
-		historicalRecords.Description = *historicalRecordBase[i].Action + *historicalRecordBase[i].Content
+		historicalRecords.Content = *historicalRecordBase[i].Action + *historicalRecordBase[i].SourceType + *historicalRecordBase[i].Field
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
@@ -78,7 +78,7 @@ func (m *manager) GetBySingle(input *historicalRecordModel.Field) (int, interfac
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.ModifiedBy = *historicalRecordBase.ModifiedByUsers.Name
-	output.Description = *historicalRecordBase.Action + *historicalRecordBase.Content
+	output.Description = *historicalRecordBase.Action + *historicalRecordBase.SourceType + *historicalRecordBase.Field
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }

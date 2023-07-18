@@ -10,8 +10,12 @@ import (
 type Create struct {
 	// 來源ID
 	SourceID string `json:"source_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
-	// 歷程記錄內容
-	Content string `json:"content,omitempty" binding:"required" validate:"required"`
+	// 歷程記錄來源類型
+	SourceType string `json:"source_type,omitempty" binding:"required" validate:"required"`
+	// 歷程記錄欄位
+	Field string `json:"field,omitempty" binding:"required" validate:"required"`
+	// 歷程記錄異動值
+	Value string `json:"value,omitempty" binding:"required" validate:"required"`
 	// 歷程記錄動作
 	Action string `json:"action,omitempty" binding:"required" validate:"required"`
 	// 異動者
@@ -22,8 +26,12 @@ type Create struct {
 type Field struct {
 	// 歷程記錄ID
 	HistoricalRecordID string `json:"historical_record_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
-	// 歷程記錄內容
-	Content *string `json:"content,omitempty" form:"content"`
+	// 歷程記錄來源類型
+	SourceType *string `json:"source_type,omitempty" form:"source_type"`
+	// 歷程記錄欄位
+	Field *string `json:"field,omitempty" form:"field"`
+	// 歷程記錄異動值
+	Value *string `json:"value,omitempty" form:"value"`
 	// 歷程記錄動作
 	Action *string `json:"action,omitempty" form:"action"`
 	// 來源ID
@@ -46,8 +54,10 @@ type List struct {
 		HistoricalRecordID string `json:"historical_record_id,omitempty"`
 		// 來源ID
 		SourceID string `json:"source_id,omitempty"`
-		// 歷程記錄描述
-		Description string `json:"description,omitempty"`
+		// 歷程記錄內容
+		Content string `json:"content,omitempty"`
+		// 歷程記錄異動值
+		Value string `json:"value,omitempty"`
 		// 異動者
 		ModifiedBy string `json:"modified_by,omitempty"`
 		// 異動時間

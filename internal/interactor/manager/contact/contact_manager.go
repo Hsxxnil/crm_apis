@@ -75,7 +75,7 @@ func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, interfa
 	_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 		SourceID:   *contactBase.ContactID,
 		Action:     "建立",
-		Content:    sourceType,
+		SourceType: sourceType,
 		ModifiedBy: *contactBase.CreatedBy,
 	})
 	if err != nil {
@@ -238,50 +238,50 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 
 	if input.Name != nil && *input.Name != *contactBase.Name {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "名稱",
-			Values: "為" + *input.Name,
+			Fields: "名稱為",
+			Values: *input.Name,
 		})
 	}
 
 	if input.Title != nil && *input.Title != *contactBase.Title {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "職稱",
-			Values: "為" + *input.Title,
+			Fields: "職稱為",
+			Values: *input.Title,
 		})
 	}
 
 	if input.PhoneNumber != nil && *input.PhoneNumber != *contactBase.PhoneNumber {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "電話",
-			Values: "為" + *input.PhoneNumber,
+			Fields: "電話為",
+			Values: *input.PhoneNumber,
 		})
 	}
 
 	if input.CellPhone != nil && *input.CellPhone != *contactBase.CellPhone {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "行動電話",
-			Values: "為" + *input.CellPhone,
+			Fields: "行動電話為",
+			Values: *input.CellPhone,
 		})
 	}
 
 	if input.Email != nil && *input.Email != *contactBase.Email {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "電子郵件",
-			Values: "為" + *input.Email,
+			Fields: "電子郵件為",
+			Values: *input.Email,
 		})
 	}
 
 	if input.Salutation != nil && *input.Salutation != *contactBase.Salutation {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "稱謂",
-			Values: "為" + *input.Salutation,
+			Fields: "稱謂為",
+			Values: *input.Salutation,
 		})
 	}
 
 	if input.Department != nil && *input.Department != *contactBase.Department {
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "部門",
-			Values: "為" + *input.Department,
+			Fields: "部門為",
+			Values: *input.Department,
 		})
 	}
 
@@ -290,8 +290,8 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 			ContactID: *input.SupervisorID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "直屬上司",
-			Values: "為" + *supervisorBase.Name,
+			Fields: "直屬上司為",
+			Values: *supervisorBase.Name,
 		})
 	}
 
@@ -300,8 +300,8 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 			AccountID: *input.AccountID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "帳戶",
-			Values: "為" + *accountBase.Name,
+			Fields: "帳戶為",
+			Values: *accountBase.Name,
 		})
 	}
 
@@ -310,8 +310,8 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 			UserID: *input.SalespersonID,
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員",
-			Values: "為" + *salespersonBase.Name,
+			Fields: "業務員為",
+			Values: *salespersonBase.Name,
 		})
 	}
 
@@ -319,7 +319,9 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *contactBase.ContactID,
 			Action:     "修改",
-			Content:    sourceType + record.Fields + record.Values,
+			SourceType: sourceType,
+			Field:      record.Fields,
+			Value:      record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {
