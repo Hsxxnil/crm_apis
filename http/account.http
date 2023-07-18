@@ -26,7 +26,6 @@ Authorization: Bearer {{accessToken}}
     "name": "",
     "type": [
       "個人客戶",
-      "法人客戶",
       "夥伴"
     ],
     "phone_number": "",
