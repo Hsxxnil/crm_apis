@@ -37,7 +37,7 @@ type Table struct {
 	// 訂單號碼
 	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
 	// 啟用時間
-	ActivatedAt *time.Time `gorm:"column:activated_at;type:TIMESTAMP;" json:"activated_at,omitempty"`
+	ActivatedAt *time.Time `gorm:"column:activated_at;type:timestamp;" json:"activated_at,omitempty"`
 	// 啟用者
 	ActivatedBy *string `gorm:"column:activated_by;type:uuid;" json:"activated_by,omitempty"`
 	// create_users data

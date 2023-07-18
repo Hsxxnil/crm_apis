@@ -18,7 +18,7 @@ type Table struct {
 	// 歷程記錄動作
 	Action string `gorm:"column:action;type:text;not null;" json:"action"`
 	// 異動時間
-	ModifiedAt time.Time `gorm:"<-:create;column:modified_at;type:TIMESTAMP;not null;" json:"modified_at"`
+	ModifiedAt time.Time `gorm:"<-:create;column:modified_at;type:timestamp;not null;" json:"modified_at"`
 	// 異動者
 	ModifiedBy string `gorm:"<-:create;column:modified_by;type:uuid;not null;" json:"modified_by"`
 	// modify_users data
