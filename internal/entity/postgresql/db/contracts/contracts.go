@@ -21,11 +21,11 @@ type Table struct {
 	// 契約狀態
 	Status string `gorm:"column:status;type:text;not null;" json:"status"`
 	// 契約開始日期
-	StartDate time.Time `gorm:"column:start_date;type:date;not null;" json:"start_date"`
+	StartDate time.Time `gorm:"column:start_date;type:timestamp;not null;" json:"start_date"`
 	// 契約有效期限(月)
 	Term int `gorm:"column:term;type:int;not null;" json:"term"`
 	// 契約結束日期
-	EndDate time.Time `gorm:"column:end_date;type:date;not null;" json:"end_date"`
+	EndDate time.Time `gorm:"column:end_date;type:timestamp;not null;" json:"end_date"`
 	// 商機ID
 	OpportunityID string `gorm:"column:opportunity_id;type:uuid;not null;" json:"opportunity_id"`
 	// opportunities  data
