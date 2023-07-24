@@ -79,29 +79,6 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	// 將ID轉換為陣列
-	var (
-		mainArray      []string
-		attendeesArray []string
-		contactsArray  []string
-	)
-	for _, a := range eventBase {
-		// 將ID以逗號分隔
-		mainIDs := strings.Split(*a.MainID, ",")
-		attendeeIDs := strings.Split(*a.AttendeeID, ",")
-		contactIDs := strings.Split(*a.ContactID, ",")
-		// 將去除前後空格後加入陣列
-		for _, mainID := range mainIDs {
-			mainArray = append(mainArray, strings.TrimSpace(mainID))
-		}
-		for _, attendeeID := range attendeeIDs {
-			attendeesArray = append(attendeesArray, strings.TrimSpace(attendeeID))
-		}
-		for _, contactID := range contactIDs {
-			contactsArray = append(contactsArray, strings.TrimSpace(contactID))
-		}
-	}
-
 	eventByte, err := json.Marshal(eventBase)
 	if err != nil {
 		log.Error(err)
@@ -136,24 +113,32 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 		events.AccountName = *eventBase[i].Accounts.Name
 		events.CreatedBy = *eventBase[i].CreatedByUsers.Name
 		events.UpdatedBy = *eventBase[i].UpdatedByUsers.Name
-		// 賦值mainArray到events.Main
-		for _, mainID := range mainArray {
+		// 將mainID拆分並賦值mainArray到events.Main
+		mainIDs := strings.Split(*eventBase[i].MainID, ",")
+		for _, main := range mainIDs {
+			mainID := strings.TrimSpace(main)
 			// 尋找MainID對應的中文名稱
 			events.Main = append(events.Main, &eventModel.Main{
 				MainID:   mainID,
 				MainName: userMap[mainID],
 			})
 		}
-		// 賦值attendeesArray到events.Attendees
-		for _, attendeeID := range attendeesArray {
+
+		// 將attendeeID拆分並賦值attendeesArray到events.Attendees
+		attendeeIDs := strings.Split(*eventBase[i].AttendeeID, ",")
+		for _, attendee := range attendeeIDs {
+			attendeeID := strings.TrimSpace(attendee)
 			// 尋找AttendeeID對應的中文名稱
 			events.Attendees = append(events.Attendees, &eventModel.Attendees{
 				AttendeeID:   attendeeID,
 				AttendeeName: userMap[attendeeID],
 			})
 		}
-		// 賦值contactsArray到events.Contacts
-		for _, contactID := range contactsArray {
+
+		// 將contactID拆分並賦值contactsArray到events.Contacts
+		contactIDs := strings.Split(*eventBase[i].ContactID, ",")
+		for _, contact := range contactIDs {
+			contactID := strings.TrimSpace(contact)
 			// 尋找ContactID對應的中文名稱
 			events.Contacts = append(events.Contacts, &eventModel.Contacts{
 				ContactID:   contactID,
@@ -178,28 +163,6 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 
 	output := &eventModel.Single{}
 	eventByte, _ := json.Marshal(eventBase)
-
-	// 將ID轉換為陣列
-	var (
-		mainArray      []string
-		attendeesArray []string
-		contactsArray  []string
-	)
-	// 將ID以逗號分隔
-	mainIDs := strings.Split(*eventBase.MainID, ",")
-	attendeeIDs := strings.Split(*eventBase.AttendeeID, ",")
-	contactIDs := strings.Split(*eventBase.ContactID, ",")
-	// 將去除前後空格後加入陣列
-	for _, mainID := range mainIDs {
-		mainArray = append(mainArray, strings.TrimSpace(mainID))
-	}
-	for _, attendeeID := range attendeeIDs {
-		attendeesArray = append(attendeesArray, strings.TrimSpace(attendeeID))
-	}
-	for _, contactID := range contactIDs {
-		contactsArray = append(contactsArray, strings.TrimSpace(contactID))
-	}
-
 	err = json.Unmarshal(eventByte, &output)
 	if err != nil {
 		log.Error(err)
@@ -227,24 +190,32 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 	output.AccountName = *eventBase.Accounts.Name
 	output.CreatedBy = *eventBase.CreatedByUsers.Name
 	output.UpdatedBy = *eventBase.UpdatedByUsers.Name
-	// 賦值mainArray到events.Main
-	for _, mainID := range mainArray {
+	// 將mainID拆分並賦值mainArray到events.Main
+	mainIDs := strings.Split(*eventBase.MainID, ",")
+	for _, main := range mainIDs {
+		mainID := strings.TrimSpace(main)
 		// 尋找MainID對應的中文名稱
 		output.Main = append(output.Main, &eventModel.Main{
 			MainID:   mainID,
 			MainName: userMap[mainID],
 		})
 	}
-	// 賦值attendeesArray到events.Attendees
-	for _, attendeeID := range attendeesArray {
+
+	// 將attendeeID拆分並賦值attendeesArray到events.Attendees
+	attendeeIDs := strings.Split(*eventBase.AttendeeID, ",")
+	for _, attendee := range attendeeIDs {
+		attendeeID := strings.TrimSpace(attendee)
 		// 尋找AttendeeID對應的中文名稱
 		output.Attendees = append(output.Attendees, &eventModel.Attendees{
 			AttendeeID:   attendeeID,
 			AttendeeName: userMap[attendeeID],
 		})
 	}
-	// 賦值contactsArray到events.Contacts
-	for _, contactID := range contactsArray {
+
+	// 將contactID拆分並賦值contactsArray到events.Contacts
+	contactIDs := strings.Split(*eventBase.ContactID, ",")
+	for _, contact := range contactIDs {
+		contactID := strings.TrimSpace(contact)
 		// 尋找ContactID對應的中文名稱
 		output.Contacts = append(output.Contacts, &eventModel.Contacts{
 			ContactID:   contactID,
