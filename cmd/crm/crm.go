@@ -8,6 +8,7 @@ import (
 	"app.eirc/internal/router/campaign"
 	"app.eirc/internal/router/contact"
 	"app.eirc/internal/router/contract"
+	"app.eirc/internal/router/event"
 	"app.eirc/internal/router/historical_record"
 	"app.eirc/internal/router/industry"
 	"app.eirc/internal/router/lead"
@@ -50,5 +51,6 @@ func main() {
 	engine = policy.GetRouter(engine, db)
 	engine = role.GetRouter(engine, db)
 	engine = historical_record.GetRouter(engine, db)
+	engine = event.GetRouter(engine, db)
 	log.Fatal(gateway.ListenAndServe(":8080", engine))
 }

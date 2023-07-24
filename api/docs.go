@@ -2076,6 +2076,449 @@ const docTemplate = `{
                 }
             }
         },
+        "/events": {
+            "post": {
+                "description": "新增事件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "event"
+                ],
+                "summary": "新增事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "新增事件",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/events.Create"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/events/list": {
+            "post": {
+                "description": "取得全部事件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "event"
+                ],
+                "summary": "取得全部事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "搜尋",
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/events.Filter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/events.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/events/{eventID}": {
+            "get": {
+                "description": "取得單一事件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "event"
+                ],
+                "summary": "取得單一事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "事件ID",
+                        "name": "eventID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/events.Single"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除單一事件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "event"
+                ],
+                "summary": "刪除單一事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "事件ID",
+                        "name": "eventID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "更新單一事件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "event"
+                ],
+                "summary": "更新單一事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "事件ID",
+                        "name": "eventID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新事件",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/events.Update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/historical-records/list/{sourceID}": {
             "post": {
                 "description": "透過來源ID取得全部歷程記錄",
@@ -9635,6 +10078,366 @@ const docTemplate = `{
                 "term": {
                     "description": "契約有效期限(月)",
                     "type": "integer"
+                }
+            }
+        },
+        "events.Attendees": {
+            "type": "object",
+            "properties": {
+                "attendee_id": {
+                    "description": "參與人員ID",
+                    "type": "string"
+                },
+                "attendee_name": {
+                    "description": "事件參與人員名稱",
+                    "type": "string"
+                }
+            }
+        },
+        "events.Contacts": {
+            "type": "object",
+            "properties": {
+                "contact_id": {
+                    "description": "聯絡人ID",
+                    "type": "string"
+                },
+                "contact_name": {
+                    "description": "聯絡人名稱",
+                    "type": "string"
+                }
+            }
+        },
+        "events.Create": {
+            "type": "object",
+            "required": [
+                "attendee",
+                "end_date",
+                "main",
+                "start_date",
+                "subject"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "attendee": {
+                    "description": "參與人員IDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "contact": {
+                    "description": "聯絡人IDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "description": "事件描述",
+                    "type": "string"
+                },
+                "end_date": {
+                    "description": "事件結束日期",
+                    "type": "string"
+                },
+                "is_whole": {
+                    "description": "事件是否為全天事件",
+                    "type": "boolean"
+                },
+                "location": {
+                    "description": "事件地址",
+                    "type": "string"
+                },
+                "main": {
+                    "description": "主要人員IDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "start_date": {
+                    "description": "事件開始日期",
+                    "type": "string"
+                },
+                "subject": {
+                    "description": "事件主題",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "事件類型",
+                    "type": "string"
+                }
+            }
+        },
+        "events.Filter": {
+            "type": "object",
+            "properties": {
+                "attendee_id": {
+                    "description": "事件參與人員ID",
+                    "type": "string"
+                },
+                "main_id": {
+                    "description": "事件主要人員ID",
+                    "type": "string"
+                },
+                "start_date": {
+                    "description": "事件開始日期",
+                    "type": "string"
+                },
+                "subject": {
+                    "description": "事件主題",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "事件類型",
+                    "type": "string"
+                }
+            }
+        },
+        "events.List": {
+            "type": "object",
+            "properties": {
+                "events": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "account_id": {
+                                "description": "帳戶ID",
+                                "type": "string"
+                            },
+                            "account_name": {
+                                "description": "帳戶名稱",
+                                "type": "string"
+                            },
+                            "attendees": {
+                                "description": "事件參與人員",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/events.Attendees"
+                                }
+                            },
+                            "contacts": {
+                                "description": "聯絡人",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/events.Contacts"
+                                }
+                            },
+                            "created_at": {
+                                "description": "創建時間",
+                                "type": "string"
+                            },
+                            "created_by": {
+                                "description": "創建者",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "事件描述",
+                                "type": "string"
+                            },
+                            "end_date": {
+                                "description": "事件結束日期",
+                                "type": "string"
+                            },
+                            "event_id": {
+                                "description": "事件ID",
+                                "type": "string"
+                            },
+                            "is_whole": {
+                                "description": "事件是否為全天事件",
+                                "type": "boolean"
+                            },
+                            "location": {
+                                "description": "事件地址",
+                                "type": "string"
+                            },
+                            "main": {
+                                "description": "事件主要人員",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/events.Main"
+                                }
+                            },
+                            "start_date": {
+                                "description": "事件開始日期",
+                                "type": "string"
+                            },
+                            "subject": {
+                                "description": "事件主題",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "事件類型",
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "description": "更新時間",
+                                "type": "string"
+                            },
+                            "updated_by": {
+                                "description": "更新者",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "events.Main": {
+            "type": "object",
+            "properties": {
+                "main_id": {
+                    "description": "主要人員ID",
+                    "type": "string"
+                },
+                "main_name": {
+                    "description": "事件主要人員名稱",
+                    "type": "string"
+                }
+            }
+        },
+        "events.Single": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "account_name": {
+                    "description": "帳戶名稱",
+                    "type": "string"
+                },
+                "attendees": {
+                    "description": "事件參與人員",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/events.Attendees"
+                    }
+                },
+                "contacts": {
+                    "description": "聯絡人",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/events.Contacts"
+                    }
+                },
+                "created_at": {
+                    "description": "創建時間",
+                    "type": "string"
+                },
+                "created_by": {
+                    "description": "創建者",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "事件描述",
+                    "type": "string"
+                },
+                "end_date": {
+                    "description": "事件結束日期",
+                    "type": "string"
+                },
+                "event_id": {
+                    "description": "事件ID",
+                    "type": "string"
+                },
+                "is_whole": {
+                    "description": "事件是否為全天事件",
+                    "type": "boolean"
+                },
+                "location": {
+                    "description": "事件地址",
+                    "type": "string"
+                },
+                "main": {
+                    "description": "事件主要人員",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/events.Main"
+                    }
+                },
+                "start_date": {
+                    "description": "事件開始日期",
+                    "type": "string"
+                },
+                "subject": {
+                    "description": "事件主題",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "事件類型",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新時間",
+                    "type": "string"
+                },
+                "updated_by": {
+                    "description": "更新者",
+                    "type": "string"
+                }
+            }
+        },
+        "events.Update": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "帳戶ID",
+                    "type": "string"
+                },
+                "attendee": {
+                    "description": "參與人員IDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "contact": {
+                    "description": "聯絡人IDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "description": "事件描述",
+                    "type": "string"
+                },
+                "end_date": {
+                    "description": "事件結束日期",
+                    "type": "string"
+                },
+                "is_whole": {
+                    "description": "事件是否為全天事件",
+                    "type": "boolean"
+                },
+                "location": {
+                    "description": "事件地址",
+                    "type": "string"
+                },
+                "main": {
+                    "description": "主要人員IDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "start_date": {
+                    "description": "事件開始日期",
+                    "type": "string"
+                },
+                "subject": {
+                    "description": "事件主題",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "事件類型",
+                    "type": "string"
                 }
             }
         },

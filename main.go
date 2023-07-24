@@ -4,19 +4,15 @@ import (
 	"fmt"
 	"net/http"
 
-	"app.eirc/internal/router/role"
-
-	"app.eirc/internal/router/quote_product"
-
-	"app.eirc/internal/interactor/pkg/connect"
-
 	_ "app.eirc/api"
+	"app.eirc/internal/interactor/pkg/connect"
 	"app.eirc/internal/interactor/pkg/util/log"
 	"app.eirc/internal/router"
 	"app.eirc/internal/router/account"
 	"app.eirc/internal/router/campaign"
 	"app.eirc/internal/router/contact"
 	"app.eirc/internal/router/contract"
+	"app.eirc/internal/router/event"
 	"app.eirc/internal/router/historical_record"
 	"app.eirc/internal/router/industry"
 	"app.eirc/internal/router/lead"
@@ -28,6 +24,8 @@ import (
 	"app.eirc/internal/router/policy"
 	"app.eirc/internal/router/product"
 	"app.eirc/internal/router/quote"
+	"app.eirc/internal/router/quote_product"
+	"app.eirc/internal/router/role"
 	"app.eirc/internal/router/user"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -76,6 +74,7 @@ func main() {
 	policy.GetRouter(engine, db)
 	role.GetRouter(engine, db)
 	historical_record.GetRouter(engine, db)
+	event.GetRouter(engine, db)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

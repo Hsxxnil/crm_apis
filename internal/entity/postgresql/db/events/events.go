@@ -1,0 +1,88 @@
+package events
+
+import (
+	"time"
+
+	"app.eirc/internal/entity/postgresql/db/accounts"
+
+	"app.eirc/internal/entity/postgresql/db/users"
+	model "app.eirc/internal/interactor/models/events"
+	"app.eirc/internal/interactor/models/special"
+)
+
+// Table struct is events database table struct
+type Table struct {
+	// 事件ID
+	EventID string `gorm:"<-:create;column:event_id;type:uuid;not null;primaryKey;" json:"event_id"`
+	// 事件主題
+	Subject string `gorm:"column:subject;type:text;not null;" json:"subject"`
+	// 主要人員ID
+	MainID string `gorm:"column:main_id;type:text;not null;" json:"main_id"`
+	// 參與人員ID
+	AttendeeID string `gorm:"column:attendee_id;type:text;not null;" json:"attendee_id"`
+	// 事件是否為全天事件
+	IsWhole bool `gorm:"column:is_whole;type:boolean;not null;" json:"is_whole"`
+	// 事件開始日期
+	StartDate time.Time `gorm:"column:start_date;type:timestamp;not null;" json:"start_date"`
+	// 事件結束日期
+	EndDate time.Time `gorm:"column:end_date;type:timestamp;not null;" json:"end_date"`
+	// 帳戶ID
+	AccountID string `gorm:"column:account_id;type:uuid;" json:"account_id"`
+	// accounts data
+	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
+	// 聯絡人ID
+	ContactID string `gorm:"column:contact_id;type:text;" json:"contact_id"`
+	// 事件類型
+	Type string `gorm:"column:type;type:text;" json:"type"`
+	// 事件地址
+	Location string `gorm:"column:location;type:text;" json:"location"`
+	// 事件描述
+	Description string `gorm:"column:description;type:text;" json:"description"`
+	// create_users data
+	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
+	special.UseTable
+}
+
+// Base struct is corresponding to events table structure file
+type Base struct {
+	// 事件ID
+	EventID *string `json:"event_id,omitempty"`
+	// 事件主題
+	Subject *string `json:"subject,omitempty"`
+	// 主要人員ID
+	MainID *string `json:"main_id,omitempty"`
+	// 參與人員ID
+	AttendeeID *string `json:"attendee_id,omitempty"`
+	// 事件是否為全天事件
+	IsWhole *bool `json:"is_whole,omitempty"`
+	// 事件開始日期
+	StartDate *time.Time `json:"start_date,omitempty"`
+	// 事件結束日期
+	EndDate *time.Time `json:"end_date,omitempty"`
+	// 帳戶ID
+	AccountID *string `json:"account_id,omitempty"`
+	// accounts data
+	Accounts accounts.Base `json:"accounts,omitempty"`
+	// 聯絡人ID
+	ContactID *string `json:"contact_id,omitempty"`
+	// 事件類型
+	Type *string `json:"type,omitempty"`
+	// 事件地址
+	Location *string `json:"location,omitempty"`
+	// 事件描述
+	Description *string `json:"description,omitempty"`
+	// create_users data
+	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
+	// update_users data
+	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
+	special.UseBase
+	// 搜尋欄位
+	model.Filter `json:"filter"`
+}
+
+// TableName sets the insert table name for this struct type
+func (t *Table) TableName() string {
+	return "events"
+}
