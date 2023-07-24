@@ -204,7 +204,7 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 		})
 		input.AccountID = opportunityBase.AccountID
 
-		// 同步修改帳戶至orders
+		// 同步修改帳戶至訂單
 		orders, err := m.OrderService.GetByListNoQuantity(&orderModel.Field{
 			ContractID: util.PointerString(input.ContractID),
 		})
