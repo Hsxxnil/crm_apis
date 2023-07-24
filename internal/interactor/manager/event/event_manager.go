@@ -102,7 +102,7 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 
 	// TODO 暫時先取得所有聯絡人ID
 	// 取得所有聯絡人ID
-	contacts, err := m.ContactService.GetByListNoQuantity(&contactModel.Field{})
+	contacts, _ := m.ContactService.GetByListNoQuantity(&contactModel.Field{})
 	// 建立聯絡人ID的映射表
 	contactMap := make(map[string]string)
 	for _, contact := range contacts {
@@ -180,7 +180,7 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 
 	// TODO 暫時先取得所有聯絡人ID
 	// 取得所有聯絡人ID
-	contacts, err := m.ContactService.GetByListNoQuantity(&contactModel.Field{})
+	contacts, _ := m.ContactService.GetByListNoQuantity(&contactModel.Field{})
 	// 建立聯絡人ID的映射表
 	contactMap := make(map[string]string)
 	for _, contact := range contacts {
