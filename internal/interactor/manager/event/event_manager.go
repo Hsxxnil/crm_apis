@@ -113,7 +113,7 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 		events.AccountName = *eventBase[i].Accounts.Name
 		events.CreatedBy = *eventBase[i].CreatedByUsers.Name
 		events.UpdatedBy = *eventBase[i].UpdatedByUsers.Name
-		// 將mainID拆分並賦值mainArray到events.Main
+		// 將MainID拆分並賦值到events.Main
 		mainIDs := strings.Split(*eventBase[i].MainID, ",")
 		for _, main := range mainIDs {
 			mainID := strings.TrimSpace(main)
@@ -124,7 +124,7 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 			})
 		}
 
-		// 將attendeeID拆分並賦值attendeesArray到events.Attendees
+		// 將AttendeeID拆分並賦值到events.Attendees
 		attendeeIDs := strings.Split(*eventBase[i].AttendeeID, ",")
 		for _, attendee := range attendeeIDs {
 			attendeeID := strings.TrimSpace(attendee)
@@ -135,7 +135,7 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 			})
 		}
 
-		// 將contactID拆分並賦值contactsArray到events.Contacts
+		// 將ContactID拆分並賦值到events.Contacts
 		contactIDs := strings.Split(*eventBase[i].ContactID, ",")
 		for _, contact := range contactIDs {
 			contactID := strings.TrimSpace(contact)
@@ -190,7 +190,7 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 	output.AccountName = *eventBase.Accounts.Name
 	output.CreatedBy = *eventBase.CreatedByUsers.Name
 	output.UpdatedBy = *eventBase.UpdatedByUsers.Name
-	// 將mainID拆分並賦值mainArray到events.Main
+	// 將MainID拆分並賦值到output.Main
 	mainIDs := strings.Split(*eventBase.MainID, ",")
 	for _, main := range mainIDs {
 		mainID := strings.TrimSpace(main)
@@ -201,7 +201,7 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 		})
 	}
 
-	// 將attendeeID拆分並賦值attendeesArray到events.Attendees
+	// 將AttendeeID拆分並賦值到output.Attendees
 	attendeeIDs := strings.Split(*eventBase.AttendeeID, ",")
 	for _, attendee := range attendeeIDs {
 		attendeeID := strings.TrimSpace(attendee)
@@ -212,7 +212,7 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 		})
 	}
 
-	// 將contactID拆分並賦值contactsArray到events.Contacts
+	// 將ContactID拆分並賦值到output.Contacts
 	contactIDs := strings.Split(*eventBase.ContactID, ",")
 	for _, contact := range contactIDs {
 		contactID := strings.TrimSpace(contact)
