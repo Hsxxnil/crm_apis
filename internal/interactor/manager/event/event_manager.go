@@ -123,7 +123,6 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 				MainName: userMap[mainID],
 			})
 		}
-
 		// 將AttendeeID拆分並賦值到events.Attendees
 		attendeeIDs := strings.Split(*eventBase[i].AttendeeID, ",")
 		for _, attendee := range attendeeIDs {
@@ -134,7 +133,6 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 				AttendeeName: userMap[attendeeID],
 			})
 		}
-
 		// 將ContactID拆分並賦值到events.Contacts
 		contactIDs := strings.Split(*eventBase[i].ContactID, ",")
 		for _, contact := range contactIDs {
@@ -200,7 +198,6 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 			MainName: userMap[mainID],
 		})
 	}
-
 	// 將AttendeeID拆分並賦值到output.Attendees
 	attendeeIDs := strings.Split(*eventBase.AttendeeID, ",")
 	for _, attendee := range attendeeIDs {
@@ -211,7 +208,6 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 			AttendeeName: userMap[attendeeID],
 		})
 	}
-
 	// 將ContactID拆分並賦值到output.Contacts
 	contactIDs := strings.Split(*eventBase.ContactID, ",")
 	for _, contact := range contactIDs {
