@@ -1063,6 +1063,315 @@ definitions:
         description: 契約有效期限(月)
         type: integer
     type: object
+  event_contacts.Create:
+    properties:
+      contact_id:
+        description: 聯絡人ID
+        type: string
+      event_id:
+        description: 事件ID
+        type: string
+      is_deleted:
+        description: 事件聯絡人是否刪除
+        type: boolean
+    required:
+    - contact_id
+    - event_id
+    - is_deleted
+    type: object
+  event_contacts.List:
+    properties:
+      event_contacts:
+        description: 多筆
+        items:
+          properties:
+            contact_id:
+              description: 聯絡人ID
+              type: string
+            contact_name:
+              description: 聯絡人名稱
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            event_contact_id:
+              description: 事件聯絡人ID
+              type: string
+            event_id:
+              description: 事件ID
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  event_contacts.Single:
+    properties:
+      contact_id:
+        description: 聯絡人ID
+        type: string
+      contact_name:
+        description: 聯絡人名稱
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      event_contact_id:
+        description: 事件聯絡人ID
+        type: string
+      event_id:
+        description: 事件ID
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  event_contacts.Update:
+    properties:
+      contact_id:
+        description: 聯絡人ID
+        type: string
+      event_id:
+        description: 事件ID
+        type: string
+      is_deleted:
+        description: 事件聯絡人是否刪除
+        type: boolean
+    type: object
+  event_user_attendees.Create:
+    properties:
+      attendee_id:
+        description: 參與人員ID
+        type: string
+      event_id:
+        description: 事件ID
+        type: string
+      is_deleted:
+        description: 事件參與人員是否刪除
+        type: boolean
+    required:
+    - attendee_id
+    - event_id
+    - is_deleted
+    type: object
+  event_user_attendees.List:
+    properties:
+      event_user_attendees:
+        description: 多筆
+        items:
+          properties:
+            attendee_id:
+              description: 參與人員ID
+              type: string
+            attendee_name:
+              description: 參與人員名稱
+              type: string
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            event_id:
+              description: 事件ID
+              type: string
+            event_user_attendee_id:
+              description: 事件參與人員ID
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  event_user_attendees.Single:
+    properties:
+      attendee_id:
+        description: 參與人員ID
+        type: string
+      attendee_name:
+        description: 參與人員名稱
+        type: string
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      event_id:
+        description: 事件ID
+        type: string
+      event_user_attendee_id:
+        description: 事件參與人員ID
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  event_user_attendees.Update:
+    properties:
+      attendee_id:
+        description: 參與人員ID
+        type: string
+      event_id:
+        description: 事件ID
+        type: string
+      is_deleted:
+        description: 事件參與人員是否刪除
+        type: boolean
+    type: object
+  event_user_mains.Create:
+    properties:
+      event_id:
+        description: 事件ID
+        type: string
+      is_deleted:
+        description: 事件主要人員是否刪除
+        type: boolean
+      main_id:
+        description: 主要人員ID
+        type: string
+    required:
+    - event_id
+    - is_deleted
+    - main_id
+    type: object
+  event_user_mains.List:
+    properties:
+      event_user_mains:
+        description: 多筆
+        items:
+          properties:
+            created_at:
+              description: 創建時間
+              type: string
+            created_by:
+              description: 創建者
+              type: string
+            event_id:
+              description: 事件ID
+              type: string
+            event_user_main_id:
+              description: 事件主要人員ID
+              type: string
+            main_id:
+              description: 主要人員ID
+              type: string
+            main_name:
+              description: 主要人員名稱
+              type: string
+            updated_at:
+              description: 更新時間
+              type: string
+            updated_by:
+              description: 更新者
+              type: string
+          type: object
+        type: array
+      limit:
+        description: 筆數(請從1開始帶入,最高上限20)
+        type: integer
+      page:
+        description: 頁數(請從1開始帶入)
+        type: integer
+      pages:
+        description: 總頁數
+        type: integer
+      total:
+        description: 總筆數
+        type: integer
+    required:
+    - limit
+    - page
+    type: object
+  event_user_mains.Single:
+    properties:
+      created_at:
+        description: 創建時間
+        type: string
+      created_by:
+        description: 創建者
+        type: string
+      event_id:
+        description: 事件ID
+        type: string
+      event_user_main_id:
+        description: 事件主要人員ID
+        type: string
+      main_id:
+        description: 主要人員ID
+        type: string
+      main_name:
+        description: 主要人員名稱
+        type: string
+      updated_at:
+        description: 更新時間
+        type: string
+      updated_by:
+        description: 更新者
+        type: string
+    type: object
+  event_user_mains.Update:
+    properties:
+      event_id:
+        description: 事件ID
+        type: string
+      is_deleted:
+        description: 事件主要人員是否刪除
+        type: boolean
+      main_id:
+        description: 主要人員ID
+        type: string
+    type: object
   events.Attendees:
     properties:
       attendee_id:
@@ -4642,6 +4951,786 @@ paths:
       summary: 新增事件
       tags:
       - event
+  /events-contacts:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部事件聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/event_contacts.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部事件聯絡人
+      tags:
+      - event_contact
+    post:
+      consumes:
+      - application/json
+      description: 新增事件聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增事件聯絡人
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_contacts.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增事件聯絡人
+      tags:
+      - event_contact
+  /events-contacts/{eventContactID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一事件聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件聯絡人ID
+        in: path
+        name: eventContactID
+        required: true
+        type: string
+      - description: 更新事件聯絡人
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_contacts.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一事件聯絡人
+      tags:
+      - event_contact
+    get:
+      consumes:
+      - application/json
+      description: 取得單一事件聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件聯絡人ID
+        in: path
+        name: eventContactID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/event_contacts.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一事件聯絡人
+      tags:
+      - event_contact
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一事件聯絡人
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件聯絡人ID
+        in: path
+        name: eventContactID
+        required: true
+        type: string
+      - description: 更新事件聯絡人
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_contacts.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一事件聯絡人
+      tags:
+      - event_contact
+  /events-users-attendee:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部事件參與人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/event_user_attendees.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部事件參與人員
+      tags:
+      - event_user_attendee
+    post:
+      consumes:
+      - application/json
+      description: 新增事件參與人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增事件參與人員
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_user_attendees.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增事件參與人員
+      tags:
+      - event_user_attendee
+  /events-users-attendee/{eventUserAttendeeID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一事件參與人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件參與人員ID
+        in: path
+        name: eventUserAttendeeID
+        required: true
+        type: string
+      - description: 更新事件參與人員
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_user_attendees.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一事件參與人員
+      tags:
+      - event_user_attendee
+    get:
+      consumes:
+      - application/json
+      description: 取得單一事件參與人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件參與人員ID
+        in: path
+        name: eventUserAttendeeID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/event_user_attendees.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一事件參與人員
+      tags:
+      - event_user_attendee
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一事件參與人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件參與人員ID
+        in: path
+        name: eventUserAttendeeID
+        required: true
+        type: string
+      - description: 更新事件參與人員
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_user_attendees.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一事件參與人員
+      tags:
+      - event_user_attendee
+  /events-users-main:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部事件主要人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/event_user_mains.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部事件主要人員
+      tags:
+      - event_user_main
+    post:
+      consumes:
+      - application/json
+      description: 新增事件主要人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新增事件主要人員
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_user_mains.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 新增事件主要人員
+      tags:
+      - event_user_main
+  /events-users-main/{eventUserMainID}:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除單一事件主要人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件主要人員ID
+        in: path
+        name: eventUserMainID
+        required: true
+        type: string
+      - description: 更新事件主要人員
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_user_mains.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 刪除單一事件主要人員
+      tags:
+      - event_user_main
+    get:
+      consumes:
+      - application/json
+      description: 取得單一事件主要人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件主要人員ID
+        in: path
+        name: eventUserMainID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/event_user_mains.Single'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得單一事件主要人員
+      tags:
+      - event_user_main
+    patch:
+      consumes:
+      - application/json
+      description: 更新單一事件主要人員
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 事件主要人員ID
+        in: path
+        name: eventUserMainID
+        required: true
+        type: string
+      - description: 更新事件主要人員
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/event_user_mains.Update'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  type: string
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 更新單一事件主要人員
+      tags:
+      - event_user_main
   /events/{eventID}:
     delete:
       consumes:

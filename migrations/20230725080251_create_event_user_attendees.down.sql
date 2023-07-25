@@ -1,0 +1,8 @@
+drop index idx_event_user_attendees_event_user_attendee_id;
+drop index idx_event_user_attendees_event_id;
+drop index idx_event_user_attendees_attendee_id;
+drop index idx_event_user_attendees_created_at;
+drop index idx_event_user_attendees_created_by;
+drop index idx_event_user_attendees_updated_at;
+drop index idx_event_user_attendees_updated_by;
+drop table event_user_attendees;
