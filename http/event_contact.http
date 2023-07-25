@@ -13,7 +13,7 @@ Content-Type: application/json
 %}
 
 ### GetByList
-POST {{host}}/crm/v1.0/events-contacts?page=1&limit=20
+GET {{host}}/crm/v1.0/events-contacts?page=1&limit=20
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 

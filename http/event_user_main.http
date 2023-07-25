@@ -13,12 +13,12 @@ Content-Type: application/json
 %}
 
 ### GetByList
-POST {{host}}/crm/v1.0/events-users-main?page=1&limit=20
+GET {{host}}/crm/v1.0/events-users-main?page=1&limit=20
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/events-users-main/a1fd1a6e-321c-4ed9-9367-9c8191c215c9
+GET {{host}}/crm/v1.0/events-users-main/7714bd7d-1617-4eef-a2ff-e628a1d2fb0f
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -40,8 +40,7 @@ Authorization: Bearer {{accessToken}}
 
 {
   "event_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07",
-  "main_id": "00000000-0000-4000-a000-000000000000",
-  "is_deleted": false
+  "main_id": "00000000-0000-4000-a000-000000000000"
 }
 
 ### Delete

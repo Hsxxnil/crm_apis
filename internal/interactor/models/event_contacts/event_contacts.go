@@ -12,8 +12,6 @@ type Create struct {
 	EventID string `json:"event_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 聯絡人ID
 	ContactID string `json:"contact_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
-	// 事件聯絡人是否刪除
-	IsDeleted bool `json:"is_deleted,omitempty" binding:"required" validate:"required"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }

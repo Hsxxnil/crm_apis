@@ -11453,8 +11453,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "contact_id",
-                "event_id",
-                "is_deleted"
+                "event_id"
             ],
             "properties": {
                 "contact_id": {
@@ -11464,10 +11463,6 @@ const docTemplate = `{
                 "event_id": {
                     "description": "事件ID",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "事件聯絡人是否刪除",
-                    "type": "boolean"
                 }
             }
         },
@@ -11595,8 +11590,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "attendee_id",
-                "event_id",
-                "is_deleted"
+                "event_id"
             ],
             "properties": {
                 "attendee_id": {
@@ -11606,10 +11600,6 @@ const docTemplate = `{
                 "event_id": {
                     "description": "事件ID",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "事件參與人員是否刪除",
-                    "type": "boolean"
                 }
             }
         },
@@ -11737,17 +11727,12 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "event_id",
-                "is_deleted",
                 "main_id"
             ],
             "properties": {
                 "event_id": {
                     "description": "事件ID",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "事件主要人員是否刪除",
-                    "type": "boolean"
                 },
                 "main_id": {
                     "description": "主要人員ID",
