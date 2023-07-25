@@ -1123,7 +1123,6 @@ definitions:
         description: 事件類型
         type: string
     required:
-    - attendee
     - end_date
     - main
     - start_date

@@ -153,14 +153,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["subject"] = input.Subject
 	}
 
-	if input.MainID != nil {
-		data["main_id"] = input.MainID
-	}
-
-	if input.AttendeeID != nil {
-		data["attendee_id"] = input.AttendeeID
-	}
-
 	if input.IsWhole != nil {
 		data["is_whole"] = input.IsWhole
 	}
@@ -175,10 +167,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.AccountID != nil {
 		data["account_id"] = input.AccountID
-	}
-
-	if input.ContactID != nil {
-		data["contact_id"] = input.ContactID
 	}
 
 	if input.Type != nil {

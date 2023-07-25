@@ -10110,7 +10110,6 @@ const docTemplate = `{
         "events.Create": {
             "type": "object",
             "required": [
-                "attendee",
                 "end_date",
                 "main",
                 "start_date",

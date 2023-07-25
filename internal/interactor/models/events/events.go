@@ -12,12 +12,8 @@ type Create struct {
 	Subject string `json:"subject,omitempty" binding:"required" validate:"required"`
 	// 主要人員IDs
 	Main []string `json:"main,omitempty" binding:"required" validate:"required"`
-	// 主要人員ID
-	MainID string `json:"main_id,omitempty" swaggerignore:"true"`
 	// 參與人員IDs
-	Attendee []string `json:"attendee,omitempty" binding:"required" validate:"required"`
-	// 參與人員ID
-	AttendeeID string `json:"attendee_id,omitempty" swaggerignore:"true"`
+	Attendee []string `json:"attendee,omitempty"`
 	// 事件是否為全天事件
 	IsWhole bool `json:"is_whole,omitempty"`
 	// 事件開始日期
@@ -28,8 +24,6 @@ type Create struct {
 	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 聯絡人IDs
 	Contact []string `json:"contact,omitempty"`
-	// 聯絡人ID
-	ContactID string `json:"contact_id,omitempty" swaggerignore:"true"`
 	// 事件類型
 	Type string `json:"type,omitempty"`
 	// 事件地址
@@ -46,10 +40,6 @@ type Field struct {
 	EventID string `json:"event_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 事件主題
 	Subject *string `json:"subject,omitempty" form:"subject"`
-	// 主要人員ID
-	MainID *string `json:"main_id,omitempty" form:"main_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 參與人員ID
-	AttendeeID *string `json:"attendee_id,omitempty" form:"attendee_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 事件是否為全天事件
 	IsWhole *bool `json:"is_whole,omitempty" form:"is_whole"`
 	// 事件開始日期
@@ -58,8 +48,6 @@ type Field struct {
 	EndDate *time.Time `json:"end_date,omitempty" form:"end_date"`
 	// 帳戶ID
 	AccountID *string `json:"account_id,omitempty" form:"account_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 聯絡人ID
-	ContactID *string `json:"contact_id,omitempty" form:"contact_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 事件類型
 	Type *string `json:"type,omitempty" form:"type"`
 	// 事件地址
@@ -175,12 +163,8 @@ type Update struct {
 	Subject *string `json:"subject,omitempty"`
 	// 主要人員IDs
 	Main *[]string `json:"main,omitempty"`
-	// 主要人員ID
-	MainID *string `json:"main_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 參與人員IDs
 	Attendee *[]string `json:"attendee,omitempty"`
-	// 參與人員ID
-	AttendeeID *string `json:"attendee_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 事件是否為全天事件
 	IsWhole *bool `json:"is_whole,omitempty"`
 	// 事件開始日期
@@ -191,8 +175,6 @@ type Update struct {
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 聯絡人IDs
 	Contact *[]string `json:"contact,omitempty"`
-	// 聯絡人ID
-	ContactID *string `json:"contact_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 事件類型
 	Type *string `json:"type,omitempty"`
 	// 事件地址

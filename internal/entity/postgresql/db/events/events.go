@@ -16,10 +16,6 @@ type Table struct {
 	EventID string `gorm:"<-:create;column:event_id;type:uuid;not null;primaryKey;" json:"event_id"`
 	// 事件主題
 	Subject string `gorm:"column:subject;type:text;not null;" json:"subject"`
-	// 主要人員ID
-	MainID string `gorm:"column:main_id;type:text;not null;" json:"main_id"`
-	// 參與人員ID
-	AttendeeID string `gorm:"column:attendee_id;type:text;not null;" json:"attendee_id"`
 	// 事件是否為全天事件
 	IsWhole bool `gorm:"column:is_whole;type:boolean;not null;" json:"is_whole"`
 	// 事件開始日期
@@ -30,8 +26,6 @@ type Table struct {
 	AccountID string `gorm:"column:account_id;type:uuid;" json:"account_id"`
 	// accounts data
 	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
-	// 聯絡人ID
-	ContactID string `gorm:"column:contact_id;type:text;" json:"contact_id"`
 	// 事件類型
 	Type string `gorm:"column:type;type:text;" json:"type"`
 	// 事件地址
@@ -51,10 +45,6 @@ type Base struct {
 	EventID *string `json:"event_id,omitempty"`
 	// 事件主題
 	Subject *string `json:"subject,omitempty"`
-	// 主要人員ID
-	MainID *string `json:"main_id,omitempty"`
-	// 參與人員ID
-	AttendeeID *string `json:"attendee_id,omitempty"`
 	// 事件是否為全天事件
 	IsWhole *bool `json:"is_whole,omitempty"`
 	// 事件開始日期
@@ -65,8 +55,6 @@ type Base struct {
 	AccountID *string `json:"account_id,omitempty"`
 	// accounts data
 	Accounts accounts.Base `json:"accounts,omitempty"`
-	// 聯絡人ID
-	ContactID *string `json:"contact_id,omitempty"`
 	// 事件類型
 	Type *string `json:"type,omitempty"`
 	// 事件地址
