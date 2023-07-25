@@ -68,6 +68,11 @@ func (m *manager) GetByList(input *eventContactModel.Fields) (int, interface{}) 
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for i, contacts := range output.EventContacts {
+		contacts.CreatedBy = *eventContactBase[i].CreatedByUsers.Name
+		contacts.UpdatedBy = *eventContactBase[i].UpdatedByUsers.Name
+	}
+
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
@@ -90,6 +95,9 @@ func (m *manager) GetBySingle(input *eventContactModel.Field) (int, interface{})
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
+
+	output.CreatedBy = *eventContactBase.CreatedByUsers.Name
+	output.UpdatedBy = *eventContactBase.UpdatedByUsers.Name
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }

@@ -68,6 +68,11 @@ func (m *manager) GetByList(input *eventUserAttendeeModel.Fields) (int, interfac
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for i, attendees := range output.EventUserAttendees {
+		attendees.CreatedBy = *eventUserAttendeeBase[i].CreatedByUsers.Name
+		attendees.UpdatedBy = *eventUserAttendeeBase[i].UpdatedByUsers.Name
+	}
+
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
@@ -90,6 +95,9 @@ func (m *manager) GetBySingle(input *eventUserAttendeeModel.Field) (int, interfa
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
+
+	output.CreatedBy = *eventUserAttendeeBase.CreatedByUsers.Name
+	output.UpdatedBy = *eventUserAttendeeBase.UpdatedByUsers.Name
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }

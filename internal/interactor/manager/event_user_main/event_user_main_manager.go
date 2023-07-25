@@ -68,6 +68,11 @@ func (m *manager) GetByList(input *eventUserMainModel.Fields) (int, interface{})
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	for i, mains := range output.EventUserMains {
+		mains.CreatedBy = *eventUserMainBase[i].CreatedByUsers.Name
+		mains.UpdatedBy = *eventUserMainBase[i].UpdatedByUsers.Name
+	}
+
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
@@ -90,6 +95,9 @@ func (m *manager) GetBySingle(input *eventUserMainModel.Field) (int, interface{}
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
+
+	output.CreatedBy = *eventUserMainBase.CreatedByUsers.Name
+	output.UpdatedBy = *eventUserMainBase.UpdatedByUsers.Name
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
