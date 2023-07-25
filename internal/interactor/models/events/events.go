@@ -93,7 +93,7 @@ type List struct {
 		// 事件參與人員
 		Attendees []*Attendees `json:"attendees,omitempty"`
 		// 事件是否為全天事件
-		IsWhole bool `json:"is_whole,omitempty"`
+		IsWhole bool `json:"is_whole"`
 		// 事件開始日期
 		StartDate time.Time `json:"start_date,omitempty"`
 		// 事件結束日期
@@ -130,7 +130,7 @@ type Single struct {
 	// 事件參與人員
 	Attendees []*Attendees `json:"attendees,omitempty"`
 	// 事件是否為全天事件
-	IsWhole bool `json:"is_whole,omitempty"`
+	IsWhole bool `json:"is_whole"`
 	// 事件開始日期
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 事件結束日期
