@@ -1,0 +1,8 @@
+drop index idx_event_contacts_event_contact_id;
+drop index idx_event_contacts_event_id;
+drop index idx_event_contacts_contact_id;
+drop index idx_event_contacts_created_at;
+drop index idx_event_contacts_created_by;
+drop index idx_event_contacts_updated_at;
+drop index idx_event_contacts_updated_by;
+drop table event_contacts;

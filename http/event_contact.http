@@ -1,0 +1,50 @@
+### login
+POST {{host}}/crm/v1.0/login
+Content-Type: application/json
+
+{
+  "company_id": "00000000-0000-4000-a000-000000000000",
+  "user_name": "admin",
+  "password": "12345"
+}
+
+> {%
+    client.global.set("accessToken", response.body.body.access_token);
+%}
+
+### GetByList
+POST {{host}}/crm/v1.0/events-contacts?page=1&limit=20
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### GetBySingle
+GET {{host}}/crm/v1.0/events-contacts/a1fd1a6e-321c-4ed9-9367-9c8191c215c9
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### Create
+POST {{host}}/crm/v1.0/events-contacts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "event_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07",
+  "contact_id": "00000000-0000-4000-a000-000000000000",
+  "is_deleted": false
+}
+
+### Update
+PATCH {{host}}/crm/v1.0/events-contacts/a1fd1a6e-321c-4ed9-9367-9c8191c215c9
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "event_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07",
+  "contact_id": "00000000-0000-4000-a000-000000000000",
+  "is_deleted": false
+}
+
+### Delete
+DELETE {{host}}/crm/v1.0/events-contacts/8ea5c39d-0cb4-4bb0-8717-0c3422caa769
+Accept: application/json
+Authorization: Bearer {{accessToken}}
