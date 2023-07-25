@@ -1,0 +1,8 @@
+drop index idx_event_user_mains_event_user_main_id;
+drop index idx_event_user_mains_event_id;
+drop index idx_event_user_mains_main_id;
+drop index idx_event_user_mains_created_at;
+drop index idx_event_user_mains_created_by;
+drop index idx_event_user_mains_updated_at;
+drop index idx_event_user_mains_updated_by;
+drop table event_user_mains;
