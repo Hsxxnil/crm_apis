@@ -65,7 +65,7 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
+		query.Where("contracts.is_deleted = ?", input.IsDeleted)
 	}
 
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
@@ -119,7 +119,7 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
+		query.Where("contracts.is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.First(&output).Error
@@ -138,7 +138,7 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
+		query.Where("contracts.is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error

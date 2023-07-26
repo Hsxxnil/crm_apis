@@ -65,7 +65,7 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
+		query.Where("account_contacts.is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
@@ -89,7 +89,7 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
+		query.Where("account_contacts.is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.First(&output).Error
@@ -108,7 +108,7 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
+		query.Where("account_contacts.is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
