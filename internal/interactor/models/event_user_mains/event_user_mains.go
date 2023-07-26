@@ -86,7 +86,7 @@ type Update struct {
 	// 主要人員ID
 	MainID *string `json:"main_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 事件主要人員是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
+	IsDeleted *bool `json:"is_deleted,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }

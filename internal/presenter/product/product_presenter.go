@@ -127,7 +127,7 @@ func (c *control) GetByOrderIDList(ctx *gin.Context) {
 	page := ctx.Query("page")
 	input.Limit, _ = strconv.ParseInt(limit, 10, 64)
 	input.Page, _ = strconv.ParseInt(page, 10, 64)
-	input.OrderID = orderID
+	input.OrderID = util.PointerString(orderID)
 
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
