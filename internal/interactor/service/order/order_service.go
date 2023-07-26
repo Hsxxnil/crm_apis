@@ -57,6 +57,7 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 	base.CreatedAt = util.PointerTime(util.NowToUTC())
 	base.UpdatedAt = util.PointerTime(util.NowToUTC())
 	base.UpdatedBy = util.PointerString(input.CreatedBy)
+	base.IsDeleted = util.PointerBool(false)
 	err = s.Repository.Create(base)
 	if err != nil {
 		log.Error(err)
@@ -224,12 +225,12 @@ func (s *service) Update(input *model.Update) (err error) {
 	}
 
 	field.UpdatedAt = util.PointerTime(util.NowToUTC())
+	field.IsDeleted = util.PointerBool(true)
 	if field.ActivatedBy != nil {
 		field.ActivatedAt = util.PointerTime(util.NowToUTC())
 	} else {
 		field.ActivatedAt = nil
 	}
-
 	err = s.Repository.Update(field)
 	if err != nil {
 		log.Error(err)

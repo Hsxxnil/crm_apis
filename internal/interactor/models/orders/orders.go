@@ -43,6 +43,8 @@ type Field struct {
 	Description *string `json:"description,omitempty" form:"description"`
 	// 訂單號碼
 	Code *string `json:"code,omitempty" form:"code"`
+	// 訂單是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -190,6 +192,8 @@ type Update struct {
 	ContractID *string `json:"contract_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 訂單描述
 	Description *string `json:"description,omitempty"`
+	// 訂單是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 	// 啟用者

@@ -40,6 +40,8 @@ type Table struct {
 	ActivatedAt *time.Time `gorm:"column:activated_at;type:timestamp;" json:"activated_at,omitempty"`
 	// 啟用者
 	ActivatedBy *string `gorm:"column:activated_by;type:uuid;" json:"activated_by,omitempty"`
+	// 訂單是否刪除
+	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -71,6 +73,8 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 訂單號碼
 	Code *string `json:"code,omitempty"`
+	//  訂單是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
