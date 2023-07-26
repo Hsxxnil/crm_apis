@@ -50,7 +50,8 @@ func (m *manager) Create(trx *gorm.DB, input *orderProductModel.CreateList) (int
 		inputBody.SubTotal = inputBody.UnitPrice * float64(inputBody.Quantity)
 		// 取得訂單號碼
 		orderBase, err := m.OrderService.GetBySingle(&orderModel.Field{
-			OrderID: inputBody.OrderID,
+			OrderID:   inputBody.OrderID,
+			IsDeleted: util.PointerBool(false),
 		})
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -60,14 +61,16 @@ func (m *manager) Create(trx *gorm.DB, input *orderProductModel.CreateList) (int
 		orderCode := *orderBase.Code
 		// 判斷是否已存在同訂單的訂單產品
 		quantity, _ := m.OrderProductService.GetByQuantity(&orderProductModel.Field{
-			OrderID: util.PointerString(inputBody.OrderID),
+			OrderID:   util.PointerString(inputBody.OrderID),
+			IsDeleted: util.PointerBool(false),
 		})
 		if quantity != 0 {
 			// 陣列中第一筆單號數字等於同訂單的最後一筆訂單產品單號數字+1
 			if i == 0 {
 				// 取得同訂單的最後一筆單號
 				orderProductBase, _ := m.OrderProductService.GetByLastCode(&orderProductModel.Field{
-					OrderID: util.PointerString(inputBody.OrderID),
+					OrderID:   util.PointerString(inputBody.OrderID),
+					IsDeleted: util.PointerBool(false),
 				})
 				// 將最後一筆單號的數字部分取出
 				codeParts := strings.Split(*orderProductBase.Code, "-")
@@ -91,6 +94,7 @@ func (m *manager) Create(trx *gorm.DB, input *orderProductModel.CreateList) (int
 }
 
 func (m *manager) GetByList(input *orderProductModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &orderProductModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -122,6 +126,7 @@ func (m *manager) GetByList(input *orderProductModel.Fields) (int, interface{}) 
 }
 
 func (m *manager) GetBySingle(input *orderProductModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	orderProductBase, err := m.OrderProductService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -151,6 +156,7 @@ func (m *manager) Delete(input *orderProductModel.UpdateList) (int, interface{})
 	for _, inputBody := range input.OrderProducts {
 		_, err := m.OrderProductService.GetBySingle(&orderProductModel.Field{
 			OrderProductID: inputBody.OrderProductID,
+			IsDeleted:      util.PointerBool(false),
 		})
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -176,6 +182,7 @@ func (m *manager) Update(input *orderProductModel.UpdateList) (int, interface{})
 	for _, inputBody := range input.OrderProducts {
 		orderProductBase, err := m.OrderProductService.GetBySingle(&orderProductModel.Field{
 			OrderProductID: inputBody.OrderProductID,
+			IsDeleted:      util.PointerBool(false),
 		})
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {

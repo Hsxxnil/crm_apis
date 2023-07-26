@@ -64,6 +64,10 @@ func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error
 		query.Where("event_id = ?", input.EventID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	// filter
 	isFiltered := false
 	filter := s.db.Model(&model.Table{})
@@ -121,6 +125,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("event_id = ?", input.EventID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -134,6 +142,10 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -179,6 +191,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.Description != nil {
 		data["description"] = input.Description
+	}
+
+	if input.IsDeleted != nil {
+		data["is_deleted"] = input.IsDeleted
 	}
 
 	if input.UpdatedBy != nil {

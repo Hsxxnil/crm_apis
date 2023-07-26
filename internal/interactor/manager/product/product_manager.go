@@ -5,7 +5,6 @@ import (
 	"errors"
 
 	quoteModel "app.eirc/internal/interactor/models/quotes"
-	opportunityService "app.eirc/internal/interactor/service/opportunity"
 	quoteService "app.eirc/internal/interactor/service/quote"
 
 	contractModel "app.eirc/internal/interactor/models/contracts"
@@ -39,7 +38,6 @@ type manager struct {
 	QuoteProductService quoteProductService.Service
 	OrderService        orderService.Service
 	ContractService     contractService.Service
-	OpportunityService  opportunityService.Service
 	QuoteService        quoteService.Service
 }
 
@@ -49,7 +47,6 @@ func Init(db *gorm.DB) Manager {
 		QuoteProductService: quoteProductService.Init(db),
 		OrderService:        orderService.Init(db),
 		ContractService:     contractService.Init(db),
-		OpportunityService:  opportunityService.Init(db),
 		QuoteService:        quoteService.Init(db),
 	}
 }
@@ -59,7 +56,8 @@ func (m *manager) Create(trx *gorm.DB, input *productModel.Create) (int, interfa
 
 	// 判斷產品識別碼是否重複
 	quantity, _ := m.ProductService.GetByQuantity(&productModel.Field{
-		Code: util.PointerString(input.Code),
+		Code:      util.PointerString(input.Code),
+		IsDeleted: util.PointerBool(false),
 	})
 
 	if quantity > 0 {
@@ -78,6 +76,7 @@ func (m *manager) Create(trx *gorm.DB, input *productModel.Create) (int, interfa
 }
 
 func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &productModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -110,6 +109,7 @@ func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
 }
 
 func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &productModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -135,17 +135,20 @@ func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}
 
 	// 透過訂單ID取得契約ID
 	orderBase, _ := m.OrderService.GetBySingle(&orderModel.Field{
-		OrderID: input.OrderID,
+		OrderID:   *input.OrderID,
+		IsDeleted: util.PointerBool(false),
 	})
 
 	// 透過契約ID取得商機ID
 	contractBase, _ := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: *orderBase.ContractID,
+		IsDeleted:  util.PointerBool(false),
 	})
 
 	// 透過商機ID取得報價ID
 	quoteBase, _ := m.QuoteService.GetBySingle(&quoteModel.Field{
 		OpportunityID: contractBase.OpportunityID,
+		IsDeleted:     util.PointerBool(false),
 	})
 
 	// 收集所有產品ID
@@ -156,7 +159,8 @@ func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}
 
 	// 透過報價ID取得所有與該報價有關的產品ID
 	quoteProductBase, _ := m.QuoteProductService.GetByListNoQuantity(&quoteProductModel.Field{
-		QuoteID: quoteBase.QuoteID,
+		QuoteID:   quoteBase.QuoteID,
+		IsDeleted: util.PointerBool(false),
 	})
 
 	// 建立產品ID的映射表
@@ -187,6 +191,7 @@ func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}
 }
 
 func (m *manager) GetBySingle(input *productModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	productBase, err := m.ProductService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -214,6 +219,7 @@ func (m *manager) GetBySingle(input *productModel.Field) (int, interface{}) {
 func (m *manager) Delete(input *productModel.Field) (int, interface{}) {
 	_, err := m.ProductService.GetBySingle(&productModel.Field{
 		ProductID: input.ProductID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -236,6 +242,7 @@ func (m *manager) Delete(input *productModel.Field) (int, interface{}) {
 func (m *manager) Update(input *productModel.Update) (int, interface{}) {
 	productBase, err := m.ProductService.GetBySingle(&productModel.Field{
 		ProductID: input.ProductID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -249,7 +256,8 @@ func (m *manager) Update(input *productModel.Update) (int, interface{}) {
 	// 判斷產品識別碼是否重複
 	if *productBase.Code != input.Code {
 		quantity, _ := m.ProductService.GetByQuantity(&productModel.Field{
-			Code: util.PointerString(input.Code),
+			Code:      util.PointerString(input.Code),
+			IsDeleted: util.PointerBool(false),
 		})
 		if quantity > 0 {
 			log.Info("Code already exists. Code: ", input.Code)

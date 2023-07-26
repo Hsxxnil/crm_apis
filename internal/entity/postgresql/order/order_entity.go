@@ -69,6 +69,10 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("orders.contract_id = ?", input.ContractID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		if input.Sort.Field == "account_name" && input.Sort.Direction != "" {
 			query.Order(`"Accounts".name` + " " + input.Sort.Direction)
@@ -133,6 +137,10 @@ func (s *storage) GetByListNoQuantity(input *model.Base) (output []*model.Table,
 		query.Where("contract_id = ?", input.ContractID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	err = query.Order("created_at desc").Find(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -152,6 +160,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("orders.contract_id = ?", input.ContractID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -165,6 +177,10 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -198,6 +214,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.Description != nil {
 		data["description"] = input.Description
+	}
+
+	if input.IsDeleted != nil {
+		data["is_deleted"] = input.IsDeleted
 	}
 
 	if input.UpdatedBy != nil {

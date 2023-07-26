@@ -4,12 +4,11 @@ import (
 	eventContactModel "app.eirc/internal/interactor/models/event_contacts"
 	eventUserAttendeeModel "app.eirc/internal/interactor/models/event_user_attendees"
 	eventUserMainModel "app.eirc/internal/interactor/models/event_user_mains"
+	"app.eirc/internal/interactor/pkg/util"
 	contactService "app.eirc/internal/interactor/service/contact"
 	eventContactService "app.eirc/internal/interactor/service/event_contact"
 	eventUserAttendeeService "app.eirc/internal/interactor/service/event_user_attendee"
 	eventUserMainService "app.eirc/internal/interactor/service/event_user_main"
-	userService "app.eirc/internal/interactor/service/user"
-
 	"encoding/json"
 	"errors"
 	"time"
@@ -32,7 +31,6 @@ type Manager interface {
 
 type manager struct {
 	EventService             eventService.Service
-	UserService              userService.Service
 	ContactService           contactService.Service
 	EventUserMainService     eventUserMainService.Service
 	EventUserAttendeeService eventUserAttendeeService.Service
@@ -42,7 +40,6 @@ type manager struct {
 func Init(db *gorm.DB) Manager {
 	return &manager{
 		EventService:             eventService.Init(db),
-		UserService:              userService.Init(db),
 		ContactService:           contactService.Init(db),
 		EventUserMainService:     eventUserMainService.Init(db),
 		EventUserAttendeeService: eventUserAttendeeService.Init(db),
@@ -109,6 +106,7 @@ func (m *manager) Create(trx *gorm.DB, input *eventModel.Create) (int, interface
 }
 
 func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &eventModel.List{}
 
 	// 將FilterStartDate轉為時間格式
@@ -159,6 +157,7 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 }
 
 func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	eventBase, err := m.EventService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -197,7 +196,8 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 	defer trx.Rollback()
 
 	eventBase, err := m.EventService.GetBySingle(&eventModel.Field{
-		EventID: input.EventID,
+		EventID:   input.EventID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -216,7 +216,8 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 
 	// 將舊事件主要人員關聯資料改為刪除
 	eventUserMainBase, err := m.EventUserMainService.GetByListNoQuantity(&eventUserMainModel.Field{
-		EventID: eventBase.EventID,
+		EventID:   eventBase.EventID,
+		IsDeleted: util.PointerBool(false),
 	})
 	for _, main := range eventUserMainBase {
 		err = m.EventUserMainService.WithTrx(trx).Delete(&eventUserMainModel.Update{
@@ -231,7 +232,8 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 
 	// 將舊事件參與人員關聯資料改為刪除
 	eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoQuantity(&eventUserAttendeeModel.Field{
-		EventID: eventBase.EventID,
+		EventID:   eventBase.EventID,
+		IsDeleted: util.PointerBool(false),
 	})
 	for _, attendee := range eventUserAttendeeBase {
 		err = m.EventUserAttendeeService.WithTrx(trx).Delete(&eventUserAttendeeModel.Update{
@@ -246,7 +248,8 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 
 	// 將舊事件聯絡人關聯資料改為刪除
 	eventContactBase, err := m.EventContactService.GetByListNoQuantity(&eventContactModel.Field{
-		EventID: eventBase.EventID,
+		EventID:   eventBase.EventID,
+		IsDeleted: util.PointerBool(false),
 	})
 	for _, contact := range eventContactBase {
 		err = m.EventContactService.WithTrx(trx).Delete(&eventContactModel.Update{
@@ -267,7 +270,8 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 	defer trx.Rollback()
 
 	eventBase, err := m.EventService.GetBySingle(&eventModel.Field{
-		EventID: input.EventID,
+		EventID:   input.EventID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -288,7 +292,8 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 	if input.Main != nil {
 		// 將舊關聯資料改為刪除
 		eventUserMainBase, err := m.EventUserMainService.GetByListNoQuantity(&eventUserMainModel.Field{
-			EventID: eventBase.EventID,
+			EventID:   eventBase.EventID,
+			IsDeleted: util.PointerBool(false),
 		})
 		for _, main := range eventUserMainBase {
 			err = m.EventUserMainService.WithTrx(trx).Delete(&eventUserMainModel.Update{
@@ -318,7 +323,8 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 	if input.Attendee != nil {
 		// 將舊關聯資料改為刪除
 		eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoQuantity(&eventUserAttendeeModel.Field{
-			EventID: eventBase.EventID,
+			EventID:   eventBase.EventID,
+			IsDeleted: util.PointerBool(false),
 		})
 		for _, attendee := range eventUserAttendeeBase {
 			err = m.EventUserAttendeeService.WithTrx(trx).Delete(&eventUserAttendeeModel.Update{
@@ -348,7 +354,8 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 	if input.Contact != nil {
 		// 將舊關聯資料改為刪除
 		eventContactBase, err := m.EventContactService.GetByListNoQuantity(&eventContactModel.Field{
-			EventID: eventBase.EventID,
+			EventID:   eventBase.EventID,
+			IsDeleted: util.PointerBool(false),
 		})
 		for _, contact := range eventContactBase {
 			err = m.EventContactService.WithTrx(trx).Delete(&eventContactModel.Update{

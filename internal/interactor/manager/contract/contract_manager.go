@@ -62,6 +62,7 @@ func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interf
 	// 同步商機的account_id
 	opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
+		IsDeleted:     util.PointerBool(false),
 	})
 	input.AccountID = *opportunityBase.AccountID
 	input.EndDate = input.StartDate.AddDate(0, input.Term, 0)
@@ -88,6 +89,7 @@ func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interf
 }
 
 func (m *manager) GetByList(input *contractModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &contractModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -122,6 +124,7 @@ func (m *manager) GetByList(input *contractModel.Fields) (int, interface{}) {
 }
 
 func (m *manager) GetBySingle(input *contractModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	contractBase, err := m.ContractService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -152,6 +155,7 @@ func (m *manager) GetBySingle(input *contractModel.Field) (int, interface{}) {
 func (m *manager) Delete(input *contractModel.Field) (int, interface{}) {
 	_, err := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
+		IsDeleted:  util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -176,6 +180,7 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 
 	contractBase, err := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
+		IsDeleted:  util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -201,12 +206,14 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 	if input.OpportunityID != nil && *input.OpportunityID != *contractBase.OpportunityID {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
+			IsDeleted:     util.PointerBool(false),
 		})
 		input.AccountID = opportunityBase.AccountID
 
 		// 同步修改帳戶至訂單
 		orders, err := m.OrderService.GetByListNoQuantity(&orderModel.Field{
 			ContractID: util.PointerString(input.ContractID),
+			IsDeleted:  util.PointerBool(false),
 		})
 		if err != nil {
 			log.Error(err)
@@ -238,6 +245,7 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 	if input.OpportunityID != nil && *input.OpportunityID != *contractBase.OpportunityID {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
+			IsDeleted:     util.PointerBool(false),
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "商機為",
@@ -247,6 +255,7 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 		if opportunityBase.AccountID != contractBase.AccountID {
 			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: *opportunityBase.AccountID,
+				IsDeleted: util.PointerBool(false),
 			})
 			records = append(records, historicalRecordModel.AddHistoricalRecord{
 				Fields: "帳戶為",
@@ -285,7 +294,8 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interf
 
 	if input.SalespersonID != nil && *input.SalespersonID != *contractBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
-			UserID: *input.SalespersonID,
+			UserID:    *input.SalespersonID,
+			IsDeleted: util.PointerBool(false),
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "業務員為",

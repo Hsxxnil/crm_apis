@@ -69,6 +69,7 @@ func (m *manager) Create(trx *gorm.DB, input *leadModel.Create) (int, interface{
 }
 
 func (m *manager) GetByList(input *leadModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &leadModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -101,6 +102,7 @@ func (m *manager) GetByList(input *leadModel.Fields) (int, interface{}) {
 }
 
 func (m *manager) GetBySingle(input *leadModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	leadBase, err := m.LeadService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -129,7 +131,8 @@ func (m *manager) GetBySingle(input *leadModel.Field) (int, interface{}) {
 
 func (m *manager) Delete(input *leadModel.Field) (int, interface{}) {
 	_, err := m.LeadService.GetBySingle(&leadModel.Field{
-		LeadID: input.LeadID,
+		LeadID:    input.LeadID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -153,7 +156,8 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, interface{
 	defer trx.Rollback()
 
 	leadBase, err := m.LeadService.GetBySingle(&leadModel.Field{
-		LeadID: input.LeadID,
+		LeadID:    input.LeadID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -203,7 +207,8 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, interface{
 
 	if input.SalespersonID != nil && *input.SalespersonID != *leadBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
-			UserID: *input.SalespersonID,
+			UserID:    *input.SalespersonID,
+			IsDeleted: util.PointerBool(false),
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "業務員為",

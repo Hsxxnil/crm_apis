@@ -37,7 +37,9 @@ type Field struct {
 	// 產品價格
 	Price *float64 `json:"price,omitempty" form:"price"`
 	// 訂單ID
-	OrderID string `json:"order_id,omitempty" form:"order_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	OrderID *string `json:"order_id,omitempty" form:"order_id" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
+	// 產品是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -127,6 +129,8 @@ type Update struct {
 	Description *string `json:"description,omitempty"`
 	// 產品價格
 	Price *float64 `json:"price,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
+	// 產品是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }

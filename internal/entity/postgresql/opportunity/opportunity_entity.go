@@ -68,6 +68,10 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("opportunity_id = ?", input.OpportunityID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
 			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
@@ -128,6 +132,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("opportunity_id = ?", input.OpportunityID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -141,6 +149,10 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
 	if input.OpportunityID != nil {
 		query.Where("opportunity_id = ?", input.OpportunityID)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -178,6 +190,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.SalespersonID != nil {
 		data["salesperson_id"] = input.SalespersonID
+	}
+
+	if input.IsDeleted != nil {
+		data["is_deleted"] = input.IsDeleted
 	}
 
 	if input.UpdatedBy != nil {

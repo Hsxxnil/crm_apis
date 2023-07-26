@@ -88,6 +88,7 @@ func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, interfa
 }
 
 func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &contactModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -116,6 +117,7 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
 		contacts.AccountName = *contactBase[i].Accounts.Name
 		supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: contacts.SupervisorID,
+			IsDeleted: util.PointerBool(false),
 		})
 		if err != nil {
 			contacts.SupervisorName = ""
@@ -128,6 +130,7 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
 }
 
 func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	contactBase, err := m.ContactService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -152,6 +155,7 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
 	output.AccountName = *contactBase.Accounts.Name
 	supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: *contactBase.SupervisorID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		output.SupervisorName = ""
@@ -165,6 +169,7 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
 func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
 	_, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: input.ContactID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -184,6 +189,7 @@ func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
 	// 同步刪除帳戶聯絡人關聯
 	accountContactBase, _ := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 		ContactID: util.PointerString(input.ContactID),
+		IsDeleted: util.PointerBool(false),
 	})
 	err = m.AccountContactService.Delete(&accountContactModel.Field{
 		AccountContactID: *accountContactBase.AccountContactID,
@@ -201,6 +207,7 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 
 	contactBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: input.ContactID,
+		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -221,6 +228,7 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 	if input.AccountID != nil && *input.AccountID != *contactBase.AccountID {
 		accountContactBase, err := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 			ContactID: util.PointerString(input.ContactID),
+			IsDeleted: util.PointerBool(false),
 		})
 		err = m.AccountContactService.WithTrx(trx).Update(&accountContactModel.Update{
 			AccountContactID: *accountContactBase.AccountContactID,
@@ -288,6 +296,7 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 	if input.SupervisorID != nil && *input.SupervisorID != *contactBase.SupervisorID {
 		supervisorBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: *input.SupervisorID,
+			IsDeleted: util.PointerBool(false),
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "直屬上司為",
@@ -298,6 +307,7 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 	if input.AccountID != nil && *input.AccountID != *contactBase.AccountID {
 		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: *input.AccountID,
+			IsDeleted: util.PointerBool(false),
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "帳戶為",
@@ -307,7 +317,8 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interfa
 
 	if input.SalespersonID != nil && *input.SalespersonID != *contactBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
-			UserID: *input.SalespersonID,
+			UserID:    *input.SalespersonID,
+			IsDeleted: util.PointerBool(false),
 		})
 		records = append(records, historicalRecordModel.AddHistoricalRecord{
 			Fields: "業務員為",
