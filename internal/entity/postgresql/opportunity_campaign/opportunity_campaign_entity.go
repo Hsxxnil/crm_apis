@@ -116,6 +116,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["campaign_id"] = input.CampaignID
 	}
 
+	if input.IsDeleted != nil {
+		data["is_deleted"] = input.IsDeleted
+	}
+
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
