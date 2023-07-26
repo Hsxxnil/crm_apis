@@ -59,7 +59,7 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("EventUserMains.Mains").Preload("EventUserAttendees.Attendees").Preload("EventContacts.Contacts").Preload(clause.Associations)
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
 	}
@@ -116,7 +116,7 @@ func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("EventUserMains.Mains").Preload("EventUserAttendees.Attendees").Preload("EventContacts.Contacts").Preload(clause.Associations)
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
 	}

@@ -3,6 +3,10 @@ package events
 import (
 	"time"
 
+	"app.eirc/internal/interactor/models/event_contacts"
+	"app.eirc/internal/interactor/models/event_user_attendees"
+	"app.eirc/internal/interactor/models/event_user_mains"
+
 	"app.eirc/internal/interactor/models/section"
 )
 
@@ -88,10 +92,6 @@ type List struct {
 		EventID string `json:"event_id,omitempty"`
 		// 事件主題
 		Subject string `json:"subject,omitempty"`
-		// 事件主要人員
-		Main []*Main `json:"main,omitempty"`
-		// 事件參與人員
-		Attendees []*Attendees `json:"attendees,omitempty"`
 		// 事件是否為全天事件
 		IsWhole bool `json:"is_whole"`
 		// 事件開始日期
@@ -102,8 +102,6 @@ type List struct {
 		AccountID string `json:"account_id,omitempty"`
 		// 帳戶名稱
 		AccountName string `json:"account_name,omitempty"`
-		// 聯絡人
-		Contacts []*Contacts `json:"contacts,omitempty"`
 		// 事件類型
 		Type string `json:"type,omitempty"`
 		// 事件地址
@@ -116,6 +114,12 @@ type List struct {
 		UpdatedBy string `json:"updated_by,omitempty"`
 		// 時間戳記
 		section.TimeAt
+		// event_user_mains data
+		EventUserMains []event_user_mains.EventSingle `json:"main,omitempty"`
+		// event_user_attendees data
+		EventUserAttendees []event_user_attendees.EventSingle `json:"attendees,omitempty"`
+		// event_contacts data
+		EventContacts []event_contacts.EventSingle `json:"contacts,omitempty"`
 	} `json:"events"`
 }
 
@@ -125,10 +129,6 @@ type Single struct {
 	EventID string `json:"event_id,omitempty"`
 	// 事件主題
 	Subject string `json:"subject,omitempty"`
-	// 事件主要人員
-	Main []*Main `json:"main,omitempty"`
-	// 事件參與人員
-	Attendees []*Attendees `json:"attendees,omitempty"`
 	// 事件是否為全天事件
 	IsWhole bool `json:"is_whole"`
 	// 事件開始日期
@@ -139,8 +139,6 @@ type Single struct {
 	AccountID string `json:"account_id,omitempty"`
 	// 帳戶名稱
 	AccountName string `json:"account_name,omitempty"`
-	// 聯絡人
-	Contacts []*Contacts `json:"contacts,omitempty"`
 	// 事件類型
 	Type string `json:"type,omitempty"`
 	// 事件地址
@@ -153,6 +151,12 @@ type Single struct {
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// 時間戳記
 	section.TimeAt
+	// event_user_mains data
+	EventUserMains []event_user_mains.EventSingle `json:"main,omitempty"`
+	// event_user_attendees data
+	EventUserAttendees []event_user_attendees.EventSingle `json:"attendees,omitempty"`
+	// event_contacts data
+	EventContacts []event_contacts.EventSingle `json:"contacts,omitempty"`
 }
 
 // Update struct is used to update achieves

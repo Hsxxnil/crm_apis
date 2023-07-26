@@ -90,3 +90,11 @@ type Update struct {
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
+
+// EventSingle return structure file for events
+type EventSingle struct {
+	// 聯絡人ID
+	ContactID string `json:"contact_id,omitempty"`
+	// 聯絡人名稱
+	ContactName string `json:"contact_name,omitempty"`
+}

@@ -28,7 +28,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/events/a1fd1a6e-321c-4ed9-9367-9c8191c215c9
+GET {{host}}/crm/v1.0/events/b7b4e10d-f2ef-4291-89ae-b7f1eee2f3dd
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -61,7 +61,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/events/a1fd1a6e-321c-4ed9-9367-9c8191c215c9
+PATCH {{host}}/crm/v1.0/events/9b32679e-7770-4230-9e0a-fdef1675a1a2
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -89,6 +89,6 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/events/8ea5c39d-0cb4-4bb0-8717-0c3422caa769
+DELETE {{host}}/crm/v1.0/events/9b32679e-7770-4230-9e0a-fdef1675a1a2
 Accept: application/json
 Authorization: Bearer {{accessToken}}

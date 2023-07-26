@@ -3,6 +3,10 @@ package events
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/event_contacts"
+	"app.eirc/internal/entity/postgresql/db/event_user_attendees"
+	"app.eirc/internal/entity/postgresql/db/event_user_mains"
+
 	"app.eirc/internal/entity/postgresql/db/accounts"
 
 	"app.eirc/internal/entity/postgresql/db/users"
@@ -36,6 +40,12 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
+	// event_user_mains data
+	EventUserMains []event_user_mains.Table `gorm:"foreignKey:EventID" json:"main,omitempty"`
+	// event_user_attendees data
+	EventUserAttendees []event_user_attendees.Table `gorm:"foreignKey:EventID" json:"attendees,omitempty"`
+	// event_contacts data
+	EventContacts []event_contacts.Table `gorm:"foreignKey:EventID" json:"contacts,omitempty"`
 	special.UseTable
 }
 
@@ -65,6 +75,12 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
+	// event_user_mains data
+	EventUserMains []event_user_mains.Base `json:"main,omitempty"`
+	// event_user_attendees data
+	EventUserAttendees []event_user_attendees.Base `json:"attendees,omitempty"`
+	// event_contacts data
+	EventContacts []event_contacts.Base `json:"contacts,omitempty"`
 	special.UseBase
 	// 搜尋欄位
 	model.Filter `json:"filter"`

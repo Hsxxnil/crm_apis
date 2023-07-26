@@ -81,6 +81,10 @@ func (s *storage) GetByListNoQuantity(input *model.Base) (output []*model.Table,
 		query.Where("event_user_attendee_id = ?", input.EventUserAttendeeID)
 	}
 
+	if input.EventID != nil {
+		query.Where("event_id = ?", input.EventID)
+	}
+
 	err = query.Order("created_at desc").Find(&output).Error
 	if err != nil {
 		log.Error(err)

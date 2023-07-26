@@ -4,10 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"app.eirc/internal/router/event_contact"
-	"app.eirc/internal/router/event_user_attendee"
-	"app.eirc/internal/router/event_user_main"
-
 	_ "app.eirc/api"
 	"app.eirc/internal/interactor/pkg/connect"
 	"app.eirc/internal/interactor/pkg/util/log"
@@ -79,9 +75,6 @@ func main() {
 	role.GetRouter(engine, db)
 	historical_record.GetRouter(engine, db)
 	event.GetRouter(engine, db)
-	event_user_main.GetRouter(engine, db)
-	event_user_attendee.GetRouter(engine, db)
-	event_contact.GetRouter(engine, db)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://localhost:8080/swagger/doc.json"))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
