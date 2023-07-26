@@ -1,6 +1,10 @@
 package event
 
 import (
+	"encoding/json"
+	"errors"
+	"time"
+
 	eventContactModel "app.eirc/internal/interactor/models/event_contacts"
 	eventUserAttendeeModel "app.eirc/internal/interactor/models/event_user_attendees"
 	eventUserMainModel "app.eirc/internal/interactor/models/event_user_mains"
@@ -9,9 +13,6 @@ import (
 	eventContactService "app.eirc/internal/interactor/service/event_contact"
 	eventUserAttendeeService "app.eirc/internal/interactor/service/event_user_attendee"
 	eventUserMainService "app.eirc/internal/interactor/service/event_user_main"
-	"encoding/json"
-	"errors"
-	"time"
 
 	eventModel "app.eirc/internal/interactor/models/events"
 	eventService "app.eirc/internal/interactor/service/event"
