@@ -8964,10 +8964,6 @@ const docTemplate = `{
                     "description": "行業ID",
                     "type": "string"
                 },
-                "is_deleted": {
-                    "description": "帳戶是否刪除",
-                    "type": "boolean"
-                },
                 "name": {
                     "description": "帳戶名稱",
                     "type": "string"
@@ -9456,10 +9452,6 @@ const docTemplate = `{
                     "type": "number",
                     "minimum": 0
                 },
-                "is_deleted": {
-                    "description": "行銷活動是否刪除",
-                    "type": "boolean"
-                },
                 "is_enable": {
                     "description": "行銷活動是否啟用",
                     "type": "boolean"
@@ -9807,10 +9799,6 @@ const docTemplate = `{
                     "description": "聯絡人電子郵件",
                     "type": "string"
                 },
-                "is_deleted": {
-                    "description": "聯絡人是否刪除",
-                    "type": "boolean"
-                },
                 "name": {
                     "description": "聯絡人名稱",
                     "type": "string"
@@ -10070,10 +10058,6 @@ const docTemplate = `{
                 "description": {
                     "description": "契約描述",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "契約是否刪除",
-                    "type": "boolean"
                 },
                 "opportunity_id": {
                     "description": "商機ID",
@@ -10426,10 +10410,6 @@ const docTemplate = `{
                 "end_date": {
                     "description": "事件結束日期",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "事件是否刪除",
-                    "type": "boolean"
                 },
                 "is_whole": {
                     "description": "事件是否為全天事件",
@@ -10853,10 +10833,6 @@ const docTemplate = `{
                     "description": "線索描述",
                     "type": "string"
                 },
-                "is_deleted": {
-                    "description": "線索是否刪除",
-                    "type": "boolean"
-                },
                 "rating": {
                     "description": "線索分級",
                     "type": "string"
@@ -11217,10 +11193,6 @@ const docTemplate = `{
                     "description": "商機預測種類",
                     "type": "string"
                 },
-                "is_deleted": {
-                    "description": "商機是否刪除",
-                    "type": "boolean"
-                },
                 "name": {
                     "description": "商機名稱",
                     "type": "string"
@@ -11379,10 +11351,6 @@ const docTemplate = `{
                 "campaign_id": {
                     "description": "行銷活動ID",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "商機行銷活動是否刪除",
-                    "type": "boolean"
                 },
                 "opportunity_id": {
                     "description": "商機ID",
@@ -11657,10 +11625,6 @@ const docTemplate = `{
                 "description": {
                     "description": "訂單產品描述",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "訂單產品是否刪除",
-                    "type": "boolean"
                 },
                 "product_id": {
                     "description": "產品ID",
@@ -11991,10 +11955,6 @@ const docTemplate = `{
                     "description": "訂單描述",
                     "type": "string"
                 },
-                "is_deleted": {
-                    "description": "訂單是否刪除",
-                    "type": "boolean"
-                },
                 "start_date": {
                     "description": "訂單開始日期",
                     "type": "string"
@@ -12185,10 +12145,6 @@ const docTemplate = `{
                 "description": {
                     "description": "產品描述",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "產品是否刪除",
-                    "type": "boolean"
                 },
                 "is_enable": {
                     "description": "產品是否啟用",
@@ -12509,10 +12465,6 @@ const docTemplate = `{
                     "description": "報價產品折扣",
                     "type": "number",
                     "minimum": 0
-                },
-                "is_deleted": {
-                    "description": "報價產品是否刪除",
-                    "type": "boolean"
                 },
                 "product_id": {
                     "description": "產品ID",
@@ -12928,10 +12880,6 @@ const docTemplate = `{
                 "expiration_date": {
                     "description": "報價到期日期",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "報價是否刪除",
-                    "type": "boolean"
                 },
                 "is_final": {
                     "description": "報價是否為最終版",

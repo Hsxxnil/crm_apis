@@ -81,7 +81,7 @@ type Update struct {
 	// 聯絡人ID
 	ContactID *string `json:"contact_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶聯絡人是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
+	IsDeleted *bool `json:"is_deleted,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
