@@ -46,6 +46,8 @@ type Table struct {
 	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
 	// salespeople  data
 	Salespeople users.Table `gorm:"foreignKey:SalespersonID;references:UserID" json:"salespeople,omitempty"`
+	// 行銷活動是否刪除
+	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -89,6 +91,8 @@ type Base struct {
 	SalespersonID *string `json:"salesperson_id,omitempty"`
 	// salespeople  data
 	Salespeople users.Base `json:"salespeople,omitempty"`
+	// 行銷活動是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
