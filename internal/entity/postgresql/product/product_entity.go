@@ -162,6 +162,10 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["price"] = input.Price
 	}
 
+	if input.IsDeleted != nil {
+		data["is_deleted"] = input.IsDeleted
+	}
+
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}

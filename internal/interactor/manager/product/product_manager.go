@@ -135,7 +135,7 @@ func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}
 
 	// 透過訂單ID取得契約ID
 	orderBase, _ := m.OrderService.GetBySingle(&orderModel.Field{
-		OrderID: input.OrderID,
+		OrderID: *input.OrderID,
 	})
 
 	// 透過契約ID取得商機ID
