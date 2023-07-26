@@ -66,6 +66,10 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("account_id = ?", input.AccountID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
 			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
@@ -124,6 +128,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("account_id = ?", input.AccountID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -137,6 +145,10 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
 	if input.AccountID != nil {
 		query.Where("account_id = ?", input.AccountID)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error

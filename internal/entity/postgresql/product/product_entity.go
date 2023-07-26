@@ -64,6 +64,10 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("product_id = ?", input.ProductID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		query.Order(input.Sort.Field + " " + input.Sort.Direction)
 	}
@@ -110,6 +114,10 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("product_id = ?", input.ProductID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -127,6 +135,10 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 
 	if input.Code != nil {
 		query.Where("code = ?", input.Code)
+	}
+
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error

@@ -39,6 +39,7 @@ func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, interface{
 	quantity, _ := m.UserService.GetByQuantity(&userModel.Field{
 		UserName:  util.PointerString(input.UserName),
 		CompanyID: util.PointerString(input.CompanyID),
+		IsDeleted: util.PointerBool(false),
 	})
 
 	if quantity > 0 {

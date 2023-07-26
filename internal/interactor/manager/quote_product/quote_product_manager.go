@@ -49,7 +49,8 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 		inputBody.TotalPrice = inputBody.SubTotal * (1 - inputBody.Discount/100)
 		// 取得報價號碼
 		quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
-			QuoteID: inputBody.QuoteID,
+			QuoteID:   inputBody.QuoteID,
+			IsDeleted: util.PointerBool(false),
 		})
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -59,14 +60,16 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 		quoteCode := *quoteBase.Code
 		// 判斷是否已存在同報價的報價產品
 		quantity, _ := m.QuoteProductService.GetByQuantity(&quoteProductModel.Field{
-			QuoteID: util.PointerString(inputBody.QuoteID),
+			QuoteID:   util.PointerString(inputBody.QuoteID),
+			IsDeleted: util.PointerBool(false),
 		})
 		if quantity != 0 {
 			// 陣列中第一筆單號數字等於同報價的最後一筆報價產品單號數字+1
 			if i == 0 {
 				// 取得同報價的最後一筆單號
 				quoteProductBase, _ := m.QuoteProductService.GetByLastCode(&quoteProductModel.Field{
-					QuoteID: util.PointerString(inputBody.QuoteID),
+					QuoteID:   util.PointerString(inputBody.QuoteID),
+					IsDeleted: util.PointerBool(false),
 				})
 				// 將最後一筆單號的數字部分取出
 				codeParts := strings.Split(*quoteProductBase.Code, "-")
@@ -90,6 +93,7 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 }
 
 func (m *manager) GetByList(input *quoteProductModel.Fields) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	output := &quoteProductModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -122,6 +126,7 @@ func (m *manager) GetByList(input *quoteProductModel.Fields) (int, interface{}) 
 }
 
 func (m *manager) GetBySingle(input *quoteProductModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
 	quoteProductBase, err := m.QuoteProductService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -152,6 +157,7 @@ func (m *manager) Delete(input *quoteProductModel.UpdateList) (int, interface{})
 	for _, inputBody := range input.QuoteProducts {
 		_, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
 			QuoteProductID: inputBody.QuoteProductID,
+			IsDeleted:      util.PointerBool(false),
 		})
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -177,6 +183,7 @@ func (m *manager) Update(input *quoteProductModel.UpdateList) (int, interface{})
 	for _, inputBody := range input.QuoteProducts {
 		quoteProductBase, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
 			QuoteProductID: inputBody.QuoteProductID,
+			IsDeleted:      util.PointerBool(false),
 		})
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {

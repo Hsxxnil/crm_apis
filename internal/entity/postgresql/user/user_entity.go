@@ -97,6 +97,10 @@ func (s *storage) GetByListNoQuantity(input *model.Base) (output []*model.Table,
 		query.Where("user_id = ?", input.UserID)
 	}
 
+	if input.IsDeleted != nil {
+		query.Where("is_deleted = ?", input.IsDeleted)
+	}
+
 	err = query.Order("created_at desc").Find(&output).Error
 	if err != nil {
 		log.Error(err)
