@@ -58,6 +58,8 @@ type Field struct {
 	Location *string `json:"location,omitempty" form:"location"`
 	// 事件描述
 	Description *string `json:"description,omitempty" form:"description"`
+	// 事件是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -185,6 +187,8 @@ type Update struct {
 	Location *string `json:"location,omitempty"`
 	// 事件描述
 	Description *string `json:"description,omitempty"`
+	// 事件是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
