@@ -42,6 +42,8 @@ type Table struct {
 	ShippingAndHandling float64 `gorm:"column:shipping_and_handling;type:numeric;" json:"shipping_and_handling"`
 	// 報價號碼
 	Code string `gorm:"->;column:code;type:text;not null;" json:"code"`
+	// 報價是否刪除
+	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -79,6 +81,8 @@ type Base struct {
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty"`
 	// 報價號碼
 	Code *string `json:"code,omitempty"`
+	// 報價是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

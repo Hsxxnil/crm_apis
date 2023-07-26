@@ -61,6 +61,8 @@ type Field struct {
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" form:"shipping_and_handling"`
 	// 報價號碼
 	Code *string `json:"code,omitempty" form:"code"`
+	// 報價是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -248,6 +250,8 @@ type Update struct {
 	Tax *float64 `json:"tax,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
 	// 報價運費及其他費用
 	ShippingAndHandling *float64 `json:"shipping_and_handling,omitempty" binding:"omitempty,gte=0" validate:"omitempty,gte=0"`
+	// 報價是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }
