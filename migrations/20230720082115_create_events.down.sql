@@ -1,11 +1,8 @@
 drop index idx_events_event_id;
 drop index idx_events_subject;
-drop index idx_events_main_id;
-drop index idx_events_attendee_id;
 drop index idx_events_start_date;
 drop index idx_events_end_date;
 drop index idx_events_account_id;
-drop index idx_events_contact_id;
 drop index idx_events_type;
 drop index idx_events_location;
 drop index idx_events_created_at;

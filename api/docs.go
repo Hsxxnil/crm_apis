@@ -10081,20 +10081,7 @@ const docTemplate = `{
                 }
             }
         },
-        "events.Attendees": {
-            "type": "object",
-            "properties": {
-                "attendee_id": {
-                    "description": "參與人員ID",
-                    "type": "string"
-                },
-                "attendee_name": {
-                    "description": "事件參與人員名稱",
-                    "type": "string"
-                }
-            }
-        },
-        "events.Contacts": {
+        "event_contacts.EventSingle": {
             "type": "object",
             "properties": {
                 "contact_id": {
@@ -10107,10 +10094,35 @@ const docTemplate = `{
                 }
             }
         },
+        "event_user_attendees.EventSingle": {
+            "type": "object",
+            "properties": {
+                "attendee_id": {
+                    "description": "參與人員ID",
+                    "type": "string"
+                },
+                "attendee_name": {
+                    "description": "參與人員名稱",
+                    "type": "string"
+                }
+            }
+        },
+        "event_user_mains.EventSingle": {
+            "type": "object",
+            "properties": {
+                "main_id": {
+                    "description": "主要人員ID",
+                    "type": "string"
+                },
+                "main_name": {
+                    "description": "主要人員名稱",
+                    "type": "string"
+                }
+            }
+        },
         "events.Create": {
             "type": "object",
             "required": [
-                "attendee",
                 "end_date",
                 "main",
                 "start_date",
@@ -10215,17 +10227,17 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "attendees": {
-                                "description": "事件參與人員",
+                                "description": "event_user_attendees data",
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/definitions/events.Attendees"
+                                    "$ref": "#/definitions/event_user_attendees.EventSingle"
                                 }
                             },
                             "contacts": {
-                                "description": "聯絡人",
+                                "description": "event_contacts data",
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/definitions/events.Contacts"
+                                    "$ref": "#/definitions/event_contacts.EventSingle"
                                 }
                             },
                             "created_at": {
@@ -10257,10 +10269,10 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "main": {
-                                "description": "事件主要人員",
+                                "description": "event_user_mains data",
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/definitions/events.Main"
+                                    "$ref": "#/definitions/event_user_mains.EventSingle"
                                 }
                             },
                             "start_date": {
@@ -10288,19 +10300,6 @@ const docTemplate = `{
                 }
             }
         },
-        "events.Main": {
-            "type": "object",
-            "properties": {
-                "main_id": {
-                    "description": "主要人員ID",
-                    "type": "string"
-                },
-                "main_name": {
-                    "description": "事件主要人員名稱",
-                    "type": "string"
-                }
-            }
-        },
         "events.Single": {
             "type": "object",
             "properties": {
@@ -10313,17 +10312,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "attendees": {
-                    "description": "事件參與人員",
+                    "description": "event_user_attendees data",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/events.Attendees"
+                        "$ref": "#/definitions/event_user_attendees.EventSingle"
                     }
                 },
                 "contacts": {
-                    "description": "聯絡人",
+                    "description": "event_contacts data",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/events.Contacts"
+                        "$ref": "#/definitions/event_contacts.EventSingle"
                     }
                 },
                 "created_at": {
@@ -10355,10 +10354,10 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "main": {
-                    "description": "事件主要人員",
+                    "description": "event_user_mains data",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/events.Main"
+                        "$ref": "#/definitions/event_user_mains.EventSingle"
                     }
                 },
                 "start_date": {

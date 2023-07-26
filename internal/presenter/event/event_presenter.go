@@ -127,9 +127,11 @@ func (c *control) GetBySingle(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /events/{eventID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
+	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	eventID := ctx.Param("eventID")
-	input := &eventModel.Field{}
+	input := &eventModel.Update{}
 	input.EventID = eventID
+	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -137,7 +139,7 @@ func (c *control) Delete(ctx *gin.Context) {
 		return
 	}
 
-	httpCode, codeMessage := c.Manager.Delete(input)
+	httpCode, codeMessage := c.Manager.Delete(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }
 
@@ -156,6 +158,7 @@ func (c *control) Delete(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /events/{eventID} [patch]
 func (c *control) Update(ctx *gin.Context) {
+	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	eventID := ctx.Param("eventID")
 	input := &eventModel.Update{}
 	input.EventID = eventID
@@ -167,6 +170,6 @@ func (c *control) Update(ctx *gin.Context) {
 		return
 	}
 
-	httpCode, codeMessage := c.Manager.Update(input)
+	httpCode, codeMessage := c.Manager.Update(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }

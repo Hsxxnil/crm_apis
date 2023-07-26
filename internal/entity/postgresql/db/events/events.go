@@ -3,6 +3,10 @@ package events
 import (
 	"time"
 
+	"app.eirc/internal/entity/postgresql/db/event_contacts"
+	"app.eirc/internal/entity/postgresql/db/event_user_attendees"
+	"app.eirc/internal/entity/postgresql/db/event_user_mains"
+
 	"app.eirc/internal/entity/postgresql/db/accounts"
 
 	"app.eirc/internal/entity/postgresql/db/users"
@@ -16,10 +20,6 @@ type Table struct {
 	EventID string `gorm:"<-:create;column:event_id;type:uuid;not null;primaryKey;" json:"event_id"`
 	// 事件主題
 	Subject string `gorm:"column:subject;type:text;not null;" json:"subject"`
-	// 主要人員ID
-	MainID string `gorm:"column:main_id;type:text;not null;" json:"main_id"`
-	// 參與人員ID
-	AttendeeID string `gorm:"column:attendee_id;type:text;not null;" json:"attendee_id"`
 	// 事件是否為全天事件
 	IsWhole bool `gorm:"column:is_whole;type:boolean;not null;" json:"is_whole"`
 	// 事件開始日期
@@ -30,8 +30,6 @@ type Table struct {
 	AccountID string `gorm:"column:account_id;type:uuid;" json:"account_id"`
 	// accounts data
 	Accounts accounts.Table `gorm:"foreignKey:AccountID;references:AccountID" json:"accounts,omitempty"`
-	// 聯絡人ID
-	ContactID string `gorm:"column:contact_id;type:text;" json:"contact_id"`
 	// 事件類型
 	Type string `gorm:"column:type;type:text;" json:"type"`
 	// 事件地址
@@ -42,6 +40,12 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
+	// event_user_mains data
+	EventUserMains []event_user_mains.Table `gorm:"foreignKey:EventID" json:"main,omitempty"`
+	// event_user_attendees data
+	EventUserAttendees []event_user_attendees.Table `gorm:"foreignKey:EventID" json:"attendees,omitempty"`
+	// event_contacts data
+	EventContacts []event_contacts.Table `gorm:"foreignKey:EventID" json:"contacts,omitempty"`
 	special.UseTable
 }
 
@@ -51,10 +55,6 @@ type Base struct {
 	EventID *string `json:"event_id,omitempty"`
 	// 事件主題
 	Subject *string `json:"subject,omitempty"`
-	// 主要人員ID
-	MainID *string `json:"main_id,omitempty"`
-	// 參與人員ID
-	AttendeeID *string `json:"attendee_id,omitempty"`
 	// 事件是否為全天事件
 	IsWhole *bool `json:"is_whole,omitempty"`
 	// 事件開始日期
@@ -65,8 +65,6 @@ type Base struct {
 	AccountID *string `json:"account_id,omitempty"`
 	// accounts data
 	Accounts accounts.Base `json:"accounts,omitempty"`
-	// 聯絡人ID
-	ContactID *string `json:"contact_id,omitempty"`
 	// 事件類型
 	Type *string `json:"type,omitempty"`
 	// 事件地址
@@ -77,6 +75,12 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
+	// event_user_mains data
+	EventUserMains []event_user_mains.Base `json:"main,omitempty"`
+	// event_user_attendees data
+	EventUserAttendees []event_user_attendees.Base `json:"attendees,omitempty"`
+	// event_contacts data
+	EventContacts []event_contacts.Base `json:"contacts,omitempty"`
 	special.UseBase
 	// 搜尋欄位
 	model.Filter `json:"filter"`

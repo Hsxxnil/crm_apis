@@ -1063,22 +1063,31 @@ definitions:
         description: 契約有效期限(月)
         type: integer
     type: object
-  events.Attendees:
-    properties:
-      attendee_id:
-        description: 參與人員ID
-        type: string
-      attendee_name:
-        description: 事件參與人員名稱
-        type: string
-    type: object
-  events.Contacts:
+  event_contacts.EventSingle:
     properties:
       contact_id:
         description: 聯絡人ID
         type: string
       contact_name:
         description: 聯絡人名稱
+        type: string
+    type: object
+  event_user_attendees.EventSingle:
+    properties:
+      attendee_id:
+        description: 參與人員ID
+        type: string
+      attendee_name:
+        description: 參與人員名稱
+        type: string
+    type: object
+  event_user_mains.EventSingle:
+    properties:
+      main_id:
+        description: 主要人員ID
+        type: string
+      main_name:
+        description: 主要人員名稱
         type: string
     type: object
   events.Create:
@@ -1123,7 +1132,6 @@ definitions:
         description: 事件類型
         type: string
     required:
-    - attendee
     - end_date
     - main
     - start_date
@@ -1160,14 +1168,14 @@ definitions:
               description: 帳戶名稱
               type: string
             attendees:
-              description: 事件參與人員
+              description: event_user_attendees data
               items:
-                $ref: '#/definitions/events.Attendees'
+                $ref: '#/definitions/event_user_attendees.EventSingle'
               type: array
             contacts:
-              description: 聯絡人
+              description: event_contacts data
               items:
-                $ref: '#/definitions/events.Contacts'
+                $ref: '#/definitions/event_contacts.EventSingle'
               type: array
             created_at:
               description: 創建時間
@@ -1191,9 +1199,9 @@ definitions:
               description: 事件地址
               type: string
             main:
-              description: 事件主要人員
+              description: event_user_mains data
               items:
-                $ref: '#/definitions/events.Main'
+                $ref: '#/definitions/event_user_mains.EventSingle'
               type: array
             start_date:
               description: 事件開始日期
@@ -1213,15 +1221,6 @@ definitions:
           type: object
         type: array
     type: object
-  events.Main:
-    properties:
-      main_id:
-        description: 主要人員ID
-        type: string
-      main_name:
-        description: 事件主要人員名稱
-        type: string
-    type: object
   events.Single:
     properties:
       account_id:
@@ -1231,14 +1230,14 @@ definitions:
         description: 帳戶名稱
         type: string
       attendees:
-        description: 事件參與人員
+        description: event_user_attendees data
         items:
-          $ref: '#/definitions/events.Attendees'
+          $ref: '#/definitions/event_user_attendees.EventSingle'
         type: array
       contacts:
-        description: 聯絡人
+        description: event_contacts data
         items:
-          $ref: '#/definitions/events.Contacts'
+          $ref: '#/definitions/event_contacts.EventSingle'
         type: array
       created_at:
         description: 創建時間
@@ -1262,9 +1261,9 @@ definitions:
         description: 事件地址
         type: string
       main:
-        description: 事件主要人員
+        description: event_user_mains data
         items:
-          $ref: '#/definitions/events.Main'
+          $ref: '#/definitions/event_user_mains.EventSingle'
         type: array
       start_date:
         description: 事件開始日期

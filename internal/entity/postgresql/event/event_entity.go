@@ -59,7 +59,7 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("EventUserMains.Mains").Preload("EventUserAttendees.Attendees").Preload("EventContacts.Contacts").Preload(clause.Associations)
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
 	}
@@ -116,7 +116,7 @@ func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Preload("EventUserMains.Mains").Preload("EventUserAttendees.Attendees").Preload("EventContacts.Contacts").Preload(clause.Associations)
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
 	}
@@ -153,14 +153,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["subject"] = input.Subject
 	}
 
-	if input.MainID != nil {
-		data["main_id"] = input.MainID
-	}
-
-	if input.AttendeeID != nil {
-		data["attendee_id"] = input.AttendeeID
-	}
-
 	if input.IsWhole != nil {
 		data["is_whole"] = input.IsWhole
 	}
@@ -175,10 +167,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.AccountID != nil {
 		data["account_id"] = input.AccountID
-	}
-
-	if input.ContactID != nil {
-		data["contact_id"] = input.ContactID
 	}
 
 	if input.Type != nil {
