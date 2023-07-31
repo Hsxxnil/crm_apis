@@ -61,12 +61,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/events/9b32679e-7770-4230-9e0a-fdef1675a1a2
+PATCH {{host}}/crm/v1.0/events/06f8b683-e680-40a8-ba09-adb12f3ccc4c
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "subject": "test",
+  "subject": "test111111",
   "main": [
     "85cee689-bcb2-461f-8b0a-ea6922f1cb07",
     "f1169ccc-370a-4e5e-b1e9-71fc6ccc0818"
@@ -76,8 +76,8 @@ Authorization: Bearer {{accessToken}}
     "dbb472c9-81d5-47bc-8958-d4d097bb3597"
   ],
   "is_whole": false,
-  "start_date": "2023-07-21T00:00:00Z",
-  "end_date": "2023-07-21T00:00:00Z",
+  "start_date": "2023-08-01T00:00:00Z",
+  "end_date": "2023-08-01T00:00:00Z",
   "account_id": "00000000-0000-4000-a000-000000000000",
   "contact": [
     "eb243950-92b4-4433-92a7-847f000aea44",
