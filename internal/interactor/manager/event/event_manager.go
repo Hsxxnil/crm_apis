@@ -283,6 +283,25 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	// 設定修改期限為開始日期前一天
+	deadline := eventBase.StartDate.AddDate(0, 0, -1)
+	// 若現在時間在修改期限之後回傳400
+	if util.NowToUTC().After(deadline) {
+		log.Info("Exceeded modification deadline. Deadline: ", deadline)
+		return code.BadRequest, code.GetCodeMessage(code.BadRequest, "Exceeded modification deadline.")
+	}
+
+	// 如果輸入的開始日期和原来的不相等，再次判斷修改期限
+	if input.StartDate != nil && input.StartDate != eventBase.StartDate {
+		// 設定修改期限為輸入的開始日期前一天
+		deadline = input.StartDate.AddDate(0, 0, -1)
+		// 若現在時間在修改期限之後回傳400
+		if util.NowToUTC().After(deadline) {
+			log.Info("Exceeded modification deadline. Deadline: ", deadline)
+			return code.BadRequest, code.GetCodeMessage(code.BadRequest, "Exceeded modification deadline.")
+		}
+	}
+
 	err = m.EventService.WithTrx(trx).Update(input)
 	if err != nil {
 		log.Error(err)
