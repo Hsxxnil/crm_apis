@@ -8572,20 +8572,6 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -8600,7 +8586,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/users.List"
+                                            "$ref": "#/definitions/users.ListNoPagination"
                                         }
                                     }
                                 }
@@ -8688,6 +8674,100 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/users/list": {
+            "post": {
+                "description": "取得全部使用者",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "取得全部使用者",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "目前頁數,請從1開始帶入",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/users.List"
                                         }
                                     }
                                 }
@@ -13634,10 +13714,6 @@ const docTemplate = `{
                                 "description": "使用者中文名稱",
                                 "type": "string"
                             },
-                            "password": {
-                                "description": "使用者密碼",
-                                "type": "string"
-                            },
                             "phone_number": {
                                 "description": "使用者電話",
                                 "type": "string"
@@ -13660,6 +13736,28 @@ const docTemplate = `{
                             },
                             "user_name": {
                                 "description": "使用者名稱",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "users.ListNoPagination": {
+            "type": "object",
+            "properties": {
+                "users": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "description": "使用者中文名稱",
+                                "type": "string"
+                            },
+                            "user_id": {
+                                "description": "使用者ID",
                                 "type": "string"
                             }
                         }
@@ -13692,10 +13790,6 @@ const docTemplate = `{
                 },
                 "name": {
                     "description": "使用者中文名稱",
-                    "type": "string"
-                },
-                "password": {
-                    "description": "使用者密碼",
                     "type": "string"
                 },
                 "phone_number": {
