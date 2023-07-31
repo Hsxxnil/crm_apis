@@ -26,6 +26,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *opportunityModel.Create) (int, interface{})
 	GetByList(input *opportunityModel.Fields) (int, interface{})
+	GetByListNoPagination(input *opportunityModel.Field) (int, interface{})
 	GetBySingle(input *opportunityModel.Field) (int, interface{})
 	GetBySingleCampaigns(input *opportunityModel.Field) (int, interface{})
 	Delete(input *opportunityModel.Field) (int, interface{})
@@ -115,6 +116,28 @@ func (m *manager) GetByList(input *opportunityModel.Fields) (int, interface{}) {
 		opportunities.UpdatedBy = *opportunityBase[i].UpdatedByUsers.Name
 		opportunities.SalespersonName = *opportunityBase[i].Salespeople.Name
 		opportunities.LeadDescription = *opportunityBase[i].Leads.Description
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListNoPagination(input *opportunityModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
+	output := &opportunityModel.ListNoPagination{}
+	opportunityBase, err := m.OpportunityService.GetByListNoPagination(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	opportunityByte, err := json.Marshal(opportunityBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	err = json.Unmarshal(opportunityByte, &output.Opportunities)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
