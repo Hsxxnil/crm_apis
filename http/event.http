@@ -38,7 +38,7 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "subject": "test",
+  "subject": "bug",
   "main": [
     "85cee689-bcb2-461f-8b0a-ea6922f1cb07",
     "f1169ccc-370a-4e5e-b1e9-71fc6ccc0818"

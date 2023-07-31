@@ -10790,7 +10790,7 @@ const docTemplate = `{
                                 "description": "事件地址",
                                 "type": "string"
                             },
-                            "main": {
+                            "mains": {
                                 "description": "event_user_mains data",
                                 "type": "array",
                                 "items": {
@@ -10875,7 +10875,7 @@ const docTemplate = `{
                     "description": "事件地址",
                     "type": "string"
                 },
-                "main": {
+                "mains": {
                     "description": "event_user_mains data",
                     "type": "array",
                     "items": {
