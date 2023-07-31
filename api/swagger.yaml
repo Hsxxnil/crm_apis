@@ -1559,6 +1559,21 @@ definitions:
     - limit
     - page
     type: object
+  leads.ListNoPagination:
+    properties:
+      leads:
+        description: 多筆
+        items:
+          properties:
+            description:
+              description: 線索描述
+              type: string
+            lead_id:
+              description: 線索ID
+              type: string
+          type: object
+        type: array
+    type: object
   leads.Single:
     properties:
       account_id:
@@ -5238,6 +5253,49 @@ paths:
       tags:
       - industry
   /leads:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部線索(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/leads.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部線索(不用page和limit)
+      tags:
+      - lead
     post:
       consumes:
       - application/json
