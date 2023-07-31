@@ -8338,7 +8338,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得全部使用者
+      description: 取得全部使用者(不用page和limit)
       parameters:
       - description: JWE Token
         in: header
@@ -8375,7 +8375,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部使用者
+      summary: 取得全部使用者(不用page和limit)
       tags:
       - user
     post:
