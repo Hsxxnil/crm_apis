@@ -117,7 +117,7 @@ type List struct {
 		// 時間戳記
 		section.TimeAt
 		// event_user_mains data
-		EventUserMains []event_user_mains.EventSingle `json:"main,omitempty"`
+		EventUserMains []event_user_mains.EventSingle `json:"mains,omitempty"`
 		// event_user_attendees data
 		EventUserAttendees []event_user_attendees.EventSingle `json:"attendees,omitempty"`
 		// event_contacts data
@@ -154,7 +154,7 @@ type Single struct {
 	// 時間戳記
 	section.TimeAt
 	// event_user_mains data
-	EventUserMains []event_user_mains.EventSingle `json:"main,omitempty"`
+	EventUserMains []event_user_mains.EventSingle `json:"mains,omitempty"`
 	// event_user_attendees data
 	EventUserAttendees []event_user_attendees.EventSingle `json:"attendees,omitempty"`
 	// event_contacts data

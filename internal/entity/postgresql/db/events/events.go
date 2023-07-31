@@ -43,7 +43,7 @@ type Table struct {
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	// event_user_mains data
-	EventUserMains []event_user_mains.Table `gorm:"foreignKey:EventID" json:"main,omitempty"`
+	EventUserMains []event_user_mains.Table `gorm:"foreignKey:EventID" json:"mains,omitempty"`
 	// event_user_attendees data
 	EventUserAttendees []event_user_attendees.Table `gorm:"foreignKey:EventID" json:"attendees,omitempty"`
 	// event_contacts data
@@ -80,7 +80,7 @@ type Base struct {
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	// event_user_mains data
-	EventUserMains []event_user_mains.Base `json:"main,omitempty"`
+	EventUserMains []event_user_mains.Base `json:"mains,omitempty"`
 	// event_user_attendees data
 	EventUserAttendees []event_user_attendees.Base `json:"attendees,omitempty"`
 	// event_contacts data
