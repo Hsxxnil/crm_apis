@@ -8554,7 +8554,7 @@ const docTemplate = `{
         },
         "/users": {
             "get": {
-                "description": "取得全部使用者",
+                "description": "取得全部使用者(不用page和limit)",
                 "consumes": [
                     "application/json"
                 ],
@@ -8564,7 +8564,7 @@ const docTemplate = `{
                 "tags": [
                     "user"
                 ],
-                "summary": "取得全部使用者",
+                "summary": "取得全部使用者(不用page和limit)",
                 "parameters": [
                     {
                         "type": "string",

@@ -95,8 +95,8 @@ func (c *control) GetByList(ctx *gin.Context) {
 }
 
 // GetByListNoPagination
-// @Summary 取得全部使用者
-// @description 取得全部使用者
+// @Summary 取得全部使用者(不用page和limit)
+// @description 取得全部使用者(不用page和limit)
 // @Tags user
 // @version 1.0
 // @Accept json
