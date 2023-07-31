@@ -31,6 +31,11 @@ Authorization: Bearer {{accessToken}}
   }
 }
 
+### GetByListNoPagination
+GET {{host}}/crm/v1.0/campaigns
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
 ### GetBySingle
 GET {{host}}/crm/v1.0/campaigns/7c2beaf2-5f00-4d2d-9e9f-9d7121d733a1
 Accept: application/json

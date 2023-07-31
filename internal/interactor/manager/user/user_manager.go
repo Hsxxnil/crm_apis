@@ -17,6 +17,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *userModel.Create) (int, interface{})
 	GetByList(input *userModel.Fields) (int, interface{})
+	GetByListNoPagination(input *userModel.Field) (int, interface{})
 	GetBySingle(input *userModel.Field) (int, interface{})
 	Delete(input *userModel.Update) (int, interface{})
 	Update(input *userModel.Update) (int, interface{})
@@ -74,6 +75,28 @@ func (m *manager) GetByList(input *userModel.Fields) (int, interface{}) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 	output.Pages = util.Pagination(quantity, output.Limit)
+	err = json.Unmarshal(userByte, &output.Users)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListNoPagination(input *userModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
+	output := &userModel.ListNoPagination{}
+	userBase, err := m.UserService.GetByListNoPagination(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	userByte, err := json.Marshal(userBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
 	err = json.Unmarshal(userByte, &output.Users)
 	if err != nil {
 		log.Error(err)

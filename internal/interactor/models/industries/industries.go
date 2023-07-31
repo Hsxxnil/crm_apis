@@ -1,9 +1,5 @@
 package industries
 
-import (
-	"app.eirc/internal/interactor/models/page"
-)
-
 // Create struct is used to create achieves
 type Create struct {
 	// 行業名稱
@@ -18,14 +14,6 @@ type Field struct {
 	Name *string `json:"name,omitempty" form:"name"`
 }
 
-// Fields is the searched structure file (including pagination)
-type Fields struct {
-	// 搜尋結構檔
-	Field
-	// 分頁搜尋結構檔
-	page.Pagination
-}
-
 // List is multiple return structure files
 type List struct {
 	// 多筆
@@ -35,8 +23,6 @@ type List struct {
 		// 行業名稱
 		Name string `json:"name,omitempty"`
 	} `json:"industries"`
-	// 分頁返回結構檔
-	page.Total
 }
 
 // Single return structure file

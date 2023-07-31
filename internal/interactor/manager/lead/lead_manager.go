@@ -22,6 +22,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *leadModel.Create) (int, interface{})
 	GetByList(input *leadModel.Fields) (int, interface{})
+	GetByListNoPagination(input *leadModel.Field) (int, interface{})
 	GetBySingle(input *leadModel.Field) (int, interface{})
 	Delete(input *leadModel.Field) (int, interface{})
 	Update(trx *gorm.DB, input *leadModel.Update) (int, interface{})
@@ -96,6 +97,28 @@ func (m *manager) GetByList(input *leadModel.Fields) (int, interface{}) {
 		leads.CreatedBy = *leadBase[i].CreatedByUsers.Name
 		leads.UpdatedBy = *leadBase[i].UpdatedByUsers.Name
 		leads.SalespersonName = *leadBase[i].Salespeople.Name
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListNoPagination(input *leadModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
+	output := &leadModel.ListNoPagination{}
+	leadBase, err := m.LeadService.GetByListNoPagination(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	leadByte, err := json.Marshal(leadBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	err = json.Unmarshal(leadByte, &output.Leads)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)

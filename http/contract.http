@@ -29,6 +29,11 @@ Authorization: Bearer {{accessToken}}
   }
 }
 
+### GetByListNoPagination
+GET {{host}}/crm/v1.0/contracts
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
 ### GetBySingle
 GET {{host}}/crm/v1.0/contracts/e9dee473-2851-4983-84e9-1e5981f67655
 Accept: application/json

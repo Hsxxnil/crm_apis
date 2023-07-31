@@ -67,8 +67,6 @@ type List struct {
 		UserName string `json:"user_name,omitempty"`
 		// 使用者中文名稱
 		Name string `json:"name,omitempty"`
-		// 使用者密碼
-		Password string `json:"password,omitempty"`
 		// 使用者是否刪除
 		IsDeleted bool `json:"is_deleted,omitempty"`
 		// 使用者電話
@@ -88,6 +86,17 @@ type List struct {
 	page.Total
 }
 
+// ListNoPagination is multiple return structure files without pagination
+type ListNoPagination struct {
+	// 多筆
+	Users []*struct {
+		// 使用者ID
+		UserID string `json:"user_id,omitempty"`
+		// 使用者中文名稱
+		Name string `json:"name,omitempty"`
+	} `json:"users"`
+}
+
 // Single return structure file
 type Single struct {
 	// 使用者ID
@@ -98,8 +107,6 @@ type Single struct {
 	UserName string `json:"user_name,omitempty"`
 	// 使用者中文名稱
 	Name string `json:"name,omitempty"`
-	// 使用者密碼
-	Password string `json:"password,omitempty"`
 	// 使用者是否刪除
 	IsDeleted bool `json:"is_deleted,omitempty"`
 	// 使用者電話

@@ -103,6 +103,17 @@ type List struct {
 	page.Total
 }
 
+// ListNoPagination is multiple return structure files without pagination
+type ListNoPagination struct {
+	// 多筆
+	Leads []*struct {
+		// 線索ID
+		LeadID string `json:"lead_id,omitempty"`
+		// 線索描述
+		Description string `json:"description,omitempty"`
+	} `json:"leads"`
+}
+
 // Single return structure file
 type Single struct {
 	// 線索ID

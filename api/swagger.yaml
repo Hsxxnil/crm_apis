@@ -137,6 +137,21 @@ definitions:
     - limit
     - page
     type: object
+  accounts.ListNoPagination:
+    properties:
+      accounts:
+        description: 多筆
+        items:
+          properties:
+            account_id:
+              description: 帳戶ID
+              type: string
+            name:
+              description: 帳戶名稱
+              type: string
+          type: object
+        type: array
+    type: object
   accounts.Single:
     properties:
       account_id:
@@ -439,6 +454,21 @@ definitions:
     required:
     - limit
     - page
+    type: object
+  campaigns.ListNoPagination:
+    properties:
+      campaigns:
+        description: 多筆
+        items:
+          properties:
+            campaign_id:
+              description: 行銷活動ID
+              type: string
+            name:
+              description: 行銷活動名稱
+              type: string
+          type: object
+        type: array
     type: object
   campaigns.Single:
     properties:
@@ -985,6 +1015,21 @@ definitions:
     - limit
     - page
     type: object
+  contracts.ListNoPagination:
+    properties:
+      contracts:
+        description: 多筆
+        items:
+          properties:
+            code:
+              description: 契約號碼
+              type: string
+            contract_id:
+              description: 契約ID
+              type: string
+          type: object
+        type: array
+    type: object
   contracts.Single:
     properties:
       account_id:
@@ -1405,21 +1450,6 @@ definitions:
               type: string
           type: object
         type: array
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
     type: object
   industries.Single:
     properties:
@@ -1558,6 +1588,21 @@ definitions:
     required:
     - limit
     - page
+    type: object
+  leads.ListNoPagination:
+    properties:
+      leads:
+        description: 多筆
+        items:
+          properties:
+            description:
+              description: 線索描述
+              type: string
+            lead_id:
+              description: 線索ID
+              type: string
+          type: object
+        type: array
     type: object
   leads.Single:
     properties:
@@ -1751,6 +1796,21 @@ definitions:
     required:
     - limit
     - page
+    type: object
+  opportunities.ListNoPagination:
+    properties:
+      opportunities:
+        description: 多筆
+        items:
+          properties:
+            name:
+              description: 商機名稱
+              type: string
+            opportunity_id:
+              description: 商機ID
+              type: string
+          type: object
+        type: array
     type: object
   opportunities.Single:
     properties:
@@ -3315,9 +3375,6 @@ definitions:
             name:
               description: 使用者中文名稱
               type: string
-            password:
-              description: 使用者密碼
-              type: string
             phone_number:
               description: 使用者電話
               type: string
@@ -3342,6 +3399,21 @@ definitions:
     - limit
     - page
     type: object
+  users.ListNoPagination:
+    properties:
+      users:
+        description: 多筆
+        items:
+          properties:
+            name:
+              description: 使用者中文名稱
+              type: string
+            user_id:
+              description: 使用者ID
+              type: string
+          type: object
+        type: array
+    type: object
   users.Single:
     properties:
       company_id:
@@ -3361,9 +3433,6 @@ definitions:
         type: boolean
       name:
         description: 使用者中文名稱
-        type: string
-      password:
-        description: 使用者密碼
         type: string
       phone_number:
         description: 使用者電話
@@ -3419,6 +3488,49 @@ info:
   version: "0.1"
 paths:
   /accounts:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部帳戶(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/accounts.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部帳戶(不用page和limit)
+      tags:
+      - account
     post:
       consumes:
       - application/json
@@ -3736,6 +3848,49 @@ paths:
       tags:
       - account
   /campaigns:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部行銷活動(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/campaigns.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部行銷活動(不用page和limit)
+      tags:
+      - campaign
     post:
       consumes:
       - application/json
@@ -4325,6 +4480,49 @@ paths:
       tags:
       - contact
   /contracts:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部契約(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/contracts.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部契約(不用page和limit)
+      tags:
+      - contract
     post:
       consumes:
       - application/json
@@ -4954,23 +5152,13 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得全部行業
+      description: 取得全部行業(不用page和limit)
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
       produces:
       - application/json
       responses:
@@ -5001,7 +5189,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部行業
+      summary: 取得全部行業(不用page和limit)
       tags:
       - industry
     post:
@@ -5205,6 +5393,49 @@ paths:
       tags:
       - industry
   /leads:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部線索(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/leads.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部線索(不用page和limit)
+      tags:
+      - lead
     post:
       consumes:
       - application/json
@@ -5518,6 +5749,49 @@ paths:
       tags:
       - login
   /opportunities:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部商機(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/opportunities.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部商機(不用page和limit)
+      tags:
+      - opportunity
     post:
       consumes:
       - application/json
@@ -8071,16 +8345,6 @@ paths:
         name: Authorization
         required: true
         type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
       produces:
       - application/json
       responses:
@@ -8091,7 +8355,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/users.List'
+                  $ref: '#/definitions/users.ListNoPagination'
               type: object
         "415":
           description: 必要欄位帶入錯誤
@@ -8318,6 +8582,60 @@ paths:
                   type: string
               type: object
       summary: 更新單一使用者
+      tags:
+      - user
+  /users/list:
+    post:
+      consumes:
+      - application/json
+      description: 取得全部使用者
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 目前頁數,請從1開始帶入
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 一次回傳比數,請從1開始帶入,最高上限20
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/users.List'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部使用者
       tags:
       - user
 schemes:

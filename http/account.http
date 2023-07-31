@@ -33,6 +33,11 @@ Authorization: Bearer {{accessToken}}
   }
 }
 
+### GetByListNoPagination
+GET {{host}}/crm/v1.0/accounts
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
 ### GetBySingle
 GET {{host}}/crm/v1.0/accounts/a9992b5f-396a-4fa9-a00c-fd0d73f74b28
 Accept: application/json

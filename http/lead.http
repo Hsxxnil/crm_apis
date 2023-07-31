@@ -30,6 +30,10 @@ Authorization: Bearer {{accessToken}}
   }
 }
 
+### GetByListNoPagination
+GET {{host}}/crm/v1.0/leads
+Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/leads/4feb77de-1f06-4c1c-bc48-dfe547171c1c
