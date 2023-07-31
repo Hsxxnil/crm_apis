@@ -3959,7 +3959,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/opportunities.List"
+                                            "$ref": "#/definitions/opportunities.ListNoPagination"
                                         }
                                     }
                                 }
@@ -11373,6 +11373,28 @@ const docTemplate = `{
                 "total": {
                     "description": "總筆數",
                     "type": "integer"
+                }
+            }
+        },
+        "opportunities.ListNoPagination": {
+            "type": "object",
+            "properties": {
+                "opportunities": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "description": "商機名稱",
+                                "type": "string"
+                            },
+                            "opportunity_id": {
+                                "description": "商機ID",
+                                "type": "string"
+                            }
+                        }
+                    }
                 }
             }
         },

@@ -1782,6 +1782,21 @@ definitions:
     - limit
     - page
     type: object
+  opportunities.ListNoPagination:
+    properties:
+      opportunities:
+        description: 多筆
+        items:
+          properties:
+            name:
+              description: 商機名稱
+              type: string
+            opportunity_id:
+              description: 商機ID
+              type: string
+          type: object
+        type: array
+    type: object
   opportunities.Single:
     properties:
       account_id:
@@ -5687,7 +5702,7 @@ paths:
             - $ref: '#/definitions/code.SuccessfulMessage'
             - properties:
                 body:
-                  $ref: '#/definitions/opportunities.List'
+                  $ref: '#/definitions/opportunities.ListNoPagination'
               type: object
         "415":
           description: 必要欄位帶入錯誤
