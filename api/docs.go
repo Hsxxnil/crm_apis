@@ -21,6 +21,84 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/accounts": {
+            "get": {
+                "description": "取得全部帳戶(不用page和limit)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "取得全部帳戶(不用page和limit)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/accounts.ListNoPagination"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "新增帳戶",
                 "consumes": [
@@ -2709,7 +2787,7 @@ const docTemplate = `{
         },
         "/industries": {
             "get": {
-                "description": "取得全部行業",
+                "description": "取得全部行業(不用page和limit)",
                 "consumes": [
                     "application/json"
                 ],
@@ -2719,27 +2797,13 @@ const docTemplate = `{
                 "tags": [
                     "industry"
                 ],
-                "summary": "取得全部行業",
+                "summary": "取得全部行業(不用page和limit)",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "JWE Token",
                         "name": "Authorization",
                         "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "目前頁數,請從1開始帶入",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一次回傳比數,請從1開始帶入,最高上限20",
-                        "name": "limit",
-                        "in": "query",
                         "required": true
                     }
                 ],
@@ -8822,6 +8886,28 @@ const docTemplate = `{
                 }
             }
         },
+        "accounts.ListNoPagination": {
+            "type": "object",
+            "properties": {
+                "accounts": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "account_id": {
+                                "description": "帳戶ID",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "帳戶名稱",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "accounts.Single": {
             "type": "object",
             "properties": {
@@ -10537,10 +10623,6 @@ const docTemplate = `{
         },
         "industries.List": {
             "type": "object",
-            "required": [
-                "limit",
-                "page"
-            ],
             "properties": {
                 "industries": {
                     "description": "多筆",
@@ -10558,22 +10640,6 @@ const docTemplate = `{
                             }
                         }
                     }
-                },
-                "limit": {
-                    "description": "筆數(請從1開始帶入,最高上限20)",
-                    "type": "integer"
-                },
-                "page": {
-                    "description": "頁數(請從1開始帶入)",
-                    "type": "integer"
-                },
-                "pages": {
-                    "description": "總頁數",
-                    "type": "integer"
-                },
-                "total": {
-                    "description": "總筆數",
-                    "type": "integer"
                 }
             }
         },

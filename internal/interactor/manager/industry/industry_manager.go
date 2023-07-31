@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/internal/interactor/pkg/util"
-
 	industryModel "app.eirc/internal/interactor/models/industries"
 	industryService "app.eirc/internal/interactor/service/industry"
 	"gorm.io/gorm"
@@ -16,7 +14,7 @@ import (
 
 type Manager interface {
 	Create(trx *gorm.DB, input *industryModel.Create) (int, interface{})
-	GetByList(input *industryModel.Fields) (int, interface{})
+	GetByList(input *industryModel.Field) (int, interface{})
 	GetBySingle(input *industryModel.Field) (int, interface{})
 	Delete(input *industryModel.Field) (int, interface{})
 	Update(input *industryModel.Update) (int, interface{})
@@ -45,22 +43,18 @@ func (m *manager) Create(trx *gorm.DB, input *industryModel.Create) (int, interf
 	return code.Successful, code.GetCodeMessage(code.Successful, industryBase.IndustryID)
 }
 
-func (m *manager) GetByList(input *industryModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *industryModel.Field) (int, interface{}) {
 	output := &industryModel.List{}
-	output.Limit = input.Limit
-	output.Page = input.Page
-	quantity, industryBase, err := m.IndustryService.GetByList(input)
+	industryBase, err := m.IndustryService.GetByList(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
-	output.Total.Total = quantity
 	industryByte, err := json.Marshal(industryBase)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
-	output.Pages = util.Pagination(quantity, output.Limit)
 	err = json.Unmarshal(industryByte, &output.Industries)
 	if err != nil {
 		log.Error(err)

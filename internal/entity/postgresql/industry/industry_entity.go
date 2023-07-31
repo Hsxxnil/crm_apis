@@ -12,7 +12,7 @@ import (
 type Entity interface {
 	WithTrx(trx *gorm.DB) Entity
 	Create(input *model.Base) (err error)
-	GetByList(input *model.Base) (quantity int64, output []*model.Table, err error)
+	GetByList(input *model.Base) (output []*model.Table, err error)
 	GetBySingle(input *model.Base) (output *model.Table, err error)
 	GetByQuantity(input *model.Base) (quantity int64, err error)
 	Delete(input *model.Base) (err error)
@@ -58,20 +58,19 @@ func (s *storage) Create(input *model.Base) (err error) {
 	return nil
 }
 
-func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
+func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error) {
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
 	if input.IndustryID != nil {
 		query.Where("industry_id = ?", input.IndustryID)
 	}
 
-	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
-		Limit(int(input.Limit)).Find(&output).Error
+	err = query.Find(&output).Error
 	if err != nil {
 		log.Error(err)
-		return 0, nil, err
+		return nil, err
 	}
 
-	return quantity, output, nil
+	return output, nil
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {

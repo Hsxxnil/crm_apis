@@ -15,7 +15,7 @@ import (
 type Service interface {
 	WithTrx(tx *gorm.DB) Service
 	Create(input *model.Create) (output *db.Base, err error)
-	GetByList(input *model.Fields) (quantity int64, output []*db.Base, err error)
+	GetByList(input *model.Field) (output []*db.Base, err error)
 	GetBySingle(input *model.Field) (output *db.Base, err error)
 	GetByQuantity(input *model.Field) (quantity int64, err error)
 	Update(input *model.Update) (err error)
@@ -76,39 +76,39 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 	return output, nil
 }
 
-func (s *service) GetByList(input *model.Fields) (quantity int64, output []*db.Base, err error) {
+func (s *service) GetByList(input *model.Field) (output []*db.Base, err error) {
 	field := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {
 		log.Error(err)
-		return 0, nil, err
+		return nil, err
 	}
 
 	err = json.Unmarshal(marshal, &field)
 	if err != nil {
 		log.Error(err)
-		return 0, nil, err
+		return nil, err
 	}
 
-	quantity, fields, err := s.Repository.GetByList(field)
+	fields, err := s.Repository.GetByList(field)
 	if err != nil {
 		log.Error(err)
-		return 0, output, err
+		return output, err
 	}
 
 	marshal, err = json.Marshal(fields)
 	if err != nil {
 		log.Error(err)
-		return 0, nil, err
+		return nil, err
 	}
 
 	err = json.Unmarshal(marshal, &output)
 	if err != nil {
 		log.Error(err)
-		return 0, nil, err
+		return nil, err
 	}
 
-	return quantity, output, nil
+	return output, nil
 }
 
 func (s *service) GetBySingle(input *model.Field) (output *db.Base, err error) {

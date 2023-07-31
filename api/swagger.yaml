@@ -137,6 +137,21 @@ definitions:
     - limit
     - page
     type: object
+  accounts.ListNoPagination:
+    properties:
+      accounts:
+        description: 多筆
+        items:
+          properties:
+            account_id:
+              description: 帳戶ID
+              type: string
+            name:
+              description: 帳戶名稱
+              type: string
+          type: object
+        type: array
+    type: object
   accounts.Single:
     properties:
       account_id:
@@ -1405,21 +1420,6 @@ definitions:
               type: string
           type: object
         type: array
-      limit:
-        description: 筆數(請從1開始帶入,最高上限20)
-        type: integer
-      page:
-        description: 頁數(請從1開始帶入)
-        type: integer
-      pages:
-        description: 總頁數
-        type: integer
-      total:
-        description: 總筆數
-        type: integer
-    required:
-    - limit
-    - page
     type: object
   industries.Single:
     properties:
@@ -3419,6 +3419,49 @@ info:
   version: "0.1"
 paths:
   /accounts:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部帳戶(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/accounts.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部帳戶(不用page和limit)
+      tags:
+      - account
     post:
       consumes:
       - application/json
@@ -4954,23 +4997,13 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得全部行業
+      description: 取得全部行業(不用page和limit)
       parameters:
       - description: JWE Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 目前頁數,請從1開始帶入
-        in: query
-        name: page
-        required: true
-        type: integer
-      - description: 一次回傳比數,請從1開始帶入,最高上限20
-        in: query
-        name: limit
-        required: true
-        type: integer
       produces:
       - application/json
       responses:
@@ -5001,7 +5034,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部行業
+      summary: 取得全部行業(不用page和limit)
       tags:
       - industry
     post:
