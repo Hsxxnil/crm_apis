@@ -29,6 +29,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *contractModel.Create) (int, interface{})
 	GetByList(input *contractModel.Fields) (int, interface{})
+	GetByListNoPagination(input *contractModel.Field) (int, interface{})
 	GetBySingle(input *contractModel.Field) (int, interface{})
 	Delete(input *contractModel.Field) (int, interface{})
 	Update(trx *gorm.DB, input *contractModel.Update) (int, interface{})
@@ -118,6 +119,28 @@ func (m *manager) GetByList(input *contractModel.Fields) (int, interface{}) {
 		contracts.UpdatedBy = *contractBase[i].UpdatedByUsers.Name
 		contracts.SalespersonName = *contractBase[i].Salespeople.Name
 		contracts.OpportunityName = *contractBase[i].Opportunities.Name
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListNoPagination(input *contractModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
+	output := &contractModel.ListNoPagination{}
+	contractBase, err := m.ContractService.GetByListNoPagination(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	contractByte, err := json.Marshal(contractBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	err = json.Unmarshal(contractByte, &output.Contracts)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)

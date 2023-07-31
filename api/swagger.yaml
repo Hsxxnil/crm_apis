@@ -1000,6 +1000,21 @@ definitions:
     - limit
     - page
     type: object
+  contracts.ListNoPagination:
+    properties:
+      contracts:
+        description: 多筆
+        items:
+          properties:
+            code:
+              description: 契約號碼
+              type: string
+            contract_id:
+              description: 契約ID
+              type: string
+          type: object
+        type: array
+    type: object
   contracts.Single:
     properties:
       account_id:
@@ -4383,6 +4398,49 @@ paths:
       tags:
       - contact
   /contracts:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部契約(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/contracts.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部契約(不用page和limit)
+      tags:
+      - contract
     post:
       consumes:
       - application/json
