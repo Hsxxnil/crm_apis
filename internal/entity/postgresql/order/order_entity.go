@@ -138,7 +138,7 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("orders.is_deleted = ?", input.IsDeleted)
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Order("created_at desc").Find(&output).Error
@@ -151,7 +151,12 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 }
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Preload("OrderProducts.Products.CreatedByUsers").Preload("OrderProducts.Products.UpdatedByUsers").Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).
+		Preload("OrderProducts", "is_deleted = ?", false).
+		Preload("OrderProducts.Products.CreatedByUsers").
+		Preload("OrderProducts.Products.UpdatedByUsers").
+		Preload(clause.Associations)
+
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
 	}
@@ -161,7 +166,7 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("orders.is_deleted = ?", input.IsDeleted)
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.First(&output).Error
@@ -180,7 +185,7 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	}
 
 	if input.IsDeleted != nil {
-		query.Where("orders.is_deleted = ?", input.IsDeleted)
+		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
