@@ -20,6 +20,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *campaignModel.Create) (int, interface{})
 	GetByList(input *campaignModel.Fields) (int, interface{})
+	GetByListNoPagination(input *campaignModel.Field) (int, interface{})
 	GetBySingle(input *campaignModel.Field) (int, interface{})
 	GetBySingleOpportunities(input *campaignModel.Field) (int, interface{})
 	Delete(input *campaignModel.Field) (int, interface{})
@@ -87,6 +88,28 @@ func (m *manager) GetByList(input *campaignModel.Fields) (int, interface{}) {
 		} else {
 			campaigns.ParentCampaignName = *parentCampaignsBase.Name
 		}
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListNoPagination(input *campaignModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
+	output := &campaignModel.ListNoPagination{}
+	campaignBase, err := m.CampaignService.GetByListNoPagination(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	campaignByte, err := json.Marshal(campaignBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	err = json.Unmarshal(campaignByte, &output.Campaigns)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)

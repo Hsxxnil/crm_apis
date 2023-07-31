@@ -455,6 +455,21 @@ definitions:
     - limit
     - page
     type: object
+  campaigns.ListNoPagination:
+    properties:
+      campaigns:
+        description: 多筆
+        items:
+          properties:
+            campaign_id:
+              description: 行銷活動ID
+              type: string
+            name:
+              description: 行銷活動名稱
+              type: string
+          type: object
+        type: array
+    type: object
   campaigns.Single:
     properties:
       actual_cost:
@@ -3824,6 +3839,49 @@ paths:
       tags:
       - account
   /campaigns:
+    get:
+      consumes:
+      - application/json
+      description: 取得全部行銷活動(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/campaigns.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部行銷活動(不用page和limit)
+      tags:
+      - campaign
     post:
       consumes:
       - application/json

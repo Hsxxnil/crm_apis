@@ -655,6 +655,84 @@ const docTemplate = `{
             }
         },
         "/campaigns": {
+            "get": {
+                "description": "取得全部行銷活動(不用page和limit)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "campaign"
+                ],
+                "summary": "取得全部行銷活動(不用page和limit)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/campaigns.ListNoPagination"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "新增行銷活動",
                 "consumes": [
@@ -9553,6 +9631,28 @@ const docTemplate = `{
                 "total": {
                     "description": "總筆數",
                     "type": "integer"
+                }
+            }
+        },
+        "campaigns.ListNoPagination": {
+            "type": "object",
+            "properties": {
+                "campaigns": {
+                    "description": "多筆",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "campaign_id": {
+                                "description": "行銷活動ID",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "行銷活動名稱",
+                                "type": "string"
+                            }
+                        }
+                    }
                 }
             }
         },
