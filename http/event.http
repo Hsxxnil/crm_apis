@@ -28,7 +28,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/events/b7b4e10d-f2ef-4291-89ae-b7f1eee2f3dd
+GET {{host}}/crm/v1.0/events/06f8b683-e680-40a8-ba09-adb12f3ccc4c
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
