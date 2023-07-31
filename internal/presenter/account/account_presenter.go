@@ -19,6 +19,7 @@ import (
 type Control interface {
 	Create(ctx *gin.Context)
 	GetByList(ctx *gin.Context)
+	GetByListNoPagination(ctx *gin.Context)
 	GetBySingle(ctx *gin.Context)
 	GetBySingleContacts(ctx *gin.Context)
 	Delete(ctx *gin.Context)
@@ -99,6 +100,31 @@ func (c *control) GetByList(ctx *gin.Context) {
 	}
 
 	httpCode, codeMessage := c.Manager.GetByList(input)
+	ctx.JSON(httpCode, codeMessage)
+}
+
+// GetByListNoPagination
+// @Summary 取得全部帳戶(不用page和limit)
+// @description 取得全部帳戶(不用page和limit)
+// @Tags account
+// @version 1.0
+// @Accept json
+// @produce json
+// @param Authorization header string  true "JWE Token"
+// @success 200 object code.SuccessfulMessage{body=accounts.ListNoPagination} "成功後返回的值"
+// @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
+// @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
+// @Router /accounts [get]
+func (c *control) GetByListNoPagination(ctx *gin.Context) {
+	input := &accountModel.Field{}
+	if err := ctx.ShouldBindQuery(input); err != nil {
+		log.Error(err)
+		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
+
+		return
+	}
+
+	httpCode, codeMessage := c.Manager.GetByListNoPagination(input)
 	ctx.JSON(httpCode, codeMessage)
 }
 

@@ -30,6 +30,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *accountModel.Create) (int, interface{})
 	GetByList(input *accountModel.Fields) (int, interface{})
+	GetByListNoPagination(input *accountModel.Field) (int, interface{})
 	GetBySingle(input *accountModel.Field) (int, interface{})
 	GetBySingleContacts(input *accountModel.Field) (int, interface{})
 	Delete(input *accountModel.Field) (int, interface{})
@@ -120,6 +121,28 @@ func (m *manager) GetByList(input *accountModel.Fields) (int, interface{}) {
 		} else {
 			accounts.ParentAccountName = *parentAccountsBase.Name
 		}
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListNoPagination(input *accountModel.Field) (int, interface{}) {
+	input.IsDeleted = util.PointerBool(false)
+	output := &accountModel.ListNoPagination{}
+	accountBase, err := m.AccountService.GetByListNoPagination(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	accountByte, err := json.Marshal(accountBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	err = json.Unmarshal(accountByte, &output.Accounts)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
