@@ -158,7 +158,7 @@ func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}
 	}
 
 	// 透過報價ID取得所有與該報價有關的產品ID
-	quoteProductBase, _ := m.QuoteProductService.GetByListNoQuantity(&quoteProductModel.Field{
+	quoteProductBase, _ := m.QuoteProductService.GetByListNoPagination(&quoteProductModel.Field{
 		QuoteID:   quoteBase.QuoteID,
 		IsDeleted: util.PointerBool(false),
 	})

@@ -216,7 +216,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 	}
 
 	// 將舊事件主要人員關聯資料改為刪除
-	eventUserMainBase, err := m.EventUserMainService.GetByListNoQuantity(&eventUserMainModel.Field{
+	eventUserMainBase, err := m.EventUserMainService.GetByListNoPagination(&eventUserMainModel.Field{
 		EventID:   eventBase.EventID,
 		IsDeleted: util.PointerBool(false),
 	})
@@ -232,7 +232,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 	}
 
 	// 將舊事件參與人員關聯資料改為刪除
-	eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoQuantity(&eventUserAttendeeModel.Field{
+	eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoPagination(&eventUserAttendeeModel.Field{
 		EventID:   eventBase.EventID,
 		IsDeleted: util.PointerBool(false),
 	})
@@ -248,7 +248,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 	}
 
 	// 將舊事件聯絡人關聯資料改為刪除
-	eventContactBase, err := m.EventContactService.GetByListNoQuantity(&eventContactModel.Field{
+	eventContactBase, err := m.EventContactService.GetByListNoPagination(&eventContactModel.Field{
 		EventID:   eventBase.EventID,
 		IsDeleted: util.PointerBool(false),
 	})
@@ -292,7 +292,7 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 	// 同步修改事件主要人員關聯
 	if input.Main != nil {
 		// 將舊關聯資料改為刪除
-		eventUserMainBase, err := m.EventUserMainService.GetByListNoQuantity(&eventUserMainModel.Field{
+		eventUserMainBase, err := m.EventUserMainService.GetByListNoPagination(&eventUserMainModel.Field{
 			EventID:   eventBase.EventID,
 			IsDeleted: util.PointerBool(false),
 		})
@@ -323,7 +323,7 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 	// 同步修改事件參與人員關聯
 	if input.Attendee != nil {
 		// 將舊關聯資料改為刪除
-		eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoQuantity(&eventUserAttendeeModel.Field{
+		eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoPagination(&eventUserAttendeeModel.Field{
 			EventID:   eventBase.EventID,
 			IsDeleted: util.PointerBool(false),
 		})
@@ -354,7 +354,7 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface
 	// 同步修改事件聯絡人關聯
 	if input.Contact != nil {
 		// 將舊關聯資料改為刪除
-		eventContactBase, err := m.EventContactService.GetByListNoQuantity(&eventContactModel.Field{
+		eventContactBase, err := m.EventContactService.GetByListNoPagination(&eventContactModel.Field{
 			EventID:   eventBase.EventID,
 			IsDeleted: util.PointerBool(false),
 		})
