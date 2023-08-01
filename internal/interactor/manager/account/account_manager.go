@@ -375,6 +375,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 			Action:     "修改",
 			SourceType: sourceType,
 			Field:      record.Fields,
+			Value:      record.Values,
 			ModifiedBy: *input.UpdatedBy,
 		})
 		if err != nil {
