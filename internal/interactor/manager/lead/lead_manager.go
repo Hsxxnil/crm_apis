@@ -20,12 +20,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *leadModel.Create) (int, interface{})
-	GetByList(input *leadModel.Fields) (int, interface{})
-	GetByListNoPagination(input *leadModel.Field) (int, interface{})
-	GetBySingle(input *leadModel.Field) (int, interface{})
-	Delete(input *leadModel.Field) (int, interface{})
-	Update(trx *gorm.DB, input *leadModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *leadModel.Create) (int, any)
+	GetByList(input *leadModel.Fields) (int, any)
+	GetByListNoPagination(input *leadModel.Field) (int, any)
+	GetBySingle(input *leadModel.Field) (int, any)
+	Delete(input *leadModel.Field) (int, any)
+	Update(trx *gorm.DB, input *leadModel.Update) (int, any)
 }
 
 type manager struct {
@@ -44,7 +44,7 @@ func Init(db *gorm.DB) Manager {
 
 const sourceType = "線索"
 
-func (m *manager) Create(trx *gorm.DB, input *leadModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *leadModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	leadBase, err := m.LeadService.WithTrx(trx).Create(input)
@@ -69,7 +69,7 @@ func (m *manager) Create(trx *gorm.DB, input *leadModel.Create) (int, interface{
 	return code.Successful, code.GetCodeMessage(code.Successful, leadBase.LeadID)
 }
 
-func (m *manager) GetByList(input *leadModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *leadModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &leadModel.List{}
 	output.Limit = input.Limit
@@ -102,7 +102,7 @@ func (m *manager) GetByList(input *leadModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *leadModel.Field) (int, interface{}) {
+func (m *manager) GetByListNoPagination(input *leadModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &leadModel.ListNoPagination{}
 	leadBase, err := m.LeadService.GetByListNoPagination(input)
@@ -124,7 +124,7 @@ func (m *manager) GetByListNoPagination(input *leadModel.Field) (int, interface{
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *leadModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *leadModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	leadBase, err := m.LeadService.GetBySingle(input)
 	if err != nil {
@@ -152,7 +152,7 @@ func (m *manager) GetBySingle(input *leadModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *leadModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *leadModel.Field) (int, any) {
 	_, err := m.LeadService.GetBySingle(&leadModel.Field{
 		LeadID:    input.LeadID,
 		IsDeleted: util.PointerBool(false),
@@ -175,7 +175,7 @@ func (m *manager) Delete(input *leadModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	leadBase, err := m.LeadService.GetBySingle(&leadModel.Field{

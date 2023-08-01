@@ -15,12 +15,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *userModel.Create) (int, interface{})
-	GetByList(input *userModel.Fields) (int, interface{})
-	GetByListNoPagination(input *userModel.Field) (int, interface{})
-	GetBySingle(input *userModel.Field) (int, interface{})
-	Delete(input *userModel.Update) (int, interface{})
-	Update(input *userModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *userModel.Create) (int, any)
+	GetByList(input *userModel.Fields) (int, any)
+	GetByListNoPagination(input *userModel.Field) (int, any)
+	GetBySingle(input *userModel.Field) (int, any)
+	Delete(input *userModel.Update) (int, any)
+	Update(input *userModel.Update) (int, any)
 }
 
 type manager struct {
@@ -33,7 +33,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 判斷使用者名稱是否重複
@@ -58,7 +58,7 @@ func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, interface{
 	return code.Successful, code.GetCodeMessage(code.Successful, userBase.UserID)
 }
 
-func (m *manager) GetByList(input *userModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *userModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &userModel.List{}
 	output.Limit = input.Limit
@@ -84,7 +84,7 @@ func (m *manager) GetByList(input *userModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *userModel.Field) (int, interface{}) {
+func (m *manager) GetByListNoPagination(input *userModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &userModel.ListNoPagination{}
 	userBase, err := m.UserService.GetByListNoPagination(input)
@@ -106,7 +106,7 @@ func (m *manager) GetByListNoPagination(input *userModel.Field) (int, interface{
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *userModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *userModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	userBase, err := m.UserService.GetBySingle(input)
 	if err != nil {
@@ -129,7 +129,7 @@ func (m *manager) GetBySingle(input *userModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *userModel.Update) (int, interface{}) {
+func (m *manager) Delete(input *userModel.Update) (int, any) {
 	_, err := m.UserService.GetBySingle(&userModel.Field{
 		UserID:    input.UserID,
 		IsDeleted: util.PointerBool(false),
@@ -152,7 +152,7 @@ func (m *manager) Delete(input *userModel.Update) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *userModel.Update) (int, interface{}) {
+func (m *manager) Update(input *userModel.Update) (int, any) {
 	userBase, err := m.UserService.GetBySingle(&userModel.Field{
 		UserID:    input.UserID,
 		IsDeleted: util.PointerBool(false),

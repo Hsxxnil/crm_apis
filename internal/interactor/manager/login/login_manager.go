@@ -19,8 +19,8 @@ import (
 )
 
 type Manager interface {
-	Login(input *loginsModel.Login) (int, interface{})
-	Refresh(input *jwxModel.Refresh) (int, interface{})
+	Login(input *loginsModel.Login) (int, any)
+	Refresh(input *jwxModel.Refresh) (int, any)
 }
 
 type manager struct {
@@ -35,7 +35,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
+func (r *manager) Login(input *loginsModel.Login) (int, any) {
 	// 驗證帳密
 	acknowledge, fields, err := r.UserService.AcknowledgeUser(&usersModel.Field{
 		UserName:  util.PointerString(input.UserName),
@@ -92,7 +92,7 @@ func (r *manager) Login(input *loginsModel.Login) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (r *manager) Refresh(input *jwxModel.Refresh) (int, interface{}) {
+func (r *manager) Refresh(input *jwxModel.Refresh) (int, any) {
 	// 驗證refreshToken
 	j := &jwx.JWT{
 		PublicKey: config.RefreshPublicKey,

@@ -23,7 +23,7 @@ func Init() Service {
 }
 
 func (s service) CreateAccessToken(input *model.JWX) (output *model.Token, err error) {
-	other := map[string]interface{}{
+	other := map[string]any{
 		"company_id": input.CompanyID,
 		"user_id":    input.UserID,
 		"name":       input.Name,
@@ -52,7 +52,7 @@ func (s service) CreateAccessToken(input *model.JWX) (output *model.Token, err e
 }
 
 func (s service) CreateRefreshToken(input *model.JWX) (output *model.Token, err error) {
-	other := map[string]interface{}{
+	other := map[string]any{
 		"user_id": input.UserID,
 	}
 

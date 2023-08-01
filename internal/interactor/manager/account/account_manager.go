@@ -28,13 +28,13 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *accountModel.Create) (int, interface{})
-	GetByList(input *accountModel.Fields) (int, interface{})
-	GetByListNoPagination(input *accountModel.Field) (int, interface{})
-	GetBySingle(input *accountModel.Field) (int, interface{})
-	GetBySingleContacts(input *accountModel.Field) (int, interface{})
-	Delete(input *accountModel.Field) (int, interface{})
-	Update(trx *gorm.DB, input *accountModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *accountModel.Create) (int, any)
+	GetByList(input *accountModel.Fields) (int, any)
+	GetByListNoPagination(input *accountModel.Field) (int, any)
+	GetBySingle(input *accountModel.Field) (int, any)
+	GetBySingleContacts(input *accountModel.Field) (int, any)
+	Delete(input *accountModel.Field) (int, any)
+	Update(trx *gorm.DB, input *accountModel.Update) (int, any)
 }
 
 type manager struct {
@@ -57,7 +57,7 @@ func Init(db *gorm.DB) Manager {
 
 const sourceType = "帳戶"
 
-func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 陣列排序
@@ -84,7 +84,7 @@ func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) (int, interfa
 	return code.Successful, code.GetCodeMessage(code.Successful, accountBase.AccountID)
 }
 
-func (m *manager) GetByList(input *accountModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *accountModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &accountModel.List{}
 	output.Limit = input.Limit
@@ -128,7 +128,7 @@ func (m *manager) GetByList(input *accountModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *accountModel.Field) (int, interface{}) {
+func (m *manager) GetByListNoPagination(input *accountModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &accountModel.ListNoPagination{}
 	accountBase, err := m.AccountService.GetByListNoPagination(input)
@@ -150,7 +150,7 @@ func (m *manager) GetByListNoPagination(input *accountModel.Field) (int, interfa
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *accountModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *accountModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	accountBase, err := m.AccountService.GetBySingle(input)
 	if err != nil {
@@ -189,7 +189,7 @@ func (m *manager) GetBySingle(input *accountModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, interface{}) {
+func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	accountBase, err := m.AccountService.GetBySingle(input)
 	if err != nil {
@@ -241,7 +241,7 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, interface
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *accountModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *accountModel.Field) (int, any) {
 	_, err := m.AccountService.GetBySingle(&accountModel.Field{
 		AccountID: input.AccountID,
 		IsDeleted: util.PointerBool(false),
@@ -264,7 +264,7 @@ func (m *manager) Delete(input *accountModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{

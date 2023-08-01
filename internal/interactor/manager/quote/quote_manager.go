@@ -25,12 +25,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *quoteModel.Create) (int, interface{})
-	GetByList(input *quoteModel.Fields) (int, interface{})
-	GetBySingle(input *quoteModel.Field) (int, interface{})
-	GetBySingleProducts(input *quoteModel.Field) (int, interface{})
-	Delete(input *quoteModel.Field) (int, interface{})
-	Update(trx *gorm.DB, input *quoteModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *quoteModel.Create) (int, any)
+	GetByList(input *quoteModel.Fields) (int, any)
+	GetBySingle(input *quoteModel.Field) (int, any)
+	GetBySingleProducts(input *quoteModel.Field) (int, any)
+	Delete(input *quoteModel.Field) (int, any)
+	Update(trx *gorm.DB, input *quoteModel.Update) (int, any)
 }
 
 type manager struct {
@@ -51,7 +51,7 @@ func Init(db *gorm.DB) Manager {
 
 const sourceType = "報價"
 
-func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 同步商機的account_id
@@ -83,7 +83,7 @@ func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, interface
 	return code.Successful, code.GetCodeMessage(code.Successful, quoteBase.QuoteID)
 }
 
-func (m *manager) GetByList(input *quoteModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *quoteModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &quoteModel.List{}
 	output.Limit = input.Limit
@@ -128,7 +128,7 @@ func (m *manager) GetByList(input *quoteModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *quoteModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *quoteModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	quoteBase, err := m.QuoteService.GetBySingle(input)
 	if err != nil {
@@ -164,7 +164,7 @@ func (m *manager) GetBySingle(input *quoteModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, interface{}) {
+func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	quoteBase, err := m.QuoteService.GetBySingle(input)
 	if err != nil {
@@ -204,7 +204,7 @@ func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, interface{}
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *quoteModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *quoteModel.Field) (int, any) {
 	_, err := m.QuoteService.GetBySingle(&quoteModel.Field{
 		QuoteID:   input.QuoteID,
 		IsDeleted: util.PointerBool(false),
@@ -227,7 +227,7 @@ func (m *manager) Delete(input *quoteModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{

@@ -15,11 +15,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *roleModel.Create) (int, interface{})
-	GetByList(input *roleModel.Fields) (int, interface{})
-	GetBySingle(input *roleModel.Field) (int, interface{})
-	Delete(input *roleModel.Update) (int, interface{})
-	Update(input *roleModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *roleModel.Create) (int, any)
+	GetByList(input *roleModel.Fields) (int, any)
+	GetBySingle(input *roleModel.Field) (int, any)
+	Delete(input *roleModel.Update) (int, any)
+	Update(input *roleModel.Update) (int, any)
 }
 
 type manager struct {
@@ -32,7 +32,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *roleModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *roleModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 判斷角色是否重複
@@ -57,7 +57,7 @@ func (m *manager) Create(trx *gorm.DB, input *roleModel.Create) (int, interface{
 	return code.Successful, code.GetCodeMessage(code.Successful, roleBase.RoleID)
 }
 
-func (m *manager) GetByList(input *roleModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *roleModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &roleModel.List{}
 	output.Limit = input.Limit
@@ -83,7 +83,7 @@ func (m *manager) GetByList(input *roleModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *roleModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *roleModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	roleBase, err := m.RoleService.GetBySingle(input)
 	if err != nil {
@@ -106,7 +106,7 @@ func (m *manager) GetBySingle(input *roleModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *roleModel.Update) (int, interface{}) {
+func (m *manager) Delete(input *roleModel.Update) (int, any) {
 	_, err := m.RoleService.GetBySingle(&roleModel.Field{
 		RoleID:    input.RoleID,
 		IsDeleted: util.PointerBool(false),
@@ -129,7 +129,7 @@ func (m *manager) Delete(input *roleModel.Update) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *roleModel.Update) (int, interface{}) {
+func (m *manager) Update(input *roleModel.Update) (int, any) {
 	roleBase, err := m.RoleService.GetBySingle(&roleModel.Field{
 		RoleID:    input.RoleID,
 		IsDeleted: util.PointerBool(false),

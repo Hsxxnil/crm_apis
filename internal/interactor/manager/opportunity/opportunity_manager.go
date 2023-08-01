@@ -24,13 +24,13 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *opportunityModel.Create) (int, interface{})
-	GetByList(input *opportunityModel.Fields) (int, interface{})
-	GetByListNoPagination(input *opportunityModel.Field) (int, interface{})
-	GetBySingle(input *opportunityModel.Field) (int, interface{})
-	GetBySingleCampaigns(input *opportunityModel.Field) (int, interface{})
-	Delete(input *opportunityModel.Field) (int, interface{})
-	Update(trx *gorm.DB, input *opportunityModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *opportunityModel.Create) (int, any)
+	GetByList(input *opportunityModel.Fields) (int, any)
+	GetByListNoPagination(input *opportunityModel.Field) (int, any)
+	GetBySingle(input *opportunityModel.Field) (int, any)
+	GetBySingleCampaigns(input *opportunityModel.Field) (int, any)
+	Delete(input *opportunityModel.Field) (int, any)
+	Update(trx *gorm.DB, input *opportunityModel.Update) (int, any)
 }
 
 type manager struct {
@@ -53,7 +53,7 @@ func Init(db *gorm.DB) Manager {
 
 const sourceType = "商機"
 
-func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 若由線索轉換則同步線索的account_id
@@ -87,7 +87,7 @@ func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, int
 	return code.Successful, code.GetCodeMessage(code.Successful, opportunityBase.OpportunityID)
 }
 
-func (m *manager) GetByList(input *opportunityModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *opportunityModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &opportunityModel.List{}
 	output.Limit = input.Limit
@@ -121,7 +121,7 @@ func (m *manager) GetByList(input *opportunityModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *opportunityModel.Field) (int, interface{}) {
+func (m *manager) GetByListNoPagination(input *opportunityModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &opportunityModel.ListNoPagination{}
 	opportunityBase, err := m.OpportunityService.GetByListNoPagination(input)
@@ -143,7 +143,7 @@ func (m *manager) GetByListNoPagination(input *opportunityModel.Field) (int, int
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *opportunityModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *opportunityModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	opportunityBase, err := m.OpportunityService.GetBySingle(input)
 	if err != nil {
@@ -172,7 +172,7 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) (int, interface{}) 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) (int, interface{}) {
+func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	opportunityBase, err := m.OpportunityService.GetBySingle(input)
 	if err != nil {
@@ -208,7 +208,7 @@ func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) (int, inte
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *opportunityModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *opportunityModel.Field) (int, any) {
 	_, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
 		IsDeleted:     util.PointerBool(false),
@@ -231,7 +231,7 @@ func (m *manager) Delete(input *opportunityModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	opportunityBase, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{

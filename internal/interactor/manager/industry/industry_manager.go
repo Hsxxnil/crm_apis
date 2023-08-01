@@ -13,11 +13,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *industryModel.Create) (int, interface{})
-	GetByList(input *industryModel.Field) (int, interface{})
-	GetBySingle(input *industryModel.Field) (int, interface{})
-	Delete(input *industryModel.Field) (int, interface{})
-	Update(input *industryModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *industryModel.Create) (int, any)
+	GetByList(input *industryModel.Field) (int, any)
+	GetBySingle(input *industryModel.Field) (int, any)
+	Delete(input *industryModel.Field) (int, any)
+	Update(input *industryModel.Update) (int, any)
 }
 
 type manager struct {
@@ -30,7 +30,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *industryModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *industryModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	industryBase, err := m.IndustryService.WithTrx(trx).Create(input)
@@ -43,7 +43,7 @@ func (m *manager) Create(trx *gorm.DB, input *industryModel.Create) (int, interf
 	return code.Successful, code.GetCodeMessage(code.Successful, industryBase.IndustryID)
 }
 
-func (m *manager) GetByList(input *industryModel.Field) (int, interface{}) {
+func (m *manager) GetByList(input *industryModel.Field) (int, any) {
 	output := &industryModel.List{}
 	industryBase, err := m.IndustryService.GetByList(input)
 	if err != nil {
@@ -64,7 +64,7 @@ func (m *manager) GetByList(input *industryModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *industryModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *industryModel.Field) (int, any) {
 	industryBase, err := m.IndustryService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -86,7 +86,7 @@ func (m *manager) GetBySingle(input *industryModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *industryModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *industryModel.Field) (int, any) {
 	_, err := m.IndustryService.GetBySingle(&industryModel.Field{
 		IndustryID: input.IndustryID,
 	})
@@ -108,7 +108,7 @@ func (m *manager) Delete(input *industryModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *industryModel.Update) (int, interface{}) {
+func (m *manager) Update(input *industryModel.Update) (int, any) {
 	industryBase, err := m.IndustryService.GetBySingle(&industryModel.Field{
 		IndustryID: input.IndustryID,
 	})

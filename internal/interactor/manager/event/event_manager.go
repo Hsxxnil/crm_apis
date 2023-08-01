@@ -23,11 +23,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *eventModel.Create) (int, interface{})
-	GetByList(input *eventModel.Fields) (int, interface{})
-	GetBySingle(input *eventModel.Field) (int, interface{})
-	Delete(trx *gorm.DB, input *eventModel.Update) (int, interface{})
-	Update(trx *gorm.DB, input *eventModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *eventModel.Create) (int, any)
+	GetByList(input *eventModel.Fields) (int, any)
+	GetBySingle(input *eventModel.Field) (int, any)
+	Delete(trx *gorm.DB, input *eventModel.Update) (int, any)
+	Update(trx *gorm.DB, input *eventModel.Update) (int, any)
 }
 
 type manager struct {
@@ -48,7 +48,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *eventModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *eventModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	eventBase, err := m.EventService.WithTrx(trx).Create(input)
@@ -106,7 +106,7 @@ func (m *manager) Create(trx *gorm.DB, input *eventModel.Create) (int, interface
 	return code.Successful, code.GetCodeMessage(code.Successful, eventBase.EventID)
 }
 
-func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *eventModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &eventModel.List{}
 
@@ -157,7 +157,7 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *eventModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	eventBase, err := m.EventService.GetBySingle(input)
 	if err != nil {
@@ -193,7 +193,7 @@ func (m *manager) GetBySingle(input *eventModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface{}) {
+func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	eventBase, err := m.EventService.GetBySingle(&eventModel.Field{
@@ -267,7 +267,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, interface
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	eventBase, err := m.EventService.GetBySingle(&eventModel.Field{

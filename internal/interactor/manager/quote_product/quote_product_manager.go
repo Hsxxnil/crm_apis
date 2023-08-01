@@ -20,11 +20,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int, interface{})
-	GetByList(input *quoteProductModel.Fields) (int, interface{})
-	GetBySingle(input *quoteProductModel.Field) (int, interface{})
-	Delete(input *quoteProductModel.UpdateList) (int, interface{})
-	Update(input *quoteProductModel.UpdateList) (int, interface{})
+	Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int, any)
+	GetByList(input *quoteProductModel.Fields) (int, any)
+	GetBySingle(input *quoteProductModel.Field) (int, any)
+	Delete(input *quoteProductModel.UpdateList) (int, any)
+	Update(input *quoteProductModel.UpdateList) (int, any)
 }
 
 type manager struct {
@@ -39,7 +39,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int, any) {
 	defer trx.Rollback()
 
 	var output []*string
@@ -92,7 +92,7 @@ func (m *manager) Create(trx *gorm.DB, input *quoteProductModel.CreateList) (int
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByList(input *quoteProductModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *quoteProductModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &quoteProductModel.List{}
 	output.Limit = input.Limit
@@ -125,7 +125,7 @@ func (m *manager) GetByList(input *quoteProductModel.Fields) (int, interface{}) 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *quoteProductModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *quoteProductModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	quoteProductBase, err := m.QuoteProductService.GetBySingle(input)
 	if err != nil {
@@ -153,7 +153,7 @@ func (m *manager) GetBySingle(input *quoteProductModel.Field) (int, interface{})
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *quoteProductModel.UpdateList) (int, interface{}) {
+func (m *manager) Delete(input *quoteProductModel.UpdateList) (int, any) {
 	for _, inputBody := range input.QuoteProducts {
 		_, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{
 			QuoteProductID: inputBody.QuoteProductID,
@@ -178,7 +178,7 @@ func (m *manager) Delete(input *quoteProductModel.UpdateList) (int, interface{})
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *quoteProductModel.UpdateList) (int, interface{}) {
+func (m *manager) Update(input *quoteProductModel.UpdateList) (int, any) {
 	var output []*string
 	for _, inputBody := range input.QuoteProducts {
 		quoteProductBase, err := m.QuoteProductService.GetBySingle(&quoteProductModel.Field{

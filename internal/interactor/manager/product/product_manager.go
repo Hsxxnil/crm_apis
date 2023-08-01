@@ -25,12 +25,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *productModel.Create) (int, interface{})
-	GetByList(input *productModel.Fields) (int, interface{})
-	GetByOrderIDList(input *productModel.Fields) (int, interface{})
-	GetBySingle(input *productModel.Field) (int, interface{})
-	Delete(input *productModel.Field) (int, interface{})
-	Update(input *productModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *productModel.Create) (int, any)
+	GetByList(input *productModel.Fields) (int, any)
+	GetByOrderIDList(input *productModel.Fields) (int, any)
+	GetBySingle(input *productModel.Field) (int, any)
+	Delete(input *productModel.Field) (int, any)
+	Update(input *productModel.Update) (int, any)
 }
 
 type manager struct {
@@ -51,7 +51,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *productModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *productModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 判斷產品識別碼是否重複
@@ -75,7 +75,7 @@ func (m *manager) Create(trx *gorm.DB, input *productModel.Create) (int, interfa
 	return code.Successful, code.GetCodeMessage(code.Successful, productBase.ProductID)
 }
 
-func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *productModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &productModel.List{}
 	output.Limit = input.Limit
@@ -108,7 +108,7 @@ func (m *manager) GetByList(input *productModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}) {
+func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &productModel.List{}
 	output.Limit = input.Limit
@@ -190,7 +190,7 @@ func (m *manager) GetByOrderIDList(input *productModel.Fields) (int, interface{}
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *productModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *productModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	productBase, err := m.ProductService.GetBySingle(input)
 	if err != nil {
@@ -216,7 +216,7 @@ func (m *manager) GetBySingle(input *productModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *productModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *productModel.Field) (int, any) {
 	_, err := m.ProductService.GetBySingle(&productModel.Field{
 		ProductID: input.ProductID,
 		IsDeleted: util.PointerBool(false),
@@ -239,7 +239,7 @@ func (m *manager) Delete(input *productModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *productModel.Update) (int, interface{}) {
+func (m *manager) Update(input *productModel.Update) (int, any) {
 	productBase, err := m.ProductService.GetBySingle(&productModel.Field{
 		ProductID: input.ProductID,
 		IsDeleted: util.PointerBool(false),

@@ -22,12 +22,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *orderModel.Create) (int, interface{})
-	GetByList(input *orderModel.Fields) (int, interface{})
-	GetBySingle(input *orderModel.Field) (int, interface{})
-	GetBySingleProducts(input *orderModel.Field) (int, interface{})
-	Delete(input *orderModel.Field) (int, interface{})
-	Update(trx *gorm.DB, input *orderModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *orderModel.Create) (int, any)
+	GetByList(input *orderModel.Fields) (int, any)
+	GetBySingle(input *orderModel.Field) (int, any)
+	GetBySingleProducts(input *orderModel.Field) (int, any)
+	Delete(input *orderModel.Field) (int, any)
+	Update(trx *gorm.DB, input *orderModel.Update) (int, any)
 }
 
 type manager struct {
@@ -48,7 +48,7 @@ func Init(db *gorm.DB) Manager {
 
 const sourceType = "訂單"
 
-func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 同步契約的account_id
@@ -80,7 +80,7 @@ func (m *manager) Create(trx *gorm.DB, input *orderModel.Create) (int, interface
 	return code.Successful, code.GetCodeMessage(code.Successful, orderBase.OrderID)
 }
 
-func (m *manager) GetByList(input *orderModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *orderModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &orderModel.List{}
 	output.Limit = input.Limit
@@ -119,7 +119,7 @@ func (m *manager) GetByList(input *orderModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *orderModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *orderModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	orderBase, err := m.OrderService.GetBySingle(input)
 	if err != nil {
@@ -152,7 +152,7 @@ func (m *manager) GetBySingle(input *orderModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleProducts(input *orderModel.Field) (int, interface{}) {
+func (m *manager) GetBySingleProducts(input *orderModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	orderBase, err := m.OrderService.GetBySingle(input)
 	if err != nil {
@@ -189,7 +189,7 @@ func (m *manager) GetBySingleProducts(input *orderModel.Field) (int, interface{}
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *orderModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *orderModel.Field) (int, any) {
 	_, err := m.OrderService.GetBySingle(&orderModel.Field{
 		OrderID:   input.OrderID,
 		IsDeleted: util.PointerBool(false),
@@ -212,7 +212,7 @@ func (m *manager) Delete(input *orderModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	orderBase, err := m.OrderService.GetBySingle(&orderModel.Field{
