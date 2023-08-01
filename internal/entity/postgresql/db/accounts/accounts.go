@@ -25,7 +25,7 @@ type Table struct {
 	// 帳戶類型
 	Type pq.StringArray `gorm:"column:type;type:text[];not null;" json:"type"`
 	// 父系帳戶ID
-	ParentAccountID string `gorm:"column:parent_account_id;type:uuid;not null;" json:"parent_account_id"`
+	ParentAccountID *string `gorm:"column:parent_account_id;type:uuid;" json:"parent_account_id"`
 	// 業務員ID
 	SalespersonID string `gorm:"column:salesperson_id;type:uuid;not null;" json:"salesperson_id"`
 	// salespeople  data

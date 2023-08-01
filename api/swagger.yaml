@@ -49,7 +49,6 @@ definitions:
     required:
     - industry_id
     - name
-    - parent_account_id
     - type
     type: object
   accounts.Filter:

@@ -56,8 +56,7 @@ Authorization: Bearer {{accessToken}}
 {
   "name": "2",
   "phone_number": "0800000000",
-  "industry_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
-  "parent_account_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
+  "industry_id": "b1ff0cda-c8c3-4fd6-a263-2f8cbcfe61ea",
   "type": [
     "夥伴",
     "個人客戶",
@@ -67,20 +66,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/accounts/a9992b5f-396a-4fa9-a00c-fd0d73f74b28
+PATCH {{host}}/crm/v1.0/accounts/7291d64e-ed67-4f55-a16f-d1972dd43911
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "name": "scsc",
-  "type": [
-    "夥伴",
-    "競爭對手",
-    "個人客戶"
-  ],
-  "industry_id": "00000000-0000-4000-a000-000000000000",
-  "parent_account_id": "00000000-0000-4000-a000-000000000000",
-  "salesperson_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07"
+  "industry_id": "b1ff0cda-c8c3-4fd6-a263-2f8cbcfe61ea"
 }
 
 ### Delete

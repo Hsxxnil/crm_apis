@@ -112,14 +112,16 @@ func (m *manager) GetByList(input *accountModel.Fields) (int, interface{}) {
 		accounts.CreatedBy = *accountBase[i].CreatedByUsers.Name
 		accounts.UpdatedBy = *accountBase[i].UpdatedByUsers.Name
 		accounts.SalespersonName = *accountBase[i].Salespeople.Name
-		parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
-			AccountID: accounts.ParentAccountID,
-			IsDeleted: util.PointerBool(false),
-		})
-		if err != nil {
-			accounts.ParentAccountName = ""
-		} else {
-			accounts.ParentAccountName = *parentAccountsBase.Name
+		if accounts.ParentAccountID != "" {
+			parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+				AccountID: accounts.ParentAccountID,
+				IsDeleted: util.PointerBool(false),
+			})
+			if err != nil {
+				accounts.ParentAccountName = ""
+			} else {
+				accounts.ParentAccountName = *parentAccountsBase.Name
+			}
 		}
 	}
 
@@ -172,14 +174,16 @@ func (m *manager) GetBySingle(input *accountModel.Field) (int, interface{}) {
 	output.CreatedBy = *accountBase.CreatedByUsers.Name
 	output.UpdatedBy = *accountBase.UpdatedByUsers.Name
 	output.SalespersonName = *accountBase.Salespeople.Name
-	parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
-		AccountID: *accountBase.ParentAccountID,
-		IsDeleted: util.PointerBool(false),
-	})
-	if err != nil {
-		output.ParentAccountName = ""
-	} else {
-		output.ParentAccountName = *parentAccountsBase.Name
+	if accountBase.ParentAccountID != nil {
+		parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+			AccountID: *accountBase.ParentAccountID,
+			IsDeleted: util.PointerBool(false),
+		})
+		if err != nil {
+			output.ParentAccountName = ""
+		} else {
+			output.ParentAccountName = *parentAccountsBase.Name
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
@@ -275,12 +279,14 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 	}
 
 	// 比對帳戶類型是否變更
-	if len(*input.Type) != len(*accountBase.Type) {
-		sort.Strings(*input.Type)
-	} else {
-		for i, value := range *input.Type {
-			if value != (*accountBase.Type)[i] {
-				sort.Strings(*input.Type)
+	if input.Type != nil {
+		if len(*input.Type) != len(*accountBase.Type) {
+			sort.Strings(*input.Type)
+		} else {
+			for i, value := range *input.Type {
+				if value != (*accountBase.Type)[i] {
+					sort.Strings(*input.Type)
+				}
 			}
 		}
 	}
@@ -303,13 +309,15 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, interfa
 
 	// 比對帳戶類型是否變更
 	var inputType string
-	if len(*input.Type) != len(*accountBase.Type) {
-		inputType = strings.Join(*input.Type, "、")
-	} else {
-		for i, value := range *input.Type {
-			if value != (*accountBase.Type)[i] {
-				inputType = strings.Join(*input.Type, "、")
-				break
+	if input.Type != nil {
+		if len(*input.Type) != len(*accountBase.Type) {
+			inputType = strings.Join(*input.Type, "、")
+		} else {
+			for i, value := range *input.Type {
+				if value != (*accountBase.Type)[i] {
+					inputType = strings.Join(*input.Type, "、")
+					break
+				}
 			}
 		}
 	}

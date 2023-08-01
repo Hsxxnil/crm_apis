@@ -9132,7 +9132,6 @@ const docTemplate = `{
             "required": [
                 "industry_id",
                 "name",
-                "parent_account_id",
                 "type"
             ],
             "properties": {
