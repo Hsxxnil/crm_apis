@@ -113,7 +113,7 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, interface{}) {
 	// 將FilterStartDate轉為時間格式
 	startDate, err := time.Parse(time.RFC3339, input.FilterStartDate)
 	if err != nil {
-		// 如果FilterStartDate轉換師被，設定為空字串
+		// 如果FilterStartDate轉換失敗，設定為空字串
 		input.FilterStartDate = ""
 		log.Error(err)
 	} else {
