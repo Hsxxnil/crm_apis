@@ -83,6 +83,7 @@ type Single struct {
 
 // AddHistoricalRecord struct is used for synchronizing the addition of historical records
 type AddHistoricalRecord struct {
-	Fields string
-	Values string
+	Actions string
+	Fields  string
+	Values  string
 }
