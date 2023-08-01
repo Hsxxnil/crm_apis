@@ -25,7 +25,7 @@ type Table struct {
 	// 行銷活動類型
 	Type string `gorm:"column:type;type:text;" json:"type"`
 	// 父系行銷活動ID
-	ParentCampaignID string `gorm:"column:parent_campaign_id;type:uuid;not null;" json:"parent_campaign_id"`
+	ParentCampaignID *string `gorm:"column:parent_campaign_id;type:uuid;" json:"parent_campaign_id"`
 	// 行銷活動開始日期
 	StartDate time.Time `gorm:"column:start_date;type:timestamp;" json:"start_date"`
 	// 行銷活動結束日期

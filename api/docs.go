@@ -9507,7 +9507,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "name",
-                "parent_campaign_id",
                 "status"
             ],
             "properties": {

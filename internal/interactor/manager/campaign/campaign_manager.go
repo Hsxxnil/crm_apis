@@ -79,14 +79,16 @@ func (m *manager) GetByList(input *campaignModel.Fields) (int, interface{}) {
 		campaigns.CreatedBy = *campaignBase[i].CreatedByUsers.Name
 		campaigns.UpdatedBy = *campaignBase[i].UpdatedByUsers.Name
 		campaigns.SalespersonName = *campaignBase[i].Salespeople.Name
-		parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
-			CampaignID: campaigns.ParentCampaignID,
-			IsDeleted:  util.PointerBool(false),
-		})
-		if err != nil {
-			campaigns.ParentCampaignName = ""
-		} else {
-			campaigns.ParentCampaignName = *parentCampaignsBase.Name
+		if campaigns.ParentCampaignID != "" {
+			parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+				CampaignID: campaigns.ParentCampaignID,
+				IsDeleted:  util.PointerBool(false),
+			})
+			if err != nil {
+				campaigns.ParentCampaignName = ""
+			} else {
+				campaigns.ParentCampaignName = *parentCampaignsBase.Name
+			}
 		}
 	}
 
@@ -138,14 +140,16 @@ func (m *manager) GetBySingle(input *campaignModel.Field) (int, interface{}) {
 	output.CreatedBy = *campaignBase.CreatedByUsers.Name
 	output.UpdatedBy = *campaignBase.UpdatedByUsers.Name
 	output.SalespersonName = *campaignBase.Salespeople.Name
-	parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
-		CampaignID: *campaignBase.ParentCampaignID,
-		IsDeleted:  util.PointerBool(false),
-	})
-	if err != nil {
-		output.ParentCampaignName = ""
-	} else {
-		output.ParentCampaignName = *parentCampaignsBase.Name
+	if campaignBase.ParentCampaignID != nil {
+		parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+			CampaignID: *campaignBase.ParentCampaignID,
+			IsDeleted:  util.PointerBool(false),
+		})
+		if err != nil {
+			output.ParentCampaignName = ""
+		} else {
+			output.ParentCampaignName = *parentCampaignsBase.Name
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
@@ -174,14 +178,16 @@ func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, int
 	output.CreatedBy = *campaignBase.CreatedByUsers.Name
 	output.UpdatedBy = *campaignBase.UpdatedByUsers.Name
 	output.SalespersonName = *campaignBase.Salespeople.Name
-	parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
-		CampaignID: *campaignBase.ParentCampaignID,
-		IsDeleted:  util.PointerBool(false),
-	})
-	if err != nil {
-		output.ParentCampaignName = ""
-	} else {
-		output.ParentCampaignName = *parentCampaignsBase.Name
+	if campaignBase.ParentCampaignID != nil {
+		parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
+			CampaignID: *campaignBase.ParentCampaignID,
+			IsDeleted:  util.PointerBool(false),
+		})
+		if err != nil {
+			output.ParentCampaignName = ""
+		} else {
+			output.ParentCampaignName = *parentCampaignsBase.Name
+		}
 	}
 	for i, opportunities := range campaignBase.OpportunityCampaigns {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{

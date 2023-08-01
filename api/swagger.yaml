@@ -346,7 +346,6 @@ definitions:
         type: string
     required:
     - name
-    - parent_campaign_id
     - status
     type: object
   campaigns.Filter:

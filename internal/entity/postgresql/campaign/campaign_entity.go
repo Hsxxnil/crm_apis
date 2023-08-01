@@ -201,6 +201,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.ParentCampaignID != nil {
 		data["parent_campaign_id"] = input.ParentCampaignID
+	} else {
+		data["parent_campaign_id"] = nil
 	}
 
 	if input.StartDate != nil {

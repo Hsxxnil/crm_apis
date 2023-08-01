@@ -55,7 +55,6 @@ Authorization: Bearer {{accessToken}}
   "name": "test",
   "status": "草稿",
   "is_enable": true,
-  "parent_campaign_id": "00000000-0000-4000-a000-000000000000",
   "description": "test",
   "start_date": "2023-04-26T00:00:00Z",
   "end_date": "2023-04-30T00:00:00Z",
@@ -67,12 +66,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/campaigns/10395e89-3d20-4a5a-90bb-c7cbd8a314f1
+PATCH {{host}}/crm/v1.0/campaigns/5555c076-eec6-4223-aa94-3efbd499c987
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "salesperson_id": "b93bda2c-d18d-4cc4-b0ad-a57056f8fc45"
+  "type": "活動"
 }
 
 ### Delete
