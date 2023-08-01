@@ -115,14 +115,16 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
 		contacts.UpdatedBy = *contactBase[i].UpdatedByUsers.Name
 		contacts.SalespersonName = *contactBase[i].Salespeople.Name
 		contacts.AccountName = *contactBase[i].Accounts.Name
-		supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
-			ContactID: contacts.SupervisorID,
-			IsDeleted: util.PointerBool(false),
-		})
-		if err != nil {
-			contacts.SupervisorName = ""
-		} else {
-			contacts.SupervisorName = *supervisorBase.Name
+		if contacts.SupervisorID != "" {
+			supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
+				ContactID: contacts.SupervisorID,
+				IsDeleted: util.PointerBool(false),
+			})
+			if err != nil {
+				contacts.SupervisorName = ""
+			} else {
+				contacts.SupervisorName = *supervisorBase.Name
+			}
 		}
 	}
 
@@ -153,14 +155,16 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
 	output.UpdatedBy = *contactBase.UpdatedByUsers.Name
 	output.SalespersonName = *contactBase.Salespeople.Name
 	output.AccountName = *contactBase.Accounts.Name
-	supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
-		ContactID: *contactBase.SupervisorID,
-		IsDeleted: util.PointerBool(false),
-	})
-	if err != nil {
-		output.SupervisorName = ""
-	} else {
-		output.SupervisorName = *supervisorBase.Name
+	if contactBase.SupervisorID != nil {
+		supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
+			ContactID: *contactBase.SupervisorID,
+			IsDeleted: util.PointerBool(false),
+		})
+		if err != nil {
+			output.SupervisorName = ""
+		} else {
+			output.SupervisorName = *supervisorBase.Name
+		}
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)

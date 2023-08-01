@@ -23,7 +23,7 @@ type Create struct {
 	// 聯絡人部門
 	Department string `json:"department,omitempty"`
 	// 聯絡人直屬上司ID
-	SupervisorID string `json:"supervisor_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	SupervisorID string `json:"supervisor_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 帳戶ID
 	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 創建者

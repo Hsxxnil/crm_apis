@@ -49,7 +49,6 @@ definitions:
     required:
     - industry_id
     - name
-    - parent_account_id
     - type
     type: object
   accounts.Filter:
@@ -347,7 +346,6 @@ definitions:
         type: string
     required:
     - name
-    - parent_campaign_id
     - status
     type: object
   campaigns.Filter:
@@ -717,7 +715,6 @@ definitions:
     - account_id
     - name
     - phone_number
-    - supervisor_id
     type: object
   contacts.Filter:
     properties:

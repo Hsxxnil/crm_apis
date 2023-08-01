@@ -22,7 +22,7 @@ type Create struct {
 	// 行銷活動類型
 	Type string `json:"type,omitempty"`
 	// 父系行銷活動ID
-	ParentCampaignID string `json:"parent_campaign_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	ParentCampaignID string `json:"parent_campaign_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 行銷活動開始日期
 	StartDate time.Time `json:"start_date,omitempty"`
 	// 行銷活動結束日期

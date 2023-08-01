@@ -9132,7 +9132,6 @@ const docTemplate = `{
             "required": [
                 "industry_id",
                 "name",
-                "parent_account_id",
                 "type"
             ],
             "properties": {
@@ -9508,7 +9507,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "name",
-                "parent_campaign_id",
                 "status"
             ],
             "properties": {
@@ -10030,8 +10028,7 @@ const docTemplate = `{
             "required": [
                 "account_id",
                 "name",
-                "phone_number",
-                "supervisor_id"
+                "phone_number"
             ],
             "properties": {
                 "account_id": {

@@ -9128,7 +9128,6 @@
             "required": [
                 "industry_id",
                 "name",
-                "parent_account_id",
                 "type"
             ],
             "properties": {
@@ -9504,7 +9503,6 @@
             "type": "object",
             "required": [
                 "name",
-                "parent_campaign_id",
                 "status"
             ],
             "properties": {
@@ -10026,8 +10024,7 @@
             "required": [
                 "account_id",
                 "name",
-                "phone_number",
-                "supervisor_id"
+                "phone_number"
             ],
             "properties": {
                 "account_id": {
