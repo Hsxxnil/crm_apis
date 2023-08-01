@@ -24,11 +24,11 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *contactModel.Create) (int, interface{})
-	GetByList(input *contactModel.Fields) (int, interface{})
-	GetBySingle(input *contactModel.Field) (int, interface{})
-	Delete(input *contactModel.Field) (int, interface{})
-	Update(trx *gorm.DB, input *contactModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *contactModel.Create) (int, any)
+	GetByList(input *contactModel.Fields) (int, any)
+	GetBySingle(input *contactModel.Field) (int, any)
+	Delete(input *contactModel.Field) (int, any)
+	Update(trx *gorm.DB, input *contactModel.Update) (int, any)
 }
 
 type manager struct {
@@ -51,7 +51,7 @@ func Init(db *gorm.DB) Manager {
 
 const sourceType = "聯絡人"
 
-func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	contactBase, err := m.ContactService.WithTrx(trx).Create(input)
@@ -87,7 +87,7 @@ func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, interfa
 	return code.Successful, code.GetCodeMessage(code.Successful, contactBase.ContactID)
 }
 
-func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *contactModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &contactModel.List{}
 	output.Limit = input.Limit
@@ -131,7 +131,7 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *contactModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	contactBase, err := m.ContactService.GetBySingle(input)
 	if err != nil {
@@ -170,7 +170,7 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *contactModel.Field) (int, any) {
 	_, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: input.ContactID,
 		IsDeleted: util.PointerBool(false),
@@ -206,7 +206,7 @@ func (m *manager) Delete(input *contactModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	contactBase, err := m.ContactService.GetBySingle(&contactModel.Field{

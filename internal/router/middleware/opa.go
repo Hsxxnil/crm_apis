@@ -14,10 +14,10 @@ func WithOPA(opa *rego.PreparedEvalQuery) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user := c.Query("user")
 		groups := c.QueryArray("groups")
-		input := map[string]interface{}{ // 构造OPA输入
+		input := map[string]any{ // 构造OPA输入
 			"method": c.Request.Method,
 			"path":   c.Request.RequestURI,
-			"subject": map[string]interface{}{
+			"subject": map[string]any{
 				"user":  user,
 				"group": groups,
 			},

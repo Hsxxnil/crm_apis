@@ -15,8 +15,8 @@ import (
 )
 
 type Manager interface {
-	GetByList(input *historicalRecordModel.Fields) (int, interface{})
-	GetBySingle(input *historicalRecordModel.Field) (int, interface{})
+	GetByList(input *historicalRecordModel.Fields) (int, any)
+	GetBySingle(input *historicalRecordModel.Field) (int, any)
 }
 
 type manager struct {
@@ -29,7 +29,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) GetByList(input *historicalRecordModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *historicalRecordModel.Fields) (int, any) {
 	output := &historicalRecordModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -59,7 +59,7 @@ func (m *manager) GetByList(input *historicalRecordModel.Fields) (int, interface
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *historicalRecordModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *historicalRecordModel.Field) (int, any) {
 	historicalRecordBase, err := m.HistoricalRecordService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

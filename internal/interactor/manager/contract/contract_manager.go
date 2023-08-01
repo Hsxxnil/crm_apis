@@ -27,12 +27,12 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *contractModel.Create) (int, interface{})
-	GetByList(input *contractModel.Fields) (int, interface{})
-	GetByListNoPagination(input *contractModel.Field) (int, interface{})
-	GetBySingle(input *contractModel.Field) (int, interface{})
-	Delete(input *contractModel.Field) (int, interface{})
-	Update(trx *gorm.DB, input *contractModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *contractModel.Create) (int, any)
+	GetByList(input *contractModel.Fields) (int, any)
+	GetByListNoPagination(input *contractModel.Field) (int, any)
+	GetBySingle(input *contractModel.Field) (int, any)
+	Delete(input *contractModel.Field) (int, any)
+	Update(trx *gorm.DB, input *contractModel.Update) (int, any)
 }
 
 type manager struct {
@@ -57,7 +57,7 @@ func Init(db *gorm.DB) Manager {
 
 const sourceType = "契約"
 
-func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	// 同步商機的account_id
@@ -89,7 +89,7 @@ func (m *manager) Create(trx *gorm.DB, input *contractModel.Create) (int, interf
 	return code.Successful, code.GetCodeMessage(code.Successful, contractBase.ContractID)
 }
 
-func (m *manager) GetByList(input *contractModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *contractModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &contractModel.List{}
 	output.Limit = input.Limit
@@ -124,7 +124,7 @@ func (m *manager) GetByList(input *contractModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *contractModel.Field) (int, interface{}) {
+func (m *manager) GetByListNoPagination(input *contractModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &contractModel.ListNoPagination{}
 	contractBase, err := m.ContractService.GetByListNoPagination(input)
@@ -146,7 +146,7 @@ func (m *manager) GetByListNoPagination(input *contractModel.Field) (int, interf
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *contractModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *contractModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	contractBase, err := m.ContractService.GetBySingle(input)
 	if err != nil {
@@ -175,7 +175,7 @@ func (m *manager) GetBySingle(input *contractModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *contractModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *contractModel.Field) (int, any) {
 	_, err := m.ContractService.GetBySingle(&contractModel.Field{
 		ContractID: input.ContractID,
 		IsDeleted:  util.PointerBool(false),
@@ -198,7 +198,7 @@ func (m *manager) Delete(input *contractModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, interface{}) {
+func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	contractBase, err := m.ContractService.GetBySingle(&contractModel.Field{

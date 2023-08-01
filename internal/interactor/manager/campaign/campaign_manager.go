@@ -18,13 +18,13 @@ import (
 )
 
 type Manager interface {
-	Create(trx *gorm.DB, input *campaignModel.Create) (int, interface{})
-	GetByList(input *campaignModel.Fields) (int, interface{})
-	GetByListNoPagination(input *campaignModel.Field) (int, interface{})
-	GetBySingle(input *campaignModel.Field) (int, interface{})
-	GetBySingleOpportunities(input *campaignModel.Field) (int, interface{})
-	Delete(input *campaignModel.Field) (int, interface{})
-	Update(input *campaignModel.Update) (int, interface{})
+	Create(trx *gorm.DB, input *campaignModel.Create) (int, any)
+	GetByList(input *campaignModel.Fields) (int, any)
+	GetByListNoPagination(input *campaignModel.Field) (int, any)
+	GetBySingle(input *campaignModel.Field) (int, any)
+	GetBySingleOpportunities(input *campaignModel.Field) (int, any)
+	Delete(input *campaignModel.Field) (int, any)
+	Update(input *campaignModel.Update) (int, any)
 }
 
 type manager struct {
@@ -39,7 +39,7 @@ func Init(db *gorm.DB) Manager {
 	}
 }
 
-func (m *manager) Create(trx *gorm.DB, input *campaignModel.Create) (int, interface{}) {
+func (m *manager) Create(trx *gorm.DB, input *campaignModel.Create) (int, any) {
 	defer trx.Rollback()
 
 	campaignBase, err := m.CampaignService.WithTrx(trx).Create(input)
@@ -52,7 +52,7 @@ func (m *manager) Create(trx *gorm.DB, input *campaignModel.Create) (int, interf
 	return code.Successful, code.GetCodeMessage(code.Successful, campaignBase.CampaignID)
 }
 
-func (m *manager) GetByList(input *campaignModel.Fields) (int, interface{}) {
+func (m *manager) GetByList(input *campaignModel.Fields) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &campaignModel.List{}
 	output.Limit = input.Limit
@@ -95,7 +95,7 @@ func (m *manager) GetByList(input *campaignModel.Fields) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *campaignModel.Field) (int, interface{}) {
+func (m *manager) GetByListNoPagination(input *campaignModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &campaignModel.ListNoPagination{}
 	campaignBase, err := m.CampaignService.GetByListNoPagination(input)
@@ -117,7 +117,7 @@ func (m *manager) GetByListNoPagination(input *campaignModel.Field) (int, interf
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingle(input *campaignModel.Field) (int, interface{}) {
+func (m *manager) GetBySingle(input *campaignModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	campaignBase, err := m.CampaignService.GetBySingle(input)
 	if err != nil {
@@ -155,7 +155,7 @@ func (m *manager) GetBySingle(input *campaignModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, interface{}) {
+func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	campaignBase, err := m.CampaignService.GetBySingle(input)
 	if err != nil {
@@ -200,7 +200,7 @@ func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, int
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *campaignModel.Field) (int, interface{}) {
+func (m *manager) Delete(input *campaignModel.Field) (int, any) {
 	_, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 		CampaignID: input.CampaignID,
 		IsDeleted:  util.PointerBool(false),
@@ -223,7 +223,7 @@ func (m *manager) Delete(input *campaignModel.Field) (int, interface{}) {
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 
-func (m *manager) Update(input *campaignModel.Update) (int, interface{}) {
+func (m *manager) Update(input *campaignModel.Update) (int, any) {
 	campaignBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 		CampaignID: input.CampaignID,
 		IsDeleted:  util.PointerBool(false),
