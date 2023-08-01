@@ -47,7 +47,6 @@ definitions:
           type: string
         type: array
     required:
-    - industry_id
     - name
     - type
     type: object

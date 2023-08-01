@@ -9130,7 +9130,6 @@ const docTemplate = `{
         "accounts.Create": {
             "type": "object",
             "required": [
-                "industry_id",
                 "name",
                 "type"
             ],

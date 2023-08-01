@@ -201,6 +201,8 @@ func (s *storage) Update(input *model.Base) (err error) {
 
 	if input.IndustryID != nil {
 		data["industry_id"] = input.IndustryID
+	} else {
+		data["industry_id"] = nil
 	}
 
 	if input.ParentAccountID != nil {

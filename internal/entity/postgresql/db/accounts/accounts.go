@@ -19,7 +19,7 @@ type Table struct {
 	// 帳戶電話
 	PhoneNumber string `gorm:"column:phone_number;type:text;" json:"phone_number"`
 	// 行業ID
-	IndustryID string `gorm:"column:industry_id;type:uuid;not null;" json:"industry_id"`
+	IndustryID *string `gorm:"column:industry_id;type:uuid;" json:"industry_id"`
 	// industries data
 	Industries industries.Table `gorm:"foreignKey:IndustryID;references:IndustryID" json:"industries,omitempty"`
 	// 帳戶類型
