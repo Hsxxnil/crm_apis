@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
+	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
+
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	userModel "app.eirc/internal/interactor/models/users"
 	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
@@ -201,31 +203,23 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 	var records []historicalRecordModel.AddHistoricalRecord
 
 	if input.Status != nil && *input.Status != *leadBase.Status {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "狀態為",
-			Values: *input.Status,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
 	}
 
 	if input.Description != nil && *input.Description != *leadBase.Description {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "描述為",
-			Values: *input.Description,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
 	}
 
 	if input.Source != nil && *input.Source != *leadBase.Source {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "來源為",
-			Values: *input.Source,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "來源為", *input.Source)
+	} else if input.Source == nil && leadBase.Source != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "移除", "來源", "")
 	}
 
 	if input.Rating != nil && *input.Rating != *leadBase.Rating {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "分級為",
-			Values: *input.Rating,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "分級為", *input.Rating)
+	} else if input.Rating == nil && leadBase.Rating != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "清除", "分級", "")
 	}
 
 	if input.SalespersonID != nil && *input.SalespersonID != *leadBase.SalespersonID {
@@ -233,16 +227,13 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 			UserID:    *input.SalespersonID,
 			IsDeleted: util.PointerBool(false),
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員為",
-			Values: *salespersonBase.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}
 
 	for _, record := range records {
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *leadBase.LeadID,
-			Action:     "修改",
+			Action:     record.Actions,
 			SourceType: sourceType,
 			Field:      record.Fields,
 			Value:      record.Values,
