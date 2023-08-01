@@ -6,6 +6,8 @@ import (
 	"math"
 	"strconv"
 
+	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
+
 	accountModel "app.eirc/internal/interactor/models/accounts"
 
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
@@ -260,45 +262,29 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 
 	// 同步新增商機歷程記錄
 	var records []historicalRecordModel.AddHistoricalRecord
-	action := "修改"
 
 	if input.Name != nil && *input.Name != *quoteBase.Name {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "名稱為",
-			Values: *input.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "名稱為", *input.Name)
 	}
 
 	if input.Status != nil && *input.Status != *quoteBase.Status {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "狀態為",
-			Values: *input.Status,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
 	}
 
 	if input.IsSyncing != nil && *input.IsSyncing != *quoteBase.IsSyncing {
 		if *input.IsSyncing == true {
-			action = "確認"
-
+			historicalRecordHelpers.AddHistoricalRecord(&records, "確認", "同步化", "此報價至商機")
 		} else {
-			action = "取消"
+			historicalRecordHelpers.AddHistoricalRecord(&records, "取消", "同步化", "此報價至商機")
 		}
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "同步化",
-			Values: "此報價至商機",
-		})
 	}
 
 	if input.IsFinal != nil && *input.IsFinal != *quoteBase.IsFinal {
 		if *input.IsFinal == true {
-			action = "確認"
-
+			historicalRecordHelpers.AddHistoricalRecord(&records, "確認", "", "此報價為最終版")
 		} else {
-			action = "取消"
+			historicalRecordHelpers.AddHistoricalRecord(&records, "取消", "", "此報價為最終版")
 		}
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Values: "此報價為最終版",
-		})
 	}
 
 	if input.OpportunityID != nil && *input.OpportunityID != *quoteBase.OpportunityID {
@@ -306,55 +292,43 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 			OpportunityID: *input.OpportunityID,
 			IsDeleted:     util.PointerBool(false),
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "商機為",
-			Values: *opportunityBase.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "商機為", *opportunityBase.Name)
 
 		if opportunityBase.AccountID != quoteBase.AccountID {
 			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: *opportunityBase.AccountID,
 				IsDeleted: util.PointerBool(false),
 			})
-			records = append(records, historicalRecordModel.AddHistoricalRecord{
-				Fields: "帳戶為",
-				Values: *accountBase.Name,
-			})
+			historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
 		}
 	}
 
 	if input.ExpirationDate != nil && *input.ExpirationDate != *quoteBase.ExpirationDate {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "到期日期為",
-			Values: input.ExpirationDate.UTC().Format("2006-01-02T15:04:05.999999Z"),
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "到期日期為", input.ExpirationDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
 	}
 
 	if input.Description != nil && *input.Description != *quoteBase.Description {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "描述為",
-			Values: *input.Description,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+	} else if input.Description == nil && quoteBase.Description != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "清空", "描述", "")
 	}
 
 	if input.Tax != nil && *input.Tax != *quoteBase.Tax {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "稅額為",
-			Values: strconv.FormatFloat(*input.Tax, 'f', -1, 64),
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "稅額為", strconv.FormatFloat(*input.Tax, 'f', -1, 64))
+	} else if input.Tax == nil && quoteBase.Tax != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "清空", "稅額", "")
 	}
 
 	if input.ShippingAndHandling != nil && *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "運費及其他費用為",
-			Values: strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64),
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "運費及其他費用為", strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64))
+	} else if input.ShippingAndHandling == nil && quoteBase.ShippingAndHandling != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "清空", "運費及其他費用", "")
 	}
 
 	for _, record := range records {
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *quoteBase.QuoteID,
-			Action:     action,
+			Action:     record.Actions,
 			SourceType: sourceType,
 			Field:      record.Fields,
 			Value:      record.Values,

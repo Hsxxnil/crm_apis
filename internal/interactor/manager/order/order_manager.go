@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
+	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
+
 	accountModel "app.eirc/internal/interactor/models/accounts"
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	accountService "app.eirc/internal/interactor/service/account"
@@ -256,17 +258,11 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, any) {
 	var records []historicalRecordModel.AddHistoricalRecord
 
 	if input.Status != nil && *input.Status != *orderBase.Status {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "狀態為",
-			Values: *input.Status,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
 	}
 
 	if input.StartDate != nil && *input.StartDate != *orderBase.StartDate {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "開始日期為",
-			Values: input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"),
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "開始日期為", input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
 	}
 
 	if input.ContractID != nil && *input.ContractID != *orderBase.ContractID {
@@ -274,34 +270,27 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, any) {
 			ContractID: *input.ContractID,
 			IsDeleted:  util.PointerBool(false),
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "契約號碼為",
-			Values: *contractBase.Code,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "契約號碼為", *contractBase.Code)
 
 		if contractBase.AccountID != orderBase.AccountID {
 			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: *contractBase.AccountID,
 				IsDeleted: util.PointerBool(false),
 			})
-			records = append(records, historicalRecordModel.AddHistoricalRecord{
-				Fields: "帳戶為",
-				Values: *accountBase.Name,
-			})
+			historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
 		}
 	}
 
 	if input.Description != nil && *input.Description != *orderBase.Description {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "描述為",
-			Values: *input.Description,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+	} else if input.Description == nil && orderBase.Description != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "清除", "描述", "")
 	}
 
 	for _, record := range records {
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *orderBase.ContractID,
-			Action:     "修改",
+			Action:     record.Actions,
 			SourceType: sourceType,
 			Field:      record.Fields,
 			Value:      record.Values,
