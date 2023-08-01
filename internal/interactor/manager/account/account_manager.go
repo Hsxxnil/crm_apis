@@ -213,14 +213,16 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, interface
 	output.CreatedBy = *accountBase.CreatedByUsers.Name
 	output.UpdatedBy = *accountBase.UpdatedByUsers.Name
 	output.SalespersonName = *accountBase.Salespeople.Name
-	parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
-		AccountID: *accountBase.ParentAccountID,
-		IsDeleted: util.PointerBool(false),
-	})
-	if err != nil {
-		output.ParentAccountName = ""
-	} else {
-		output.ParentAccountName = *parentAccountsBase.Name
+	if accountBase.ParentAccountID != nil {
+		parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
+			AccountID: *accountBase.ParentAccountID,
+			IsDeleted: util.PointerBool(false),
+		})
+		if err != nil {
+			output.ParentAccountName = ""
+		} else {
+			output.ParentAccountName = *parentAccountsBase.Name
+		}
 	}
 	for i, contacts := range output.AccountContacts {
 		contactBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
