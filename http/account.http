@@ -56,7 +56,6 @@ Authorization: Bearer {{accessToken}}
 {
   "name": "2",
   "phone_number": "0800000000",
-  "industry_id": "b1ff0cda-c8c3-4fd6-a263-2f8cbcfe61ea",
   "type": [
     "夥伴",
     "個人客戶",
