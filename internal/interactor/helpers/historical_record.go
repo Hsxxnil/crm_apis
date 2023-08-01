@@ -1,4 +1,4 @@
-package historical_record
+package helpers
 
 import (
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"

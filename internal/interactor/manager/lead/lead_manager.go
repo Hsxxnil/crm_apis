@@ -1,10 +1,9 @@
 package lead
 
 import (
+	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
-
-	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
 
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	userModel "app.eirc/internal/interactor/models/users"
@@ -203,23 +202,23 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 	var records []historicalRecordModel.AddHistoricalRecord
 
 	if input.Status != nil && *input.Status != *leadBase.Status {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
+		helpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
 	}
 
 	if input.Description != nil && *input.Description != *leadBase.Description {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+		helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
 	}
 
 	if input.Source != nil && *input.Source != *leadBase.Source {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "來源為", *input.Source)
+		helpers.AddHistoricalRecord(&records, "修改", "來源為", *input.Source)
 	} else if input.Source == nil && leadBase.Source != nil {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "移除", "來源", "")
+		helpers.AddHistoricalRecord(&records, "移除", "來源", "")
 	}
 
 	if input.Rating != nil && *input.Rating != *leadBase.Rating {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "分級為", *input.Rating)
+		helpers.AddHistoricalRecord(&records, "修改", "分級為", *input.Rating)
 	} else if input.Rating == nil && leadBase.Rating != nil {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "清除", "分級", "")
+		helpers.AddHistoricalRecord(&records, "清除", "分級", "")
 	}
 
 	if input.SalespersonID != nil && *input.SalespersonID != *leadBase.SalespersonID {
@@ -227,7 +226,7 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 			UserID:    *input.SalespersonID,
 			IsDeleted: util.PointerBool(false),
 		})
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
+		helpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}
 
 	for _, record := range records {

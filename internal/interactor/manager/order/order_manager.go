@@ -1,10 +1,9 @@
 package order
 
 import (
+	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
-
-	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
 
 	accountModel "app.eirc/internal/interactor/models/accounts"
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
@@ -258,11 +257,11 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, any) {
 	var records []historicalRecordModel.AddHistoricalRecord
 
 	if input.Status != nil && *input.Status != *orderBase.Status {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
+		helpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
 	}
 
 	if input.StartDate != nil && *input.StartDate != *orderBase.StartDate {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "開始日期為", input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
+		helpers.AddHistoricalRecord(&records, "修改", "開始日期為", input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
 	}
 
 	if input.ContractID != nil && *input.ContractID != *orderBase.ContractID {
@@ -270,21 +269,21 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, any) {
 			ContractID: *input.ContractID,
 			IsDeleted:  util.PointerBool(false),
 		})
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "契約號碼為", *contractBase.Code)
+		helpers.AddHistoricalRecord(&records, "修改", "契約號碼為", *contractBase.Code)
 
 		if contractBase.AccountID != orderBase.AccountID {
 			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: *contractBase.AccountID,
 				IsDeleted: util.PointerBool(false),
 			})
-			historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
+			helpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
 		}
 	}
 
 	if input.Description != nil && *input.Description != *orderBase.Description {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+		helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
 	} else if input.Description == nil && orderBase.Description != nil {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "清除", "描述", "")
+		helpers.AddHistoricalRecord(&records, "清除", "描述", "")
 	}
 
 	for _, record := range records {

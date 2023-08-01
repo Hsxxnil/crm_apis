@@ -1,11 +1,10 @@
 package contract
 
 import (
+	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
 	"strconv"
-
-	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
 
 	userModel "app.eirc/internal/interactor/models/users"
 	userService "app.eirc/internal/interactor/service/user"
@@ -272,33 +271,33 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, any) {
 			OpportunityID: *input.OpportunityID,
 			IsDeleted:     util.PointerBool(false),
 		})
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "商機為", *opportunityBase.Name)
+		helpers.AddHistoricalRecord(&records, "修改", "商機為", *opportunityBase.Name)
 
 		if opportunityBase.AccountID != contractBase.AccountID {
 			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: *opportunityBase.AccountID,
 				IsDeleted: util.PointerBool(false),
 			})
-			historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
+			helpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
 		}
 	}
 
 	if input.Status != nil && *input.Status != *contractBase.Status {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
+		helpers.AddHistoricalRecord(&records, "修改", "狀態為", *input.Status)
 	}
 
 	if input.StartDate != nil && *input.StartDate != *contractBase.StartDate {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "開始日期為", input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
+		helpers.AddHistoricalRecord(&records, "修改", "開始日期為", input.StartDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
 	}
 
 	if input.Term != nil && *input.Term != *contractBase.Term {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "有效期限為", strconv.Itoa(*input.Term)+"個月")
+		helpers.AddHistoricalRecord(&records, "修改", "有效期限為", strconv.Itoa(*input.Term)+"個月")
 	}
 
 	if input.Description != nil && *input.Description != *contractBase.Description {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+		helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
 	} else if input.Description == nil && contractBase.Description != nil {
-		historicalRecordHelpers.AddHistoricalRecord(&records, "清除", "描述", "")
+		helpers.AddHistoricalRecord(&records, "清除", "描述", "")
 	}
 
 	if input.SalespersonID != nil && *input.SalespersonID != *contractBase.SalespersonID {
@@ -306,7 +305,7 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, any) {
 			UserID:    *input.SalespersonID,
 			IsDeleted: util.PointerBool(false),
 		})
-		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
+		helpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}
 
 	for _, record := range records {
