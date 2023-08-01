@@ -27,7 +27,7 @@ type Table struct {
 	// 聯絡人部門
 	Department string `gorm:"column:department;type:text;" json:"department"`
 	// 聯絡人直屬上司ID
-	SupervisorID string `gorm:"column:supervisor_id;type:uuid;not null;" json:"supervisor_id"`
+	SupervisorID *string `gorm:"column:supervisor_id;type:uuid;" json:"supervisor_id"`
 	// 帳戶ID
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// accounts  data

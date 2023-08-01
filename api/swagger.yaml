@@ -717,7 +717,6 @@ definitions:
     - account_id
     - name
     - phone_number
-    - supervisor_id
     type: object
   contacts.Filter:
     properties:

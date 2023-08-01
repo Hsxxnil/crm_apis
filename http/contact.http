@@ -48,17 +48,16 @@ Authorization: Bearer {{accessToken}}
   "email": "test@test.com",
   "salutation": "小姐",
   "department": "業務",
-  "supervisor_id": "eb6751fe-ba8d-44f6-a92f-e2efea61793a",
   "account_id": "ab204144-44f0-4c57-935a-3a6ca06fca00"
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/contacts/e5025fab-0f89-4336-8e7e-19aae6a7ffc9
+PATCH {{host}}/crm/v1.0/contacts/78d7af9b-f64e-46ab-98c6-5ec2d7b54b50
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "account_id": "c7b52f25-edf8-45a7-a3bd-eb9b048ec3aa"
+  "title": "經理"
 }
 
 ### Delete

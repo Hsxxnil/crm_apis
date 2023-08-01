@@ -10030,8 +10030,7 @@ const docTemplate = `{
             "required": [
                 "account_id",
                 "name",
-                "phone_number",
-                "supervisor_id"
+                "phone_number"
             ],
             "properties": {
                 "account_id": {
