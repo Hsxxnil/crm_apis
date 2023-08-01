@@ -5,6 +5,8 @@ import (
 	"errors"
 	"strconv"
 
+	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
+
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	userModel "app.eirc/internal/interactor/models/users"
 	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
@@ -257,38 +259,25 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, any
 	var records []historicalRecordModel.AddHistoricalRecord
 
 	if input.Name != nil && *input.Name != *opportunityBase.Name {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "名稱為",
-			Values: *input.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "名稱為", *input.Name)
 	}
 
 	if input.Stage != nil && *input.Stage != *opportunityBase.Stage {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "階段為",
-			Values: *input.Stage,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "階段為", *input.Stage)
 	}
 
 	if input.ForecastCategory != nil && *input.ForecastCategory != *opportunityBase.ForecastCategory {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "預測種類為",
-			Values: *input.ForecastCategory,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "預測種類為", *input.ForecastCategory)
 	}
 
 	if input.CloseDate != nil && *input.CloseDate != *opportunityBase.CloseDate {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "結束日期為",
-			Values: input.CloseDate.UTC().Format("2006-01-02T15:04:05.999999Z"),
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "結束日期為", input.CloseDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
 	}
 
 	if input.Amount != nil && *input.Amount != *opportunityBase.Amount {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "金額為",
-			Values: strconv.FormatFloat(*input.Amount, 'f', -1, 64),
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "金額為", strconv.FormatFloat(*input.Amount, 'f', -1, 64))
+	} else if input.Amount == nil && opportunityBase.Amount != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "清除", "金額", "")
 	}
 
 	if input.SalespersonID != nil && *input.SalespersonID != *opportunityBase.SalespersonID {
@@ -296,16 +285,13 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, any
 			UserID:    *input.SalespersonID,
 			IsDeleted: util.PointerBool(false),
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員為",
-			Values: *salespersonBase.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}
 
 	for _, record := range records {
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *opportunityBase.OpportunityID,
-			Action:     "修改",
+			Action:     record.Actions,
 			SourceType: sourceType,
 			Field:      record.Fields,
 			Value:      record.Values,
