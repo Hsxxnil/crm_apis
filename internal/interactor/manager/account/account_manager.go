@@ -6,11 +6,10 @@ import (
 	"sort"
 	"strings"
 
+	historicalRecordHelpers "app.eirc/internal/interactor/helpers/historical_record"
+	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	industryModel "app.eirc/internal/interactor/models/industries"
 	userModel "app.eirc/internal/interactor/models/users"
-
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-
 	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
 	industryService "app.eirc/internal/interactor/service/industry"
 	userService "app.eirc/internal/interactor/service/user"
@@ -303,10 +302,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 	var records []historicalRecordModel.AddHistoricalRecord
 
 	if input.Name != nil && *input.Name != *accountBase.Name {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "名稱為",
-			Values: *input.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "名稱為", *input.Name)
 	}
 
 	// 比對帳戶類型是否變更
@@ -318,44 +314,37 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 			for i, value := range *input.Type {
 				if value != (*accountBase.Type)[i] {
 					inputType = strings.Join(*input.Type, "、")
-					break
 				}
 			}
 		}
 	}
 
 	if inputType != "" {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "類型為",
-			Values: inputType,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "類型為", inputType)
 	}
 
 	if input.PhoneNumber != nil && *input.PhoneNumber != *accountBase.PhoneNumber {
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "電話號碼為",
-			Values: *input.PhoneNumber,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "電話號碼為", *input.PhoneNumber)
+	} else if input.PhoneNumber == nil && accountBase.PhoneNumber != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "清除", "電話號碼", "")
 	}
 
 	if input.IndustryID != nil && *input.IndustryID != *accountBase.IndustryID {
 		industryBase, _ := m.IndustryService.GetBySingle(&industryModel.Field{
 			IndustryID: *input.IndustryID,
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "行業為",
-			Values: *industryBase.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "行業為", *industryBase.Name)
+	} else if input.IndustryID == nil && accountBase.IndustryID != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "移除", "行業", "")
 	}
 
 	if input.ParentAccountID != nil && *input.ParentAccountID != *accountBase.ParentAccountID {
 		parentAccountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: input.AccountID,
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "父系帳戶為",
-			Values: *parentAccountBase.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "父系帳戶為", *parentAccountBase.Name)
+	} else if input.ParentAccountID == nil && accountBase.ParentAccountID != nil {
+		historicalRecordHelpers.AddHistoricalRecord(&records, "移除", "父系帳戶", "")
 	}
 
 	if input.SalespersonID != nil && *input.SalespersonID != *accountBase.SalespersonID {
@@ -363,16 +352,13 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 			UserID:    *input.SalespersonID,
 			IsDeleted: util.PointerBool(false),
 		})
-		records = append(records, historicalRecordModel.AddHistoricalRecord{
-			Fields: "業務員為",
-			Values: *salespersonBase.Name,
-		})
+		historicalRecordHelpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}
 
 	for _, record := range records {
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *accountBase.AccountID,
-			Action:     "修改",
+			Action:     record.Actions,
 			SourceType: sourceType,
 			Field:      record.Fields,
 			Value:      record.Values,
