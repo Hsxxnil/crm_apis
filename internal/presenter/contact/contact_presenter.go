@@ -104,8 +104,8 @@ func (c *control) GetByList(ctx *gin.Context) {
 }
 
 // GetByAccountIDListNoPagination
-// @Summary 取得全部聯絡人(不用page和limit)
-// @description 取得全部聯絡人(不用page和limit)
+// @Summary 透過帳戶ID取得全部聯絡人(不用page和limit)
+// @description 透過帳戶ID取得全部聯絡人(不用page和limit)
 // @Tags contact
 // @version 1.0
 // @Accept json

@@ -4423,7 +4423,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: 取得全部聯絡人(不用page和limit)
+      description: 透過帳戶ID取得全部聯絡人(不用page和limit)
       parameters:
       - description: JWE Token
         in: header
@@ -4460,7 +4460,7 @@ paths:
                 detailed:
                   type: string
               type: object
-      summary: 取得全部聯絡人(不用page和limit)
+      summary: 透過帳戶ID取得全部聯絡人(不用page和limit)
       tags:
       - contact
   /contacts/list:
