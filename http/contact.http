@@ -30,6 +30,11 @@ Authorization: Bearer {{accessToken}}
   }
 }
 
+### GetByAccountIDListNoPagination
+GET {{host}}/crm/v1.0/contacts/get-by-account/2e278a76-0155-4c8d-83e9-294146ab7396
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
 ### GetBySingle
 GET {{host}}/crm/v1.0/contacts/0985edb1-d287-45ed-99ed-924675a497f5
 Accept: application/json
