@@ -1,9 +1,10 @@
 package order
 
 import (
-	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
+
+	"app.eirc/internal/interactor/helpers"
 
 	accountModel "app.eirc/internal/interactor/models/accounts"
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"

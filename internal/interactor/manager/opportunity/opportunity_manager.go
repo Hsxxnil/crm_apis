@@ -1,10 +1,11 @@
 package opportunity
 
 import (
-	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
 	"strconv"
+
+	"app.eirc/internal/interactor/helpers"
 
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	userModel "app.eirc/internal/interactor/models/users"

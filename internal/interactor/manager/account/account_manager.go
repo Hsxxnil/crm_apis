@@ -1,11 +1,12 @@
 package account
 
 import (
-	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
 	"sort"
 	"strings"
+
+	"app.eirc/internal/interactor/helpers"
 
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	industryModel "app.eirc/internal/interactor/models/industries"

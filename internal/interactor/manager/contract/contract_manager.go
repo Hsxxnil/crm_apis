@@ -1,10 +1,11 @@
 package contract
 
 import (
-	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
 	"strconv"
+
+	"app.eirc/internal/interactor/helpers"
 
 	userModel "app.eirc/internal/interactor/models/users"
 	userService "app.eirc/internal/interactor/service/user"
