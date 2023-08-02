@@ -1379,7 +1379,7 @@ const docTemplate = `{
         },
         "/contacts/get-by-account/{accountID}": {
             "get": {
-                "description": "取得全部聯絡人(不用page和limit)",
+                "description": "透過帳戶ID取得全部聯絡人(不用page和limit)",
                 "consumes": [
                     "application/json"
                 ],
@@ -1389,7 +1389,7 @@ const docTemplate = `{
                 "tags": [
                     "contact"
                 ],
-                "summary": "取得全部聯絡人(不用page和limit)",
+                "summary": "透過帳戶ID取得全部聯絡人(不用page和limit)",
                 "parameters": [
                     {
                         "type": "string",
