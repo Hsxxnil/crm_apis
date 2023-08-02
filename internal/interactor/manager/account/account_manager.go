@@ -324,9 +324,13 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 		helpers.AddHistoricalRecord(&records, "修改", "類型為", inputType)
 	}
 
-	if input.PhoneNumber != nil && *input.PhoneNumber != *accountBase.PhoneNumber {
-		helpers.AddHistoricalRecord(&records, "修改", "電話號碼為", *input.PhoneNumber)
-	} else if input.PhoneNumber == nil && accountBase.PhoneNumber != nil {
+	if input.PhoneNumber != nil {
+		if *input.PhoneNumber == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "電話號碼", "")
+		} else if *input.PhoneNumber != *accountBase.PhoneNumber {
+			helpers.AddHistoricalRecord(&records, "修改", "電話號碼為", *input.PhoneNumber)
+		}
+	} else if accountBase.PhoneNumber != nil {
 		helpers.AddHistoricalRecord(&records, "清除", "電話號碼", "")
 	}
 
@@ -335,7 +339,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 			IndustryID: *input.IndustryID,
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "行業為", *industryBase.Name)
-	} else if input.IndustryID == nil && accountBase.IndustryID != nil {
+	} else if accountBase.IndustryID != nil {
 		helpers.AddHistoricalRecord(&records, "移除", "行業", "")
 	}
 
@@ -344,7 +348,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 			AccountID: input.AccountID,
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "父系帳戶為", *parentAccountBase.Name)
-	} else if input.ParentAccountID == nil && accountBase.ParentAccountID != nil {
+	} else if accountBase.ParentAccountID != nil {
 		helpers.AddHistoricalRecord(&records, "移除", "父系帳戶", "")
 	}
 
