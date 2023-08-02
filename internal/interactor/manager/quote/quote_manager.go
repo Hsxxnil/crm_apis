@@ -305,22 +305,26 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 		helpers.AddHistoricalRecord(&records, "修改", "到期日期為", input.ExpirationDate.UTC().Format("2006-01-02T15:04:05.999999Z"))
 	}
 
-	if input.Description != nil && *input.Description != *quoteBase.Description {
-		helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
-	} else if input.Description == nil && quoteBase.Description != nil {
-		helpers.AddHistoricalRecord(&records, "清空", "描述", "")
+	if input.Description != nil {
+		if *input.Description == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "描述", "")
+		} else if *input.Description != *quoteBase.Description {
+			helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+		}
+	} else if *quoteBase.Description != "" {
+		helpers.AddHistoricalRecord(&records, "清除", "描述", "")
 	}
 
 	if input.Tax != nil && *input.Tax != *quoteBase.Tax {
 		helpers.AddHistoricalRecord(&records, "修改", "稅額為", strconv.FormatFloat(*input.Tax, 'f', -1, 64))
-	} else if input.Tax == nil && quoteBase.Tax != nil {
-		helpers.AddHistoricalRecord(&records, "清空", "稅額", "")
+	} else if *quoteBase.Tax != 0 {
+		helpers.AddHistoricalRecord(&records, "清除", "稅額", "")
 	}
 
 	if input.ShippingAndHandling != nil && *input.ShippingAndHandling != *quoteBase.ShippingAndHandling {
 		helpers.AddHistoricalRecord(&records, "修改", "運費及其他費用為", strconv.FormatFloat(*input.ShippingAndHandling, 'f', -1, 64))
-	} else if input.ShippingAndHandling == nil && quoteBase.ShippingAndHandling != nil {
-		helpers.AddHistoricalRecord(&records, "清空", "運費及其他費用", "")
+	} else if *quoteBase.ShippingAndHandling != 0 {
+		helpers.AddHistoricalRecord(&records, "清除", "運費及其他費用", "")
 	}
 
 	for _, record := range records {
