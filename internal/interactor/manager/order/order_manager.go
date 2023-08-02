@@ -281,9 +281,13 @@ func (m *manager) Update(trx *gorm.DB, input *orderModel.Update) (int, any) {
 		}
 	}
 
-	if input.Description != nil && *input.Description != *orderBase.Description {
-		helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
-	} else if input.Description == nil && orderBase.Description != nil {
+	if input.Description != nil {
+		if *input.Description == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "描述", "")
+		} else if *input.Description != *orderBase.Description {
+			helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+		}
+	} else if *orderBase.Description != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "描述", "")
 	}
 

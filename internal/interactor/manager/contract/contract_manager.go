@@ -295,9 +295,13 @@ func (m *manager) Update(trx *gorm.DB, input *contractModel.Update) (int, any) {
 		helpers.AddHistoricalRecord(&records, "修改", "有效期限為", strconv.Itoa(*input.Term)+"個月")
 	}
 
-	if input.Description != nil && *input.Description != *contractBase.Description {
-		helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
-	} else if input.Description == nil && contractBase.Description != nil {
+	if input.Description != nil {
+		if *input.Description == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "描述", "")
+		} else if *input.Description != *contractBase.Description {
+			helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+		}
+	} else if *contractBase.Description != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "描述", "")
 	}
 
