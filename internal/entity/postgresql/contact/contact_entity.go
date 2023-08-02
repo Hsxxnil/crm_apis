@@ -141,6 +141,10 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 		query.Where("contact_id = ?", input.ContactID)
 	}
 
+	if input.AccountID != nil {
+		query.Where("account_id = ?", input.AccountID)
+	}
+
 	if input.IsDeleted != nil {
 		query.Where("is_deleted = ?", input.IsDeleted)
 	}

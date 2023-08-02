@@ -31,6 +31,7 @@ type Manager interface {
 	GetBySingle(input *contactModel.Field) (int, any)
 	Delete(input *contactModel.Field) (int, any)
 	Update(trx *gorm.DB, input *contactModel.Update) (int, any)
+	GetByListNoPagination(input *contactModel.Field) (int, any)
 }
 
 type manager struct {
@@ -128,6 +129,28 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, any) {
 				contacts.SupervisorName = *supervisorBase.Name
 			}
 		}
+	}
+
+	return code.Successful, code.GetCodeMessage(code.Successful, output)
+}
+
+func (m *manager) GetByListNoPagination(input *contactModel.Field) (int, any) {
+	input.IsDeleted = util.PointerBool(false)
+	output := &contactModel.ListNoPagination{}
+	contactBase, err := m.ContactService.GetByListNoPagination(input)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	contactByte, err := json.Marshal(contactBase)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+	}
+	err = json.Unmarshal(contactByte, &output.Contacts)
+	if err != nil {
+		log.Error(err)
+		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
