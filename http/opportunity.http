@@ -58,7 +58,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/opportunities/ed582e8c-d65f-4b19-a839-1efe2c428f6b
+PATCH {{host}}/crm/v1.0/opportunities/9b2c8fef-7575-430a-92fb-109cfba5324a
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 

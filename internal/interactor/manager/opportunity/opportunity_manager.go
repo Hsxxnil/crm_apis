@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"app.eirc/internal/interactor/helpers"
-
 	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
 	userModel "app.eirc/internal/interactor/models/users"
 	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
@@ -276,7 +275,7 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, any
 
 	if input.Amount != nil && *input.Amount != *opportunityBase.Amount {
 		helpers.AddHistoricalRecord(&records, "修改", "金額為", strconv.FormatFloat(*input.Amount, 'f', -1, 64))
-	} else if input.Amount == nil && opportunityBase.Amount != nil {
+	} else if *opportunityBase.Amount != 0 {
 		helpers.AddHistoricalRecord(&records, "清除", "金額", "")
 	}
 
