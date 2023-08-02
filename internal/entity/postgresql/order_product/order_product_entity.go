@@ -150,7 +150,7 @@ func (s *storage) Update(input *model.Base) (err error) {
 	}
 
 	if input.IsDeleted != nil {
-		data["is_deleted = ?"] = input.IsDeleted
+		data["is_deleted"] = input.IsDeleted
 	}
 
 	if input.UpdatedBy != nil {
