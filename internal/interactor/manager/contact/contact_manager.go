@@ -1,9 +1,10 @@
 package contact
 
 import (
-	"app.eirc/internal/interactor/helpers"
 	"encoding/json"
 	"errors"
+
+	"app.eirc/internal/interactor/helpers"
 
 	accountContactModel "app.eirc/internal/interactor/models/account_contacts"
 	accountModel "app.eirc/internal/interactor/models/accounts"
@@ -253,9 +254,13 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 		helpers.AddHistoricalRecord(&records, "修改", "名稱為", *input.Name)
 	}
 
-	if input.Title != nil && *input.Title != *contactBase.Title {
-		helpers.AddHistoricalRecord(&records, "修改", "職稱為", *input.Title)
-	} else if input.Title == nil && contactBase.Title != nil {
+	if input.Title != nil {
+		if *input.Title == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "職稱", "")
+		} else if *input.Title != *contactBase.Title {
+			helpers.AddHistoricalRecord(&records, "修改", "職稱為", *input.Title)
+		}
+	} else if *contactBase.Title != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "職稱", "")
 	}
 
@@ -263,27 +268,43 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 		helpers.AddHistoricalRecord(&records, "修改", "電話為", *input.PhoneNumber)
 	}
 
-	if input.CellPhone != nil && *input.CellPhone != *contactBase.CellPhone {
-		helpers.AddHistoricalRecord(&records, "修改", "行動電話為", *input.CellPhone)
-	} else if input.CellPhone == nil && contactBase.CellPhone != nil {
+	if input.CellPhone != nil {
+		if *input.CellPhone == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "行動電話", "")
+		} else if *input.CellPhone != *contactBase.CellPhone {
+			helpers.AddHistoricalRecord(&records, "修改", "行動電話為", *input.CellPhone)
+		}
+	} else if *contactBase.CellPhone != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "行動電話", "")
 	}
 
-	if input.Email != nil && *input.Email != *contactBase.Email {
-		helpers.AddHistoricalRecord(&records, "修改", "電子郵件為", *input.Email)
-	} else if input.Email == nil && contactBase.Email != nil {
+	if input.Email != nil {
+		if *input.Email == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "電子郵件", "")
+		} else if *input.Email != *contactBase.Email {
+			helpers.AddHistoricalRecord(&records, "修改", "電子郵件為", *input.Email)
+		}
+	} else if *contactBase.Email != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "電子郵件", "")
 	}
 
-	if input.Salutation != nil && *input.Salutation != *contactBase.Salutation {
-		helpers.AddHistoricalRecord(&records, "修改", "稱謂為", *input.Salutation)
-	} else if input.Salutation == nil && contactBase.Salutation != nil {
+	if input.Salutation != nil {
+		if *input.Salutation == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "稱謂", "")
+		} else if *input.Salutation != *contactBase.Salutation {
+			helpers.AddHistoricalRecord(&records, "修改", "稱謂為", *input.Salutation)
+		}
+	} else if *contactBase.Salutation != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "稱謂", "")
 	}
 
-	if input.Department != nil && *input.Department != *contactBase.Department {
-		helpers.AddHistoricalRecord(&records, "修改", "部門為", *input.Department)
-	} else if input.Department == nil && contactBase.Department != nil {
+	if input.Department != nil {
+		if *input.Department == "" {
+			helpers.AddHistoricalRecord(&records, "清除", "部門", "")
+		} else if *input.Department != *contactBase.Department {
+			helpers.AddHistoricalRecord(&records, "修改", "部門為", *input.Department)
+		}
+	} else if *contactBase.Department != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "部門", "")
 	}
 
@@ -293,7 +314,7 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 			IsDeleted: util.PointerBool(false),
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "直屬上司為", *supervisorBase.Name)
-	} else if input.SupervisorID == nil && contactBase.SupervisorID != nil {
+	} else if contactBase.SupervisorID != nil {
 		helpers.AddHistoricalRecord(&records, "移除", "直屬上司", "")
 	}
 
