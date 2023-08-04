@@ -351,6 +351,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 		if input.ParentAccountID != nil && *input.ParentAccountID != *accountBase.ParentAccountID {
 			parentAccountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: input.AccountID,
+				IsDeleted: util.PointerBool(false),
 			})
 			helpers.AddHistoricalRecord(&records, "修改", "父系帳戶為", *parentAccountBase.Name)
 		} else {
