@@ -306,10 +306,12 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 	}
 
 	if input.Description != nil {
-		if *input.Description == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "描述", "")
-		} else if *input.Description != *quoteBase.Description {
-			helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+		if *input.Description != *quoteBase.Description {
+			if *input.Description == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "描述", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "描述為", *input.Description)
+			}
 		}
 	} else if *quoteBase.Description != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "描述", "")

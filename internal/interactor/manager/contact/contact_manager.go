@@ -278,10 +278,13 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 	}
 
 	if input.Title != nil {
-		if *input.Title == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "職稱", "")
-		} else if *input.Title != *contactBase.Title {
-			helpers.AddHistoricalRecord(&records, "修改", "職稱為", *input.Title)
+		if *input.Title != *contactBase.Title {
+			if *input.Title == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "職稱", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "職稱為", *input.Title)
+
+			}
 		}
 	} else if *contactBase.Title != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "職稱", "")
@@ -292,40 +295,49 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 	}
 
 	if input.CellPhone != nil {
-		if *input.CellPhone == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "行動電話", "")
-		} else if *input.CellPhone != *contactBase.CellPhone {
-			helpers.AddHistoricalRecord(&records, "修改", "行動電話為", *input.CellPhone)
+		if *input.CellPhone != *contactBase.CellPhone {
+			if *input.CellPhone == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "行動電話", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "行動電話為", *input.CellPhone)
+			}
 		}
 	} else if *contactBase.CellPhone != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "行動電話", "")
 	}
 
 	if input.Email != nil {
-		if *input.Email == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "電子郵件", "")
-		} else if *input.Email != *contactBase.Email {
-			helpers.AddHistoricalRecord(&records, "修改", "電子郵件為", *input.Email)
+		if *input.Email != *contactBase.Email {
+			if *input.Email == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "電子郵件", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "電子郵件為", *input.Email)
+			}
 		}
 	} else if *contactBase.Email != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "電子郵件", "")
 	}
 
 	if input.Salutation != nil {
-		if *input.Salutation == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "稱謂", "")
-		} else if *input.Salutation != *contactBase.Salutation {
-			helpers.AddHistoricalRecord(&records, "修改", "稱謂為", *input.Salutation)
+		if *input.Salutation != *contactBase.Salutation {
+			if *input.Salutation == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "稱謂", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "稱謂為", *input.Salutation)
+			}
 		}
 	} else if *contactBase.Salutation != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "稱謂", "")
 	}
 
 	if input.Department != nil {
-		if *input.Department == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "部門", "")
-		} else if *input.Department != *contactBase.Department {
-			helpers.AddHistoricalRecord(&records, "修改", "部門為", *input.Department)
+		if *input.Department != *contactBase.Department {
+			if *input.Department == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "部門", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "部門為", *input.Department)
+
+			}
 		}
 	} else if *contactBase.Department != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "部門", "")

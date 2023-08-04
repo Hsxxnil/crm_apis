@@ -223,20 +223,24 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 	}
 
 	if input.Source != nil {
-		if *input.Source == "" {
-			helpers.AddHistoricalRecord(&records, "移除", "來源", "")
-		} else if *input.Source != *leadBase.Source {
-			helpers.AddHistoricalRecord(&records, "修改", "來源為", *input.Source)
+		if *input.Source != *leadBase.Source {
+			if *input.Source == "" {
+				helpers.AddHistoricalRecord(&records, "移除", "來源", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "來源為", *input.Source)
+			}
 		}
 	} else if *leadBase.Source != "" {
 		helpers.AddHistoricalRecord(&records, "移除", "來源", "")
 	}
 
 	if input.Rating != nil {
-		if *input.Rating == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "分級", "")
-		} else if *input.Rating != *leadBase.Rating {
-			helpers.AddHistoricalRecord(&records, "修改", "分級為", *input.Rating)
+		if *input.Rating != *leadBase.Rating {
+			if *input.Rating == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "分級", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "分級為", *input.Rating)
+			}
 		}
 	} else if *leadBase.Rating != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "分級", "")
