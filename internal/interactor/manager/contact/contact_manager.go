@@ -343,14 +343,16 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 		helpers.AddHistoricalRecord(&records, "清除", "部門", "")
 	}
 
-	if input.SupervisorID != nil && *input.SupervisorID != *contactBase.SupervisorID {
-		supervisorBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
-			ContactID: *input.SupervisorID,
-			IsDeleted: util.PointerBool(false),
-		})
-		helpers.AddHistoricalRecord(&records, "修改", "直屬上司為", *supervisorBase.Name)
-	} else if contactBase.SupervisorID != nil {
-		helpers.AddHistoricalRecord(&records, "移除", "直屬上司", "")
+	if contactBase.SupervisorID != nil {
+		if input.SupervisorID != nil && *input.SupervisorID != *contactBase.SupervisorID {
+			supervisorBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
+				ContactID: *input.SupervisorID,
+				IsDeleted: util.PointerBool(false),
+			})
+			helpers.AddHistoricalRecord(&records, "修改", "直屬上司為", *supervisorBase.Name)
+		} else {
+			helpers.AddHistoricalRecord(&records, "移除", "直屬上司", "")
+		}
 	}
 
 	if input.AccountID != nil && *input.AccountID != *contactBase.AccountID {
