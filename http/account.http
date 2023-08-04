@@ -39,7 +39,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ### GetBySingle
-GET {{host}}/crm/v1.0/accounts/a9992b5f-396a-4fa9-a00c-fd0d73f74b28
+GET {{host}}/crm/v1.0/accounts/7ed371a6-07a3-4bc6-905b-c15682fe8981
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -65,12 +65,19 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update
-PATCH {{host}}/crm/v1.0/accounts/49957878-f4a6-40e2-9ec2-c35d030b9328
+PATCH {{host}}/crm/v1.0/accounts/549c4cf8-4bd1-4b25-b5f0-f3bb0f124979
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "industry_id": "b1ff0cda-c8c3-4fd6-a263-2f8cbcfe61ea"
+  "name": "麵包小販",
+  "phone_number": "111",
+  "type": [
+    "個人客戶"
+  ],
+  "salesperson_id": "85cee689-bcb2-461f-8b0a-ea6922f1cb07",
+  "industry_id": "b1ff0cda-c8c3-4fd6-a263-2f8cbcfe61ea",
+  "parent_account_id": "18018c07-09cc-49b3-b654-1c4d72ba3f90"
 }
 
 ### Delete

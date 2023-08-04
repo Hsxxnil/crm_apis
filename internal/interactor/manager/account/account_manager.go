@@ -325,31 +325,37 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 	}
 
 	if input.PhoneNumber != nil {
-		if *input.PhoneNumber == "" {
-			helpers.AddHistoricalRecord(&records, "清除", "電話號碼", "")
-		} else if *input.PhoneNumber != *accountBase.PhoneNumber {
-			helpers.AddHistoricalRecord(&records, "修改", "電話號碼為", *input.PhoneNumber)
+		if *input.PhoneNumber != *accountBase.PhoneNumber {
+			if *input.PhoneNumber == "" {
+				helpers.AddHistoricalRecord(&records, "清除", "電話號碼", "")
+			} else {
+				helpers.AddHistoricalRecord(&records, "修改", "電話號碼為", *input.PhoneNumber)
+			}
 		}
-	} else if accountBase.PhoneNumber != nil {
+	} else if *accountBase.PhoneNumber != "" {
 		helpers.AddHistoricalRecord(&records, "清除", "電話號碼", "")
 	}
 
-	if input.IndustryID != nil && *input.IndustryID != *accountBase.IndustryID {
-		industryBase, _ := m.IndustryService.GetBySingle(&industryModel.Field{
-			IndustryID: *input.IndustryID,
-		})
-		helpers.AddHistoricalRecord(&records, "修改", "行業為", *industryBase.Name)
-	} else if accountBase.IndustryID != nil {
-		helpers.AddHistoricalRecord(&records, "移除", "行業", "")
+	if accountBase.IndustryID != nil {
+		if input.IndustryID != nil && *input.IndustryID != *accountBase.IndustryID {
+			industryBase, _ := m.IndustryService.GetBySingle(&industryModel.Field{
+				IndustryID: *input.IndustryID,
+			})
+			helpers.AddHistoricalRecord(&records, "修改", "行業為", *industryBase.Name)
+		} else {
+			helpers.AddHistoricalRecord(&records, "移除", "行業", "")
+		}
 	}
 
-	if input.ParentAccountID != nil && *input.ParentAccountID != *accountBase.ParentAccountID {
-		parentAccountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
-			AccountID: input.AccountID,
-		})
-		helpers.AddHistoricalRecord(&records, "修改", "父系帳戶為", *parentAccountBase.Name)
-	} else if accountBase.ParentAccountID != nil {
-		helpers.AddHistoricalRecord(&records, "移除", "父系帳戶", "")
+	if accountBase.ParentAccountID != nil {
+		if input.ParentAccountID != nil && *input.ParentAccountID != *accountBase.ParentAccountID {
+			parentAccountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
+				AccountID: input.AccountID,
+			})
+			helpers.AddHistoricalRecord(&records, "修改", "父系帳戶為", *parentAccountBase.Name)
+		} else {
+			helpers.AddHistoricalRecord(&records, "移除", "父系帳戶", "")
+		}
 	}
 
 	if input.SalespersonID != nil && *input.SalespersonID != *accountBase.SalespersonID {
