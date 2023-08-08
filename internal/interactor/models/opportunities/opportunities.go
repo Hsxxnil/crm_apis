@@ -87,7 +87,7 @@ type Filter struct {
 	FilterSalespersonName string `json:"salesperson_name,omitempty"`
 }
 
-// FilterNoPagination struct is used to store the search field
+// FilterNoPagination struct is used to store the search field no pagination
 type FilterNoPagination struct {
 	// 商機名稱
 	FilterName string `json:"name,omitempty"`
