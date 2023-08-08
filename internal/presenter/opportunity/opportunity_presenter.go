@@ -111,7 +111,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @Accept json
 // @produce json
 // @param Authorization header string  true "JWE Token"
-// @param * body opportunities.Filter false "搜尋"
+// @param * body opportunities.FilterNoPagination false "搜尋"
 // @success 200 object code.SuccessfulMessage{body=opportunities.ListNoPagination} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"

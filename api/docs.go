@@ -4846,7 +4846,7 @@ const docTemplate = `{
                         "name": "*",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/opportunities.Filter"
+                            "$ref": "#/definitions/opportunities.FilterNoPagination"
                         }
                     }
                 ],
@@ -11558,6 +11558,22 @@ const docTemplate = `{
                 },
                 "salesperson_name": {
                     "description": "業務員名稱",
+                    "type": "string"
+                },
+                "stage": {
+                    "description": "商機階段",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "opportunities.FilterNoPagination": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "商機名稱",
                     "type": "string"
                 },
                 "stage": {

@@ -24,7 +24,8 @@ Authorization: Bearer {{accessToken}}
     "name": "",
     "account_name": "",
     "stage": [
-      "已結束"
+      "談判",
+      "提案"
     ],
     "salesperson_name": ""
   }

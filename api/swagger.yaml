@@ -1738,6 +1738,17 @@ definitions:
           type: string
         type: array
     type: object
+  opportunities.FilterNoPagination:
+    properties:
+      name:
+        description: 商機名稱
+        type: string
+      stage:
+        description: 商機階段
+        items:
+          type: string
+        type: array
+    type: object
   opportunities.List:
     properties:
       limit:
@@ -6391,7 +6402,7 @@ paths:
         in: body
         name: '*'
         schema:
-          $ref: '#/definitions/opportunities.Filter'
+          $ref: '#/definitions/opportunities.FilterNoPagination'
       produces:
       - application/json
       responses:
