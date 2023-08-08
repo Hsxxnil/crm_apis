@@ -115,11 +115,11 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		}
 	}
 
-	if input.FilterStatus != "" {
+	if len(input.FilterStatus) > 0 && input.FilterStatus[0] != "" {
 		if isFiltered {
-			filter.Or("leads.status = ?", input.FilterStatus)
+			filter.Or("leads.status in ?", input.FilterStatus)
 		} else {
-			filter.Where("leads.status = ?", input.FilterStatus)
+			filter.Where("leads.status in ?", input.FilterStatus)
 		}
 	}
 
@@ -152,6 +152,40 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 	if input.IsDeleted != nil {
 		query.Where("is_deleted = ?", input.IsDeleted)
 	}
+
+	// filter
+	isFiltered := false
+	filter := s.db.Model(&model.Table{})
+	if input.FilterDescription != "" {
+		filter.Where("description like ?", "%"+input.FilterDescription+"%")
+		isFiltered = true
+	}
+
+	if input.FilterRating != "" {
+		if isFiltered {
+			filter.Or("rating like ?", "%"+input.FilterRating+"%")
+		} else {
+			filter.Where("rating like ?", "%"+input.FilterRating+"%")
+		}
+	}
+
+	if input.FilterSource != "" {
+		if isFiltered {
+			filter.Or("source like ?", "%"+input.FilterSource+"%")
+		} else {
+			filter.Where("source like ?", "%"+input.FilterSource+"%")
+		}
+	}
+
+	if len(input.FilterStatus) > 0 && input.FilterStatus[0] != "" {
+		if isFiltered {
+			filter.Or("status in ?", input.FilterStatus)
+		} else {
+			filter.Where("status in ?", input.FilterStatus)
+		}
+	}
+
+	query.Where(filter)
 
 	err = query.Order("created_at desc").Find(&output).Error
 	if err != nil {

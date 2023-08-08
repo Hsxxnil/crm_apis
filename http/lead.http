@@ -25,15 +25,29 @@ Authorization: Bearer {{accessToken}}
     "account_name": "",
     "rating": "",
     "source": "",
-    "status": "",
+    "status": [
+      "已轉換",
+      "發展中"
+    ],
     "salesperson_name": ""
   }
 }
 
 ### GetByListNoPagination
-GET {{host}}/crm/v1.0/leads
-Accept: application/json
+POST {{host}}/crm/v1.0/leads/list/no-pagination
+Content-Type: application/json
 Authorization: Bearer {{accessToken}}
+
+{
+  "filter": {
+    "description": "",
+    "rating": "",
+    "source": "",
+    "status": [
+      "發展中"
+    ]
+  }
+}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/leads/4feb77de-1f06-4c1c-bc48-dfe547171c1c
