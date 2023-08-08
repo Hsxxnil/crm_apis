@@ -1840,84 +1840,6 @@
             }
         },
         "/contracts": {
-            "get": {
-                "description": "取得全部契約(不用page和limit)",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "contract"
-                ],
-                "summary": "取得全部契約(不用page和limit)",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/contracts.ListNoPagination"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增契約",
                 "consumes": [
@@ -2075,6 +1997,94 @@
                                     "properties": {
                                         "body": {
                                             "$ref": "#/definitions/contracts.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/list/no-pagination": {
+            "post": {
+                "description": "取得全部契約(不用page和limit)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "contract"
+                ],
+                "summary": "取得全部契約(不用page和limit)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "搜尋",
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/contracts.FilterNoPagination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/contracts.ListNoPagination"
                                         }
                                     }
                                 }
@@ -3451,84 +3461,6 @@
             }
         },
         "/leads": {
-            "get": {
-                "description": "取得全部線索(不用page和limit)",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "lead"
-                ],
-                "summary": "取得全部線索(不用page和limit)",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/leads.ListNoPagination"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增線索",
                 "consumes": [
@@ -3686,6 +3618,94 @@
                                     "properties": {
                                         "body": {
                                             "$ref": "#/definitions/leads.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/leads/list/no-pagination": {
+            "post": {
+                "description": "取得全部線索(不用page和limit)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "lead"
+                ],
+                "summary": "取得全部線索(不用page和limit)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "搜尋",
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/leads.FilterNoPagination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/leads.ListNoPagination"
                                         }
                                     }
                                 }
@@ -4080,84 +4100,6 @@
             }
         },
         "/opportunities": {
-            "get": {
-                "description": "取得全部商機(不用page和limit)",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "opportunity"
-                ],
-                "summary": "取得全部商機(不用page和limit)",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "JWE Token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功後返回的值",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.SuccessfulMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "body": {
-                                            "$ref": "#/definitions/opportunities.ListNoPagination"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "415": {
-                        "description": "必要欄位帶入錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "伺服器非預期錯誤",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/code.ErrorMessage"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "detailed": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "新增商機",
                 "consumes": [
@@ -4849,6 +4791,94 @@
                                     "properties": {
                                         "body": {
                                             "$ref": "#/definitions/opportunities.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/opportunities/list/no-pagination": {
+            "post": {
+                "description": "取得全部商機(不用page和limit)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "opportunity"
+                ],
+                "summary": "取得全部商機(不用page和limit)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "搜尋",
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/opportunities.FilterNoPagination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/opportunities.ListNoPagination"
                                         }
                                     }
                                 }
@@ -10463,7 +10493,26 @@
                 },
                 "status": {
                     "description": "契約狀態",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "contracts.FilterNoPagination": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "契約號碼",
                     "type": "string"
+                },
+                "status": {
+                    "description": "契約狀態",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -11275,7 +11324,34 @@
                 },
                 "status": {
                     "description": "線索狀態",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "leads.FilterNoPagination": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "線索描述",
                     "type": "string"
+                },
+                "rating": {
+                    "description": "線索分級",
+                    "type": "string"
+                },
+                "source": {
+                    "description": "線索來源",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "線索狀態",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -11548,7 +11624,26 @@
                 },
                 "stage": {
                     "description": "商機階段",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "opportunities.FilterNoPagination": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "商機名稱",
                     "type": "string"
+                },
+                "stage": {
+                    "description": "商機階段",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

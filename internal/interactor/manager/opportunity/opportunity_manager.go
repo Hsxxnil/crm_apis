@@ -27,7 +27,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *opportunityModel.Create) (int, any)
 	GetByList(input *opportunityModel.Fields) (int, any)
-	GetByListNoPagination(input *opportunityModel.Field) (int, any)
+	GetByListNoPagination(input *opportunityModel.FieldsNoPagination) (int, any)
 	GetBySingle(input *opportunityModel.Field) (int, any)
 	GetBySingleCampaigns(input *opportunityModel.Field) (int, any)
 	Delete(input *opportunityModel.Field) (int, any)
@@ -122,7 +122,7 @@ func (m *manager) GetByList(input *opportunityModel.Fields) (int, any) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *opportunityModel.Field) (int, any) {
+func (m *manager) GetByListNoPagination(input *opportunityModel.FieldsNoPagination) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &opportunityModel.ListNoPagination{}
 	opportunityBase, err := m.OpportunityService.GetByListNoPagination(input)

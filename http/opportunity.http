@@ -23,15 +23,28 @@ Authorization: Bearer {{accessToken}}
   "filter": {
     "name": "",
     "account_name": "",
-    "stage": "",
+    "stage": [
+      "談判",
+      "提案"
+    ],
     "salesperson_name": ""
   }
 }
 
 ### GetByListNoPagination
-GET {{host}}/crm/v1.0/opportunities
-Accept: application/json
+POST {{host}}/crm/v1.0/opportunities/list/no-pagination
+Content-Type: application/json
 Authorization: Bearer {{accessToken}}
+
+{
+  "filter": {
+    "name": "",
+    "stage": [
+      "談判",
+      "提案"
+    ]
+  }
+}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/opportunities/373042d7-3cb4-4e17-b69f-9b294b69eb7f

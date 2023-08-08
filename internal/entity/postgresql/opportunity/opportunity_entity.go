@@ -103,11 +103,11 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		}
 	}
 
-	if input.FilterStage != "" {
+	if len(input.FilterStage) > 0 && input.FilterStage[0] != "" {
 		if isFiltered {
-			filter.Or("opportunities.stage = ?", input.FilterStage)
+			filter.Or("opportunities.stage in ?", input.FilterStage)
 		} else {
-			filter.Where("opportunities.stage = ?", input.FilterStage)
+			filter.Where("opportunities.stage in ?", input.FilterStage)
 		}
 	}
 
@@ -140,6 +140,24 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 	if input.IsDeleted != nil {
 		query.Where("is_deleted = ?", input.IsDeleted)
 	}
+
+	// filter
+	isFiltered := false
+	filter := s.db.Model(&model.Table{})
+	if input.FilterName != "" {
+		filter.Where("name like ?", "%"+input.FilterName+"%")
+		isFiltered = true
+	}
+
+	if len(input.FilterStage) > 0 && input.FilterStage[0] != "" {
+		if isFiltered {
+			filter.Or("stage in ?", input.FilterStage)
+		} else {
+			filter.Where("stage in ?", input.FilterStage)
+		}
+	}
+
+	query.Where(filter)
 
 	err = query.Order("created_at desc").Find(&output).Error
 	if err != nil {

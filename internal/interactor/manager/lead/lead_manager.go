@@ -24,7 +24,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *leadModel.Create) (int, any)
 	GetByList(input *leadModel.Fields) (int, any)
-	GetByListNoPagination(input *leadModel.Field) (int, any)
+	GetByListNoPagination(input *leadModel.FieldsNoPagination) (int, any)
 	GetBySingle(input *leadModel.Field) (int, any)
 	Delete(input *leadModel.Field) (int, any)
 	Update(trx *gorm.DB, input *leadModel.Update) (int, any)
@@ -104,7 +104,7 @@ func (m *manager) GetByList(input *leadModel.Fields) (int, any) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *leadModel.Field) (int, any) {
+func (m *manager) GetByListNoPagination(input *leadModel.FieldsNoPagination) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &leadModel.ListNoPagination{}
 	leadBase, err := m.LeadService.GetByListNoPagination(input)

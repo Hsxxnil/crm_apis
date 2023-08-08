@@ -96,11 +96,11 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		}
 	}
 
-	if input.FilterStatus != "" {
+	if len(input.FilterStatus) > 0 && input.FilterStatus[0] != "" {
 		if isFiltered {
-			filter.Or("contracts.status = ?", input.FilterStatus)
+			filter.Or("contracts.status in ?", input.FilterStatus)
 		} else {
-			filter.Where("contracts.status = ?", input.FilterStatus)
+			filter.Where("contracts.status in ?", input.FilterStatus)
 		}
 	}
 
@@ -125,6 +125,24 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 	if input.IsDeleted != nil {
 		query.Where("is_deleted = ?", input.IsDeleted)
 	}
+
+	// filter
+	isFiltered := false
+	filter := s.db.Model(&model.Table{})
+	if input.FilterCode != "" {
+		filter.Where("code like ?", "%"+input.FilterCode+"%")
+		isFiltered = true
+	}
+
+	if len(input.FilterStatus) > 0 && input.FilterStatus[0] != "" {
+		if isFiltered {
+			filter.Or("status in ?", input.FilterStatus)
+		} else {
+			filter.Where("status in ?", input.FilterStatus)
+		}
+	}
+
+	query.Where(filter)
 
 	err = query.Order("created_at desc").Find(&output).Error
 	if err != nil {

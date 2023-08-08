@@ -949,7 +949,20 @@ definitions:
         type: string
       status:
         description: 契約狀態
+        items:
+          type: string
+        type: array
+    type: object
+  contracts.FilterNoPagination:
+    properties:
+      code:
+        description: 契約號碼
         type: string
+      status:
+        description: 契約狀態
+        items:
+          type: string
+        type: array
     type: object
   contracts.List:
     properties:
@@ -1535,7 +1548,26 @@ definitions:
         type: string
       status:
         description: 線索狀態
+        items:
+          type: string
+        type: array
+    type: object
+  leads.FilterNoPagination:
+    properties:
+      description:
+        description: 線索描述
         type: string
+      rating:
+        description: 線索分級
+        type: string
+      source:
+        description: 線索來源
+        type: string
+      status:
+        description: 線索狀態
+        items:
+          type: string
+        type: array
     type: object
   leads.List:
     properties:
@@ -1734,7 +1766,20 @@ definitions:
         type: string
       stage:
         description: 商機階段
+        items:
+          type: string
+        type: array
+    type: object
+  opportunities.FilterNoPagination:
+    properties:
+      name:
+        description: 商機名稱
         type: string
+      stage:
+        description: 商機階段
+        items:
+          type: string
+        type: array
     type: object
   opportunities.List:
     properties:
@@ -4535,49 +4580,6 @@ paths:
       tags:
       - contact
   /contracts:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部契約(不用page和limit)
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/contracts.ListNoPagination'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部契約(不用page和limit)
-      tags:
-      - contract
     post:
       consumes:
       - application/json
@@ -4843,6 +4845,55 @@ paths:
                   type: string
               type: object
       summary: 取得全部契約
+      tags:
+      - contract
+  /contracts/list/no-pagination:
+    post:
+      consumes:
+      - application/json
+      description: 取得全部契約(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 搜尋
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/contracts.FilterNoPagination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/contracts.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部契約(不用page和limit)
       tags:
       - contract
   /events:
@@ -5448,49 +5499,6 @@ paths:
       tags:
       - industry
   /leads:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部線索(不用page和limit)
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/leads.ListNoPagination'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部線索(不用page和limit)
-      tags:
-      - lead
     post:
       consumes:
       - application/json
@@ -5758,6 +5766,55 @@ paths:
       summary: 取得全部線索
       tags:
       - lead
+  /leads/list/no-pagination:
+    post:
+      consumes:
+      - application/json
+      description: 取得全部線索(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 搜尋
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/leads.FilterNoPagination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/leads.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部線索(不用page和limit)
+      tags:
+      - lead
   /login:
     post:
       consumes:
@@ -5804,49 +5861,6 @@ paths:
       tags:
       - login
   /opportunities:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部商機(不用page和limit)
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/opportunities.ListNoPagination'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部商機(不用page和limit)
-      tags:
-      - opportunity
     post:
       consumes:
       - application/json
@@ -6415,6 +6429,55 @@ paths:
                   type: string
               type: object
       summary: 取得全部商機
+      tags:
+      - opportunity
+  /opportunities/list/no-pagination:
+    post:
+      consumes:
+      - application/json
+      description: 取得全部商機(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 搜尋
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/opportunities.FilterNoPagination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/opportunities.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部商機(不用page和limit)
       tags:
       - opportunity
   /orders:
