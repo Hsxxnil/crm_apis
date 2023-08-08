@@ -16,7 +16,7 @@ type Service interface {
 	WithTrx(tx *gorm.DB) Service
 	Create(input *model.Create) (output *db.Base, err error)
 	GetByList(input *model.Fields) (quantity int64, output []*db.Base, err error)
-	GetByListNoPagination(input *model.Field) (output []*db.Base, err error)
+	GetByListNoPagination(input *model.FieldsNoPagination) (output []*db.Base, err error)
 	GetBySingle(input *model.Field) (output *db.Base, err error)
 	GetByQuantity(input *model.Field) (quantity int64, err error)
 	Update(input *model.Update) (err error)
@@ -117,7 +117,7 @@ func (s *service) GetByList(input *model.Fields) (quantity int64, output []*db.B
 	return quantity, output, nil
 }
 
-func (s *service) GetByListNoPagination(input *model.Field) (output []*db.Base, err error) {
+func (s *service) GetByListNoPagination(input *model.FieldsNoPagination) (output []*db.Base, err error) {
 	field := &db.Base{}
 	marshal, err := json.Marshal(input)
 	if err != nil {

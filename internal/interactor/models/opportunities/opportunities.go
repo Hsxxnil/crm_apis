@@ -67,6 +67,14 @@ type Fields struct {
 	sort.Sort `json:"sort"`
 }
 
+// FieldsNoPagination is the searched structure file (including filter)
+type FieldsNoPagination struct {
+	// 搜尋結構檔
+	Field
+	// 搜尋欄位
+	Filter `json:"filter"`
+}
+
 // Filter struct is used to store the search field
 type Filter struct {
 	// 商機名稱
@@ -74,7 +82,7 @@ type Filter struct {
 	// 帳戶名稱
 	FilterAccountName string `json:"account_name,omitempty"`
 	// 商機階段
-	FilterStage string `json:"stage,omitempty"`
+	FilterStage []string `json:"stage,omitempty"`
 	// 業務員名稱
 	FilterSalespersonName string `json:"salesperson_name,omitempty"`
 }

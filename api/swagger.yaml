@@ -1734,7 +1734,9 @@ definitions:
         type: string
       stage:
         description: 商機階段
-        type: string
+        items:
+          type: string
+        type: array
     type: object
   opportunities.List:
     properties:
@@ -5804,49 +5806,6 @@ paths:
       tags:
       - login
   /opportunities:
-    get:
-      consumes:
-      - application/json
-      description: 取得全部商機(不用page和limit)
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  $ref: '#/definitions/opportunities.ListNoPagination'
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 取得全部商機(不用page和limit)
-      tags:
-      - opportunity
     post:
       consumes:
       - application/json
@@ -6415,6 +6374,55 @@ paths:
                   type: string
               type: object
       summary: 取得全部商機
+      tags:
+      - opportunity
+  /opportunities/no-pagination:
+    post:
+      consumes:
+      - application/json
+      description: 取得全部商機(不用page和limit)
+      parameters:
+      - description: JWE Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 搜尋
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/opportunities.Filter'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功後返回的值
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.SuccessfulMessage'
+            - properties:
+                body:
+                  $ref: '#/definitions/opportunities.ListNoPagination'
+              type: object
+        "415":
+          description: 必要欄位帶入錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+        "500":
+          description: 伺服器非預期錯誤
+          schema:
+            allOf:
+            - $ref: '#/definitions/code.ErrorMessage'
+            - properties:
+                detailed:
+                  type: string
+              type: object
+      summary: 取得全部商機(不用page和limit)
       tags:
       - opportunity
   /orders:
