@@ -25,14 +25,27 @@ Authorization: Bearer {{accessToken}}
   "filter": {
     "code": "",
     "account_name": "",
-    "status": ""
+    "status": [
+      "已取消",
+      "已簽署"
+    ]
   }
 }
 
 ### GetByListNoPagination
-GET {{host}}/crm/v1.0/contracts
-Accept: application/json
+POST {{host}}/crm/v1.0/contracts/list/no-pagination
+Content-Type: application/json
 Authorization: Bearer {{accessToken}}
+
+{
+  "filter": {
+    "code": "",
+    "status": [
+      "已取消",
+      "已簽署"
+    ]
+  }
+}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/contracts/e9dee473-2851-4983-84e9-1e5981f67655

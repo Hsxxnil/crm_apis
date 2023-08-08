@@ -31,7 +31,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *contractModel.Create) (int, any)
 	GetByList(input *contractModel.Fields) (int, any)
-	GetByListNoPagination(input *contractModel.Field) (int, any)
+	GetByListNoPagination(input *contractModel.FieldsNoPagination) (int, any)
 	GetBySingle(input *contractModel.Field) (int, any)
 	Delete(input *contractModel.Field) (int, any)
 	Update(trx *gorm.DB, input *contractModel.Update) (int, any)
@@ -126,7 +126,7 @@ func (m *manager) GetByList(input *contractModel.Fields) (int, any) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *contractModel.Field) (int, any) {
+func (m *manager) GetByListNoPagination(input *contractModel.FieldsNoPagination) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &contractModel.ListNoPagination{}
 	contractBase, err := m.ContractService.GetByListNoPagination(input)
