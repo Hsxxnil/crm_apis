@@ -115,7 +115,7 @@ func (c *control) GetByList(ctx *gin.Context) {
 // @success 200 object code.SuccessfulMessage{body=opportunities.ListNoPagination} "成功後返回的值"
 // @failure 415 object code.ErrorMessage{detailed=string} "必要欄位帶入錯誤"
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
-// @Router /opportunities/no-pagination [post]
+// @Router /opportunities/list/no-pagination [post]
 func (c *control) GetByListNoPagination(ctx *gin.Context) {
 	input := &opportunityModel.FieldsNoPagination{}
 	if err := ctx.ShouldBindJSON(input); err != nil {
