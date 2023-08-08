@@ -66,7 +66,7 @@ Authorization: Bearer {{accessToken}}
   "stage": "資格評估",
   "forecast_category": "結案",
   "close_date": "2023-04-27T00:00:00Z",
-  "account_id": "6ffec699-fdf9-4753-833f-79604bf3b796",
+  "lead_id": "341c50b3-a215-4273-b118-8f325fd44738",
   "amount": 500
 }
 
@@ -85,6 +85,6 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/opportunities/fd62da01-7206-4e59-8e24-30d22c270163
+DELETE {{host}}/crm/v1.0/opportunities/de19a720-ab6b-47b7-ae13-409fcf16026e
 Accept: application/json
 Authorization: Bearer {{accessToken}}
