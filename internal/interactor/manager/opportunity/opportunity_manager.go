@@ -30,7 +30,7 @@ type Manager interface {
 	GetByListNoPagination(input *opportunityModel.FieldsNoPagination) (int, any)
 	GetBySingle(input *opportunityModel.Field) (int, any)
 	GetBySingleCampaigns(input *opportunityModel.Field) (int, any)
-	Delete(input *opportunityModel.Field) (int, any)
+	Delete(trx *gorm.DB, input *opportunityModel.Update) (int, any)
 	Update(trx *gorm.DB, input *opportunityModel.Update) (int, any)
 }
 
@@ -57,8 +57,34 @@ const sourceType = "商機"
 func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, any) {
 	defer trx.Rollback()
 
-	// 若由線索轉換則同步線索的account_id
+	// 若由線索轉換
 	if input.LeadID != "" {
+		// 同步將線索狀態改為「已轉換」
+		err := m.LeadService.WithTrx(trx).Update(&leadModel.Update{
+			LeadID:    input.LeadID,
+			Status:    util.PointerString("已轉換"),
+			UpdatedBy: util.PointerString(input.CreatedBy),
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
+
+		// 同步新增線索歷程記錄
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
+			SourceID:   input.LeadID,
+			Action:     "修改",
+			SourceType: sourceType,
+			Field:      "狀態為",
+			Value:      "已轉換",
+			ModifiedBy: input.CreatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
+
+		// 同步線索的account_id
 		leadBase, _ := m.LeadService.GetBySingle(&leadModel.Field{
 			LeadID:    input.LeadID,
 			IsDeleted: util.PointerBool(false),
@@ -209,8 +235,10 @@ func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) (int, any)
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) Delete(input *opportunityModel.Field) (int, any) {
-	_, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
+func (m *manager) Delete(trx *gorm.DB, input *opportunityModel.Update) (int, any) {
+	defer trx.Rollback()
+
+	opportunityBase, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
 		IsDeleted:     util.PointerBool(false),
 	})
@@ -223,12 +251,40 @@ func (m *manager) Delete(input *opportunityModel.Field) (int, any) {
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
-	err = m.OpportunityService.Delete(input)
+	// 若是由線索轉換為商機，同步將線索狀態改為「發展中」
+	if opportunityBase.LeadID != nil {
+		err = m.LeadService.WithTrx(trx).Update(&leadModel.Update{
+			LeadID:    *opportunityBase.LeadID,
+			Status:    util.PointerString("發展中"),
+			UpdatedBy: input.UpdatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
+
+		// 同步新增線索歷程記錄
+		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
+			SourceID:   *opportunityBase.LeadID,
+			Action:     "修改",
+			SourceType: sourceType,
+			Field:      "狀態為",
+			Value:      "發展中",
+			ModifiedBy: *input.UpdatedBy,
+		})
+		if err != nil {
+			log.Error(err)
+			return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
+		}
+	}
+
+	err = m.OpportunityService.WithTrx(trx).Delete(input)
 	if err != nil {
 		log.Error(err)
 		return code.InternalServerError, code.GetCodeMessage(code.InternalServerError, err.Error())
 	}
 
+	trx.Commit()
 	return code.Successful, code.GetCodeMessage(code.Successful, "Delete ok!")
 }
 

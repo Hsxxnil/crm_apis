@@ -199,9 +199,11 @@ func (c *control) GetBySingleCampaigns(ctx *gin.Context) {
 // @failure 500 object code.ErrorMessage{detailed=string} "伺服器非預期錯誤"
 // @Router /opportunities/{opportunityID} [delete]
 func (c *control) Delete(ctx *gin.Context) {
+	trx := ctx.MustGet("db_trx").(*gorm.DB)
 	opportunityID := ctx.Param("opportunityID")
-	input := &opportunityModel.Field{}
+	input := &opportunityModel.Update{}
 	input.OpportunityID = opportunityID
+	input.UpdatedBy = util.PointerString(ctx.MustGet("user_id").(string))
 	if err := ctx.ShouldBindQuery(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusUnsupportedMediaType, code.GetCodeMessage(code.FormatError, err.Error()))
@@ -209,7 +211,7 @@ func (c *control) Delete(ctx *gin.Context) {
 		return
 	}
 
-	httpCode, codeMessage := c.Manager.Delete(input)
+	httpCode, codeMessage := c.Manager.Delete(trx, input)
 	ctx.JSON(httpCode, codeMessage)
 }
 
