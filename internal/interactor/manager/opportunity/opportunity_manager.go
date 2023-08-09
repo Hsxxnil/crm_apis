@@ -74,7 +74,7 @@ func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, any
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   input.LeadID,
 			Action:     "修改",
-			SourceType: sourceType,
+			SourceType: "線索",
 			Field:      "狀態為",
 			Value:      "已轉換",
 			ModifiedBy: input.CreatedBy,
@@ -267,7 +267,7 @@ func (m *manager) Delete(trx *gorm.DB, input *opportunityModel.Update) (int, any
 		_, err = m.HistoricalRecordService.WithTrx(trx).Create(&historicalRecordModel.Create{
 			SourceID:   *opportunityBase.LeadID,
 			Action:     "修改",
-			SourceType: sourceType,
+			SourceType: "線索",
 			Field:      "狀態為",
 			Value:      "發展中",
 			ModifiedBy: *input.UpdatedBy,
