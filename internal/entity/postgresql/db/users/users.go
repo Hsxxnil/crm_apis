@@ -16,8 +16,6 @@ type Table struct {
 	Name string `gorm:"column:name;type:text;not null;" json:"name"`
 	// 使用者密碼
 	Password string `gorm:"column:password;type:text;not null;" json:"password"`
-	// 使用者是否刪除
-	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// 使用者電話
 	PhoneNumber string `gorm:"column:phone_number;type:text;" json:"phone_number"`
 	// 使用者電子郵件
@@ -39,8 +37,6 @@ type Base struct {
 	Name *string `json:"name,omitempty"`
 	// 使用者密碼
 	Password *string `json:"password,omitempty"`
-	// 使用者是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// 使用者電話
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	// 使用者電子郵件

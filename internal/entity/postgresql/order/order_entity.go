@@ -264,7 +264,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("order_id = ?", input.OrderID)
 	}
 
-	err = query.Delete(&model.Table{}).Error
+	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

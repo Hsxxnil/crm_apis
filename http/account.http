@@ -71,7 +71,7 @@ Authorization: Bearer {{accessToken}}
 
 {
   "name": "麵包小販",
-  "phone_number": "111",
+  "phone_number": "222",
   "type": [
     "個人客戶"
   ],
@@ -81,6 +81,6 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Delete
-DELETE {{host}}/crm/v1.0/accounts/9222cb5a-3f02-411d-b577-4372989a18a9
+DELETE {{host}}/crm/v1.0/accounts/b57c50e3-baf9-48ff-b3b4-2adaea673aeb
 Accept: application/json
 Authorization: Bearer {{accessToken}}

@@ -30,8 +30,6 @@ type Table struct {
 	Description string `gorm:"column:description;type:text;" json:"description"`
 	// 報價產品號碼
 	Code string `gorm:"column:code;type:text;not null;" json:"code"`
-	// 報價產品是否刪除
-	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -63,8 +61,6 @@ type Base struct {
 	Description *string `json:"description,omitempty"`
 	// 報價產品號碼
 	Code *string `json:"code,omitempty"`
-	// 報價產品是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

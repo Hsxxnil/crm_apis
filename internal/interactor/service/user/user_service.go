@@ -213,9 +213,7 @@ func (s *service) Delete(input *model.Update) (err error) {
 		return err
 	}
 
-	field.DeletedAt = util.PointerTime(util.NowToUTC())
-	field.IsDeleted = util.PointerBool(true)
-	err = s.Repository.Update(field)
+	err = s.Repository.Delete(field)
 	if err != nil {
 		log.Error(err)
 		return err
@@ -249,7 +247,6 @@ func (s *service) Update(input *model.Update) (err error) {
 		}
 		field.Password = util.PointerString(hash.Base64BydEncode(password))
 	}
-	field.UpdatedAt = util.PointerTime(util.NowToUTC())
 	err = s.Repository.Update(field)
 	if err != nil {
 		log.Error(err)

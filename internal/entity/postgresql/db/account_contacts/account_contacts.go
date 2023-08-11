@@ -14,8 +14,6 @@ type Table struct {
 	AccountID string `gorm:"column:account_id;type:uuid;not null;" json:"account_id"`
 	// 聯絡人ID
 	ContactID string `gorm:"column:contact_id;type:uuid;not null;" json:"contact_id"`
-	// 帳戶聯絡人是否刪除
-	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -31,8 +29,6 @@ type Base struct {
 	AccountID *string `json:"account_id,omitempty"`
 	// 聯絡人ID
 	ContactID *string `json:"contact_id,omitempty"`
-	// 帳戶聯絡人是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

@@ -3,9 +3,10 @@ package special
 import (
 	"time"
 
+	"gorm.io/gorm"
+
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
-	"gorm.io/gorm"
 )
 
 // Table is the common file of the backend table structure.
@@ -20,6 +21,8 @@ type Table struct {
 	UpdatedAt *time.Time `gorm:"column:updated_at;type:timestamp;not null;" json:"updated_at"`
 	// 更新者
 	UpdatedBy *string `gorm:"column:updated_by;type:uuid;not null;" json:"updated_by"`
+	// 是否刪除
+	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// 刪除時間
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:timestamp;" json:"deleted_at,omitempty"`
 }
@@ -42,6 +45,8 @@ type Base struct {
 	CreatedBy *string `json:"created_by,omitempty"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty"`
+	// 是否刪除
+	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// 啟用者
 	ActivatedBy *string `json:"activated_by,omitempty"`
 	// 異動者

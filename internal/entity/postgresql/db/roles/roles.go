@@ -17,8 +17,6 @@ type Table struct {
 	CompanyID string `gorm:"column:company_id;type:uuid;not null;" json:"company_id"`
 	// 角色是否啟用
 	IsEnable bool `gorm:"column:is_enable;type:bool;not null;" json:"is_enable"`
-	// 角色是否刪除
-	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -38,8 +36,6 @@ type Base struct {
 	CompanyID *string `json:"company_id,omitempty"`
 	// 角色是否啟用
 	IsEnable *bool `json:"is_enable,omitempty"`
-	// 角色是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
