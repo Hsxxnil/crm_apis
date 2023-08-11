@@ -223,7 +223,6 @@ func (s *service) Update(input *model.Update) (err error) {
 		return err
 	}
 
-	field.UpdatedAt = util.PointerTime(util.NowToUTC())
 	err = s.Repository.Update(field)
 	if err != nil {
 		log.Error(err)

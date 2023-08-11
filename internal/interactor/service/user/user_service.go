@@ -247,7 +247,6 @@ func (s *service) Update(input *model.Update) (err error) {
 		}
 		field.Password = util.PointerString(hash.Base64BydEncode(password))
 	}
-	field.UpdatedAt = util.PointerTime(util.NowToUTC())
 	err = s.Repository.Update(field)
 	if err != nil {
 		log.Error(err)

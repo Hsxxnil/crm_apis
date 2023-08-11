@@ -71,7 +71,7 @@ Authorization: Bearer {{accessToken}}
 
 {
   "name": "麵包小販",
-  "phone_number": "111",
+  "phone_number": "222",
   "type": [
     "個人客戶"
   ],
