@@ -179,7 +179,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("event_user_main_id = ?", input.EventUserMainID)
 	}
 
-	err = query.Delete(&model.Table{}).Error
+	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

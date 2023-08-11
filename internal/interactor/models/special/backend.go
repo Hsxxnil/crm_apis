@@ -3,9 +3,10 @@ package special
 import (
 	"time"
 
+	"gorm.io/gorm"
+
 	"app.eirc/internal/interactor/models/page"
 	"app.eirc/internal/interactor/models/section"
-	"gorm.io/gorm"
 )
 
 // Table is the common file of the backend table structure.
