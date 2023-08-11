@@ -15,8 +15,6 @@ type Table struct {
 	MainID string `gorm:"column:main_id;type:uuid;not null;" json:"main_id"`
 	// main_users data
 	Mains users.Table `gorm:"foreignKey:MainID;references:UserID" json:"mains,omitempty"`
-	// 事件主要人員是否刪除
-	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -34,8 +32,6 @@ type Base struct {
 	MainID *string `json:"main_id,omitempty"`
 	// main_users data
 	Mains users.Base `json:"mains,omitempty"`
-	// 事件主要人員是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data

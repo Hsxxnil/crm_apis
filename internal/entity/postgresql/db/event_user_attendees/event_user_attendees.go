@@ -15,8 +15,6 @@ type Table struct {
 	AttendeeID string `gorm:"column:attendee_id;type:uuid;not null;" json:"attendee_id"`
 	// attendee_users data
 	Attendees users.Table `gorm:"foreignKey:AttendeeID;references:UserID" json:"attendees,omitempty"`
-	// 事件參與人員是否刪除
-	IsDeleted bool `gorm:"column:is_deleted;type:bool;not null;" json:"is_deleted"`
 	// create_users data
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
@@ -34,8 +32,6 @@ type Base struct {
 	AttendeeID *string `json:"attendee_id,omitempty"`
 	// attendee_users data
 	Attendees users.Base `json:"attendees,omitempty"`
-	// 事件參與人員是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// create_users data
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
