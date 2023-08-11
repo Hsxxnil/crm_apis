@@ -50,7 +50,7 @@ type Table struct {
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
 	// quote_products data
 	QuoteProducts []quote_products.Table `gorm:"foreignKey:QuoteID;" json:"products,omitempty"`
-	special.UseTable
+	special.Table
 }
 
 // Base struct is corresponding to quotes table structure file
@@ -89,7 +89,7 @@ type Base struct {
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	// quote_products data
 	QuoteProducts []quote_products.Base `json:"products,omitempty"`
-	special.UseBase
+	special.Base
 	// 搜尋欄位
 	model.Filter `json:"filter"`
 	// 排序欄位

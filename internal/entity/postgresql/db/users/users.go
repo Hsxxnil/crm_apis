@@ -24,7 +24,7 @@ type Table struct {
 	Email string `gorm:"column:email;type:text;" json:"email"`
 	// 角色ID
 	RoleID string `gorm:"column:role_id;type:uuid;not null;" json:"role_id"`
-	special.UseTable
+	special.Table
 }
 
 // Base struct is corresponding to users table structure file
@@ -47,7 +47,7 @@ type Base struct {
 	Email *string `json:"email,omitempty"`
 	// 角色ID
 	RoleID *string `json:"role_id,omitempty"`
-	special.UseBase
+	special.Base
 }
 
 // TableName sets the insert table name for this struct type

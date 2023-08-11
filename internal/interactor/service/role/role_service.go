@@ -165,7 +165,7 @@ func (s *service) Delete(input *model.Update) (err error) {
 		return err
 	}
 
-	field.UpdatedAt = util.PointerTime(util.NowToUTC())
+	field.DeletedAt = util.PointerTime(util.NowToUTC())
 	field.IsDeleted = util.PointerBool(true)
 	field.IsEnable = util.PointerBool(false)
 	err = s.Repository.Update(field)

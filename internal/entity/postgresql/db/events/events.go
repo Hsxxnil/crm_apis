@@ -48,7 +48,7 @@ type Table struct {
 	EventUserAttendees []event_user_attendees.Table `gorm:"foreignKey:EventID" json:"attendees,omitempty"`
 	// event_contacts data
 	EventContacts []event_contacts.Table `gorm:"foreignKey:EventID" json:"contacts,omitempty"`
-	special.UseTable
+	special.Table
 }
 
 // Base struct is corresponding to events table structure file
@@ -85,7 +85,7 @@ type Base struct {
 	EventUserAttendees []event_user_attendees.Base `json:"attendees,omitempty"`
 	// event_contacts data
 	EventContacts []event_contacts.Base `json:"contacts,omitempty"`
-	special.UseBase
+	special.Base
 	// 搜尋欄位
 	model.Filter `json:"filter"`
 }
