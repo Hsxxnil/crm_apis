@@ -20,7 +20,7 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
-	special.UseTable
+	special.Table
 }
 
 // Base struct is corresponding to opportunity_campaigns table structure file
@@ -37,7 +37,7 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
-	special.UseBase
+	special.Base
 }
 
 // TableName sets the insert table opportunity_id for this struct type

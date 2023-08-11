@@ -27,7 +27,7 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
-	special.UseTable
+	special.Table
 }
 
 // Base struct is corresponding to products table structure file
@@ -50,7 +50,7 @@ type Base struct {
 	CreatedByUsers users.Base `json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
-	special.UseBase
+	special.Base
 	// 搜尋欄位
 	model.Filter `json:"filter"`
 	// 排序欄位

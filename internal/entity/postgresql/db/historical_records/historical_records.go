@@ -45,7 +45,7 @@ type Base struct {
 	Action *string `json:"action,omitempty"`
 	// modify_users data
 	ModifiedByUsers users.Base `json:"modified_by_users,omitempty"`
-	special.UseBase
+	special.Base
 }
 
 // TableName sets the insert table name for this struct type

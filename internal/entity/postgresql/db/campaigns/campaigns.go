@@ -52,7 +52,7 @@ type Table struct {
 	CreatedByUsers users.Table `gorm:"foreignKey:CreatedBy;references:UserID" json:"created_by_users,omitempty"`
 	// update_users data
 	UpdatedByUsers users.Table `gorm:"foreignKey:UpdatedBy;references:UserID" json:"updated_by_users,omitempty"`
-	special.UseTable
+	special.Table
 	// opportunity_campaigns data
 	OpportunityCampaigns []opportunity_campaigns.Table `gorm:"foreignKey:CampaignID;" json:"opportunities,omitempty"`
 }
@@ -99,7 +99,7 @@ type Base struct {
 	UpdatedByUsers users.Base `json:"updated_by_users,omitempty"`
 	// opportunity_campaigns data
 	OpportunityCampaigns []opportunity_campaigns.Base `json:"opportunities,omitempty"`
-	special.UseBase
+	special.Base
 	// 搜尋欄位
 	model.Filter `json:"filter"`
 	// 排序欄位
