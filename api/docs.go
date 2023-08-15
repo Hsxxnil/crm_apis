@@ -13239,16 +13239,11 @@ const docTemplate = `{
         "quotes.Create": {
             "type": "object",
             "required": [
-                "account_id",
                 "name",
                 "opportunity_id",
                 "status"
             ],
             "properties": {
-                "account_id": {
-                    "description": "帳戶ID",
-                    "type": "string"
-                },
                 "description": {
                     "description": "報價描述",
                     "type": "string"

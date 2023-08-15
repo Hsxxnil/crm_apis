@@ -22,7 +22,7 @@ type Create struct {
 	// 商機ID
 	OpportunityID string `json:"opportunity_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
 	// 帳戶ID
-	AccountID string `json:"account_id,omitempty" binding:"required,uuid4" validate:"required,uuid4"`
+	AccountID string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4" swaggerignore:"true"`
 	// 報價到期日期
 	ExpirationDate time.Time `json:"expiration_date,omitempty"`
 	// 報價描述
