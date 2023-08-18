@@ -30,7 +30,7 @@ import (
 type Manager interface {
 	Create(trx *gorm.DB, input *accountModel.Create) (int, any)
 	GetByList(input *accountModel.Fields) (int, any)
-	GetByListNoPagination(input *accountModel.Field) (int, any)
+	GetByListNoPagination(input *accountModel.FieldsNoPagination) (int, any)
 	GetBySingle(input *accountModel.Field) (int, any)
 	GetBySingleContacts(input *accountModel.Field) (int, any)
 	Delete(input *accountModel.Field) (int, any)
@@ -128,7 +128,7 @@ func (m *manager) GetByList(input *accountModel.Fields) (int, any) {
 	return code.Successful, code.GetCodeMessage(code.Successful, output)
 }
 
-func (m *manager) GetByListNoPagination(input *accountModel.Field) (int, any) {
+func (m *manager) GetByListNoPagination(input *accountModel.FieldsNoPagination) (int, any) {
 	input.IsDeleted = util.PointerBool(false)
 	output := &accountModel.ListNoPagination{}
 	accountBase, err := m.AccountService.GetByListNoPagination(input)

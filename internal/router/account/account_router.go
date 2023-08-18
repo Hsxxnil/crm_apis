@@ -14,7 +14,7 @@ func GetRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 	{
 		v10.POST("", middleware.Verify(), auth.AuthCheckRole(db), middleware.Transaction(db), control.Create)
 		v10.POST("list", middleware.Verify(), auth.AuthCheckRole(db), control.GetByList)
-		v10.GET("", middleware.Verify(), auth.AuthCheckRole(db), control.GetByListNoPagination)
+		v10.POST("list/no-pagination", middleware.Verify(), auth.AuthCheckRole(db), control.GetByListNoPagination)
 		v10.GET(":accountID", middleware.Verify(), auth.AuthCheckRole(db), control.GetBySingle)
 		v10.GET("contacts/:accountID", middleware.Verify(), auth.AuthCheckRole(db), control.GetBySingleContacts)
 		v10.DELETE(":accountID", middleware.Verify(), auth.AuthCheckRole(db), control.Delete)

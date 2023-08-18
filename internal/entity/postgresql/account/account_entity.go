@@ -136,6 +136,24 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
+	// filter
+	isFiltered := false
+	filter := s.db.Model(&model.Table{})
+	if input.FilterName != "" {
+		filter.Where("name like ?", "%"+input.FilterName+"%")
+		isFiltered = true
+	}
+
+	if input.FilterType != nil {
+		if isFiltered {
+			filter.Or("array[accounts.type] && ?", pq.Array(input.FilterType))
+		} else {
+			filter.Where("array[accounts.type] && ?", pq.Array(input.FilterType))
+		}
+	}
+
+	query.Where(filter)
+
 	err = query.Order("created_at desc").Find(&output).Error
 	if err != nil {
 		log.Error(err)

@@ -67,6 +67,17 @@ definitions:
           type: string
         type: array
     type: object
+  accounts.FilterNoPagination:
+    properties:
+      name:
+        description: 帳戶名稱
+        type: string
+      type:
+        description: 帳戶類型
+        items:
+          type: string
+        type: array
+    type: object
   accounts.List:
     properties:
       accounts:
@@ -3543,7 +3554,7 @@ info:
   version: "0.1"
 paths:
   /accounts:
-    get:
+    post:
       consumes:
       - application/json
       description: 取得全部帳戶(不用page和limit)
@@ -3553,6 +3564,11 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: 搜尋
+        in: body
+        name: '*'
+        schema:
+          $ref: '#/definitions/accounts.FilterNoPagination'
       produces:
       - application/json
       responses:
@@ -3584,55 +3600,6 @@ paths:
                   type: string
               type: object
       summary: 取得全部帳戶(不用page和limit)
-      tags:
-      - account
-    post:
-      consumes:
-      - application/json
-      description: 新增帳戶
-      parameters:
-      - description: JWE Token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: 新增帳戶
-        in: body
-        name: '*'
-        required: true
-        schema:
-          $ref: '#/definitions/accounts.Create'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功後返回的值
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.SuccessfulMessage'
-            - properties:
-                body:
-                  type: string
-              type: object
-        "415":
-          description: 必要欄位帶入錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-        "500":
-          description: 伺服器非預期錯誤
-          schema:
-            allOf:
-            - $ref: '#/definitions/code.ErrorMessage'
-            - properties:
-                detailed:
-                  type: string
-              type: object
-      summary: 新增帳戶
       tags:
       - account
   /accounts/{accountID}:

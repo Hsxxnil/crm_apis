@@ -34,9 +34,18 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### GetByListNoPagination
-GET {{host}}/crm/v1.0/accounts
-Accept: application/json
+POST {{host}}/crm/v1.0/accounts/list/no-pagination
+Content-Type: application/json
 Authorization: Bearer {{accessToken}}
+
+{
+  "filter": {
+    "name": "",
+    "type": [
+      "夥伴"
+    ]
+  }
+}
 
 ### GetBySingle
 GET {{host}}/crm/v1.0/accounts/7ed371a6-07a3-4bc6-905b-c15682fe8981
