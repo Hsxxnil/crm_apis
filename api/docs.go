@@ -22,7 +22,7 @@ const docTemplate = `{
     "paths": {
         "/accounts": {
             "post": {
-                "description": "取得全部帳戶(不用page和limit)",
+                "description": "新增帳戶",
                 "consumes": [
                     "application/json"
                 ],
@@ -32,7 +32,7 @@ const docTemplate = `{
                 "tags": [
                     "account"
                 ],
-                "summary": "取得全部帳戶(不用page和limit)",
+                "summary": "新增帳戶",
                 "parameters": [
                     {
                         "type": "string",
@@ -42,11 +42,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "搜尋",
+                        "description": "新增帳戶",
                         "name": "*",
                         "in": "body",
+                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/accounts.FilterNoPagination"
+                            "$ref": "#/definitions/accounts.Create"
                         }
                     }
                 ],
@@ -62,7 +63,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "body": {
-                                            "$ref": "#/definitions/accounts.ListNoPagination"
+                                            "type": "string"
                                         }
                                     }
                                 }
@@ -264,6 +265,94 @@ const docTemplate = `{
                                     "properties": {
                                         "body": {
                                             "$ref": "#/definitions/accounts.List"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "415": {
+                        "description": "必要欄位帶入錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器非預期錯誤",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.ErrorMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "detailed": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/list/no-pagination": {
+            "post": {
+                "description": "取得全部帳戶(不用page和limit)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "取得全部帳戶(不用page和limit)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JWE Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "搜尋",
+                        "name": "*",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/accounts.FilterNoPagination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功後返回的值",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/code.SuccessfulMessage"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "body": {
+                                            "$ref": "#/definitions/accounts.ListNoPagination"
                                         }
                                     }
                                 }
