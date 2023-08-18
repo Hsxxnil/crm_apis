@@ -10638,6 +10638,10 @@ const docTemplate = `{
                             "contract_id": {
                                 "description": "契約ID",
                                 "type": "string"
+                            },
+                            "start_date": {
+                                "description": "契約開始日期",
+                                "type": "string"
                             }
                         }
                     }

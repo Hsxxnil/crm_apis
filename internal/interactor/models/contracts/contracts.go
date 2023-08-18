@@ -142,6 +142,8 @@ type ListNoPagination struct {
 		ContractID string `json:"contract_id,omitempty"`
 		// 契約號碼
 		Code string `json:"code,omitempty"`
+		// 契約開始日期
+		StartDate time.Time `json:"start_date,omitempty"`
 	} `json:"contracts"`
 }
 
