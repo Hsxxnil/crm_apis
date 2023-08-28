@@ -72,10 +72,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("name like %?%", *input.Name)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
 	if err != nil {
@@ -90,10 +86,6 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
 	if input.RoleID != nil {
 		query.Where("role_id = ?", input.RoleID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.First(&output).Error
@@ -113,10 +105,6 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 
 	if input.Name != nil {
 		query.Where("name = ?", *input.Name)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -148,10 +136,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["is_enable"] = input.IsEnable
 	}
 
-	if input.IsDeleted != nil {
-		data["is_deleted"] = input.IsDeleted
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
@@ -175,7 +159,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("role_id = ?", input.RoleID)
 	}
 
-	err = query.UpdateColumn("is_deleted", true).UpdateColumn("is_enable", false).Delete(&model.Table{}).Error
+	err = query.UpdateColumn("is_enable", false).Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

@@ -85,7 +85,6 @@ func (m *manager) Create(trx *gorm.DB, input *accountModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *accountModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &accountModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -115,7 +114,6 @@ func (m *manager) GetByList(input *accountModel.Fields) (int, any) {
 		if accounts.ParentAccountID != "" {
 			parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: accounts.ParentAccountID,
-				IsDeleted: util.PointerBool(false),
 			})
 			if err != nil {
 				accounts.ParentAccountName = ""
@@ -129,7 +127,6 @@ func (m *manager) GetByList(input *accountModel.Fields) (int, any) {
 }
 
 func (m *manager) GetByListNoPagination(input *accountModel.FieldsNoPagination) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &accountModel.ListNoPagination{}
 	accountBase, err := m.AccountService.GetByListNoPagination(input)
 	if err != nil {
@@ -151,7 +148,6 @@ func (m *manager) GetByListNoPagination(input *accountModel.FieldsNoPagination) 
 }
 
 func (m *manager) GetBySingle(input *accountModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	accountBase, err := m.AccountService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -177,7 +173,6 @@ func (m *manager) GetBySingle(input *accountModel.Field) (int, any) {
 	if accountBase.ParentAccountID != nil {
 		parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: *accountBase.ParentAccountID,
-			IsDeleted: util.PointerBool(false),
 		})
 		if err != nil {
 			output.ParentAccountName = ""
@@ -190,7 +185,6 @@ func (m *manager) GetBySingle(input *accountModel.Field) (int, any) {
 }
 
 func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	accountBase, err := m.AccountService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -216,7 +210,6 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, any) {
 	if accountBase.ParentAccountID != nil {
 		parentAccountsBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: *accountBase.ParentAccountID,
-			IsDeleted: util.PointerBool(false),
 		})
 		if err != nil {
 			output.ParentAccountName = ""
@@ -227,7 +220,6 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, any) {
 	for i, contacts := range output.AccountContacts {
 		contactBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: contacts.ContactID,
-			IsDeleted: util.PointerBool(false),
 		})
 		output.AccountContacts[i].ContactName = *contactBase.Name
 		output.AccountContacts[i].ContactTitle = *contactBase.Title
@@ -244,7 +236,6 @@ func (m *manager) GetBySingleContacts(input *accountModel.Field) (int, any) {
 func (m *manager) Delete(input *accountModel.Field) (int, any) {
 	_, err := m.AccountService.GetBySingle(&accountModel.Field{
 		AccountID: input.AccountID,
-		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -269,7 +260,6 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 
 	accountBase, err := m.AccountService.GetBySingle(&accountModel.Field{
 		AccountID: input.AccountID,
-		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -351,7 +341,6 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 		if input.ParentAccountID != nil && *input.ParentAccountID != *accountBase.ParentAccountID {
 			parentAccountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: input.AccountID,
-				IsDeleted: util.PointerBool(false),
 			})
 			helpers.AddHistoricalRecord(&records, "修改", "父系帳戶為", *parentAccountBase.Name)
 		} else {
@@ -361,8 +350,7 @@ func (m *manager) Update(trx *gorm.DB, input *accountModel.Update) (int, any) {
 
 	if input.SalespersonID != nil && *input.SalespersonID != *accountBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
-			UserID:    *input.SalespersonID,
-			IsDeleted: util.PointerBool(false),
+			UserID: *input.SalespersonID,
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}

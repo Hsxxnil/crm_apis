@@ -60,20 +60,13 @@ func (s *storage) Create(input *model.Base) (err error) {
 
 func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error) {
 	query := s.db.Model(&model.Table{}).
-		Preload("EventUserMains", "is_deleted = ?", false).
 		Preload("EventUserMains.Mains").
-		Preload("EventUserAttendees", "is_deleted = ?", false).
 		Preload("EventUserAttendees.Attendees").
-		Preload("EventContacts", "is_deleted = ?", false).
 		Preload("EventContacts.Contacts").
 		Preload(clause.Associations)
 
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	// filter
@@ -129,20 +122,13 @@ func (s *storage) GetByList(input *model.Base) (output []*model.Table, err error
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
 	query := s.db.Model(&model.Table{}).
-		Preload("EventUserMains", "is_deleted = ?", false).
 		Preload("EventUserMains.Mains").
-		Preload("EventUserAttendees", "is_deleted = ?", false).
 		Preload("EventUserAttendees.Attendees").
-		Preload("EventContacts", "is_deleted = ?", false).
 		Preload("EventContacts.Contacts").
 		Preload(clause.Associations)
 
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.First(&output).Error
@@ -158,10 +144,6 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
 	if input.EventID != nil {
 		query.Where("event_id = ?", input.EventID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -209,10 +191,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["description"] = input.Description
 	}
 
-	if input.IsDeleted != nil {
-		data["is_deleted"] = input.IsDeleted
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
@@ -236,7 +214,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("event_id = ?", input.EventID)
 	}
 
-	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
+	err = query.Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

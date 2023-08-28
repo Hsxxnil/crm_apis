@@ -62,18 +62,11 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Count(&quantity).
-		Joins("Salespeople", s.db.Where(`"Salespeople".is_deleted= ?`, false)).
-		Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Salespeople").Preload(clause.Associations)
 
 	if input.AccountID != nil {
 		query.Where("account_id = ?", input.AccountID)
 	}
-
-	if input.IsDeleted != nil {
-		query.Where("accounts.is_deleted = ?", input.IsDeleted)
-	}
-
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		if input.Sort.Field == "salesperson_name" && input.Sort.Direction != "" {
 			query.Order(`"Salespeople".name` + " " + input.Sort.Direction)
@@ -132,10 +125,6 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 		query.Where("account_id = ?", input.AccountID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	// filter
 	isFiltered := false
 	filter := s.db.Model(&model.Table{})
@@ -169,10 +158,6 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("account_id = ?", input.AccountID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -186,10 +171,6 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
 	if input.AccountID != nil {
 		query.Where("account_id = ?", input.AccountID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -233,10 +214,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["salesperson_id"] = input.SalespersonID
 	}
 
-	if input.IsDeleted != nil {
-		data["is_deleted"] = input.IsDeleted
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
@@ -260,7 +237,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("account_id = ?", input.AccountID)
 	}
 
-	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
+	err = query.Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

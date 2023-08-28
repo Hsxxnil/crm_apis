@@ -57,7 +57,6 @@ func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, any) {
 	// 同步商機的account_id
 	opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
-		IsDeleted:     util.PointerBool(false),
 	})
 	input.AccountID = *opportunityBase.AccountID
 
@@ -84,7 +83,6 @@ func (m *manager) Create(trx *gorm.DB, input *quoteModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *quoteModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &quoteModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -129,7 +127,6 @@ func (m *manager) GetByList(input *quoteModel.Fields) (int, any) {
 }
 
 func (m *manager) GetBySingle(input *quoteModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	quoteBase, err := m.QuoteService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -165,7 +162,6 @@ func (m *manager) GetBySingle(input *quoteModel.Field) (int, any) {
 }
 
 func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	quoteBase, err := m.QuoteService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -206,8 +202,7 @@ func (m *manager) GetBySingleProducts(input *quoteModel.Field) (int, any) {
 
 func (m *manager) Delete(input *quoteModel.Field) (int, any) {
 	_, err := m.QuoteService.GetBySingle(&quoteModel.Field{
-		QuoteID:   input.QuoteID,
-		IsDeleted: util.PointerBool(false),
+		QuoteID: input.QuoteID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -231,8 +226,7 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	quoteBase, err := m.QuoteService.GetBySingle(&quoteModel.Field{
-		QuoteID:   input.QuoteID,
-		IsDeleted: util.PointerBool(false),
+		QuoteID: input.QuoteID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -247,7 +241,6 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 	if input.OpportunityID != nil && *input.OpportunityID != *quoteBase.OpportunityID {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
-			IsDeleted:     util.PointerBool(false),
 		})
 		input.AccountID = opportunityBase.AccountID
 	}
@@ -288,14 +281,12 @@ func (m *manager) Update(trx *gorm.DB, input *quoteModel.Update) (int, any) {
 	if input.OpportunityID != nil && *input.OpportunityID != *quoteBase.OpportunityID {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *input.OpportunityID,
-			IsDeleted:     util.PointerBool(false),
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "商機為", *opportunityBase.Name)
 
 		if opportunityBase.AccountID != quoteBase.AccountID {
 			accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 				AccountID: *opportunityBase.AccountID,
-				IsDeleted: util.PointerBool(false),
 			})
 			helpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
 		}

@@ -40,7 +40,6 @@ func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, any) {
 	quantity, _ := m.UserService.GetByQuantity(&userModel.Field{
 		UserName:  util.PointerString(input.UserName),
 		CompanyID: util.PointerString(input.CompanyID),
-		IsDeleted: util.PointerBool(false),
 	})
 
 	if quantity > 0 {
@@ -59,7 +58,6 @@ func (m *manager) Create(trx *gorm.DB, input *userModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *userModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &userModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -85,7 +83,6 @@ func (m *manager) GetByList(input *userModel.Fields) (int, any) {
 }
 
 func (m *manager) GetByListNoPagination(input *userModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &userModel.ListNoPagination{}
 	userBase, err := m.UserService.GetByListNoPagination(input)
 	if err != nil {
@@ -107,7 +104,6 @@ func (m *manager) GetByListNoPagination(input *userModel.Field) (int, any) {
 }
 
 func (m *manager) GetBySingle(input *userModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	userBase, err := m.UserService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -131,8 +127,7 @@ func (m *manager) GetBySingle(input *userModel.Field) (int, any) {
 
 func (m *manager) Delete(input *userModel.Update) (int, any) {
 	_, err := m.UserService.GetBySingle(&userModel.Field{
-		UserID:    input.UserID,
-		IsDeleted: util.PointerBool(false),
+		UserID: input.UserID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -154,8 +149,7 @@ func (m *manager) Delete(input *userModel.Update) (int, any) {
 
 func (m *manager) Update(input *userModel.Update) (int, any) {
 	userBase, err := m.UserService.GetBySingle(&userModel.Field{
-		UserID:    input.UserID,
-		IsDeleted: util.PointerBool(false),
+		UserID: input.UserID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

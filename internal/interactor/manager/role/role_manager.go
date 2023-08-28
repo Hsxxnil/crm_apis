@@ -39,7 +39,6 @@ func (m *manager) Create(trx *gorm.DB, input *roleModel.Create) (int, any) {
 	quantity, _ := m.RoleService.GetByQuantity(&roleModel.Field{
 		Name:      util.PointerString(input.Name),
 		CompanyID: util.PointerString(input.CompanyID),
-		IsDeleted: util.PointerBool(false),
 	})
 
 	if quantity > 0 {
@@ -58,7 +57,6 @@ func (m *manager) Create(trx *gorm.DB, input *roleModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *roleModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &roleModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -84,7 +82,6 @@ func (m *manager) GetByList(input *roleModel.Fields) (int, any) {
 }
 
 func (m *manager) GetBySingle(input *roleModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	roleBase, err := m.RoleService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -108,8 +105,7 @@ func (m *manager) GetBySingle(input *roleModel.Field) (int, any) {
 
 func (m *manager) Delete(input *roleModel.Update) (int, any) {
 	_, err := m.RoleService.GetBySingle(&roleModel.Field{
-		RoleID:    input.RoleID,
-		IsDeleted: util.PointerBool(false),
+		RoleID: input.RoleID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -131,8 +127,7 @@ func (m *manager) Delete(input *roleModel.Update) (int, any) {
 
 func (m *manager) Update(input *roleModel.Update) (int, any) {
 	roleBase, err := m.RoleService.GetBySingle(&roleModel.Field{
-		RoleID:    input.RoleID,
-		IsDeleted: util.PointerBool(false),
+		RoleID: input.RoleID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

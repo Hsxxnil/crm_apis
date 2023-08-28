@@ -37,8 +37,6 @@ type Field struct {
 	Name *string `json:"name,omitempty" form:"name"`
 	// 使用者密碼
 	Password *string `json:"password,omitempty" form:"password"`
-	// 使用者是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 	// 使用者電話
 	PhoneNumber *string `json:"phone_number,omitempty" form:"phone_number"`
 	// 使用者電子郵件

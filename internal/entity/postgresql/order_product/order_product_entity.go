@@ -65,10 +65,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("order_product_id = ?", input.OrderProductID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
 	if err != nil {
@@ -83,10 +79,6 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 	query := s.db.Model(&model.Table{}).Preload(clause.Associations)
 	if input.OrderProductID != nil {
 		query.Where("order_product_id = ?", input.OrderProductID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ? ", input.IsDeleted)
 	}
 
 	err = query.First(&output).Error
@@ -106,10 +98,6 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ? ", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -149,10 +137,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["description"] = input.Description
 	}
 
-	if input.IsDeleted != nil {
-		data["is_deleted"] = input.IsDeleted
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
@@ -176,7 +160,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("order_product_id = ?", input.OrderProductID)
 	}
 
-	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
+	err = query.Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	roleModel "app.eirc/internal/interactor/models/roles"
-	"app.eirc/internal/interactor/pkg/util"
 	"app.eirc/internal/interactor/service/role"
 	"github.com/casbin/casbin/v2/model"
 	"gorm.io/gorm"
@@ -105,8 +104,7 @@ func GetAllPolicies() [][]string {
 func AuthCheckRole(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		checkRole, err := role.Init(db).GetBySingle(&roleModel.Field{
-			RoleID:    c.MustGet("role_id").(string),
-			IsDeleted: util.PointerBool(false),
+			RoleID: c.MustGet("role_id").(string),
 		})
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{

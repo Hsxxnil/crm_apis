@@ -107,7 +107,6 @@ func (m *manager) Create(trx *gorm.DB, input *eventModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *eventModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &eventModel.List{}
 
 	// 將FilterStartDate轉為時間格式
@@ -158,7 +157,6 @@ func (m *manager) GetByList(input *eventModel.Fields) (int, any) {
 }
 
 func (m *manager) GetBySingle(input *eventModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	eventBase, err := m.EventService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -197,8 +195,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	eventBase, err := m.EventService.GetBySingle(&eventModel.Field{
-		EventID:   input.EventID,
-		IsDeleted: util.PointerBool(false),
+		EventID: input.EventID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -217,8 +214,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, any) {
 
 	// 將舊事件主要人員關聯資料改為刪除
 	eventUserMainBase, err := m.EventUserMainService.GetByListNoPagination(&eventUserMainModel.Field{
-		EventID:   eventBase.EventID,
-		IsDeleted: util.PointerBool(false),
+		EventID: eventBase.EventID,
 	})
 	for _, main := range eventUserMainBase {
 		err = m.EventUserMainService.WithTrx(trx).Delete(&eventUserMainModel.Update{
@@ -233,8 +229,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, any) {
 
 	// 將舊事件參與人員關聯資料改為刪除
 	eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoPagination(&eventUserAttendeeModel.Field{
-		EventID:   eventBase.EventID,
-		IsDeleted: util.PointerBool(false),
+		EventID: eventBase.EventID,
 	})
 	for _, attendee := range eventUserAttendeeBase {
 		err = m.EventUserAttendeeService.WithTrx(trx).Delete(&eventUserAttendeeModel.Update{
@@ -249,8 +244,7 @@ func (m *manager) Delete(trx *gorm.DB, input *eventModel.Update) (int, any) {
 
 	// 將舊事件聯絡人關聯資料改為刪除
 	eventContactBase, err := m.EventContactService.GetByListNoPagination(&eventContactModel.Field{
-		EventID:   eventBase.EventID,
-		IsDeleted: util.PointerBool(false),
+		EventID: eventBase.EventID,
 	})
 	for _, contact := range eventContactBase {
 		err = m.EventContactService.WithTrx(trx).Delete(&eventContactModel.Update{
@@ -271,8 +265,7 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	eventBase, err := m.EventService.GetBySingle(&eventModel.Field{
-		EventID:   input.EventID,
-		IsDeleted: util.PointerBool(false),
+		EventID: input.EventID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -312,8 +305,7 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, any) {
 	if input.Main != nil {
 		// 將舊關聯資料改為刪除
 		eventUserMainBase, err := m.EventUserMainService.GetByListNoPagination(&eventUserMainModel.Field{
-			EventID:   eventBase.EventID,
-			IsDeleted: util.PointerBool(false),
+			EventID: eventBase.EventID,
 		})
 		for _, main := range eventUserMainBase {
 			err = m.EventUserMainService.WithTrx(trx).Delete(&eventUserMainModel.Update{
@@ -343,8 +335,7 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, any) {
 	if input.Attendee != nil {
 		// 將舊關聯資料改為刪除
 		eventUserAttendeeBase, err := m.EventUserAttendeeService.GetByListNoPagination(&eventUserAttendeeModel.Field{
-			EventID:   eventBase.EventID,
-			IsDeleted: util.PointerBool(false),
+			EventID: eventBase.EventID,
 		})
 		for _, attendee := range eventUserAttendeeBase {
 			err = m.EventUserAttendeeService.WithTrx(trx).Delete(&eventUserAttendeeModel.Update{
@@ -374,8 +365,7 @@ func (m *manager) Update(trx *gorm.DB, input *eventModel.Update) (int, any) {
 	if input.Contact != nil {
 		// 將舊關聯資料改為刪除
 		eventContactBase, err := m.EventContactService.GetByListNoPagination(&eventContactModel.Field{
-			EventID:   eventBase.EventID,
-			IsDeleted: util.PointerBool(false),
+			EventID: eventBase.EventID,
 		})
 		for _, contact := range eventContactBase {
 			err = m.EventContactService.WithTrx(trx).Delete(&eventContactModel.Update{

@@ -24,8 +24,6 @@ type Field struct {
 	EventID *string `json:"event_id,omitempty" form:"event_id"`
 	// 參與人員ID
 	AttendeeID *string `json:"attendee_id,omitempty" form:"attendee_id"`
-	// 事件參與人員是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -85,8 +83,6 @@ type Update struct {
 	EventID *string `json:"event_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 參與人員ID
 	AttendeeID *string `json:"attendee_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 事件參與人員是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }

@@ -72,7 +72,6 @@ func (m *manager) Create(trx *gorm.DB, input *leadModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *leadModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &leadModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -105,7 +104,6 @@ func (m *manager) GetByList(input *leadModel.Fields) (int, any) {
 }
 
 func (m *manager) GetByListNoPagination(input *leadModel.FieldsNoPagination) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &leadModel.ListNoPagination{}
 	leadBase, err := m.LeadService.GetByListNoPagination(input)
 	if err != nil {
@@ -127,7 +125,6 @@ func (m *manager) GetByListNoPagination(input *leadModel.FieldsNoPagination) (in
 }
 
 func (m *manager) GetBySingle(input *leadModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	leadBase, err := m.LeadService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -156,8 +153,7 @@ func (m *manager) GetBySingle(input *leadModel.Field) (int, any) {
 
 func (m *manager) Delete(input *leadModel.Field) (int, any) {
 	_, err := m.LeadService.GetBySingle(&leadModel.Field{
-		LeadID:    input.LeadID,
-		IsDeleted: util.PointerBool(false),
+		LeadID: input.LeadID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -181,8 +177,7 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 	defer trx.Rollback()
 
 	leadBase, err := m.LeadService.GetBySingle(&leadModel.Field{
-		LeadID:    input.LeadID,
-		IsDeleted: util.PointerBool(false),
+		LeadID: input.LeadID,
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -236,8 +231,7 @@ func (m *manager) Update(trx *gorm.DB, input *leadModel.Update) (int, any) {
 
 	if input.SalespersonID != nil && *input.SalespersonID != *leadBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
-			UserID:    *input.SalespersonID,
-			IsDeleted: util.PointerBool(false),
+			UserID: *input.SalespersonID,
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}
