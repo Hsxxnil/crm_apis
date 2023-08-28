@@ -53,7 +53,6 @@ func (m *manager) Create(trx *gorm.DB, input *campaignModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *campaignModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &campaignModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -82,7 +81,6 @@ func (m *manager) GetByList(input *campaignModel.Fields) (int, any) {
 		if campaigns.ParentCampaignID != "" {
 			parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 				CampaignID: campaigns.ParentCampaignID,
-				IsDeleted:  util.PointerBool(false),
 			})
 			if err != nil {
 				campaigns.ParentCampaignName = ""
@@ -96,7 +94,6 @@ func (m *manager) GetByList(input *campaignModel.Fields) (int, any) {
 }
 
 func (m *manager) GetByListNoPagination(input *campaignModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &campaignModel.ListNoPagination{}
 	campaignBase, err := m.CampaignService.GetByListNoPagination(input)
 	if err != nil {
@@ -118,7 +115,6 @@ func (m *manager) GetByListNoPagination(input *campaignModel.Field) (int, any) {
 }
 
 func (m *manager) GetBySingle(input *campaignModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	campaignBase, err := m.CampaignService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -143,7 +139,6 @@ func (m *manager) GetBySingle(input *campaignModel.Field) (int, any) {
 	if campaignBase.ParentCampaignID != nil {
 		parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 			CampaignID: *campaignBase.ParentCampaignID,
-			IsDeleted:  util.PointerBool(false),
 		})
 		if err != nil {
 			output.ParentCampaignName = ""
@@ -156,7 +151,6 @@ func (m *manager) GetBySingle(input *campaignModel.Field) (int, any) {
 }
 
 func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	campaignBase, err := m.CampaignService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -181,7 +175,6 @@ func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, any
 	if campaignBase.ParentCampaignID != nil {
 		parentCampaignsBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 			CampaignID: *campaignBase.ParentCampaignID,
-			IsDeleted:  util.PointerBool(false),
 		})
 		if err != nil {
 			output.ParentCampaignName = ""
@@ -192,7 +185,6 @@ func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, any
 	for i, opportunities := range campaignBase.OpportunityCampaigns {
 		opportunityBase, _ := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 			OpportunityID: *opportunities.OpportunityID,
-			IsDeleted:     util.PointerBool(false),
 		})
 		output.OpportunityCampaigns[i].OpportunityName = *opportunityBase.Name
 	}
@@ -203,7 +195,6 @@ func (m *manager) GetBySingleOpportunities(input *campaignModel.Field) (int, any
 func (m *manager) Delete(input *campaignModel.Field) (int, any) {
 	_, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 		CampaignID: input.CampaignID,
-		IsDeleted:  util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -226,7 +217,6 @@ func (m *manager) Delete(input *campaignModel.Field) (int, any) {
 func (m *manager) Update(input *campaignModel.Update) (int, any) {
 	campaignBase, err := m.CampaignService.GetBySingle(&campaignModel.Field{
 		CampaignID: input.CampaignID,
-		IsDeleted:  util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

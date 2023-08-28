@@ -23,8 +23,6 @@ type Field struct {
 	AccountID *string `json:"account_id,omitempty" form:"account_id"`
 	// 聯絡人ID
 	ContactID *string `json:"contact_id,omitempty" form:"contact_id"`
-	// 帳戶聯絡人是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 }
 
 // Fields is the searched structure file (including pagination)
@@ -80,8 +78,6 @@ type Update struct {
 	AccountID *string `json:"account_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
 	// 聯絡人ID
 	ContactID *string `json:"contact_id,omitempty" binding:"omitempty,uuid4" validate:"omitempty,uuid4"`
-	// 帳戶聯絡人是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" swaggerignore:"true"`
 	// 更新者
 	UpdatedBy *string `json:"updated_by,omitempty" binding:"required,uuid4" validate:"required,uuid4" swaggerignore:"true"`
 }

@@ -70,10 +70,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("quote_id = ?", input.QuoteID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	err = query.Count(&quantity).Offset(int((input.Page - 1) * input.Limit)).
 		Limit(int(input.Limit)).Order("created_at desc").Find(&output).Error
 	if err != nil {
@@ -92,10 +88,6 @@ func (s *storage) GetByListNoPagination(input *model.Base) (output []*model.Tabl
 
 	if input.QuoteID != nil {
 		query.Where("quote_id = ?", input.QuoteID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Order("created_at desc").Find(&output).Error
@@ -117,10 +109,6 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("product_id = ?", input.ProductID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -138,10 +126,6 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 
 	if input.QuoteID != nil {
 		query.Where("quote_id = ?", input.QuoteID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -185,10 +169,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["description"] = input.Description
 	}
 
-	if input.IsDeleted != nil {
-		data["is_deleted"] = input.IsDeleted
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
@@ -212,7 +192,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("quote_product_id = ?", input.QuoteProductID)
 	}
 
-	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
+	err = query.Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

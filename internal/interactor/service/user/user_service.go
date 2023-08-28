@@ -70,7 +70,6 @@ func (s *service) Create(input *model.Create) (output *db.Base, err error) {
 	base.CreatedAt = util.PointerTime(util.NowToUTC())
 	base.UpdatedAt = util.PointerTime(util.NowToUTC())
 	base.UpdatedBy = util.PointerString(input.CreatedBy)
-	base.IsDeleted = util.PointerBool(false)
 	err = s.Repository.Create(base)
 	if err != nil {
 		log.Error(err)
@@ -293,7 +292,6 @@ func (s *service) AcknowledgeUser(input *model.Field) (acknowledge bool, output 
 		return false, nil, err
 	}
 
-	field.IsDeleted = util.PointerBool(false)
 	field.Limit = 1
 	quantity, fields, err := s.Repository.GetByList(field)
 	if err != nil {

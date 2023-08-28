@@ -46,7 +46,6 @@ func (m *manager) Create(trx *gorm.DB, input *opportunityCampaignModel.Create) (
 }
 
 func (m *manager) GetByList(input *opportunityCampaignModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &opportunityCampaignModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -77,7 +76,6 @@ func (m *manager) GetByList(input *opportunityCampaignModel.Fields) (int, any) {
 }
 
 func (m *manager) GetBySingle(input *opportunityCampaignModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	opportunityCampaignBase, err := m.OpportunityCampaignService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -105,7 +103,6 @@ func (m *manager) GetBySingle(input *opportunityCampaignModel.Field) (int, any) 
 func (m *manager) Delete(input *opportunityCampaignModel.Field) (int, any) {
 	_, err := m.OpportunityCampaignService.GetBySingle(&opportunityCampaignModel.Field{
 		OpportunityCampaignID: input.OpportunityCampaignID,
-		IsDeleted:             util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -128,7 +125,6 @@ func (m *manager) Delete(input *opportunityCampaignModel.Field) (int, any) {
 func (m *manager) Update(input *opportunityCampaignModel.Update) (int, any) {
 	opportunityCampaignBase, err := m.OpportunityCampaignService.GetBySingle(&opportunityCampaignModel.Field{
 		OpportunityCampaignID: input.OpportunityCampaignID,
-		IsDeleted:             util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

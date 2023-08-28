@@ -110,8 +110,7 @@ func (r *manager) Refresh(input *jwxModel.Refresh) (int, any) {
 	}
 
 	field, err := r.UserService.GetBySingle(&usersModel.Field{
-		UserID:    j.Other["user_id"].(string),
-		IsDeleted: util.PointerBool(false),
+		UserID: j.Other["user_id"].(string),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

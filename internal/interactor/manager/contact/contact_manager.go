@@ -91,7 +91,6 @@ func (m *manager) Create(trx *gorm.DB, input *contactModel.Create) (int, any) {
 }
 
 func (m *manager) GetByList(input *contactModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &contactModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -121,7 +120,6 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, any) {
 		if contacts.SupervisorID != "" {
 			supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 				ContactID: contacts.SupervisorID,
-				IsDeleted: util.PointerBool(false),
 			})
 			if err != nil {
 				contacts.SupervisorName = ""
@@ -135,7 +133,6 @@ func (m *manager) GetByList(input *contactModel.Fields) (int, any) {
 }
 
 func (m *manager) GetByListNoPagination(input *contactModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &contactModel.ListNoPagination{}
 	contactBase, err := m.ContactService.GetByListNoPagination(input)
 	if err != nil {
@@ -157,7 +154,6 @@ func (m *manager) GetByListNoPagination(input *contactModel.Field) (int, any) {
 }
 
 func (m *manager) GetBySingle(input *contactModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	contactBase, err := m.ContactService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -183,7 +179,6 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, any) {
 	if contactBase.SupervisorID != nil {
 		supervisorBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 			ContactID: *contactBase.SupervisorID,
-			IsDeleted: util.PointerBool(false),
 		})
 		if err != nil {
 			output.SupervisorName = ""
@@ -198,7 +193,6 @@ func (m *manager) GetBySingle(input *contactModel.Field) (int, any) {
 func (m *manager) Delete(input *contactModel.Field) (int, any) {
 	_, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: input.ContactID,
-		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -218,7 +212,6 @@ func (m *manager) Delete(input *contactModel.Field) (int, any) {
 	// 同步刪除帳戶聯絡人關聯
 	accountContactBase, _ := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 		ContactID: util.PointerString(input.ContactID),
-		IsDeleted: util.PointerBool(false),
 	})
 	err = m.AccountContactService.Delete(&accountContactModel.Field{
 		AccountContactID: *accountContactBase.AccountContactID,
@@ -236,7 +229,6 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 
 	contactBase, err := m.ContactService.GetBySingle(&contactModel.Field{
 		ContactID: input.ContactID,
-		IsDeleted: util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -257,7 +249,6 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 	if input.AccountID != nil && *input.AccountID != *contactBase.AccountID {
 		accountContactBase, err := m.AccountContactService.GetBySingle(&accountContactModel.Field{
 			ContactID: util.PointerString(input.ContactID),
-			IsDeleted: util.PointerBool(false),
 		})
 		err = m.AccountContactService.WithTrx(trx).Update(&accountContactModel.Update{
 			AccountContactID: *accountContactBase.AccountContactID,
@@ -347,7 +338,6 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 		if input.SupervisorID != nil && *input.SupervisorID != *contactBase.SupervisorID {
 			supervisorBase, _ := m.ContactService.GetBySingle(&contactModel.Field{
 				ContactID: *input.SupervisorID,
-				IsDeleted: util.PointerBool(false),
 			})
 			helpers.AddHistoricalRecord(&records, "修改", "直屬上司為", *supervisorBase.Name)
 		} else {
@@ -358,15 +348,13 @@ func (m *manager) Update(trx *gorm.DB, input *contactModel.Update) (int, any) {
 	if input.AccountID != nil && *input.AccountID != *contactBase.AccountID {
 		accountBase, _ := m.AccountService.GetBySingle(&accountModel.Field{
 			AccountID: *input.AccountID,
-			IsDeleted: util.PointerBool(false),
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "帳戶為", *accountBase.Name)
 	}
 
 	if input.SalespersonID != nil && *input.SalespersonID != *contactBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
-			UserID:    *input.SalespersonID,
-			IsDeleted: util.PointerBool(false),
+			UserID: *input.SalespersonID,
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}

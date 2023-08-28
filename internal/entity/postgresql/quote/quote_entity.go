@@ -67,10 +67,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("quote_id = ?", input.QuoteID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("quotes.is_deleted = ?", input.IsDeleted)
-	}
-
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		if input.Sort.Field == "opportunity_name" && input.Sort.Direction != "" {
 			query.Order(`"Opportunities".name` + " " + input.Sort.Direction)
@@ -117,7 +113,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 
 func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error) {
 	query := s.db.Model(&model.Table{}).
-		Preload("QuoteProducts", "is_deleted = ?", false).
 		Preload("QuoteProducts.Products.CreatedByUsers").
 		Preload("QuoteProducts.Products.UpdatedByUsers").
 		Preload(clause.Associations)
@@ -134,10 +129,6 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("is_final = ?", input.IsFinal)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -151,10 +142,6 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 	query := s.db.Model(&model.Table{})
 	if input.QuoteID != nil {
 		query.Where("quote_id = ?", input.QuoteID)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -210,10 +197,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["shipping_and_handling"] = input.ShippingAndHandling
 	}
 
-	if input.IsDeleted != nil {
-		data["is_deleted"] = input.IsDeleted
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
@@ -237,7 +220,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("quote_id = ?", input.QuoteID)
 	}
 
-	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
+	err = query.Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

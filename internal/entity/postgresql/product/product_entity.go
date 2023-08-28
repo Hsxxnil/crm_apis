@@ -64,10 +64,6 @@ func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.
 		query.Where("product_id = ?", input.ProductID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	if input.Sort.Field != "" && input.Sort.Direction != "" {
 		query.Order(input.Sort.Field + " " + input.Sort.Direction)
 	}
@@ -114,10 +110,6 @@ func (s *storage) GetBySingle(input *model.Base) (output *model.Table, err error
 		query.Where("product_id = ?", input.ProductID)
 	}
 
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
-	}
-
 	err = query.First(&output).Error
 	if err != nil {
 		log.Error(err)
@@ -135,10 +127,6 @@ func (s *storage) GetByQuantity(input *model.Base) (quantity int64, err error) {
 
 	if input.Code != nil {
 		query.Where("code = ?", input.Code)
-	}
-
-	if input.IsDeleted != nil {
-		query.Where("is_deleted = ?", input.IsDeleted)
 	}
 
 	err = query.Count(&quantity).Select("*").Error
@@ -174,10 +162,6 @@ func (s *storage) Update(input *model.Base) (err error) {
 		data["price"] = input.Price
 	}
 
-	if input.IsDeleted != nil {
-		data["is_deleted"] = input.IsDeleted
-	}
-
 	if input.UpdatedBy != nil {
 		data["updated_by"] = input.UpdatedBy
 	}
@@ -201,7 +185,7 @@ func (s *storage) Delete(input *model.Base) (err error) {
 		query.Where("product_id = ?", input.ProductID)
 	}
 
-	err = query.UpdateColumn("is_deleted", true).Delete(&model.Table{}).Error
+	err = query.Delete(&model.Table{}).Error
 	if err != nil {
 		log.Error(err)
 		return err

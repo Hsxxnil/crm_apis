@@ -29,8 +29,6 @@ type Field struct {
 	Name *string `json:"name,omitempty" form:"name"`
 	// 角色是否啟用
 	IsEnable *bool `json:"is_enable,omitempty" form:"is_enable"`
-	// 角色是否刪除
-	IsDeleted *bool `json:"is_deleted,omitempty" form:"is_deleted"`
 }
 
 // Fields is the searched structure file (including pagination)

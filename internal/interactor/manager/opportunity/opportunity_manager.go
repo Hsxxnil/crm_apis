@@ -86,8 +86,7 @@ func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, any
 
 		// 同步線索的account_id
 		leadBase, _ := m.LeadService.GetBySingle(&leadModel.Field{
-			LeadID:    input.LeadID,
-			IsDeleted: util.PointerBool(false),
+			LeadID: input.LeadID,
 		})
 		input.AccountID = *leadBase.AccountID
 	}
@@ -115,7 +114,6 @@ func (m *manager) Create(trx *gorm.DB, input *opportunityModel.Create) (int, any
 }
 
 func (m *manager) GetByList(input *opportunityModel.Fields) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &opportunityModel.List{}
 	output.Limit = input.Limit
 	output.Page = input.Page
@@ -149,7 +147,6 @@ func (m *manager) GetByList(input *opportunityModel.Fields) (int, any) {
 }
 
 func (m *manager) GetByListNoPagination(input *opportunityModel.FieldsNoPagination) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	output := &opportunityModel.ListNoPagination{}
 	opportunityBase, err := m.OpportunityService.GetByListNoPagination(input)
 	if err != nil {
@@ -171,7 +168,6 @@ func (m *manager) GetByListNoPagination(input *opportunityModel.FieldsNoPaginati
 }
 
 func (m *manager) GetBySingle(input *opportunityModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	opportunityBase, err := m.OpportunityService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -200,7 +196,6 @@ func (m *manager) GetBySingle(input *opportunityModel.Field) (int, any) {
 }
 
 func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) (int, any) {
-	input.IsDeleted = util.PointerBool(false)
 	opportunityBase, err := m.OpportunityService.GetBySingle(input)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -227,7 +222,6 @@ func (m *manager) GetBySingleCampaigns(input *opportunityModel.Field) (int, any)
 	for i, campaigns := range opportunityBase.OpportunityCampaigns {
 		campaignBase, _ := m.CampaignService.GetBySingle(&campaignModel.Field{
 			CampaignID: *campaigns.CampaignID,
-			IsDeleted:  util.PointerBool(false),
 		})
 		output.OpportunityCampaigns[i].CampaignName = *campaignBase.Name
 	}
@@ -240,7 +234,6 @@ func (m *manager) Delete(trx *gorm.DB, input *opportunityModel.Update) (int, any
 
 	opportunityBase, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
-		IsDeleted:     util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -293,7 +286,6 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, any
 
 	opportunityBase, err := m.OpportunityService.GetBySingle(&opportunityModel.Field{
 		OpportunityID: input.OpportunityID,
-		IsDeleted:     util.PointerBool(false),
 	})
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -337,8 +329,7 @@ func (m *manager) Update(trx *gorm.DB, input *opportunityModel.Update) (int, any
 
 	if input.SalespersonID != nil && *input.SalespersonID != *opportunityBase.SalespersonID {
 		salespersonBase, _ := m.UserService.GetBySingle(&userModel.Field{
-			UserID:    *input.SalespersonID,
-			IsDeleted: util.PointerBool(false),
+			UserID: *input.SalespersonID,
 		})
 		helpers.AddHistoricalRecord(&records, "修改", "業務員為", *salespersonBase.Name)
 	}
