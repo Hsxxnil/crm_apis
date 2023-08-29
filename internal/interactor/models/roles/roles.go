@@ -53,8 +53,6 @@ type List struct {
 		Name string `json:"name,omitempty"`
 		// 角色是否啟用
 		IsEnable bool `json:"is_enable,omitempty"`
-		// 角色是否刪除
-		IsDeleted bool `json:"is_deleted,omitempty"`
 		// 創建者
 		CreatedBy string `json:"created_by,omitempty"`
 		// 更新者
@@ -78,8 +76,6 @@ type Single struct {
 	Name string `json:"name,omitempty"`
 	// 角色是否啟用
 	IsEnable bool `json:"is_enable,omitempty"`
-	// 角色是否刪除
-	IsDeleted bool `json:"is_deleted,omitempty"`
 	// 創建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// 更新者

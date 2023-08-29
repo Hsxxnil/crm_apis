@@ -65,8 +65,6 @@ type List struct {
 		UserName string `json:"user_name,omitempty"`
 		// 使用者中文名稱
 		Name string `json:"name,omitempty"`
-		// 使用者是否刪除
-		IsDeleted bool `json:"is_deleted,omitempty"`
 		// 使用者電話
 		PhoneNumber string `json:"phone_number,omitempty"`
 		// 使用者電子郵件
@@ -105,8 +103,6 @@ type Single struct {
 	UserName string `json:"user_name,omitempty"`
 	// 使用者中文名稱
 	Name string `json:"name,omitempty"`
-	// 使用者是否刪除
-	IsDeleted bool `json:"is_deleted,omitempty"`
 	// 使用者電話
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// 使用者電子郵件

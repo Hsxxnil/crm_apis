@@ -13740,10 +13740,6 @@ const docTemplate = `{
                                 "description": "角色顯示名稱",
                                 "type": "string"
                             },
-                            "is_deleted": {
-                                "description": "角色是否刪除",
-                                "type": "boolean"
-                            },
                             "is_enable": {
                                 "description": "角色是否啟用",
                                 "type": "boolean"
@@ -13791,10 +13787,6 @@ const docTemplate = `{
                 "display_name": {
                     "description": "角色顯示名稱",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "角色是否刪除",
-                    "type": "boolean"
                 },
                 "is_enable": {
                     "description": "角色是否啟用",
@@ -13924,10 +13916,6 @@ const docTemplate = `{
                                 "description": "使用者電子郵件",
                                 "type": "string"
                             },
-                            "is_deleted": {
-                                "description": "使用者是否刪除",
-                                "type": "boolean"
-                            },
                             "name": {
                                 "description": "使用者中文名稱",
                                 "type": "string"
@@ -14001,10 +13989,6 @@ const docTemplate = `{
                 "email": {
                     "description": "使用者電子郵件",
                     "type": "string"
-                },
-                "is_deleted": {
-                    "description": "使用者是否刪除",
-                    "type": "boolean"
                 },
                 "name": {
                     "description": "使用者中文名稱",

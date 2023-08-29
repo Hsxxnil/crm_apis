@@ -59,9 +59,7 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Count(&quantity).
-		Joins("Opportunities", s.db.Where(`"Opportunities".is_deleted= ?`, false)).
-		Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Opportunities").Preload(clause.Associations)
 
 	if input.QuoteID != nil {
 		query.Where("quote_id = ?", input.QuoteID)
