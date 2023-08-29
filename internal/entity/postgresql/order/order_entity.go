@@ -60,10 +60,7 @@ func (s *storage) Create(input *model.Base) (err error) {
 }
 
 func (s *storage) GetByList(input *model.Base) (quantity int64, output []*model.Table, err error) {
-	query := s.db.Model(&model.Table{}).Count(&quantity).
-		Joins("Accounts").
-		Joins("Contracts", s.db.Where(`"Contracts".is_deleted= ?`, false)).
-		Preload(clause.Associations)
+	query := s.db.Model(&model.Table{}).Count(&quantity).Joins("Accounts").Joins("Contracts").Preload(clause.Associations)
 
 	if input.OrderID != nil {
 		query.Where("order_id = ?", input.OrderID)
