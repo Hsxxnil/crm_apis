@@ -1,24 +1,24 @@
-image: golang:1.21
+image: golang:alpine
 
 pipelines:
   branches:
     main:
       - parallel:
           - step:
-              name: crm testing deploy
+              name: CRM_APIs - Develop - build and deploy
               script:
+                - apk add --no-cache git zip openssh-client
                 - rm -rf ./config
                 - git clone git@bitbucket.org:wisdomfish/crm_config.git ./config
                 - ls ./config
-                - apt-get update && apt-get install -y zip
                 - GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags debug -ldflags="-w -s" -o deploy/crm cmd/crm/crm.go
                 - zip -D -j -r deploy/crm.zip deploy/crm
                 - rm -rf  /opt/atlassian/pipelines/agent/build/.bitbucket/pipelines/generated/pipeline/pipes
-                - pipe: atlassian/aws-lambda-deploy:1.9.0
+                - pipe: atlassian/aws-lambda-deploy:1.10.1
                   variables:
                     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
                     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                    FUNCTION_NAME: 'eirc-testing-crm'
-                    COMMAND: 'update'
-                    ZIP_FILE: 'deploy/crm.zip'
+                    FUNCTION_NAME: "likbox-crm-dev"
+                    COMMAND: "update"
+                    ZIP_FILE: "deploy/crm.zip"
