@@ -19,6 +19,6 @@ pipelines:
                     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
                     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                    FUNCTION_NAME: "likbox-crm-dev"
+                    FUNCTION_NAME: "crm-develop"
                     COMMAND: "update"
                     ZIP_FILE: "deploy/crm.zip"
