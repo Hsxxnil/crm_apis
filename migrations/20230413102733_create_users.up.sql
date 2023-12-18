@@ -1,3 +1,6 @@
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 create table users
 (
     user_id      uuid      default uuid_generate_v4() not null
