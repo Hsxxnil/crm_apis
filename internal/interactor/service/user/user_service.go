@@ -313,7 +313,7 @@ func (s *service) AcknowledgeUser(input *model.Field) (acknowledge bool, output 
 	}
 
 	if string(password) != *input.Password {
-		//return false, nil, errors.New("Incorrect password")
+		log.Error("Incorrect password")
 		return false, nil, nil
 	}
 
