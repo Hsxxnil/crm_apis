@@ -1,9 +1,9 @@
 package event_contacts
 
 import (
-	"app.eirc/internal/entity/postgresql/db/contacts"
-	"app.eirc/internal/entity/postgresql/db/users"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/contacts"
+	"crm/internal/entity/postgresql/db/users"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is event_contacts database table struct

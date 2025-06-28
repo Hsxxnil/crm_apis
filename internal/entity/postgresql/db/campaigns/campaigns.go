@@ -3,13 +3,13 @@ package campaigns
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/users"
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/entity/postgresql/db/users"
+	"crm/internal/interactor/models/sort"
 
-	"app.eirc/internal/entity/postgresql/db/opportunity_campaigns"
+	"crm/internal/entity/postgresql/db/opportunity_campaigns"
 
-	model "app.eirc/internal/interactor/models/campaigns"
-	"app.eirc/internal/interactor/models/special"
+	model "crm/internal/interactor/models/campaigns"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is campaigns database table struct

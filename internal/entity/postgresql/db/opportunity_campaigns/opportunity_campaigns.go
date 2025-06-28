@@ -1,9 +1,9 @@
 package opportunity_campaigns
 
 import (
-	"app.eirc/internal/entity/postgresql/db/users"
+	"crm/internal/entity/postgresql/db/users"
 
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is opportunity_campaigns database table struct

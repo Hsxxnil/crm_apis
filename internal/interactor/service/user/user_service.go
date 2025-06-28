@@ -3,15 +3,16 @@ package user
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/users"
-	store "app.eirc/internal/entity/postgresql/user"
-	"app.eirc/internal/interactor/pkg/util/encryption"
-	"app.eirc/internal/interactor/pkg/util/hash"
+	db "crm/internal/entity/postgresql/db/users"
+	store "crm/internal/entity/postgresql/user"
+	"crm/internal/interactor/pkg/util/encryption"
+	"crm/internal/interactor/pkg/util/hash"
 
-	model "app.eirc/internal/interactor/models/users"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	model "crm/internal/interactor/models/users"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

@@ -1,12 +1,13 @@
 package accounts
 
 import (
-	"app.eirc/internal/entity/postgresql/db/account_contacts"
-	"app.eirc/internal/entity/postgresql/db/industries"
-	"app.eirc/internal/entity/postgresql/db/users"
-	model "app.eirc/internal/interactor/models/accounts"
-	"app.eirc/internal/interactor/models/sort"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/account_contacts"
+	"crm/internal/entity/postgresql/db/industries"
+	"crm/internal/entity/postgresql/db/users"
+	model "crm/internal/interactor/models/accounts"
+	"crm/internal/interactor/models/sort"
+	"crm/internal/interactor/models/special"
+
 	"github.com/lib/pq"
 )
 

@@ -3,10 +3,10 @@ package middleware
 import (
 	"net/http"
 
-	"app.eirc/config"
-	"app.eirc/internal/interactor/pkg/jwx"
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/config"
+	"crm/internal/interactor/pkg/jwx"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 
 	"github.com/gin-gonic/gin"
 )

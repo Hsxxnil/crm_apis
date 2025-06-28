@@ -1,9 +1,10 @@
 package account
 
 import (
-	present "app.eirc/internal/presenter/account"
-	"app.eirc/internal/router/middleware"
-	"app.eirc/internal/router/middleware/auth"
+	present "crm/internal/presenter/account"
+	"crm/internal/router/middleware"
+	"crm/internal/router/middleware/auth"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

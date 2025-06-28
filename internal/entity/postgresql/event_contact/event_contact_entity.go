@@ -3,8 +3,9 @@ package event_contact
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/event_contacts"
-	"app.eirc/internal/interactor/pkg/util/log"
+	model "crm/internal/entity/postgresql/db/event_contacts"
+	"crm/internal/interactor/pkg/util/log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

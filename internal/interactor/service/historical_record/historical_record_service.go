@@ -3,12 +3,13 @@ package historical_record
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/historical_records"
-	store "app.eirc/internal/entity/postgresql/historical_record"
-	model "app.eirc/internal/interactor/models/historical_records"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/historical_records"
+	store "crm/internal/entity/postgresql/historical_record"
+	model "crm/internal/interactor/models/historical_records"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

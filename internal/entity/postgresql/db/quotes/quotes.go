@@ -3,15 +3,15 @@ package quotes
 import (
 	"time"
 
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/interactor/models/sort"
 
-	"app.eirc/internal/entity/postgresql/db/opportunities"
-	"app.eirc/internal/entity/postgresql/db/quote_products"
-	model "app.eirc/internal/interactor/models/quotes"
+	"crm/internal/entity/postgresql/db/opportunities"
+	"crm/internal/entity/postgresql/db/quote_products"
+	model "crm/internal/interactor/models/quotes"
 
-	"app.eirc/internal/entity/postgresql/db/users"
+	"crm/internal/entity/postgresql/db/users"
 
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is quotes database table struct

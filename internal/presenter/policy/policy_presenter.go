@@ -3,9 +3,10 @@ package policy
 import (
 	"net/http"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
-	casbin "app.eirc/internal/router/middleware/auth"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
+	casbin "crm/internal/router/middleware/auth"
+
 	"github.com/gin-gonic/gin"
 	_ "gorm.io/gorm"
 )

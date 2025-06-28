@@ -3,12 +3,13 @@ package opportunity_campaign
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/opportunity_campaigns"
-	store "app.eirc/internal/entity/postgresql/opportunity_campaign"
-	model "app.eirc/internal/interactor/models/opportunity_campaigns"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/opportunity_campaigns"
+	store "crm/internal/entity/postgresql/opportunity_campaign"
+	model "crm/internal/interactor/models/opportunity_campaigns"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

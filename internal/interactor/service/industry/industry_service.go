@@ -3,12 +3,13 @@ package industry
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/industries"
-	store "app.eirc/internal/entity/postgresql/industry"
-	model "app.eirc/internal/interactor/models/industries"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/industries"
+	store "crm/internal/entity/postgresql/industry"
+	model "crm/internal/interactor/models/industries"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

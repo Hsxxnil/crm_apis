@@ -4,29 +4,30 @@ import (
 	"fmt"
 	"net/http"
 
-	_ "app.eirc/api"
-	"app.eirc/internal/interactor/pkg/connect"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/router"
-	"app.eirc/internal/router/account"
-	"app.eirc/internal/router/campaign"
-	"app.eirc/internal/router/contact"
-	"app.eirc/internal/router/contract"
-	"app.eirc/internal/router/event"
-	"app.eirc/internal/router/historical_record"
-	"app.eirc/internal/router/industry"
-	"app.eirc/internal/router/lead"
-	"app.eirc/internal/router/login"
-	"app.eirc/internal/router/opportunity"
-	"app.eirc/internal/router/opportunity_campaign"
-	"app.eirc/internal/router/order"
-	"app.eirc/internal/router/order_product"
-	"app.eirc/internal/router/policy"
-	"app.eirc/internal/router/product"
-	"app.eirc/internal/router/quote"
-	"app.eirc/internal/router/quote_product"
-	"app.eirc/internal/router/role"
-	"app.eirc/internal/router/user"
+	_ "crm/api"
+	"crm/internal/interactor/pkg/connect"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/router"
+	"crm/internal/router/account"
+	"crm/internal/router/campaign"
+	"crm/internal/router/contact"
+	"crm/internal/router/contract"
+	"crm/internal/router/event"
+	"crm/internal/router/historical_record"
+	"crm/internal/router/industry"
+	"crm/internal/router/lead"
+	"crm/internal/router/login"
+	"crm/internal/router/opportunity"
+	"crm/internal/router/opportunity_campaign"
+	"crm/internal/router/order"
+	"crm/internal/router/order_product"
+	"crm/internal/router/policy"
+	"crm/internal/router/product"
+	"crm/internal/router/quote"
+	"crm/internal/router/quote_product"
+	"crm/internal/router/role"
+	"crm/internal/router/user"
+
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -45,9 +46,9 @@ import (
 //	@license.name	AGPL 3.0
 //	@license.url	https://www.gnu.org/licenses/agpl-3.0.en.html
 
-// @host		api.t.d2din.com
+// @host		localhost:8080
 // @BasePath	/crm/v1.0
-// @schemes	https
+// @schemes	http
 func main() {
 	db, err := connect.PostgresSQL()
 	if err != nil {

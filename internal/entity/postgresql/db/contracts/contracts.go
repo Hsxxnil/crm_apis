@@ -3,15 +3,15 @@ package contracts
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/opportunities"
+	"crm/internal/entity/postgresql/db/opportunities"
 
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/interactor/models/sort"
 
-	"app.eirc/internal/entity/postgresql/db/accounts"
-	"app.eirc/internal/entity/postgresql/db/users"
-	model "app.eirc/internal/interactor/models/contracts"
+	"crm/internal/entity/postgresql/db/accounts"
+	"crm/internal/entity/postgresql/db/users"
+	model "crm/internal/interactor/models/contracts"
 
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is contracts database table struct

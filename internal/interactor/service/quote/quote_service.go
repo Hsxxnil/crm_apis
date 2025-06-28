@@ -3,12 +3,13 @@ package quote
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/quotes"
-	store "app.eirc/internal/entity/postgresql/quote"
-	model "app.eirc/internal/interactor/models/quotes"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/quotes"
+	store "crm/internal/entity/postgresql/quote"
+	model "crm/internal/interactor/models/quotes"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

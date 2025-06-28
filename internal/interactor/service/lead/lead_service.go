@@ -3,12 +3,13 @@ package lead
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/leads"
-	store "app.eirc/internal/entity/postgresql/lead"
-	model "app.eirc/internal/interactor/models/leads"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/leads"
+	store "crm/internal/entity/postgresql/lead"
+	model "crm/internal/interactor/models/leads"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

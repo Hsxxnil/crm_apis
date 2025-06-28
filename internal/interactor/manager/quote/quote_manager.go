@@ -6,22 +6,23 @@ import (
 	"math"
 	"strconv"
 
-	"app.eirc/internal/interactor/helpers"
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	opportunityModel "app.eirc/internal/interactor/models/opportunities"
-	quoteModel "app.eirc/internal/interactor/models/quotes"
-	accountService "app.eirc/internal/interactor/service/account"
-	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
-	opportunityService "app.eirc/internal/interactor/service/opportunity"
+	"crm/internal/interactor/helpers"
+	accountModel "crm/internal/interactor/models/accounts"
+	historicalRecordModel "crm/internal/interactor/models/historical_records"
+	opportunityModel "crm/internal/interactor/models/opportunities"
+	quoteModel "crm/internal/interactor/models/quotes"
+	accountService "crm/internal/interactor/service/account"
+	historicalRecordService "crm/internal/interactor/service/historical_record"
+	opportunityService "crm/internal/interactor/service/opportunity"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	quoteService "app.eirc/internal/interactor/service/quote"
+	quoteService "crm/internal/interactor/service/quote"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

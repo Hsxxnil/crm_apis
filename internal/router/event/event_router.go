@@ -1,9 +1,10 @@
 package event
 
 import (
-	present "app.eirc/internal/presenter/event"
-	"app.eirc/internal/router/middleware"
-	"app.eirc/internal/router/middleware/auth"
+	present "crm/internal/presenter/event"
+	"crm/internal/router/middleware"
+	"crm/internal/router/middleware/auth"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

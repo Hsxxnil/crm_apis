@@ -4,17 +4,18 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/config"
+	"crm/config"
 
-	jwxModel "app.eirc/internal/interactor/models/jwx"
-	loginsModel "app.eirc/internal/interactor/models/logins"
-	usersModel "app.eirc/internal/interactor/models/users"
-	"app.eirc/internal/interactor/pkg/jwx"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
-	jwxService "app.eirc/internal/interactor/service/jwx"
-	userService "app.eirc/internal/interactor/service/user"
+	jwxModel "crm/internal/interactor/models/jwx"
+	loginsModel "crm/internal/interactor/models/logins"
+	usersModel "crm/internal/interactor/models/users"
+	"crm/internal/interactor/pkg/jwx"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
+	jwxService "crm/internal/interactor/service/jwx"
+	userService "crm/internal/interactor/service/user"
+
 	"gorm.io/gorm"
 )
 

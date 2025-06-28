@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
+	historicalRecordModel "crm/internal/interactor/models/historical_records"
+	historicalRecordService "crm/internal/interactor/service/historical_record"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

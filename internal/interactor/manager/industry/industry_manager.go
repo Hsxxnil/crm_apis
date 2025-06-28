@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 
-	industryModel "app.eirc/internal/interactor/models/industries"
-	industryService "app.eirc/internal/interactor/service/industry"
+	industryModel "crm/internal/interactor/models/industries"
+	industryService "crm/internal/interactor/service/industry"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

@@ -3,17 +3,17 @@ package orders
 import (
 	"time"
 
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/interactor/models/sort"
 
-	"app.eirc/internal/entity/postgresql/db/order_products"
-	"app.eirc/internal/entity/postgresql/db/users"
-	model "app.eirc/internal/interactor/models/orders"
+	"crm/internal/entity/postgresql/db/order_products"
+	"crm/internal/entity/postgresql/db/users"
+	model "crm/internal/interactor/models/orders"
 
-	"app.eirc/internal/entity/postgresql/db/contracts"
+	"crm/internal/entity/postgresql/db/contracts"
 
-	"app.eirc/internal/entity/postgresql/db/accounts"
+	"crm/internal/entity/postgresql/db/accounts"
 
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is orders database table struct

@@ -1,9 +1,9 @@
 package account_contacts
 
 import (
-	"app.eirc/internal/entity/postgresql/db/users"
+	"crm/internal/entity/postgresql/db/users"
 
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is account_contacts database table struct

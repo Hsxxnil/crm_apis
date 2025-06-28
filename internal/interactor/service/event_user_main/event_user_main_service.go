@@ -3,12 +3,13 @@ package event_user_main
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/event_user_mains"
-	store "app.eirc/internal/entity/postgresql/event_user_main"
-	model "app.eirc/internal/interactor/models/event_user_mains"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/event_user_mains"
+	store "crm/internal/entity/postgresql/event_user_main"
+	model "crm/internal/interactor/models/event_user_mains"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

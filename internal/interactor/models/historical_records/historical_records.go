@@ -3,7 +3,7 @@ package historical_records
 import (
 	"time"
 
-	"app.eirc/internal/interactor/models/page"
+	"crm/internal/interactor/models/page"
 )
 
 // Create struct is used to create achieves

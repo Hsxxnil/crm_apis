@@ -3,12 +3,13 @@ package order
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/orders"
-	store "app.eirc/internal/entity/postgresql/order"
-	model "app.eirc/internal/interactor/models/orders"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/orders"
+	store "crm/internal/entity/postgresql/order"
+	model "crm/internal/interactor/models/orders"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

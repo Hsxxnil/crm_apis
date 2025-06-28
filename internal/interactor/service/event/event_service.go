@@ -3,12 +3,13 @@ package event
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/events"
-	store "app.eirc/internal/entity/postgresql/event"
-	model "app.eirc/internal/interactor/models/events"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/events"
+	store "crm/internal/entity/postgresql/event"
+	model "crm/internal/interactor/models/events"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

@@ -7,17 +7,18 @@ import (
 	"strconv"
 	"strings"
 
-	orderModel "app.eirc/internal/interactor/models/orders"
-	orderService "app.eirc/internal/interactor/service/order"
+	orderModel "crm/internal/interactor/models/orders"
+	orderService "crm/internal/interactor/service/order"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	orderProductModel "app.eirc/internal/interactor/models/order_products"
-	orderProductService "app.eirc/internal/interactor/service/order_product"
+	orderProductModel "crm/internal/interactor/models/order_products"
+	orderProductService "crm/internal/interactor/service/order_product"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

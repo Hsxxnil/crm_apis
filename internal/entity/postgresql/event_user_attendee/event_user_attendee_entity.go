@@ -3,8 +3,9 @@ package event_user_attendee
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/event_user_attendees"
-	"app.eirc/internal/interactor/pkg/util/log"
+	model "crm/internal/entity/postgresql/db/event_user_attendees"
+	"crm/internal/interactor/pkg/util/log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

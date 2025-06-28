@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/log"
+
 	"github.com/gin-gonic/gin"
 	"github.com/open-policy-agent/opa/rego"
 )

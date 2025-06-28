@@ -1,9 +1,9 @@
 package quote_products
 
 import (
-	"app.eirc/internal/entity/postgresql/db/products"
-	"app.eirc/internal/entity/postgresql/db/users"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/products"
+	"crm/internal/entity/postgresql/db/users"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is quote_products database table struct

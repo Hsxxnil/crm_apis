@@ -3531,7 +3531,7 @@ definitions:
         description: 使用者名稱
         type: string
     type: object
-host: api.t.d2din.com
+host: localhost:8080
 info:
   contact: {}
   description: CRM APIs
@@ -8761,5 +8761,5 @@ paths:
       tags:
       - user
 schemes:
-- https
+- http
 swagger: "2.0"

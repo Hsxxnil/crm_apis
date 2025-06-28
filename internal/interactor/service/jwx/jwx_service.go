@@ -3,11 +3,11 @@ package jwx
 import (
 	"time"
 
-	"app.eirc/config"
-	model "app.eirc/internal/interactor/models/jwx"
-	"app.eirc/internal/interactor/pkg/jwx"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/config"
+	model "crm/internal/interactor/models/jwx"
+	"crm/internal/interactor/pkg/jwx"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Service interface {

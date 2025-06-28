@@ -3,8 +3,9 @@ package role
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/roles"
-	"app.eirc/internal/interactor/pkg/util/log"
+	model "crm/internal/entity/postgresql/db/roles"
+	"crm/internal/interactor/pkg/util/log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

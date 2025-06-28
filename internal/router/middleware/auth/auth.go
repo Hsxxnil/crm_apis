@@ -3,13 +3,15 @@ package auth
 import (
 	"net/http"
 
-	roleModel "app.eirc/internal/interactor/models/roles"
-	"app.eirc/internal/interactor/service/role"
+	roleModel "crm/internal/interactor/models/roles"
+	"crm/internal/interactor/service/role"
+
 	"github.com/casbin/casbin/v2/model"
 	"gorm.io/gorm"
 
-	_ "app.eirc/internal/interactor/pkg/connect"
-	"app.eirc/internal/interactor/pkg/util/log"
+	_ "crm/internal/interactor/pkg/connect"
+	"crm/internal/interactor/pkg/util/log"
+
 	"github.com/casbin/casbin/v2"
 	jsonAdapter "github.com/casbin/json-adapter/v2"
 	"github.com/gin-gonic/gin"

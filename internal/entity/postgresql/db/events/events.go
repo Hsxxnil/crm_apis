@@ -3,15 +3,15 @@ package events
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/event_contacts"
-	"app.eirc/internal/entity/postgresql/db/event_user_attendees"
-	"app.eirc/internal/entity/postgresql/db/event_user_mains"
+	"crm/internal/entity/postgresql/db/event_contacts"
+	"crm/internal/entity/postgresql/db/event_user_attendees"
+	"crm/internal/entity/postgresql/db/event_user_mains"
 
-	"app.eirc/internal/entity/postgresql/db/accounts"
+	"crm/internal/entity/postgresql/db/accounts"
 
-	"app.eirc/internal/entity/postgresql/db/users"
-	model "app.eirc/internal/interactor/models/events"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/users"
+	model "crm/internal/interactor/models/events"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is events database table struct

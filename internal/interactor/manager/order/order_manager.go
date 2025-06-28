@@ -4,23 +4,24 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/internal/interactor/helpers"
+	"crm/internal/interactor/helpers"
 
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	accountService "app.eirc/internal/interactor/service/account"
-	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
+	accountModel "crm/internal/interactor/models/accounts"
+	historicalRecordModel "crm/internal/interactor/models/historical_records"
+	accountService "crm/internal/interactor/service/account"
+	historicalRecordService "crm/internal/interactor/service/historical_record"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	contractModel "app.eirc/internal/interactor/models/contracts"
-	orderModel "app.eirc/internal/interactor/models/orders"
-	contractService "app.eirc/internal/interactor/service/contract"
-	orderService "app.eirc/internal/interactor/service/order"
+	contractModel "crm/internal/interactor/models/contracts"
+	orderModel "crm/internal/interactor/models/orders"
+	contractService "crm/internal/interactor/service/contract"
+	orderService "crm/internal/interactor/service/order"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

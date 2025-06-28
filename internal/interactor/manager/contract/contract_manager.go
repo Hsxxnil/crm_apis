@@ -5,27 +5,28 @@ import (
 	"errors"
 	"strconv"
 
-	"app.eirc/internal/interactor/helpers"
+	"crm/internal/interactor/helpers"
 
-	userModel "app.eirc/internal/interactor/models/users"
-	userService "app.eirc/internal/interactor/service/user"
+	userModel "crm/internal/interactor/models/users"
+	userService "crm/internal/interactor/service/user"
 
-	orderModel "app.eirc/internal/interactor/models/orders"
-	"app.eirc/internal/interactor/pkg/util"
+	orderModel "crm/internal/interactor/models/orders"
+	"crm/internal/interactor/pkg/util"
 
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	contractModel "app.eirc/internal/interactor/models/contracts"
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	opportunityModel "app.eirc/internal/interactor/models/opportunities"
-	accountService "app.eirc/internal/interactor/service/account"
-	contractService "app.eirc/internal/interactor/service/contract"
-	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
-	opportunityService "app.eirc/internal/interactor/service/opportunity"
-	orderService "app.eirc/internal/interactor/service/order"
+	accountModel "crm/internal/interactor/models/accounts"
+	contractModel "crm/internal/interactor/models/contracts"
+	historicalRecordModel "crm/internal/interactor/models/historical_records"
+	opportunityModel "crm/internal/interactor/models/opportunities"
+	accountService "crm/internal/interactor/service/account"
+	contractService "crm/internal/interactor/service/contract"
+	historicalRecordService "crm/internal/interactor/service/historical_record"
+	opportunityService "crm/internal/interactor/service/opportunity"
+	orderService "crm/internal/interactor/service/order"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

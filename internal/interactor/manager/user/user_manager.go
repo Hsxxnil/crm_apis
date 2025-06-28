@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	userModel "app.eirc/internal/interactor/models/users"
-	userService "app.eirc/internal/interactor/service/user"
+	userModel "crm/internal/interactor/models/users"
+	userService "crm/internal/interactor/service/user"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

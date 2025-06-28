@@ -1,6 +1,6 @@
 package industries
 
-import "app.eirc/internal/interactor/models/page"
+import "crm/internal/interactor/models/page"
 
 // Table struct is industries database table struct
 type Table struct {

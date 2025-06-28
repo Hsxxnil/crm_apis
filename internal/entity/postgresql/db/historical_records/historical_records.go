@@ -3,8 +3,8 @@ package historical_records
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/users"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/users"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is historical_records database table struct

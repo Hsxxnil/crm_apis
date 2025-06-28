@@ -3,12 +3,13 @@ package role
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/roles"
-	store "app.eirc/internal/entity/postgresql/role"
-	model "app.eirc/internal/interactor/models/roles"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/roles"
+	store "crm/internal/entity/postgresql/role"
+	model "crm/internal/interactor/models/roles"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

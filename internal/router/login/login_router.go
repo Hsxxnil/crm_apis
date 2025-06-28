@@ -1,7 +1,8 @@
 package login
 
 import (
-	present "app.eirc/internal/presenter/login"
+	present "crm/internal/presenter/login"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

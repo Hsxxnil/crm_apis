@@ -1,9 +1,10 @@
 package opportunity
 
 import (
-	present "app.eirc/internal/presenter/opportunity"
-	"app.eirc/internal/router/middleware"
-	"app.eirc/internal/router/middleware/auth"
+	present "crm/internal/presenter/opportunity"
+	"crm/internal/router/middleware"
+	"crm/internal/router/middleware/auth"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

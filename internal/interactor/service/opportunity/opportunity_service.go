@@ -3,12 +3,13 @@ package opportunity
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/opportunities"
-	store "app.eirc/internal/entity/postgresql/opportunity"
-	model "app.eirc/internal/interactor/models/opportunities"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/opportunities"
+	store "crm/internal/entity/postgresql/opportunity"
+	model "crm/internal/interactor/models/opportunities"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"app.eirc/config"
-	dbConfig "app.eirc/internal/interactor/pkg/connect/postgres"
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/config"
+	dbConfig "crm/internal/interactor/pkg/connect/postgres"
+	"crm/internal/interactor/pkg/util"
+
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"

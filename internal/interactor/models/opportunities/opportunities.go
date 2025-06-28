@@ -3,12 +3,12 @@ package opportunities
 import (
 	"time"
 
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/interactor/models/sort"
 
-	"app.eirc/internal/interactor/models/opportunity_campaigns"
+	"crm/internal/interactor/models/opportunity_campaigns"
 
-	"app.eirc/internal/interactor/models/page"
-	"app.eirc/internal/interactor/models/section"
+	"crm/internal/interactor/models/page"
+	"crm/internal/interactor/models/section"
 )
 
 // Create struct is used to create achieves

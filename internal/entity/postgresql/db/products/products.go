@@ -1,10 +1,10 @@
 package products
 
 import (
-	"app.eirc/internal/entity/postgresql/db/users"
-	model "app.eirc/internal/interactor/models/products"
-	"app.eirc/internal/interactor/models/sort"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/users"
+	model "crm/internal/interactor/models/products"
+	"crm/internal/interactor/models/sort"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is products database table struct

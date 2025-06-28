@@ -1,10 +1,10 @@
 package accounts
 
 import (
-	"app.eirc/internal/interactor/models/account_contacts"
-	"app.eirc/internal/interactor/models/page"
-	"app.eirc/internal/interactor/models/section"
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/interactor/models/account_contacts"
+	"crm/internal/interactor/models/page"
+	"crm/internal/interactor/models/section"
+	"crm/internal/interactor/models/sort"
 )
 
 // Create struct is used to create achieves

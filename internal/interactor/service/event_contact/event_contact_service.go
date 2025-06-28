@@ -3,12 +3,13 @@ package event_contact
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/event_contacts"
-	store "app.eirc/internal/entity/postgresql/event_contact"
-	model "app.eirc/internal/interactor/models/event_contacts"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/event_contacts"
+	store "crm/internal/entity/postgresql/event_contact"
+	model "crm/internal/interactor/models/event_contacts"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

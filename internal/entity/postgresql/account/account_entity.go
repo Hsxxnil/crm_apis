@@ -5,8 +5,9 @@ import (
 
 	"github.com/lib/pq"
 
-	model "app.eirc/internal/entity/postgresql/db/accounts"
-	"app.eirc/internal/interactor/pkg/util/log"
+	model "crm/internal/entity/postgresql/db/accounts"
+	"crm/internal/interactor/pkg/util/log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

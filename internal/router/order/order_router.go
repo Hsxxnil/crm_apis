@@ -1,9 +1,10 @@
 package order
 
 import (
-	present "app.eirc/internal/presenter/order"
-	"app.eirc/internal/router/middleware"
-	"app.eirc/internal/router/middleware/auth"
+	present "crm/internal/presenter/order"
+	"crm/internal/router/middleware"
+	"crm/internal/router/middleware/auth"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

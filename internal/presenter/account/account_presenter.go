@@ -4,14 +4,15 @@ import (
 	"net/http"
 	"strconv"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	constant "app.eirc/internal/interactor/constants"
+	constant "crm/internal/interactor/constants"
 
-	"app.eirc/internal/interactor/manager/account"
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/manager/account"
+	accountModel "crm/internal/interactor/models/accounts"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

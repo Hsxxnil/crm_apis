@@ -5,23 +5,24 @@ import (
 	"errors"
 	"strconv"
 
-	"app.eirc/internal/interactor/helpers"
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	userModel "app.eirc/internal/interactor/models/users"
-	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
-	userService "app.eirc/internal/interactor/service/user"
+	"crm/internal/interactor/helpers"
+	historicalRecordModel "crm/internal/interactor/models/historical_records"
+	userModel "crm/internal/interactor/models/users"
+	historicalRecordService "crm/internal/interactor/service/historical_record"
+	userService "crm/internal/interactor/service/user"
 
-	campaignModel "app.eirc/internal/interactor/models/campaigns"
-	leadModel "app.eirc/internal/interactor/models/leads"
-	opportunityModel "app.eirc/internal/interactor/models/opportunities"
-	"app.eirc/internal/interactor/pkg/util"
-	campaignService "app.eirc/internal/interactor/service/campaign"
-	leadService "app.eirc/internal/interactor/service/lead"
-	opportunityService "app.eirc/internal/interactor/service/opportunity"
+	campaignModel "crm/internal/interactor/models/campaigns"
+	leadModel "crm/internal/interactor/models/leads"
+	opportunityModel "crm/internal/interactor/models/opportunities"
+	"crm/internal/interactor/pkg/util"
+	campaignService "crm/internal/interactor/service/campaign"
+	leadService "crm/internal/interactor/service/lead"
+	opportunityService "crm/internal/interactor/service/opportunity"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

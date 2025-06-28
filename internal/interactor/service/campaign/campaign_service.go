@@ -3,12 +3,13 @@ package campaign
 import (
 	"encoding/json"
 
-	store "app.eirc/internal/entity/postgresql/campaign"
-	db "app.eirc/internal/entity/postgresql/db/campaigns"
-	model "app.eirc/internal/interactor/models/campaigns"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	store "crm/internal/entity/postgresql/campaign"
+	db "crm/internal/entity/postgresql/db/campaigns"
+	model "crm/internal/interactor/models/campaigns"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

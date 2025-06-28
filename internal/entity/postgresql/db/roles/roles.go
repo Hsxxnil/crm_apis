@@ -1,8 +1,8 @@
 package roles
 
 import (
-	"app.eirc/internal/entity/postgresql/db/users"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/users"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is roles database table struct

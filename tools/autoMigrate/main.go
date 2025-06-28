@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	//accessLogDB "app.eirc/internal/entity/postgresql/db/access_logs"
-	//membersPhoneDB "app.eirc/internal/entity/postgresql/db/members_phone"
+	//accessLogDB "crm/internal/entity/postgresql/db/access_logs"
+	//membersPhoneDB "crm/internal/entity/postgresql/db/members_phone"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

@@ -6,25 +6,26 @@ import (
 	"sort"
 	"strings"
 
-	"app.eirc/internal/interactor/helpers"
+	"crm/internal/interactor/helpers"
 
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	industryModel "app.eirc/internal/interactor/models/industries"
-	userModel "app.eirc/internal/interactor/models/users"
-	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
-	industryService "app.eirc/internal/interactor/service/industry"
-	userService "app.eirc/internal/interactor/service/user"
+	historicalRecordModel "crm/internal/interactor/models/historical_records"
+	industryModel "crm/internal/interactor/models/industries"
+	userModel "crm/internal/interactor/models/users"
+	historicalRecordService "crm/internal/interactor/service/historical_record"
+	industryService "crm/internal/interactor/service/industry"
+	userService "crm/internal/interactor/service/user"
 
-	contactModel "app.eirc/internal/interactor/models/contacts"
-	"app.eirc/internal/interactor/pkg/util"
+	contactModel "crm/internal/interactor/models/contacts"
+	"crm/internal/interactor/pkg/util"
 
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	accountService "app.eirc/internal/interactor/service/account"
-	contactService "app.eirc/internal/interactor/service/contact"
+	accountModel "crm/internal/interactor/models/accounts"
+	accountService "crm/internal/interactor/service/account"
+	contactService "crm/internal/interactor/service/contact"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

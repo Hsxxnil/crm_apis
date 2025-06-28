@@ -3,11 +3,11 @@ package events
 import (
 	"time"
 
-	"app.eirc/internal/interactor/models/event_contacts"
-	"app.eirc/internal/interactor/models/event_user_attendees"
-	"app.eirc/internal/interactor/models/event_user_mains"
+	"crm/internal/interactor/models/event_contacts"
+	"crm/internal/interactor/models/event_user_attendees"
+	"crm/internal/interactor/models/event_user_mains"
 
-	"app.eirc/internal/interactor/models/section"
+	"crm/internal/interactor/models/section"
 )
 
 // Create struct is used to create achieves

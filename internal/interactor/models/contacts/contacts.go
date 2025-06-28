@@ -1,9 +1,9 @@
 package contacts
 
 import (
-	"app.eirc/internal/interactor/models/page"
-	"app.eirc/internal/interactor/models/section"
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/interactor/models/page"
+	"crm/internal/interactor/models/section"
+	"crm/internal/interactor/models/sort"
 )
 
 // Create struct is used to create achieves

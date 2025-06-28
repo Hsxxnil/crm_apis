@@ -1,8 +1,9 @@
 package historical_record
 
 import (
-	present "app.eirc/internal/presenter/historical_record"
-	"app.eirc/internal/router/middleware"
+	present "crm/internal/presenter/historical_record"
+	"crm/internal/router/middleware"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

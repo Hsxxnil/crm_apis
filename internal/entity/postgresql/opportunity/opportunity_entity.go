@@ -3,8 +3,9 @@ package opportunity
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/opportunities"
-	"app.eirc/internal/interactor/pkg/util/log"
+	model "crm/internal/entity/postgresql/db/opportunities"
+	"crm/internal/interactor/pkg/util/log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

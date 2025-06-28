@@ -4,24 +4,25 @@ import (
 	"encoding/json"
 	"errors"
 
-	quoteModel "app.eirc/internal/interactor/models/quotes"
-	quoteService "app.eirc/internal/interactor/service/quote"
+	quoteModel "crm/internal/interactor/models/quotes"
+	quoteService "crm/internal/interactor/service/quote"
 
-	contractModel "app.eirc/internal/interactor/models/contracts"
-	orderModel "app.eirc/internal/interactor/models/orders"
-	contractService "app.eirc/internal/interactor/service/contract"
+	contractModel "crm/internal/interactor/models/contracts"
+	orderModel "crm/internal/interactor/models/orders"
+	contractService "crm/internal/interactor/service/contract"
 
-	quoteProductDB "app.eirc/internal/entity/postgresql/db/quote_products"
-	productModel "app.eirc/internal/interactor/models/products"
-	quoteProductModel "app.eirc/internal/interactor/models/quote_products"
-	"app.eirc/internal/interactor/pkg/util"
-	orderService "app.eirc/internal/interactor/service/order"
-	productService "app.eirc/internal/interactor/service/product"
-	quoteProductService "app.eirc/internal/interactor/service/quote_product"
+	quoteProductDB "crm/internal/entity/postgresql/db/quote_products"
+	productModel "crm/internal/interactor/models/products"
+	quoteProductModel "crm/internal/interactor/models/quote_products"
+	"crm/internal/interactor/pkg/util"
+	orderService "crm/internal/interactor/service/order"
+	productService "crm/internal/interactor/service/product"
+	quoteProductService "crm/internal/interactor/service/quote_product"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

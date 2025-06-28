@@ -3,8 +3,9 @@ package campaign
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/campaigns"
-	"app.eirc/internal/interactor/pkg/util/log"
+	model "crm/internal/entity/postgresql/db/campaigns"
+	"crm/internal/interactor/pkg/util/log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

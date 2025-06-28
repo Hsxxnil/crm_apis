@@ -1,9 +1,10 @@
 package lead
 
 import (
-	present "app.eirc/internal/presenter/lead"
-	"app.eirc/internal/router/middleware"
-	"app.eirc/internal/router/middleware/auth"
+	present "crm/internal/presenter/lead"
+	"crm/internal/router/middleware"
+	"crm/internal/router/middleware/auth"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

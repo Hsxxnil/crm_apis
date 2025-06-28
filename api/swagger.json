@@ -1,6 +1,6 @@
 {
     "schemes": [
-        "https"
+        "http"
     ],
     "swagger": "2.0",
     "info": {
@@ -13,7 +13,7 @@
         },
         "version": "0.1"
     },
-    "host": "api.t.d2din.com",
+    "host": "localhost:8080",
     "basePath": "/crm/v1.0",
     "paths": {
         "/accounts": {

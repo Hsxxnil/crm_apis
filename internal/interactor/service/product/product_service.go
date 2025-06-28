@@ -3,12 +3,13 @@ package product
 import (
 	"encoding/json"
 
-	db "app.eirc/internal/entity/postgresql/db/products"
-	store "app.eirc/internal/entity/postgresql/product"
-	model "app.eirc/internal/interactor/models/products"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	db "crm/internal/entity/postgresql/db/products"
+	store "crm/internal/entity/postgresql/product"
+	model "crm/internal/interactor/models/products"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

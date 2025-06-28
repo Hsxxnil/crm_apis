@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"app.eirc/config"
-	"app.eirc/internal/interactor/pkg/tunnel"
+	"crm/config"
+	"crm/internal/interactor/pkg/tunnel"
 )
 
 func main() {
@@ -41,9 +41,9 @@ func main() {
 		},
 		Local:            local,
 		Remote:           remote,
-		Timeout:          config.SSHTimeOutSecond * time.Second,
-		Debug:            config.SSHDebug,
-		IsLongConnection: config.SSHIsLongConnection,
+		Timeout:          5 * time.Second,
+		Debug:            false,
+		IsLongConnection: true,
 	}
 
 	ssh.Run()

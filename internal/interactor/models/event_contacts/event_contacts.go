@@ -1,9 +1,9 @@
 package event_contacts
 
 import (
-	"app.eirc/internal/interactor/models/page"
+	"crm/internal/interactor/models/page"
 
-	"app.eirc/internal/interactor/models/section"
+	"crm/internal/interactor/models/section"
 )
 
 // Create struct is used to create achieves

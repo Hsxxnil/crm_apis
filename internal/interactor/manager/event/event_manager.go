@@ -5,21 +5,22 @@ import (
 	"errors"
 	"time"
 
-	eventContactModel "app.eirc/internal/interactor/models/event_contacts"
-	eventUserAttendeeModel "app.eirc/internal/interactor/models/event_user_attendees"
-	eventUserMainModel "app.eirc/internal/interactor/models/event_user_mains"
-	"app.eirc/internal/interactor/pkg/util"
-	contactService "app.eirc/internal/interactor/service/contact"
-	eventContactService "app.eirc/internal/interactor/service/event_contact"
-	eventUserAttendeeService "app.eirc/internal/interactor/service/event_user_attendee"
-	eventUserMainService "app.eirc/internal/interactor/service/event_user_main"
+	eventContactModel "crm/internal/interactor/models/event_contacts"
+	eventUserAttendeeModel "crm/internal/interactor/models/event_user_attendees"
+	eventUserMainModel "crm/internal/interactor/models/event_user_mains"
+	"crm/internal/interactor/pkg/util"
+	contactService "crm/internal/interactor/service/contact"
+	eventContactService "crm/internal/interactor/service/event_contact"
+	eventUserAttendeeService "crm/internal/interactor/service/event_user_attendee"
+	eventUserMainService "crm/internal/interactor/service/event_user_main"
 
-	eventModel "app.eirc/internal/interactor/models/events"
-	eventService "app.eirc/internal/interactor/service/event"
+	eventModel "crm/internal/interactor/models/events"
+	eventService "crm/internal/interactor/service/event"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

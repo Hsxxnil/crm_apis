@@ -4,25 +4,26 @@ import (
 	"encoding/json"
 	"errors"
 
-	"app.eirc/internal/interactor/helpers"
+	"crm/internal/interactor/helpers"
 
-	accountContactModel "app.eirc/internal/interactor/models/account_contacts"
-	accountModel "app.eirc/internal/interactor/models/accounts"
-	historicalRecordModel "app.eirc/internal/interactor/models/historical_records"
-	userModel "app.eirc/internal/interactor/models/users"
-	accountService "app.eirc/internal/interactor/service/account"
-	accountContactService "app.eirc/internal/interactor/service/account_contact"
-	historicalRecordService "app.eirc/internal/interactor/service/historical_record"
-	userService "app.eirc/internal/interactor/service/user"
+	accountContactModel "crm/internal/interactor/models/account_contacts"
+	accountModel "crm/internal/interactor/models/accounts"
+	historicalRecordModel "crm/internal/interactor/models/historical_records"
+	userModel "crm/internal/interactor/models/users"
+	accountService "crm/internal/interactor/service/account"
+	accountContactService "crm/internal/interactor/service/account_contact"
+	historicalRecordService "crm/internal/interactor/service/historical_record"
+	userService "crm/internal/interactor/service/user"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	contactModel "app.eirc/internal/interactor/models/contacts"
-	contactService "app.eirc/internal/interactor/service/contact"
+	contactModel "crm/internal/interactor/models/contacts"
+	contactService "crm/internal/interactor/service/contact"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

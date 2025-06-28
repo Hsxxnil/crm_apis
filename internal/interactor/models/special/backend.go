@@ -5,8 +5,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/models/page"
-	"app.eirc/internal/interactor/models/section"
+	"crm/internal/interactor/models/page"
+	"crm/internal/interactor/models/section"
 )
 
 // Table is the common file of the backend table structure.

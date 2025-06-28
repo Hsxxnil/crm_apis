@@ -3,12 +3,13 @@ package contract
 import (
 	"encoding/json"
 
-	store "app.eirc/internal/entity/postgresql/contract"
-	db "app.eirc/internal/entity/postgresql/db/contracts"
-	model "app.eirc/internal/interactor/models/contracts"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	store "crm/internal/entity/postgresql/contract"
+	db "crm/internal/entity/postgresql/db/contracts"
+	model "crm/internal/interactor/models/contracts"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

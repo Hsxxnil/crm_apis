@@ -3,12 +3,13 @@ package contact
 import (
 	"encoding/json"
 
-	store "app.eirc/internal/entity/postgresql/contact"
-	db "app.eirc/internal/entity/postgresql/db/contacts"
-	model "app.eirc/internal/interactor/models/contacts"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
-	"app.eirc/internal/interactor/pkg/util/uuid"
+	store "crm/internal/entity/postgresql/contact"
+	db "crm/internal/entity/postgresql/db/contacts"
+	model "crm/internal/interactor/models/contacts"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/uuid"
+
 	"gorm.io/gorm"
 )
 

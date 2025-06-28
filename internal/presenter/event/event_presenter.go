@@ -3,12 +3,13 @@ package event
 import (
 	"net/http"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	"app.eirc/internal/interactor/manager/event"
-	eventModel "app.eirc/internal/interactor/models/events"
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/manager/event"
+	eventModel "crm/internal/interactor/models/events"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

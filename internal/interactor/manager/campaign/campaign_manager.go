@@ -4,17 +4,18 @@ import (
 	"encoding/json"
 	"errors"
 
-	opportunityModel "app.eirc/internal/interactor/models/opportunities"
-	opportunityService "app.eirc/internal/interactor/service/opportunity"
+	opportunityModel "crm/internal/interactor/models/opportunities"
+	opportunityService "crm/internal/interactor/service/opportunity"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	campaignModel "app.eirc/internal/interactor/models/campaigns"
-	campaignService "app.eirc/internal/interactor/service/campaign"
+	campaignModel "crm/internal/interactor/models/campaigns"
+	campaignService "crm/internal/interactor/service/campaign"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

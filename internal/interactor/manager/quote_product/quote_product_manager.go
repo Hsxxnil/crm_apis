@@ -7,16 +7,17 @@ import (
 	"strconv"
 	"strings"
 
-	"app.eirc/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util"
 
-	quoteProductModel "app.eirc/internal/interactor/models/quote_products"
-	quoteModel "app.eirc/internal/interactor/models/quotes"
-	quoteService "app.eirc/internal/interactor/service/quote"
-	quoteProductService "app.eirc/internal/interactor/service/quote_product"
+	quoteProductModel "crm/internal/interactor/models/quote_products"
+	quoteModel "crm/internal/interactor/models/quotes"
+	quoteService "crm/internal/interactor/service/quote"
+	quoteProductService "crm/internal/interactor/service/quote_product"
+
 	"gorm.io/gorm"
 
-	"app.eirc/internal/interactor/pkg/util/code"
-	"app.eirc/internal/interactor/pkg/util/log"
+	"crm/internal/interactor/pkg/util/code"
+	"crm/internal/interactor/pkg/util/log"
 )
 
 type Manager interface {

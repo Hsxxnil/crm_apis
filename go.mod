@@ -1,6 +1,6 @@
-module app.eirc
+module crm
 
-go 1.20
+go 1.22.7
 
 require (
 	github.com/apex/gateway v1.1.2

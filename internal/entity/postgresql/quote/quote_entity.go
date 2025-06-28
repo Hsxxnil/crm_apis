@@ -3,8 +3,9 @@ package quote
 import (
 	"encoding/json"
 
-	model "app.eirc/internal/entity/postgresql/db/quotes"
-	"app.eirc/internal/interactor/pkg/util/log"
+	model "crm/internal/entity/postgresql/db/quotes"
+	"crm/internal/interactor/pkg/util/log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

@@ -3,17 +3,17 @@ package opportunities
 import (
 	"time"
 
-	"app.eirc/internal/entity/postgresql/db/leads"
+	"crm/internal/entity/postgresql/db/leads"
 
-	"app.eirc/internal/entity/postgresql/db/opportunity_campaigns"
-	model "app.eirc/internal/interactor/models/opportunities"
-	"app.eirc/internal/interactor/models/sort"
+	"crm/internal/entity/postgresql/db/opportunity_campaigns"
+	model "crm/internal/interactor/models/opportunities"
+	"crm/internal/interactor/models/sort"
 
-	"app.eirc/internal/entity/postgresql/db/accounts"
+	"crm/internal/entity/postgresql/db/accounts"
 
-	"app.eirc/internal/entity/postgresql/db/users"
+	"crm/internal/entity/postgresql/db/users"
 
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is opportunities database table struct

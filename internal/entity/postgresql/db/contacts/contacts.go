@@ -1,11 +1,11 @@
 package contacts
 
 import (
-	"app.eirc/internal/entity/postgresql/db/accounts"
-	"app.eirc/internal/entity/postgresql/db/users"
-	model "app.eirc/internal/interactor/models/contacts"
-	"app.eirc/internal/interactor/models/sort"
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/entity/postgresql/db/accounts"
+	"crm/internal/entity/postgresql/db/users"
+	model "crm/internal/interactor/models/contacts"
+	"crm/internal/interactor/models/sort"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is contacts database table struct

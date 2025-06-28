@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"app.eirc/config"
+	"crm/config"
 
-	dbConfig "app.eirc/internal/interactor/pkg/connect/postgres"
-	"app.eirc/internal/interactor/pkg/util"
-	"app.eirc/internal/interactor/pkg/util/log"
+	dbConfig "crm/internal/interactor/pkg/connect/postgres"
+	"crm/internal/interactor/pkg/util"
+	"crm/internal/interactor/pkg/util/log"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

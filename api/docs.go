@@ -14058,9 +14058,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.1",
-	Host:             "api.t.d2din.com",
+	Host:             "localhost:8080",
 	BasePath:         "/crm/v1.0",
-	Schemes:          []string{"https"},
+	Schemes:          []string{"http"},
 	Title:            "CRM APIs",
 	Description:      "CRM APIs",
 	InfoInstanceName: "swagger",

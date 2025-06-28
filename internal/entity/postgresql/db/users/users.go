@@ -1,7 +1,7 @@
 package users
 
 import (
-	"app.eirc/internal/interactor/models/special"
+	"crm/internal/interactor/models/special"
 )
 
 // Table struct is users database table struct
