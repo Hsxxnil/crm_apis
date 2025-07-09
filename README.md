@@ -8,6 +8,9 @@
 * 客戶全貌視覺化：集中管理客戶資料，清楚呈現每位客戶的歷程與當前狀況
 
 透過前後端分離架構設計，系統具備高度可維護性與擴充性，致力於協助業務團隊提升銷售效率與客戶經營品質。
+
+#Golang #Gin #PostgreSQL #Angular #PrimeNG #Swagger
+
 ## 專案連結
 
 * 相關文件：[點我查看](https://hsxxnil.notion.site/Collective-11c5b51f95f58185ba96dcb6fde626e1)
