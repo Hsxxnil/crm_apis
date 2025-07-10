@@ -57,3 +57,4 @@ build/*.*
 tmp/*.*
 *.zip
 Makefile
+.vscode/*.*
