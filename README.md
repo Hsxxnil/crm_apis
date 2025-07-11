@@ -16,7 +16,7 @@
 * 相關文件：[點我查看](https://hsxxnil.notion.site/Collective-11c5b51f95f58185ba96dcb6fde626e1)
 * Swagger API 文件：[點我查看](https://hsxxnil.github.io/swagger-ui/?urls.primaryName=CRM)
 
-## 安裝
+## 🛠️ 安裝
 1. 下載專案
 
 ```bash
