@@ -1,4 +1,4 @@
-# CRM APIs
+## 📍 CRM APIs
 
 一套以 **Golang** + **PostgreSQL** 為後端、**Angular** 為前端框架開發的 **顧客關係管理平台**，平台設計著重於簡潔直觀的操作介面，協助業務團隊高效掌握並管理客戶關係。
 系統功能涵蓋：
@@ -11,7 +11,7 @@
 
 #Golang #Gin #PostgreSQL #Angular #PrimeNG #Swagger
 
-## 專案連結
+## 🔗 專案連結
 
 * 相關文件：[點我查看](https://hsxxnil.notion.site/Collective-11c5b51f95f58185ba96dcb6fde626e1)
 * Swagger API 文件：[點我查看](https://hsxxnil.github.io/swagger-ui/?urls.primaryName=CRM)
@@ -70,19 +70,19 @@ config/debug_config.go
 make update_lib
 ```
 
-## 資料庫遷移
+## 📁 資料庫遷移
 
 > 執行以下指令使用[golang-migrate](https://github.com/golang-migrate/migrate)做資料庫遷移及做資料表版控：
 ```bash
 make migration
 ```
 
-## 執行
+## 🚀 執行
 > 執行以下指令在本地端啟動伺服器並自動重載：
 ```bash
 make air
 ```
 
-## License
+## 🗒️ License
 
 本專案使用的 [Vodka](https://github.com/dylanlyu/vodka) 採用 [MIT License](https://opensource.org/licenses/MIT) 授權。
